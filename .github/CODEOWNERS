@@ -1,5 +1,4 @@
-# This is the CODEOWNERS file. These owners will be the default owners for everything in the DI-IPV-DCA-ANDROID repository
-# The following below will be requested for review when someone opens a pull request.
+# This is the CODEOWNERS file. These owners will be the default owners for everything in the
+# repository and they will be requested for review when someone opens a pull request:
 
-
-* @govuk-one-login/mobile-id-check @govuk-one-login/mobile-leads
+* @govuk-one-login/mobile-id-check @govuk-one-login/mobile-platform @govuk-one-login/mobile-leads
