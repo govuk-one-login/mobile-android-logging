@@ -3,8 +3,22 @@
 # 3. Capitalise the subject line
 # 4. Don't end the subject line with a period
 # 5. Use the imperative mood in the subject line
+# The '(scope)' is optional - remove it if there's not enough space
+# e.g.: "feat: Update the git commit template"
+# Breaking changes can be declared for features by prefixing the : with a !, like so:
+# "feat(scope)!: Things are different now"
 # No more than 50 chars. #### 50 chars is here:  #
-
+# build(scope): Commit title
+# chore(scope): Commit title
+# docs(scope): Commit title
+# feat(scope): Commit title
+# fix(scope): Commit title
+# ops(scope): Commit title
+# perf(scope): Commit title
+# refactor(scope): Commit title
+# style(scope): Commit title
+# test(scope): Commit title
+# wip(scope): Commit title
 
 # Remember blank line between title and body.
 # 6. Wrap the body at 72 characters
@@ -15,6 +29,11 @@
 
 # Remember blank line between body and additional headers
 
+# If it's editing the contract (e.g. changing function parameter data types,
+# it's a breaking change as you can't use a previous version of the SDK:
+# BREAKING CHANGE: e.g. code base now uses Kotlin 1.9 features.
+# BREAKING CHANGE: SomeInterface has changed it's contract.
+
 # Reference JIRA tickets here:
 # Resolves: DCMAW-000, DCMAW-000
 
@@ -22,8 +41,6 @@
 # Include at least one empty line before the initial entry. Format:
 # Co-authored-by: name <user@users.noreply.github.com>
 
-# Co-authored-by: Alex Bradbury <18612852+alex-bradbury@users.noreply.github.com>
-# Co-authored-by: Chris Donnelly <110893375+chrisdondig@users.noreply.github.com>
 # Co-authored-by: Chuddington <6558350+chuddington@users.noreply.github.com>
 # Co-authored-by: Delphine <128810121+de1phine@users.noreply.github.com>
 # Co-authored-by: Jackson <152998610+JacksonJ3W@users.noreply.github.com>
@@ -31,3 +48,21 @@
 
 # Optional: reference an organisation as part of a commit:
 # on-behalf-of: @organisation-handle <name@organization.com>"
+
+# Tutorial:
+# Types
+# build - Commits, that affect build components like build tool, ci pipeline, dependencies, project version, ...
+# chore - Miscellaneous commits e.g. modifying .gitignore
+# docs - Commits, that affect documentation only
+# feat - Commits, that adds a new feature, add ! before the : for breaking change
+#        You can also use the 'BREAKING CHANGE:' footer for this as well
+# fix - Commits, that fixes a bug
+# ops - Commits, that affect operational components like infrastructure, deployment, backup, recovery, ...
+# perf - Commits are special refactor commits, that improve performance
+# refactor - Commits, that rewrite/restructure your code, however does not change any behaviour
+# style - Commits, that do not affect the meaning (white-space, formatting, missing semi-colons, etc)
+# test - Commits, that add missing tests or correcting existing tests
+# wip - Custom commit type to declare work being committed that's in progress
+
+# Specification: https://www.conventionalcommits.org/en/v1.0.0/
+# Conventional commits gist: https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13
