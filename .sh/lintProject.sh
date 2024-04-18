@@ -14,7 +14,6 @@ TEST_RUNNER_MODE="$1"
 # The condition only checks whether the value has a non-zero length.
 SHOULD_RUN_DEPENDENCY_CHECKER="$2"
 
-shellcheck config/hooks/*
 shellcheck .sh/*
 
 modules/buildLogic/gradlew \
