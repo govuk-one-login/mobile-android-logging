@@ -1,0 +1,20 @@
+branch_whitelist = [ "main" ]
+disable_bump_commit = true
+ignore_merge_commits = true
+
+[changelog]
+template = "remote"
+remote = "github.com"
+repository = "mobile-android-logging"
+owner = "govuk-one-login"
+
+[commit_types]
+wip = { changelog_title = "Work in Progress", omit_from_changelog = true }
+ops = { changelog_title = "Operations", omit_from_changelog = false }
+
+# Embedded git-hooks script to verify the commit message follows conventional commit standards
+[git_hooks.commit-msg]
+script = """#!/usr/bin/env bash
+set -e
+cog verify --file $1
+"""
