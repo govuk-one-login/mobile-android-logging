@@ -7,6 +7,7 @@ android-library = { id = "com.android.library", version.ref = "android-gradle" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt-gradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-general" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+shellcheck = { id = "com.felipefzdz.gradle.shellcheck", version.ref = "shellcheck-gradle" }
 
 [versions]
 
@@ -19,6 +20,7 @@ androidx-test-ext-junit = "1.1.5" # https://developer.android.com/jetpack/androi
 androidx-test-orchestrator = "1.4.2" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-runner = "1.5.2" # https://developer.android.com/jetpack/androidx/releases/test
 junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
+shellcheck-gradle = "1.4.6" # https://github.com/felipefzdz/gradle-shellcheck-plugin
 
 [libraries]
 
