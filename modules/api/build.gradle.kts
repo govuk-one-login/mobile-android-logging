@@ -18,11 +18,12 @@ dependencies {
         androidTestImplementation(it)
     }
 
+    androidTestUtil(libs.androidx.test.orchestrator)
+
     listOf(
-        libs.junit,
+        libs.junit
     ).forEach { dependency ->
         androidTestImplementation(dependency)
         testImplementation(dependency)
     }
 }
-
