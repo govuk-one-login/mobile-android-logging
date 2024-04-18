@@ -1,0 +1,56 @@
+name: On Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+  merge_group:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  onPullRequestJob:
+    name: Verify code base when pull request is published/updated
+    runs-on: id-check-android-sdk-runner
+
+    steps:
+      - name: Run checkout github action
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+
+      - name: Download homebrew dependencies
+        run: |
+          brew bundle --no-lock
+        shell: bash
+
+      - name: Verify Conventional commit standards against latest git tag
+        run: |
+          cog check
+        shell: bash
+
+      - name: Lint script files
+        run: |
+          ./.sh/lintProject "" "runOwaspDependencyChecker"
+        shell: bash
+
+      - name: Run gradle testing suite
+        run: |
+          ./.sh/runTestingSuite
+        shell: bash
+
+      - name: Upload results to sonarcloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./.sh/uploadToSonar "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
+        shell: bash

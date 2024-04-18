@@ -11,6 +11,7 @@ dependencies {
         libs.ktlint.gradle,
         libs.detekt.gradle,
         libs.kotlin.gradle.plugin,
+        libs.dependencycheck,
     ).forEach { dependency ->
         implementation(dependency)
     }

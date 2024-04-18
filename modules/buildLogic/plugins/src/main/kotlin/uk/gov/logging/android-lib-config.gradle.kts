@@ -12,6 +12,7 @@ listOf(
     "uk.gov.logging.emulator-config",
     "uk.gov.logging.ktlint-config",
     "uk.gov.logging.detekt-config",
+    "org.owasp.dependencycheck"
 ).forEach {
     project.plugins.apply(it)
 }
