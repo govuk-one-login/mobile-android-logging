@@ -5,7 +5,7 @@ An Android package usable for HTTP logging and passing analytics to a third-part
 
 To use this Logging package in a project using gradle dependencies:
 
-Add the following line to the dependencies in your `build.gradle` file:
+Add the following line to the dependencies in your `buildLogic.plugins.build.gradle` file:
 
 ```kotlin
 implementation(project(":modules:logging:api"))
