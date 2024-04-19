@@ -68,6 +68,9 @@ jobs:
       - name: Bundle reports folder
         uses: ./config/actions/bundle-reports
 
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace
+
       - name: Verify Conventional commit standards against latest git tag
         run: |
           cog check

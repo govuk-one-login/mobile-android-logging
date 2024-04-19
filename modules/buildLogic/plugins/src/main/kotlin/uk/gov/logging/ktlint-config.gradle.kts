@@ -8,14 +8,14 @@ project.plugins.apply(
 )
 
 configure<KtlintExtension> {
-    version = "0.48.2"
-    debug = true
-    verbose = true
-    android = true
-    outputToConsole = true
-    outputColorName = "RED"
-    ignoreFailures = false
-    enableExperimentalRules = false
+    version.set("0.48.2")
+    debug.set(true)
+    verbose.set(true)
+    android.set(true)
+    outputToConsole.set(true)
+    outputColorName.set("RED")
+    ignoreFailures.set(false)
+    enableExperimentalRules.set(false)
     reporters {
         reporter(ReporterType.PLAIN)
         reporter(ReporterType.JSON)

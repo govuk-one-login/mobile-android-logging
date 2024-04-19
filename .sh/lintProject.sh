@@ -16,6 +16,10 @@ SHOULD_RUN_DEPENDENCY_CHECKER="$2"
 
 shellcheck .sh/*
 
+modules/buildLogic/gradlew \
+  detekt \
+  ktlintCheck
+
 ./gradlew \
   detekt \
   ktlintCheck \

@@ -20,6 +20,7 @@ runs:
           ktlintCheck \
           lintDebug \
           check \
+          test \
           -PversionCode=$INPUT_VERSION_CODE \
           -PversionName=$INPUT_VERSION_NAME \
           --stacktrace
