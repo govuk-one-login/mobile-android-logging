@@ -10,7 +10,7 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 
 [versions]
 
-android-gradle = "8.0.2" # https://developer.android.com/studio/releases/gradle-plugin
+android-gradle = "8.3.2" # https://developer.android.com/studio/releases/gradle-plugin
 detekt-gradle = "1.23.0" # https://github.com/detekt/detekt/releases/tag/v1.23.6
 kotlin-general = "1.8.20" # https://kotlinlang.org/docs/releases.html#release-details
 ktlint-gradle = "11.3.1" # https://github.com/JLLeitschuh/ktlint-gradle/releases
