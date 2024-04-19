@@ -22,9 +22,10 @@ configure<KtlintExtension> {
         reporter(ReporterType.CHECKSTYLE)
     }
     filter {
-        exclude("**/generated/**")
-        exclude("**/generated-sources/**")
-        exclude("**/build/**")
+        exclude(
+            "**/generated/**",
+            "${project.projectDir}/build/**/*"
+        )
         setIncludes(listOf("${project.projectDir}/src/**/*.kt"))
     }
 }
