@@ -26,7 +26,8 @@ configure<KtlintExtension> {
             "**/generated/**",
             "**/build/**",
             "${project.projectDir}/build/**/*",
-            "${project.projectDir}/**/build/**/*"
+            "${project.projectDir}/**/build/**/*",
+            "/Users/runner/work/mobile-android-logging/mobile-android-logging/modules/buildLogic/plugins/build/generated-sources/kotlin-dsl-plugins/kotlin/uk/gov/logging/*"
         )
         setIncludes(listOf("${project.projectDir}/src/**/*.kt"))
     }
