@@ -24,7 +24,9 @@ configure<KtlintExtension> {
     filter {
         exclude(
             "**/generated/**",
-            "${project.projectDir}/build/**/*"
+            "**/build/**",
+            "${project.projectDir}/build/**/*",
+            "${project.projectDir}/**/build/**/*"
         )
         setIncludes(listOf("${project.projectDir}/src/**/*.kt"))
     }
