@@ -6,7 +6,7 @@ data class OutputStreamGroup(
     private val streams: MutableList<OutputStream>
 ) : OutputStream() {
 
-    constructor(vararg streams: OutputStream) : this(mutableListOf(*streams))
+    constructor(vararg streams: OutputStream) : this(streams.toMutableList())
 
     fun add(vararg streams: OutputStream) {
         this.streams.addAll(streams.toList())
