@@ -27,7 +27,7 @@ class JacocoCombinedTestTaskGenerator(
     private val classDirectoriesFetcher: FileTreeFetcher,
     variant: String,
     private val reportDirectoryPrefix: String = "${project.buildDir}/reports/jacoco",
-    private val configurations: Iterable<JacocoCustomConfig>,
+    private val configurations: Iterable<JacocoCustomConfig>
 ) : JacocoTaskGenerator {
 
     private val capitalisedVariantName = variant.capitalized()
@@ -38,7 +38,7 @@ class JacocoCombinedTestTaskGenerator(
         project,
         classDirectoriesFetcher,
         name = name,
-        configurations,
+        configurations
     )
 
     override fun generate() {
@@ -46,7 +46,7 @@ class JacocoCombinedTestTaskGenerator(
             excludes = Filters.androidUnitTests,
             dependencies = configurations.map { it.testTaskName },
             description = "Create coverage report from the '$capitalisedVariantName' test reports.",
-            reportOutputDir = "$reportDirectoryPrefix/combined",
+            reportOutputDir = "$reportDirectoryPrefix/combined"
         )
     }
 }

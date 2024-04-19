@@ -56,13 +56,13 @@ private fun generateJacocoTasks(
         val unitTestReportGenerator = JacocoUnitTestTaskGenerator(
             project,
             classDirectoriesFetcher,
-            name,
+            name
         )
 
         val connectedTestReportGenerator = JacocoConnectedTestTaskGenerator(
             project,
             classDirectoriesFetcher,
-            name,
+            name
         )
 
         val managedDeviceTestReportGenerator = JacocoManagedDeviceTaskGenerator(
@@ -87,7 +87,7 @@ private fun generateClassDirectoriesFetcher(
     KotlinCompileFileTreeFetcher(
         project,
         name,
-        capitalisedFlavorName,
+        capitalisedFlavorName
     ),
 //    AsmFileTreeFetcher(
 //        project,
@@ -97,6 +97,6 @@ private fun generateClassDirectoriesFetcher(
     JavaCompileFileTreeFetcher(
         project,
         name,
-        capitalisedFlavorName,
-    ),
+        capitalisedFlavorName
+    )
 )

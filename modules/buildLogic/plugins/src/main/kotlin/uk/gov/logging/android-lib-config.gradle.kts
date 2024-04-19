@@ -7,7 +7,7 @@ import uk.gov.logging.extensions.LintExtensions.configureLintOptions
 
 listOf(
     "com.android.library",
-    "org.jetbrains.kotlin.android" ,
+    "org.jetbrains.kotlin.android",
     "uk.gov.logging.jvm-toolchains",
     "uk.gov.logging.emulator-config",
     "uk.gov.logging.ktlint-config",

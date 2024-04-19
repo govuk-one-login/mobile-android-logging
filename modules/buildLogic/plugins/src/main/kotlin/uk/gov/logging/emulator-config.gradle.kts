@@ -34,8 +34,8 @@ configure<BaseExtension> {
     /* Extra properties for the plugin. Defers to the root project values. Uses the underscored variants
      * as the initial value if the root project has undefined values.
      */
-    val minAndroidVersion: Int by project.extra(29)
-    val targetAndroidVersion: Int by project.extra(34)
+    val minAndroidVersion: Int by project.extra(AndroidVersions.minAndroidVersion)
+    val targetAndroidVersion: Int by project.extra(AndroidVersions.targetAndroidVersion)
     val managedApiLevels: IntRange by project.extra((minAndroidVersion..targetAndroidVersion))
     val hardwareProfileFilter: (String) -> Boolean by project.extra(_hardwareProfileFilter)
     val systemImageSources: List<SystemImageSource> by project.extra(_systemImageSources)

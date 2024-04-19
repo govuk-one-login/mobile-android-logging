@@ -17,7 +17,7 @@ object Filters {
         "**/*AndroidCamera*",
         "**/*AndroidBiometrics*",
         "**/*ContactsProvider*",
-        "**/*IntentProvider*",
+        "**/*IntentProvider*"
     )
 
     private val dataBindingFilters = listOf(
@@ -26,7 +26,7 @@ object Filters {
         "**/android/databinding/*",
         "**/androidx/databinding/*",
         "**/databinding/*",
-        "**/BR.*",
+        "**/BR.*"
     )
 
     val kotlin = listOf(
@@ -46,7 +46,7 @@ object Filters {
         "**/*Extensions*.*",
         "**/*Extension*.*",
         "**/*\$Result.*",
-        "**/*\$Result$*.*",
+        "**/*\$Result$*.*"
     )
 
     val userInterfaces = listOf(
@@ -59,13 +59,13 @@ object Filters {
         "**/*ItemDecoration*",
         "**/*LayoutManager*",
         "**/*Service*",
-        "**/*ViewHolder*",
+        "**/*ViewHolder*"
     )
 
     val sonar = listOf(
         "*.json",
         "**/.gradle/**",
-        "**/*.gradle*",
+        "**/*.gradle*"
     )
 
     // Dagger
@@ -87,8 +87,8 @@ object Filters {
     )
 
     val navigationPluginFilter = listOf(
-    "**/*Args.class",
-    "**/*Directions.*"
+        "**/*Args.class",
+        "**/*Directions.*"
     )
 
     val androidInstrumentationTests = listOf(
@@ -96,19 +96,19 @@ object Filters {
         dataBindingFilters,
         dependencyInjectionFilter,
         navigationPluginFilter,
-        kotlin,
+        kotlin
     ).flatten()
 
     val androidUnitTests = listOf(
         androidInstrumentationTests,
-        userInterfaces,
+        userInterfaces
     ).flatten()
 
     val testSourceSets = listOf(
         "**/src/test/java/\$",
         "**/src/test*/java/\$",
         "**/src/androidTest*/java/\$",
-        "**/src/androidTest/java/\$",
+        "**/src/androidTest/java/\$"
     )
 
     /**

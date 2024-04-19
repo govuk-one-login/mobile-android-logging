@@ -7,7 +7,7 @@ runs:
     - name: Bundle buildLogic.plugins.build reports
       id: bundleReports
       run: |
-        zip -9 -r reports.zip **/**/build/reports
+        zip -9 -r reports.zip **/**/build/reports **/build/reports build/reports
       shell: bash
 
     - name: Upload buildLogic.plugins.build reports

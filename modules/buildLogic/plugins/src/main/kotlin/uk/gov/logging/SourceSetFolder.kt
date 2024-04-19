@@ -27,7 +27,7 @@ class SourceSetFolder(private val project: Project) {
                 ?.joinToString(separator = ",") { it.absolutePath }
                 ?: ""
             ).also {
-                project.debugLog("SourceSetFolder: Source folders: $it")
+            project.debugLog("SourceSetFolder: Source folders: $it")
         }
 
     /**
@@ -50,7 +50,7 @@ class SourceSetFolder(private val project: Project) {
                 ?.joinToString(separator = ",") { it.absolutePath }
                 ?: ""
             ).also {
-                project.debugLog("SourceSetFolder: Test folders: $it")
+            project.debugLog("SourceSetFolder: Test folders: $it")
         }
 
     /**

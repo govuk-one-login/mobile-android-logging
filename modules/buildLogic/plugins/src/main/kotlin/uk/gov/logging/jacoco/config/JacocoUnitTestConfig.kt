@@ -35,7 +35,7 @@ class JacocoUnitTestConfig(
     override fun getExecutionData(): FileTree {
         val unitTestTask = project.tasks.named(
             testTaskName!!,
-            AndroidUnitTest::class,
+            AndroidUnitTest::class
         )
         val unitTestExecutionDataFile = unitTestTask.flatMap { utTask ->
             project.provider {

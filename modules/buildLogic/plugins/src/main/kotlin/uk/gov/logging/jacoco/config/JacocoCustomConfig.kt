@@ -60,8 +60,8 @@ abstract class JacocoCustomConfig(
         dependencies: Iterable<*>,
         description: String,
         reportOutputDir: String,
-        group: String = "Jacoco",
-        ): TaskProvider<JacocoReport> {
+        group: String = "Jacoco"
+    ): TaskProvider<JacocoReport> {
         val sourceSetFolder = SourceSetFolder(project)
 
         val classDirectoriesTree = classDirectoryFetcher.getProvider(excludes)
@@ -71,7 +71,7 @@ abstract class JacocoCustomConfig(
         } else {
             project.tasks.register(
                 name,
-                JacocoReport::class.java,
+                JacocoReport::class.java
             ) {
                 this.dependsOn(dependencies)
                 this.description = description
@@ -82,25 +82,25 @@ abstract class JacocoCustomConfig(
                 ).also {
                     project.debugLog(
                         "$name: Configured additional source directories: " +
-                            "${it.files}",
+                            "${it.files}"
                     )
                 }
                 this.classDirectories.from(classDirectoriesTree).also {
                     project.debugLog(
                         "$name: Configured class directories: " +
-                            "${it.files}",
+                            "${it.files}"
                     )
                 }
                 this.executionData.from(this@JacocoCustomConfig.getExecutionData()).also {
                     project.debugLog(
                         "$name: Configured execution data: " +
-                            "${it.files}",
+                            "${it.files}"
                     )
                 }
                 this.sourceDirectories.from(sourceSetFolder.sourceFiles).also {
                     project.debugLog(
                         "$name: Configured source directories: " +
-                            "${it.files}",
+                            "${it.files}"
                     )
                 }
 
