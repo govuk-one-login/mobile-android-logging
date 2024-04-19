@@ -24,10 +24,13 @@ configure<KtlintExtension> {
     filter {
         exclude(
             "**/generated/**",
+            "**/build/",
             "**/build/**",
-            "${project.projectDir}/build/**/*",
-            "${project.projectDir}/**/build/**/*",
-            "/Users/*/*/*/mobile-android-logging/*/*/*/build/generated-sources/*/*/*/*/*/*"
+            "${project.projectDir}/build/",
+            "${project.projectDir}/build/**",
+            "${project.projectDir}/**/build/",
+            "${project.projectDir}/**/build/**",
+            "${project.rootDir}/*/*/*/build/generated-sources/*/*/*/*/*/*"
         )
         setIncludes(listOf("${project.projectDir}/src/**/*.kt"))
     }
