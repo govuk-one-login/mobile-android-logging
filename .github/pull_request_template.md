@@ -1,24 +1,44 @@
-# _`[WIP]` ticket-id: title of change_
+[Tutorial for writing good descriptions]: https://cbea.ms/git-commit/
 
-- Imperative, present tense description of change.
+[//]: # (Be mindful that the PR title also needs to follow conventional commit standards)
 
-- Another imperative, present tense description of change.
+# _`[WIP]` DCMAW-0000: title of change_
 
-  Click [here](https://cbea.ms/git-commit/) for more information.
+- Imperative, present tense description of a change that matches the
+  [Tutorial for writing good descriptions].
+
+[//]: # (e.g. "- Create 'androidLibrary' Gradle module.")
+
+## Evidence of the change
+
+[//]: # (Screenshots / uploaded videos go here)
 
 ## Checklist
 
+### Before creating the pull request
+
+- [ ] Commit messages that conform to conventional commit messages.
+- [ ] Ran the app locally ensuring it builds.
+- [ ] Tests pass locally.
+- [ ] Pull request has a clear title with a short description about the feature or update.
+- [ ] Created a `draft` pull request if it's not ready for review.
+
+### Before the CODEOWNERS review the pull request
+
 - [ ] Complete all Acceptance Criteria within Jira ticket.
-
 - [ ] Self-review code.
+- [ ] Successfully run changes on a testing device.
+- [ ] Complete automated Testing:
+  * [ ] Unit Tests.
+  * [ ] Integration Tests.
+  * [ ] Instrumentation / Emulator Tests.
+- [ ] Review [Accessibility considerations].
+- [ ] Handle PR comments.
 
-- [ ] Complete automated Testing
+### Before merging the pull request
 
-    * [ ] Unit Tests
-    * [ ] Integration Tests
-    * [ ] Instrumentation / Emulator Tests
+- [ ] [Sonar cloud report] passes inspections for your PR.
+- [ ] Resolve all comments.
 
-- [ ] Review Accessibility considerations
-
-  Click [here](https://developer.android.com/guide/topics/ui/accessibility/testing)
-  for more information.
+[Sonar cloud report]: https://sonarcloud.io/project/overview?id=mobile-id-check-android-sdk
+[Accessibility considerations]: https://developer.android.com/guide/topics/ui/accessibility/testing
