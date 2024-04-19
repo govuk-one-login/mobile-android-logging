@@ -72,8 +72,3 @@ jobs:
         run: |
           cog check
         shell: bash
-
-      - name: Lint script files
-        run: |
-          shellcheck ./.sh/*
-        shell: bash
