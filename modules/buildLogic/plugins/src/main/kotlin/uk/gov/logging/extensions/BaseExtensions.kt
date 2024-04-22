@@ -10,7 +10,6 @@ import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.maybeCreate
 import org.gradle.kotlin.dsl.register
-import uk.gov.logging.AndroidVersions
 import uk.gov.logging.config.ApkConfig
 import uk.gov.logging.emulator.SystemImageSource
 import uk.gov.logging.extensions.ProjectExtensions.versionCode
@@ -101,7 +100,7 @@ object BaseExtensions {
      */
     fun BaseExtension.generateDeviceConfigurations(
         hardwareProfileStrings: Collection<String>,
-        apiLevelRange: IntRange = (AndroidVersions.minAndroidVersion..AndroidVersions.targetAndroidVersion),
+        apiLevelRange: IntRange,
         systemImageSources: Collection<SystemImageSource> = SystemImageSource.values().asList()
     ) {
         hardwareProfileStrings.forEach { hardwareProfileString ->
