@@ -49,7 +49,7 @@ jobs:
 
       - name: Lint script files
         run: |
-          ./.sh/lintProject "" "runOwaspDependencyChecker"
+          ./.sh/lintProject.sh "" "runOwaspDependencyChecker"
         shell: bash
 
       - name: Run gradle testing suite
@@ -61,7 +61,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./.sh/uploadToSonar "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
+          ./.sh/uploadToSonar.sh "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
         shell: bash
 
       - name: Bundle reports folder
