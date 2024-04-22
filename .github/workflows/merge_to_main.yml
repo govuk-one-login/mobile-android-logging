@@ -1,0 +1,58 @@
+name: Release ID Check SDK
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  bump_version:
+    env:
+      JDK_VERSION: 17
+    if: github.event.pull_request.merged == true
+    permissions:
+      id-token: write
+      contents: write
+    runs-on: macos-latest
+    #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
+    steps:
+      - name: Run checkout github action
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Download homebrew dependencies
+        run: |
+          brew bundle --no-lock
+        shell: bash
+
+      - name: Automatically bump semantic version via cocogitto
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          cog bump --auto
+        shell: bash
+
+      - name: Push version commit / tag generated from cocogitto
+        run: |
+          git push --follow-tags && git push --tags
+        shell: bash
+
+      - name: Generate Changelog
+        run: |
+          cog changelog --at $(cog -v get-version) > CHANGELOG.md
+        shell: bash
+
+      - name: Upload Changelog
+        id: uploadBuildReports
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        with:
+          name: CHANGELOG.md
+          retention-days: 1
+          if-no-files-found: error
+          path: |
+            CHANGELOG.md
