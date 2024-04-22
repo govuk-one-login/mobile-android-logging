@@ -30,13 +30,12 @@ jobs:
           lfs: 'true'
           fetch-depth: 0
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@00854ea68c109d98c75d956347303bf7c45b0277 # v3.2.1
+      - name: Detect Arch
+        id: detect-arch
+        uses: ./config/actions/detect-arch
 
-      - name: Update Android SDK Manager
-        run: |
-          sdkmanager --update
-        shell: bash
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
 
       - name: Download homebrew dependencies
         run: |
@@ -64,3 +63,9 @@ jobs:
         run: |
           ./.sh/uploadToSonar "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
         shell: bash
+
+      - name: Bundle reports folder
+        uses: ./config/actions/bundle-reports
+
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace
