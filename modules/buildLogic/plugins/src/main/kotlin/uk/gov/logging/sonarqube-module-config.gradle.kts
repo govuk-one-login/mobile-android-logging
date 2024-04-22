@@ -1,8 +1,8 @@
 package uk.gov.logging
 
-import java.io.File
 import org.gradle.kotlin.dsl.extra
 import org.sonarqube.gradle.SonarExtension
+import java.io.File
 
 plugins {
     id("org.sonarqube")
