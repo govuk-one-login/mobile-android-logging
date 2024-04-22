@@ -10,7 +10,8 @@ dependencies {
         libs.ktlint.gradle,
         libs.detekt.gradle,
         libs.kotlin.gradle.plugin,
-        libs.dependencycheck
+        libs.dependencycheck,
+        libs.sonarqube.gradle
     ).forEach { dependency ->
         implementation(dependency)
     }

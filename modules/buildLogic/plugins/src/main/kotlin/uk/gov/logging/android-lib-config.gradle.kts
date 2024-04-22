@@ -12,7 +12,8 @@ listOf(
     "uk.gov.logging.emulator-config",
     "uk.gov.logging.ktlint-config",
     "uk.gov.logging.detekt-config",
-    "org.owasp.dependencycheck"
+    "org.owasp.dependencycheck",
+    "uk.gov.logging.sonarqube-module-config"
 ).forEach {
     project.plugins.apply(it)
 }
