@@ -15,6 +15,7 @@ jobs:
     permissions:
       id-token: write
       contents: write
+      packages: write
     runs-on: macos-latest
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     steps:
@@ -29,6 +30,18 @@ jobs:
         run: |
           brew bundle --no-lock
         shell: bash
+
+      - name: Build SDK Android artefacts
+        run: |
+          ./gradlew :modules:sdk:assemble
+        shell: bash
+
+      - name: Publish package
+        uses: ./config/actions/maven-publish
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          package-version: ${{ steps.version-name.outputs.version-name }}
 
       - name: Automatically bump semantic version via cocogitto
         run: |
