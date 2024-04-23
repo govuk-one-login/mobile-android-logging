@@ -15,7 +15,7 @@ plugins {
 val rootSonarProperties by rootProject.extra(
     mapOf(
         "sonar.host.url" to "https://sonarcloud.io",
-        "sonar.login" to System.getProperty("SONAR_TOKEN"),
+        "sonar.token" to System.getProperty("SONAR_TOKEN"),
         "sonar.projectKey" to "mobile-android-logging",
         "sonar.projectName" to "mobile-android-logging",
         "sonar.projectVersion" to "${project.versionName}-${project.versionCode}",
