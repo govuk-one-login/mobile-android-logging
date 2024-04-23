@@ -1,4 +1,4 @@
-name: Release ID Check SDK
+name: Release Mobile Android Logging
 on:
   pull_request:
     types:
