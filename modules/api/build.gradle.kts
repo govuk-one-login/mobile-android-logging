@@ -31,6 +31,31 @@ dependencies {
     }
 }
 
+val verifyAarExistence by project.tasks.registering {
+    doLast {
+        val expectedFileNames = listOf(
+            "api-debug.aar",
+            "api-release.aar"
+        )
+        val fileList = project.fileTree(
+            "${project.buildDir}/outputs/aar"
+        ).files
+
+        val hasGeneratedAllAarFiles = fileList.all { aarFile ->
+            aarFile.exists() && aarFile.isFile &&
+                    expectedFileNames.contains(aarFile.name)
+        }
+
+        if (!hasGeneratedAllAarFiles) {
+            throw Exception(
+                "There's missing files that are expected to be there!\n" +
+                        "Expected files: $expectedFileNames\n" +
+                        "File list: $fileList"
+            )
+        }
+    }
+}
+
 publishing {
     repositories {
         maven {
@@ -49,14 +74,28 @@ publishing {
             this.groupId = ApkConfig.APPLICATION_ID
             this.artifactId = "mobile-android-logging"
             this.version = project.versionName
-            android.libraryVariants.forEach { variant ->
-                this.artifact(file("${project.buildDir}/outputs/aar/sdk-${variant.name}.aar"))
+            this.artifact(file("${project.buildDir}/outputs/aar/api-release.aar")) {
+                this.classifier = "release"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/api-debug.aar")) {
+                this.classifier = "debug"
+                this.extension = "aar"
             }
             pom {
                 defaultPomSetup()
             }
         }
     }
+}
+
+project.tasks.named("publish").configure {
+    mustRunAfter(verifyAarExistence)
+    dependsOn(verifyAarExistence)
+}
+
+project.afterEvaluate {
+    println("MC: Components: ${components.map { it.name }}")
 }
 
 fun MavenPom.defaultPomSetup() {
