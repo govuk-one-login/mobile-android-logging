@@ -13,7 +13,8 @@ listOf(
     "uk.gov.logging.ktlint-config",
     "uk.gov.logging.detekt-config",
     "org.owasp.dependencycheck",
-    "uk.gov.logging.sonarqube-module-config"
+    "uk.gov.logging.sonarqube-module-config",
+    "uk.gov.logging.jacoco-lib-config"
 ).forEach {
     project.plugins.apply(it)
 }

@@ -1,6 +1,5 @@
 package uk.gov.logging
 
-import org.gradle.kotlin.dsl.extra
 import org.sonarqube.gradle.SonarExtension
 import java.io.File
 
@@ -18,13 +17,17 @@ fun generateCommaSeparatedFiles(
 )
 
 private val _owaspDependencyCheckBase by project.extra(
-    "${project.buildDir}/reports/dependency-check-report"
+    "**/reports/dependency-check-report.html"
 )
 val androidLintReportFiles by project.extra(
     generateCommaSeparatedFiles(listOf("**/reports/lint-results-*.xml"))
 )
 val detektReportFiles by project.extra(
-    generateCommaSeparatedFiles(listOf("**/reports/detekt/*.xml"))
+    generateCommaSeparatedFiles(
+        listOf(
+            "**/reports/detekt/*.xml"
+        )
+    )
 )
 val jacocoXmlReportFiles by project.extra(
     generateCommaSeparatedFiles(
@@ -37,7 +40,7 @@ val jacocoXmlReportFiles by project.extra(
 val junitReportFiles by project.extra(
     generateCommaSeparatedFiles(
         listOf(
-            "**/outputs/androidTest-results/managedDevice/flavors/*/", // instrumentation
+            "**/outputs/androidTest-results/managedDevice/*", // instrumentation
             "**/test-results" // unit tests
         )
     )

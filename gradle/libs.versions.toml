@@ -10,6 +10,7 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 shellcheck = { id = "com.felipefzdz.gradle.shellcheck", version.ref = "shellcheck-gradle" }
 dependency-check = { id = "org.owasp.dependencycheck", version.ref = "dependency-check-gradle" }
 sonarqube = { id = "org.sonarqube", version.ref = "sonarqube-gradle" }
+jacoco = { id = "jacoco" } # Base plugin that comes with gradle by default
 
 [versions]
 
@@ -25,6 +26,7 @@ junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
 shellcheck-gradle = "1.4.6" # https://github.com/felipefzdz/gradle-shellcheck-plugin
 dependency-check-gradle = "8.4.0" # https://github.com/dependency-check/dependency-check-gradle/releases
 sonarqube-gradle = "4.3.0.3225" # https://github.com/SonarSource/sonar-scanner-gradle/releases
+jacoco = "0.8.8" # https://www.jacoco.org/jacoco/trunk/doc/changes.html
 
 [libraries]
 
@@ -39,3 +41,7 @@ androidx-test-runner = { module = "androidx.test:runner", version.ref = "android
 junit = { group = "junit", name = "junit", version.ref = "junit4" }
 dependencycheck = { module = "org.owasp:dependency-check-gradle", version.ref = "dependency-check-gradle" }
 sonarqube-gradle = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarqube-gradle" }
+jacoco-agent = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
+jacoco-ant = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
+jacoco-core = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
+jacoco-report = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
