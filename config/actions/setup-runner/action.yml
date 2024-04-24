@@ -1,5 +1,5 @@
 name: 'Setup Runner'
-description: 'Set up GitHub Runner environment for building the Android OneLogin app'
+description: 'Set up GitHub Runner environment for building the Android Logging Modules'
 inputs:
   jdk-version:
     description: 'The Java Development Kit (JDK) version to use'
@@ -90,4 +90,9 @@ runs:
     - name: Update Android SDK Manager
       run: |
         sdkmanager --update
+      shell: bash
+
+    - name: Download homebrew dependencies
+      run: |
+        brew bundle --no-lock
       shell: bash

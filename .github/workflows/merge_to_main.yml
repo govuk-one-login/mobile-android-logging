@@ -26,14 +26,42 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Download homebrew dependencies
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
+
+      - name: Lint script files
         run: |
-          brew bundle --no-lock
+          ./.sh/lintProject.sh "" "runOwaspDependencyChecker"
         shell: bash
 
-      - name: Build SDK Android artefacts
+      - name: Run gradle testing suite
         run: |
-          ./gradlew :modules:sdk:assemble
+          ./.sh/runTestingSuite.sh
+        shell: bash
+
+      - name: Upload results to sonarcloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./.sh/uploadToSonar.sh "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
+        shell: bash
+
+      #      - name: SonarQube Quality Gate check
+      #        uses: sonarsource/sonarqube-quality-gate-action@72f24ebf1f81eda168a979ce14b8203273b7c3ad # master, on 19/04/2024
+      #        # Force to fail step after specific time
+      #        timeout-minutes: 5
+      #        env:
+      #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #          SONAR_HOST_URL: https://sonarcloud.io
+      #        with:
+      #          scanMetadataReportFile: ${{ github.workspace }}/build/sonar/report-task.txt
+
+      - name: Bundle reports folder
+        uses: ./config/actions/bundle-reports
+
+      - name: Build API Android artefacts
+        run: |
+          ./gradlew :modules:api:assemble
         shell: bash
 
       - name: Publish package
@@ -69,3 +97,6 @@ jobs:
           if-no-files-found: error
           path: |
             CHANGELOG.md
+
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace

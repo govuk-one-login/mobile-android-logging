@@ -37,11 +37,6 @@ jobs:
       - name: Setup GitHub Runner workflow
         uses: ./config/actions/setup-runner
 
-      - name: Download homebrew dependencies
-        run: |
-          brew bundle --no-lock
-        shell: bash
-
       - name: Verify Conventional commit standards against latest git tag
         run: |
           cog check
