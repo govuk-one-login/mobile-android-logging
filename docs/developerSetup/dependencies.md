@@ -6,8 +6,6 @@
   # `../../` refers to the root directory of this git repository
   brew bundle --file=../../Brewfile --no-lock
   ```
-* Ruby to install the [Gem file] dependencies. The [Brew file] installs Ruby for the developer's
-  convenience.
 
 Other dependencies exist within the preceding list of configuration files. 
 
@@ -21,7 +19,6 @@ Other dependencies exist within the preceding list of configuration files.
   sets up Docker containers to isolate particular versions of dependencies.
 
 [Brew file]: ../../Brewfile
-[Gem file]: ../../Gemfile
 [Homebrew]: https://brew.sh
 [Node Version Manager]: https://github.com/nvm-sh/nvm 
 [package.json]: ../../package.json

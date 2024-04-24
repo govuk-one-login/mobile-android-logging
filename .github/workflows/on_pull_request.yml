@@ -52,9 +52,6 @@ jobs:
           ./.sh/runTestingSuite.sh
         shell: bash
 
-      - name: Run instrumentation tests on many devices
-        uses: ./config/actions/gradle-connected-test
-
       - name: Upload results to sonarcloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

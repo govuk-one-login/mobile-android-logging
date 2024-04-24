@@ -15,7 +15,7 @@ ops = { changelog_title = "Operations", omit_from_changelog = false }
 
 # Embedded git-hooks script to verify the commit message follows conventional commit standards
 [git_hooks.commit-msg]
-script = """#!/usr/bin/env bash
-set -e
-cog verify --file $1
-"""
+path = "config/hooks/commit-msg"
+
+[git_hooks.pre-commit]
+path = "config/hooks/pre-commit"
