@@ -14,7 +14,7 @@
 OUTPUT_FILE=$1
 
 # Create output directory for the output if it doesn't exist already
-mkdir -p $(dirname ${OUTPUT_FILE})
+mkdir -p "$(dirname "${OUTPUT_FILE}")"
 
 # List all hardware profiles
 # Filter lines that include "Name:" in them
@@ -22,4 +22,4 @@ mkdir -p $(dirname ${OUTPUT_FILE})
 # Overwrites the contents of the file referenced by `OUTPUT_FILE`
 avdmanager list device | \
 grep "Name:" | \
-cut -d " " -f6- > ${OUTPUT_FILE}
+cut -d " " -f6- > "${OUTPUT_FILE}"

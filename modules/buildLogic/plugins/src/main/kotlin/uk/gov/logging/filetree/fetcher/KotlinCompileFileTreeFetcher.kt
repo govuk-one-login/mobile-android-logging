@@ -19,31 +19,31 @@ import uk.gov.logging.extensions.ProjectExtensions.debugLog
 class KotlinCompileFileTreeFetcher(
     project: Project,
     variant: String,
-    capitalisedVariantFlavorName: String,
+    capitalisedVariantFlavorName: String
 ) : BaseFileTreeFetcher(
     project,
     variant,
-    capitalisedVariantFlavorName,
+    capitalisedVariantFlavorName
 ) {
 
     override fun getBaseFileTree(): Provider<FileTree> {
         return project.provider {
             getKotlinCompileFileTree(
-                "compile${capitalisedVariantName}Kotlin",
+                "compile${capitalisedVariantName}Kotlin"
             ) ?: getKotlinCompileFileTree(
-                "compile${capitalisedVariantFlavorName}Kotlin",
+                "compile${capitalisedVariantFlavorName}Kotlin"
             ) ?: project.fileTree(
-                "${project.buildDir}/tmp/kotlin-classes/$variant",
+                "${project.buildDir}/tmp/kotlin-classes/$variant"
             )
         }.also {
             project.debugLog(
-                "KotlinCompileFileTreeFetcher: ${it.get().files}",
+                "KotlinCompileFileTreeFetcher: ${it.get().files}"
             )
         }
     }
 
     private fun getKotlinCompileFileTree(
-        name: String,
+        name: String
     ): FileTree? = performOnFoundTask<KotlinCompile, FileTree>(name) {
         project.debugLog(
             "${this::class.java.simpleName}: Found compile task: ${it.name}"

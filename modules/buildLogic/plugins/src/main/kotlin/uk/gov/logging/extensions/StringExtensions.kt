@@ -9,12 +9,12 @@ object StringExtensions {
 
     fun String.kebabToLowerCamelCase(): String = kebabRegex.replace(this) {
         it.value.replace("-", "")
-        .capitaliseFirstCharacter()
+            .capitaliseFirstCharacter()
     }
 
     private fun String.proseToLowerCamelCase(): String = proseRegex.replace(this) {
         it.value.replace(" ", "")
-        .capitaliseFirstCharacter()
+            .capitaliseFirstCharacter()
     }
 
     fun String.proseToUpperCamelCase(): String = this.proseToLowerCamelCase()
@@ -22,7 +22,7 @@ object StringExtensions {
 
     fun String.snakeToLowerCamelCase(): String = snakeRegex.replace(this) {
         it.value.replace("_", "")
-        .capitaliseFirstCharacter()
+            .capitaliseFirstCharacter()
     }
 
     private fun String.capitaliseFirstCharacter() = this.replaceFirstChar { char ->

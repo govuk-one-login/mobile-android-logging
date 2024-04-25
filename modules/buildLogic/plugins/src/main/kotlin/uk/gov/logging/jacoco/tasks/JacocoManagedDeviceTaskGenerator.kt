@@ -10,7 +10,7 @@ import uk.gov.logging.jacoco.config.JacocoManagedDeviceConfig
 class JacocoManagedDeviceTaskGenerator(
     private val project: Project,
     private val classDirectoriesFetcher: FileTreeFetcher,
-    private val reportDirectoryPrefix: String = "${project.buildDir}/reports/jacoco",
+    private val reportDirectoryPrefix: String = "${project.buildDir}/reports/jacoco"
 ) : JacocoTaskGenerator {
     override fun generate() {
         val testTasks: Iterable<ManagedDeviceInstrumentationTestTask> = project.tasks.withType(

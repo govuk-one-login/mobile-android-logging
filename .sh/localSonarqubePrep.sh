@@ -22,4 +22,4 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 "${GIT_ROOT}"/gradlew sonarqube \
   -Dsonar.host.url="http://localhost:9000" \
-  -Dsonar.login="${SONAR_TOKEN}"
+  -Dsonar.token="${SONAR_TOKEN}"

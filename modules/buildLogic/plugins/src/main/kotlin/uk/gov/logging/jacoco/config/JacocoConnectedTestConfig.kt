@@ -36,7 +36,7 @@ class JacocoConnectedTestConfig(
     override fun getExecutionData(): FileTree {
         val connectedTestTask: TaskProvider<DeviceProviderInstrumentTestTask> = project.tasks.named(
             testTaskName!!,
-            DeviceProviderInstrumentTestTask::class,
+            DeviceProviderInstrumentTestTask::class
         )
         val connectedTestExecutionDirectory = connectedTestTask.flatMap { connectedTask ->
             connectedTask
@@ -45,10 +45,12 @@ class JacocoConnectedTestConfig(
         }
 
         return project.fileTree(connectedTestExecutionDirectory) {
-            setIncludes(listOf(
-                "**/*.ec",
-                "*.ec"
-            ))
+            setIncludes(
+                listOf(
+                    "**/*.ec",
+                    "*.ec"
+                )
+            )
         }
     }
 }

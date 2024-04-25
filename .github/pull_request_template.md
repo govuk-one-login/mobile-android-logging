@@ -40,5 +40,5 @@
 - [ ] [Sonar cloud report] passes inspections for your PR.
 - [ ] Resolve all comments.
 
-[Sonar cloud report]: https://sonarcloud.io/project/overview?id=mobile-id-check-android-sdk
+[Sonar cloud report]: https://sonarcloud.io/project/overview?id=mobile-android-logging
 [Accessibility considerations]: https://developer.android.com/guide/topics/ui/accessibility/testing

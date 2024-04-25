@@ -1,0 +1,21 @@
+name: 'Bundle reports'
+description: 'Zip and upload buildLogic.plugins.build reports'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Bundle buildLogic.plugins.build reports
+      id: bundleReports
+      run: |
+        zip -9 -r reports.zip **/**/build/reports **/build/reports build/reports
+      shell: bash
+
+    - name: Upload buildLogic.plugins.build reports
+      id: uploadBuildReports
+      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      with:
+        name: buildLogic.plugins.build-reports
+        retention-days: 1
+        if-no-files-found: error
+        path: |
+          reports.zip

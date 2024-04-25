@@ -100,7 +100,7 @@ object BaseExtensions {
      */
     fun BaseExtension.generateDeviceConfigurations(
         hardwareProfileStrings: Collection<String>,
-        apiLevelRange: IntRange = (29..34),
+        apiLevelRange: IntRange,
         systemImageSources: Collection<SystemImageSource> = SystemImageSource.values().asList()
     ) {
         hardwareProfileStrings.forEach { hardwareProfileString ->

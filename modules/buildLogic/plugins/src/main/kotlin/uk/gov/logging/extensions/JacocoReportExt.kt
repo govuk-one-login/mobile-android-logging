@@ -16,7 +16,7 @@ object JacocoReportExt {
      */
     fun JacocoReport.setupReportDirectories(
         project: Project,
-        reportsOutputDir: String,
+        reportsOutputDir: String
     ) {
         this.reports {
             this.csv.apply {

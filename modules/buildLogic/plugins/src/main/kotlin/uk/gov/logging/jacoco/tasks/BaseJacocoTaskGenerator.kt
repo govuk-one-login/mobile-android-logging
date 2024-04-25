@@ -20,7 +20,7 @@ abstract class BaseJacocoTaskGenerator(
     project: Project,
     protected val variant: String,
     val configuration: JacocoCustomConfig,
-    protected val reportsDirectoryPrefix: String = "${project.buildDir}/reports/jacoco",
+    protected val reportsDirectoryPrefix: String = "${project.buildDir}/reports/jacoco"
 ) : JacocoTaskGenerator {
 
     /**

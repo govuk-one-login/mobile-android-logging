@@ -26,11 +26,14 @@ VIZes
 [Cc]omposables?
 [Gg]radle
 [Hh]amcrest
+[Hh]omebrew
 [Jj]acoco
 [Jj]etpack
 [Kk]otlin
 [Ss]nackbar
 [Vv]eriff
+
+[Ww]halebrew
 alphagov
 async
 avdmanager

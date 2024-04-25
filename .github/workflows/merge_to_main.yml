@@ -1,0 +1,102 @@
+name: Release Mobile Android Logging
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  bump_version:
+    env:
+      JDK_VERSION: 17
+    if: github.event.pull_request.merged == true
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+    runs-on: macos-latest
+    #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
+    steps:
+      - name: Run checkout github action
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
+
+      - name: Lint script files
+        run: |
+          ./.sh/lintProject.sh "" "runOwaspDependencyChecker"
+        shell: bash
+
+      - name: Run gradle testing suite
+        run: |
+          ./.sh/runTestingSuite.sh
+        shell: bash
+
+      - name: Upload results to sonarcloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./.sh/uploadToSonar.sh "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
+        shell: bash
+
+      #      - name: SonarQube Quality Gate check
+      #        uses: sonarsource/sonarqube-quality-gate-action@72f24ebf1f81eda168a979ce14b8203273b7c3ad # master, on 19/04/2024
+      #        # Force to fail step after specific time
+      #        timeout-minutes: 5
+      #        env:
+      #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #          SONAR_HOST_URL: https://sonarcloud.io
+      #        with:
+      #          scanMetadataReportFile: ${{ github.workspace }}/build/sonar/report-task.txt
+
+      - name: Bundle reports folder
+        uses: ./config/actions/bundle-reports
+
+      - name: Build API Android artefacts
+        run: |
+          ./gradlew :modules:api:assemble
+        shell: bash
+
+      - name: Publish package
+        uses: ./config/actions/maven-publish
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          package-version: ${{ steps.version-name.outputs.version-name }}
+
+      - name: Automatically bump semantic version via cocogitto
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          cog bump --auto
+        shell: bash
+
+      - name: Push version commit / tag generated from cocogitto
+        run: |
+          git push --follow-tags && git push --tags
+        shell: bash
+
+      - name: Generate Changelog
+        run: |
+          cog changelog --at $(cog -v get-version) > CHANGELOG.md
+        shell: bash
+
+      - name: Upload Changelog
+        id: uploadBuildReports
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        with:
+          name: CHANGELOG.md
+          retention-days: 1
+          if-no-files-found: error
+          path: |
+            CHANGELOG.md
+
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace

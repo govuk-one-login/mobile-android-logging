@@ -20,7 +20,7 @@ class JacocoCombinedTestConfig(
     project: Project,
     classDirectoriesFetcher: FileTreeFetcher,
     name: String,
-    private val configurations: Iterable<JacocoCustomConfig>,
+    private val configurations: Iterable<JacocoCustomConfig>
 ) : JacocoCustomConfig(
     project,
     classDirectoriesFetcher,
@@ -31,12 +31,12 @@ class JacocoCombinedTestConfig(
         project: Project,
         classDirectoriesFetcher: FileTreeFetcher,
         name: String,
-        vararg config: JacocoCustomConfig,
+        vararg config: JacocoCustomConfig
     ) : this(
         project,
         classDirectoriesFetcher,
         name,
-        config.toList(),
+        config.toList()
     )
 
     override fun getExecutionData(): FileTree = configurations.map {

@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+BASH_CONFIG_FILE=~/.bash_profile
+GIT_ROOT=$(git rev-parse --show-toplevel)
+ZSH_CONFIG_FILE=~/.zshrc
+
+# Checks the provided file for provided EVAL_STRING. If not, appends to the config file if it exists.
+# Parameters:
+# 1: STRING_TO_FIND: Substring to search for within the CONFIG_FILE
+# 2: CONFIG_FILE: The location of a configuration file, such as ~/.bashrc
+# 3: EVAL_STRING: The string to append to the configuration file if it wasn't found. This changes
+#    based on the configuration file.
+function appendToConfigFile {
+  STRING_TO_FIND=$1
+  CONFIG_FILE=$2
+  EVAL_STRING=$3
+
+  if grep -q "${STRING_TO_FIND}" "${CONFIG_FILE}"; then
+    echo "## Found ${EVAL_STRING} initialisation in ${CONFIG_FILE}. Continuing... ##"
+  elif [ -f "${CONFIG_FILE}" ]; then
+    echo "## Couldn't find \"${STRING_TO_FIND}\" in ${CONFIG_FILE}. Adding... ##"
+    echo "$EVAL_STRING" >> "${CONFIG_FILE}"
+  fi
+}
+
+# Checks whether `brew` is available on the PATH. If not, it gets installed.
+# Also appends homebrew to the PATH variable if necessary.
+# As the `env` is bash, it sources the bash file in case there's any changes made.
+function installHomebrewIfNecessary {
+  if which brew; then
+    echo "## Homebrew already installed. Continuing... ##"
+  else
+    echo "## Homebrew not installed! Installing... ##"
+    /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
+  # shellcheck disable=SC2016
+  appendToConfigFile "/opt/homebrew/bin" $BASH_CONFIG_FILE 'export PATH=$(brew --prefix)/bin:$PATH'
+  # shellcheck disable=SC2016
+  appendToConfigFile "/opt/homebrew/bin" $ZSH_CONFIG_FILE 'export PATH=$(brew --prefix)/bin:$PATH'
+
+  # shellcheck disable=SC2016
+  if fish -c 'echo $fish_user_paths | tr " " "\n" | nl' | grep -q "/opt/homebrew/bin"; then
+    echo "## Found homebrew in fish PATHs. Continuing... ##"
+  elif which fish; then
+    echo "## Couldn't find homebrew in fish PATHs. Adding... ##"
+    fish -c 'fish_add_path (brew --prefix)/bin'
+  fi
+
+  # shellcheck disable=SC1090
+  source $BASH_CONFIG_FILE
+}
+
+# Installs all dependencies declared within the code base.
+function installProjectDependencies {
+  echo "## Installing Brewfile dependencies... ##"
+  brew bundle --file="${GIT_ROOT}/Brewfile" --no-lock
+}
+
+## SCRIPT STARTS HERE ##
+echo "## Starting initial developer setup... ##"
+
+installHomebrewIfNecessary
+installProjectDependencies
+
+echo "## Installing git hooks from cocogitto configuration [cog.toml]... ##"
+yes | cog install-hook --all
+
+echo "## Developer setup complete. You may need to restart your shell / terminal. ##"
