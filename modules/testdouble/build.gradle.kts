@@ -68,7 +68,6 @@ android {
                 } else {
                     "uk.gov.logging.$flavourString.testdouble"
                 }
-                manifestPlaceholders["namespace"] = namespaceString
             }
         }
     }

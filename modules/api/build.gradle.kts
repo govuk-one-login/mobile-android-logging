@@ -11,6 +11,10 @@ plugins {
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         namespace = ApkConfig.APPLICATION_ID + ".api"
         compileSdk = ApkConfig.COMPILE_SDK_VERSION
@@ -70,6 +74,11 @@ android {
                 } else {
                     "uk.gov.logging.$flavourString.api"
                 }
+                buildConfigField(
+                    "String",
+                    "NAME_SPACE",
+                    "\"$namespaceString\""
+                )
                 manifestPlaceholders["namespace"] = namespaceString
             }
         }
