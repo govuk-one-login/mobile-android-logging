@@ -21,7 +21,7 @@ jobs:
     env:
       ANDROID_HOME: ${{ github.workspace }}/bin/androidSdk
     name: Verify code base when pull request is published/updated
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     steps:
       - name: Run checkout github action
@@ -29,6 +29,9 @@ jobs:
         with:
           lfs: 'true'
           fetch-depth: 0
+
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace
 
       - name: Detect Arch
         id: detect-arch

@@ -56,6 +56,10 @@ val verifyAarExistence by project.tasks.registering {
     }
 }
 
+dependencyCheck {
+    analyzers.assemblyEnabled=false
+}
+
 publishing {
     repositories {
         maven {
