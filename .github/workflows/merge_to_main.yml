@@ -16,7 +16,7 @@ jobs:
       id-token: write
       contents: write
       packages: write
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     steps:
       - name: Run checkout github action
