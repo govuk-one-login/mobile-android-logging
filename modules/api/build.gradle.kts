@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import uk.gov.logging.config.ApkConfig
 import java.net.URI
 import uk.gov.logging.extensions.ProjectExtensions.versionName
@@ -34,6 +35,25 @@ android {
         }
     }
 
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        animationsDisabled = true
+        unitTests.all {
+            it.useJUnitPlatform()
+            it.testLogging {
+                events = setOf(
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED
+                )
+            }
+        }
+        unitTests {
+            isReturnDefaultValues = true
+            isIncludeAndroidResources = true
+        }
+    }
+
     flavorDimensions.add("env")
     productFlavors {
         listOf(
@@ -50,11 +70,6 @@ android {
                 } else {
                     "uk.gov.logging.$flavourString.api"
                 }
-                buildConfigField(
-                    "String",
-                    "NAME_SPACE",
-                    "\"$namespaceString\""
-                )
                 manifestPlaceholders["namespace"] = namespaceString
             }
         }

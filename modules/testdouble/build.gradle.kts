@@ -10,7 +10,7 @@ plugins {
 
 android {
     defaultConfig {
-        namespace = ApkConfig.APPLICATION_ID + ".impl"
+        namespace = ApkConfig.APPLICATION_ID + ".testdouble"
         compileSdk = ApkConfig.COMPILE_SDK_VERSION
         minSdk = ApkConfig.MINIMUM_SDK_VERSION
         targetSdk = ApkConfig.TARGET_SDK_VERSION
@@ -64,9 +64,9 @@ android {
             create(flavourString) {
                 dimension = "env"
                 val namespaceString = if (flavourString == "production") {
-                    "uk.gov.logging.impl"
+                    "uk.gov.logging.testdouble"
                 } else {
-                    "uk.gov.logging.$flavourString.impl"
+                    "uk.gov.logging.$flavourString.testdouble"
                 }
                 manifestPlaceholders["namespace"] = namespaceString
             }
@@ -80,8 +80,7 @@ dependencies {
         libs.hilt.android,
         libs.com.android.tools.build.gradle,
         platform(libs.firebase.bom),
-        libs.firebase.analytics,
-        libs.firebase.crashlytics
+        libs.firebase.analytics
     ).forEach {
         implementation(it)
     }
@@ -90,23 +89,16 @@ dependencies {
         libs.androidx.test.core.ktx,
         libs.androidx.test.ext.junit.ktx,
         libs.androidx.test.runner,
-        libs.androidx.test.orchestrator,
         libs.androidx.test.espresso.accessibility,
-        libs.androidx.test.espresso.core,
-        libs.androidx.test.espresso.contrib,
-        libs.androidx.test.espresso.intents,
-        libs.hilt.android.testing,
-        libs.mockito.kotlin
+        libs.hilt.android.testing
     ).forEach {
         androidTestImplementation(it)
     }
 
     listOf(
         libs.junit,
-        libs.hilt.android.testing,
         libs.junit.jupiter,
-        libs.mockito.kotlin,
-        project(":modules:testdouble")
+        libs.mockito.kotlin
     ).forEach { dependency ->
         testImplementation(dependency)
     }
@@ -121,8 +113,8 @@ dependencies {
 val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
-            "impl-debug.aar",
-            "impl-release.aar"
+            "testdouble-debug.aar",
+            "testdouble-release.aar"
         )
         val fileList = project.fileTree(
             "${project.buildDir}/outputs/aar"
@@ -161,11 +153,11 @@ publishing {
             this.groupId = ApkConfig.APPLICATION_ID
             this.artifactId = "mobile-android-logging"
             this.version = project.versionName
-            this.artifact(file("${project.buildDir}/outputs/aar/impl-release.aar")) {
+            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-release.aar")) {
                 this.classifier = "release"
                 this.extension = "aar"
             }
-            this.artifact(file("${project.buildDir}/outputs/aar/impl-debug.aar")) {
+            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-debug.aar")) {
                 this.classifier = "debug"
                 this.extension = "aar"
             }

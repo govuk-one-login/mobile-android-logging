@@ -1,0 +1,91 @@
+package uk.gov.logging.impl.analytics
+
+import com.google.firebase.analytics.FirebaseAnalytics
+import java.util.stream.Stream
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Named.named
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.Arguments.arguments
+import org.junit.jupiter.params.provider.MethodSource
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
+import uk.gov.documentchecking.features.api.permissions.PermissionConditions
+import uk.gov.logging.api.analytics.AnalyticsEvent
+import uk.gov.logging.api.analytics.permissions.AnalyticsPermissions.GoogleAnalytics
+import uk.gov.logging.testdouble.SystemLogger
+
+internal class FirebaseAnalyticsLoggerTest {
+
+    private val analyticsLogger by lazy {
+        FirebaseAnalyticsLogger(
+            analytics = analytics,
+            logger = logger
+        )
+    }
+
+    @BeforeEach
+    fun setup() {
+        analytics = mock()
+        logger = SystemLogger()
+        permissionConditions = mock()
+    }
+
+    @Test
+    fun `screen view events are logged via Firebase`() {
+        whenPermissionIsSetTo(true)
+
+        analyticsLogger.logEvent(permissionConditions, event)
+
+        verify(analytics, times(1)).logEvent(eq(event.eventType), any())
+    }
+
+    @ParameterizedTest(name = "{index}: {0}")
+    @MethodSource("setupLogEventEdgeCases")
+    fun `events are not logged due to permission conditions`(
+        hasGrantedPermission: Boolean,
+        event: AnalyticsEvent
+    ) {
+        whenPermissionIsSetTo(hasGrantedPermission)
+
+        analyticsLogger.logEvent(permissionConditions, event)
+
+        verify(analytics, never()).logEvent(any(), any())
+    }
+
+    companion object {
+        private var analytics: FirebaseAnalytics = mock()
+
+        private var logger = SystemLogger()
+        private var permissionConditions: PermissionConditions = mock()
+        private val event = AnalyticsEvent.screenView(
+            screenClass = this::class.java.simpleName,
+            screenName = "Analytics"
+        )
+
+        private fun whenPermissionIsSetTo(isGranted: Boolean) {
+            whenever(
+                permissionConditions.hasGrantedPermission(
+                    eq(GoogleAnalytics)
+                )
+            ).thenReturn(isGranted)
+        }
+
+        @JvmStatic
+        fun setupLogEventEdgeCases(): Stream<Arguments> = Stream.of(
+            arguments(
+                named(
+                    "Fails due to disabled permission",
+                    false
+                ),
+                event
+            )
+        )
+    }
+}

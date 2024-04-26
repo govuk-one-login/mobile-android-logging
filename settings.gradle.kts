@@ -30,3 +30,4 @@ include(
     ":modules:api",
     ":modules:impl"
 )
+include(":modules:testdouble")
