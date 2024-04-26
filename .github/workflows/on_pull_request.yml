@@ -30,6 +30,9 @@ jobs:
           lfs: 'true'
           fetch-depth: 0
 
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace
+
       - name: Detect Arch
         id: detect-arch
         uses: ./config/actions/detect-arch
