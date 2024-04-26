@@ -14,7 +14,8 @@ listOf(
     "uk.gov.logging.detekt-config",
     "org.owasp.dependencycheck",
     "uk.gov.logging.sonarqube-module-config",
-    "uk.gov.logging.jacoco-lib-config"
+    "uk.gov.logging.jacoco-lib-config",
+    "kotlin-kapt"
 ).forEach {
     project.plugins.apply(it)
 }

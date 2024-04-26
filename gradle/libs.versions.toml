@@ -11,6 +11,11 @@ shellcheck = { id = "com.felipefzdz.gradle.shellcheck", version.ref = "shellchec
 dependency-check = { id = "org.owasp.dependencycheck", version.ref = "dependency-check-gradle" }
 sonarqube = { id = "org.sonarqube", version.ref = "sonarqube-gradle" }
 jacoco = { id = "jacoco" } # Base plugin that comes with gradle by default
+hilt-gradle = { id = "dagger.hilt.android.plugin", version.ref = "dagger" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin-general" }
+android-application = { id = "com.android.application", version.ref = "android-gradle" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.parcelize", version.ref = "kotlin-general" }
 
 [versions]
 
@@ -22,26 +27,66 @@ androidx-test-core = "1.5.0" # https://developer.android.com/jetpack/androidx/re
 androidx-test-ext-junit = "1.1.5" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-orchestrator = "1.4.2" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-runner = "1.5.2" # https://developer.android.com/jetpack/androidx/releases/test
+androidx-test-rules = "1.1.5" # https://developer.android.com/jetpack/androidx/releases/test
+androidx-test-uiautomator = "2.3.0" # https://developer.android.com/jetpack/androidx/releases/test-uiautomator
 junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
 shellcheck-gradle = "1.4.6" # https://github.com/felipefzdz/gradle-shellcheck-plugin
 dependency-check-gradle = "8.4.0" # https://github.com/dependency-check/dependency-check-gradle/releases
 sonarqube-gradle = "4.3.0.3225" # https://github.com/SonarSource/sonar-scanner-gradle/releases
 jacoco = "0.8.8" # https://www.jacoco.org/jacoco/trunk/doc/changes.html
+dagger = "2.44" # https://github.com/google/dagger/releases
+firebase-crashlytics-gradle = "2.9.2" # https://firebase.google.com/support/release-notes/android
+espresso = "3.5.0" # https://developer.android.com/jetpack/androidx/releases/test
+mockito-kotlin = "4.0.0" # https://github.com/mockito/mockito-kotlin/releases
+core-ktx = "1.12.0"
+appcompat = "1.6.1"
+material = "1.9.0" # https://github.com/mockito/mockito-kotlin/releases
+activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
+ktx-activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
+firebase-bom = "32.8.1" # https://firebase.google.com/docs/android/setup
+google-services = "4.4.1" # https://developers.google.com/android/guides/google-services-plugin
+ktor = "2.3.10" # https://ktor.io/docs/releases.html#release-details
+androidx-lifecycle = "2.7.0" # https://developer.android.com/jetpack/androidx/releases/lifecycle
+junit-jupiter = "5.10.2" # https://junit.org/junit5/docs/current/user-guide/#release-notes
 
 [libraries]
 
-kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-general" }
 android-build-tool = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }
-ktlint-gradle = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint-gradle"}
-detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 androidx-test-core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidx-test-core" }
+androidx-test-espresso-accessibility = { module = "androidx.test.espresso:espresso-accessibility", version.ref = "espresso" }
+androidx-test-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+androidx-test-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espresso" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-test-ext-junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-ext-junit" }
 androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.ref = "androidx-test-orchestrator" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test-rules" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
-junit = { group = "junit", name = "junit", version.ref = "junit4" }
+androidx-test-uiAutomator = { module = "androidx.test:uiautomator", version.ref = "androidx-test-uiautomator"}
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+com-android-tools-build-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+dagger-hilt-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger" }
 dependencycheck = { module = "org.owasp:dependency-check-gradle", version.ref = "dependency-check-gradle" }
-sonarqube-gradle = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarqube-gradle" }
+detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle" }
+firebase-android = { group = 'com.google.firebase', name = 'firebase-crashlytics-gradle', version.ref = "firebase-crashlytics-gradle" }
+firebase-bom = { group = 'com.google.firebase', name = 'firebase-bom', version.ref = "firebase-bom"}
+firebase-analytics = { group = 'com.google.firebase', name = 'firebase-analytics' }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "dagger" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
+lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "androidx-lifecycle" }
 jacoco-agent = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
 jacoco-ant = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
 jacoco-core = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
 jacoco-report = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
+junit = { group = "junit", name = "junit", version.ref = "junit4" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-general" }
+ktlint-gradle = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint-gradle" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin"}
+sonarqube-gradle = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarqube-gradle" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit-jupiter" }

@@ -5,5 +5,6 @@ object ApkConfig {
     const val MINIMUM_SDK_VERSION = 29
     const val TARGET_SDK_VERSION = 33
     const val COMPILE_SDK_VERSION = 34
+    const val ANDROID_BUILD_TOOLS_VERSION = "34.0.0"
     const val DEBUG_VERSION = "DEBUG_VERSION"
 }

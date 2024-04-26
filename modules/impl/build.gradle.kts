@@ -3,15 +3,13 @@ import java.net.URI
 import uk.gov.logging.extensions.ProjectExtensions.versionName
 
 plugins {
-    `maven-publish`
     id("uk.gov.logging.android-lib-config")
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    `maven-publish`
 }
 
 android {
     defaultConfig {
-        namespace = ApkConfig.APPLICATION_ID + ".api"
+        namespace = ApkConfig.APPLICATION_ID + ".impl"
         compileSdk = ApkConfig.COMPILE_SDK_VERSION
         minSdk = ApkConfig.MINIMUM_SDK_VERSION
         targetSdk = ApkConfig.TARGET_SDK_VERSION
@@ -46,9 +44,9 @@ android {
             create(flavourString) {
                 dimension = "env"
                 val namespaceString = if (flavourString == "production") {
-                    "uk.gov.logging.api"
+                    "uk.gov.logging.impl"
                 } else {
-                    "uk.gov.logging.$flavourString.api"
+                    "uk.gov.logging.$flavourString.impl"
                 }
                 buildConfigField(
                     "String",
@@ -66,57 +64,40 @@ dependencies {
         libs.firebase.android,
         libs.hilt.android,
         libs.com.android.tools.build.gradle,
-        libs.firebase.android,
-        platform(libs.firebase.bom),
-        libs.firebase.analytics,
-        libs.ktor.client.core
     ).forEach {
         implementation(it)
-}
-
+    }
     listOf(
         libs.androidx.test.core.ktx,
         libs.androidx.test.ext.junit.ktx,
         libs.androidx.test.runner,
-        libs.androidx.test.rules,
         libs.androidx.test.orchestrator,
-        libs.androidx.test.espresso.accessibility,
         libs.androidx.test.espresso.core,
         libs.androidx.test.espresso.contrib,
         libs.androidx.test.espresso.intents,
-        libs.androidx.test.uiAutomator,
         libs.hilt.android.testing,
-        libs.mockito.kotlin
     ).forEach {
         androidTestImplementation(it)
     }
 
     listOf(
         libs.junit,
-        libs.hilt.android.testing,
-        libs.junit.jupiter
+        libs.hilt.android.testing
     ).forEach { dependency ->
+        androidTestImplementation(dependency)
         testImplementation(dependency)
     }
 
     androidTestUtil(libs.androidx.test.orchestrator)
 
-    listOf(
-        libs.hilt.compiler
-    ).forEach {
-        kapt(it)
-        kaptAndroidTest(it)
-        kaptTest(it)
-    }
-
-    kapt(libs.lifecycle.compiler)
+    kapt(libs.hilt.compiler)
 }
 
 val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
-            "api-debug.aar",
-            "api-release.aar"
+            "impl-debug.aar",
+            "impl-release.aar"
         )
         val fileList = project.fileTree(
             "${project.buildDir}/outputs/aar"
@@ -137,10 +118,6 @@ val verifyAarExistence by project.tasks.registering {
     }
 }
 
-dependencyCheck {
-    analyzers.assemblyEnabled=false
-}
-
 publishing {
     repositories {
         maven {
@@ -159,11 +136,11 @@ publishing {
             this.groupId = ApkConfig.APPLICATION_ID
             this.artifactId = "mobile-android-logging"
             this.version = project.versionName
-            this.artifact(file("${project.buildDir}/outputs/aar/api-release.aar")) {
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-release.aar")) {
                 this.classifier = "release"
                 this.extension = "aar"
             }
-            this.artifact(file("${project.buildDir}/outputs/aar/api-debug.aar")) {
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-debug.aar")) {
                 this.classifier = "debug"
                 this.extension = "aar"
             }
@@ -207,8 +184,4 @@ fun MavenPom.defaultPomSetup() {
                 "/mobile-android-logging.git"
         this.url = "http://github.com/govuk-one-login/mobile-android-logging"
     }
-}
-
-kapt {
-    correctErrorTypes = true
 }

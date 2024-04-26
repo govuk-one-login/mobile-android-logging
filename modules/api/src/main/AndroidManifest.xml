@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <permission
+        android:name="${namespace}.analytics.permission.GOOGLE"
+        android:description="@string/analyticsPermissionGroupDescription"
+        android:icon="@drawable/ic_baseline_android_24"
+        android:label="@string/googleAnalyticsPermissionLabel"
+        android:permissionGroup="${namespace}.analytics.permission-group.ANALYTICS"
+        android:protectionLevel="dangerous" />
+
+    <permission-group
+        android:name="${namespace}.analytics.permission-group.ANALYTICS"
+        android:description="@string/analyticsPermissionGroupDescription"
+        android:icon="@drawable/ic_baseline_analytics_24"
+        android:label="@string/analyticsPermissionGroupLabel" />
+
+    <uses-permission
+        android:name="${namespace}.analytics.permission.GOOGLE" />
+
+</manifest>

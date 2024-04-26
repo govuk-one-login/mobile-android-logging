@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="analyticsPermissionGroupDescription" translatable="false">share activity and analytics data</string>
+    <string name="analyticsPermissionGroupLabel">Send analytics</string>
+    <string name="googleAnalyticsPermissionLabel">Send Google analytics</string>
+</resources>

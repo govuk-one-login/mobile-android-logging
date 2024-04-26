@@ -1,0 +1,46 @@
+package uk.gov.logging.api.analytics.parameters
+
+import androidx.annotation.CallSuper
+import java.util.Locale
+import uk.gov.documentchecking.repositories.api.webhandover.documenttype.DocumentType
+import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID
+import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
+import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY
+import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY_VALUE
+import uk.gov.logging.api.analytics.logging.DOCUMENT_TYPE_JOURNEY_KEY
+import uk.gov.logging.api.analytics.logging.LANGUAGE
+
+@Suppress("MaxLineLength")
+/**
+ * Base class for providing values that's required for all events. These are:
+ *
+ * - [DIGITAL_IDENTITY_ID], with the value of [DIGITAL_IDENTITY_ID_VALUE].
+ * - [DIGITAL_IDENTITY_JOURNEY], with the value of [DIGITAL_IDENTITY_JOURNEY_VALUE].
+ * - [LANGUAGE], with the value of the default [Locale.getLanguage]. For english Users, this is
+ *   `en`.
+ * - [DOCUMENT_TYPE_JOURNEY_KEY], with the value of [DocumentType.journeyType]. This only occurs
+ *   when the [DocumentType] isn't [DocumentType.UNDEFINED].
+ *
+ * **see also:**
+ * - [Implementation Guide](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3543171117/Google+Analytics+Implementation+Guide)
+ *
+ * @param document The type of Document that the User is scanning as part of their journey.
+ */
+open class RequiredParameters(private val document: DocumentType) : Mapper {
+    private val journeyType: String get() = document.journeyType
+
+    @CallSuper
+    override fun asMap(): Map<out String, Any?> {
+        val bundle = mutableMapOf(
+            DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
+            DIGITAL_IDENTITY_JOURNEY to DIGITAL_IDENTITY_JOURNEY_VALUE,
+            LANGUAGE to Locale.getDefault().language
+        )
+
+        if (!document.isUndefined()) {
+            bundle[DOCUMENT_TYPE_JOURNEY_KEY] = journeyType
+        }
+
+        return bundle
+    }
+}
