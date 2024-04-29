@@ -40,7 +40,7 @@ internal class FirebaseAnalyticsLoggerTest {
     fun `screen view events are logged via Firebase`() {
         whenPermissionIsSetTo(true)
 
-        analyticsLogger.logEvent(validation, event)
+        analyticsLogger.logEvent(shouldLogEvent, event)
 
         verify(analytics, times(1)).logEvent(eq(event.eventType), any())
     }
@@ -53,7 +53,7 @@ internal class FirebaseAnalyticsLoggerTest {
     ) {
         whenPermissionIsSetTo(hasGrantedPermission)
 
-        analyticsLogger.logEvent(validation, event)
+        analyticsLogger.logEvent(shouldLogEvent, event)
 
         verify(analytics, never()).logEvent(any(), any())
     }
@@ -62,7 +62,7 @@ internal class FirebaseAnalyticsLoggerTest {
         private var analytics: FirebaseAnalytics = mock()
 
         private var logger = SystemLogger()
-        private var validation: Boolean = mock()
+        private var shouldLogEvent: Boolean = mock()
         private val event = AnalyticsEvent.screenView(
             RequiredParameters(
                 digitalIdentityJourney = "",
@@ -72,7 +72,7 @@ internal class FirebaseAnalyticsLoggerTest {
 
         private fun whenPermissionIsSetTo(isGranted: Boolean) {
             whenever(
-                validation
+                shouldLogEvent
             ).thenReturn(isGranted)
         }
 

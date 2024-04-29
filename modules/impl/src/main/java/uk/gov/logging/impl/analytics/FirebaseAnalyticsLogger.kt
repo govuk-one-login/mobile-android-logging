@@ -18,10 +18,14 @@ class FirebaseAnalyticsLogger @Inject constructor(
 ) : AnalyticsLogger {
 
     override fun logEvent(
-        validation: Boolean,
+        shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent
     ) {
-        if (shouldLogEvent(validation)) {
+        debugLog(
+            tag = this::class.java.simpleName,
+            msg = "Should log event: $shouldLogEvent"
+        )
+        if (shouldLogEvent) {
             events.forEach(::internalLogEvent)
         }
     }
@@ -45,15 +49,5 @@ class FirebaseAnalyticsLogger @Inject constructor(
         )
         Thread.sleep(1)
     }
-
-    private fun shouldLogEvent(
-        validation: Boolean
-    ): Boolean = validation.also {
-        debugLog(
-            tag = this::class.java.simpleName,
-            msg = "Should log event: $it"
-        )
-    }
-
     override fun debugLog(tag: String, msg: String) = logger.debug(tag, msg)
 }

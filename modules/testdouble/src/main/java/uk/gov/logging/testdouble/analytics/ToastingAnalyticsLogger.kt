@@ -15,7 +15,7 @@ class ToastingAnalyticsLogger @Inject constructor(
     private var enabled: Boolean = false
 
     override fun logEvent(
-        validation: Boolean,
+        shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent
     ) {
         if (enabled) {

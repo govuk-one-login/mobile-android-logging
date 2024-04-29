@@ -10,7 +10,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
     private var memorisedEvent: AnalyticsEvent? = null
 
     override fun logEvent(
-        validation: Boolean,
+        shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent
     ) {
         events.forEach { event ->
@@ -23,7 +23,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
                     memorisedEvent = event
                 }
 
-                subLogger.logEvent(validation, event).also {
+                subLogger.logEvent(shouldLogEvent, event).also {
                     subLogger.debugLog(
                         tag = this::class.java.simpleName,
                         msg = "Sent event to log: " +
