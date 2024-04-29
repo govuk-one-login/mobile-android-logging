@@ -34,16 +34,16 @@ then
 elif [[ $TEST_RUNNER_MODE == "instrumentation" ]]
 then
   ./gradlew googleAtdPixelXLApi30BuildDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30DevDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30StagingDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30IntegrationDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30ProductionDebugAndroidTest
+      googleAtdPixelXLApi33DevDebugAndroidTest \
+      googleAtdPixelXLApi33StagingDebugAndroidTest \
+      googleAtdPixelXLApi33IntegrationDebugAndroidTest \
+      googleAtdPixelXLApi33ProductionDebugAndroidTest
 elif [[ $TEST_RUNNER_MODE == "both" ]]
 then
   ./gradlew googleAtdPixelXLApi30BuildDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30DevDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30StagingDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30IntegrationDebugAndroidTest \
-      googleApisPlaystorePixelXLApi30ProductionDebugAndroidTest
+      googleAtdPixelXLApi33DevDebugAndroidTest \
+      googleAtdPixelXLApi33StagingDebugAndroidTest \
+      googleAtdPixelXLApi33IntegrationDebugAndroidTest \
+      googleAtdPixelXLApi33ProductionDebugAndroidTest
       testBuildDebugUnitTest
 fi

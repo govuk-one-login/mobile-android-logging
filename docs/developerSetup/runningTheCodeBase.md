@@ -62,7 +62,7 @@ Because of this, see the proceeding command for an example mapping:
 ```shell
 cd $(git rev-parse --show-toplevel)
 
-./gradlew googleApisPlaystorePixelXLApi30BuildDebugAndroidTest
+./gradlew googleAtdPixelXLApi33BuildDebugAndroidTest
 ```
 
 [Android studio setup tutorial]: ./androidStudioSetup.md

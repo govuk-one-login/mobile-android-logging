@@ -39,7 +39,7 @@ family of instrumentation test tasks, meaning that running multiple setup tasks 
 workers may fail. To mitigate this, run the gradle task with only 1 worker:
 
 ```shell
-./gradlew googleApisPlaystorePixelXLApi30BuildDebugAndroidTest --max-workers=1
+./gradlew googleAtdPixelXLApi33BuildDebugAndroidTest --max-workers=1
 ```
 
 
