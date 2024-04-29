@@ -33,7 +33,7 @@ material = "1.9.0" # https://github.com/mockito/mockito-kotlin/releases
 mockito-android = "5.11.0" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "4.0.0" # https://github.com/mockito/mockito-kotlin/releases
 shellcheck-gradle = "1.4.6" # https://github.com/felipefzdz/gradle-shellcheck-plugin
-sonarqube-gradle = "4.3.0.3225" # https://github.com/SonarSource/sonar-scanner-gradle/releases
+sonarqube-gradle = "5.0.0.4638" # https://github.com/SonarSource/sonar-scanner-gradle/releases
 
 [libraries]
 
