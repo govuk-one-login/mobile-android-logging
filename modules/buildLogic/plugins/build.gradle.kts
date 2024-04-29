@@ -7,10 +7,10 @@ plugins {
 dependencies {
     listOf(
         libs.android.build.tool,
-        libs.ktlint.gradle,
+        libs.dependencycheck,
         libs.detekt.gradle,
         libs.kotlin.gradle.plugin,
-        libs.dependencycheck,
+        libs.ktlint.gradle,
         libs.sonarqube.gradle
     ).forEach { dependency ->
         implementation(dependency)

@@ -4,6 +4,7 @@
 [versions]
 
 activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
+android-build-tools = "34.0.0" # https://developer.android.com/tools/releases/build-tools
 android-gradle = "8.0.2" # https://developer.android.com/studio/releases/gradle-plugin
 androidx-lifecycle = "2.7.0" # https://developer.android.com/jetpack/androidx/releases/lifecycle
 androidx-test-core = "1.5.0" # https://developer.android.com/jetpack/androidx/releases/test
@@ -29,8 +30,8 @@ ktlint-gradle = "11.3.1" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 ktor = "2.3.10" # https://ktor.io/docs/releases.html#release-details
 ktx-activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
 material = "1.9.0" # https://github.com/mockito/mockito-kotlin/releases
-mockito-kotlin = "4.0.0" # https://github.com/mockito/mockito-kotlin/releases
 mockito-android = "5.11.0" # https://github.com/mockito/mockito/releases
+mockito-kotlin = "4.0.0" # https://github.com/mockito/mockito-kotlin/releases
 shellcheck-gradle = "1.4.6" # https://github.com/felipefzdz/gradle-shellcheck-plugin
 sonarqube-gradle = "4.3.0.3225" # https://github.com/SonarSource/sonar-scanner-gradle/releases
 

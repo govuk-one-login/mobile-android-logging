@@ -28,6 +28,6 @@ rootProject.name = "GDS_Android_Logging"
 
 include(
     ":modules:api",
-    ":modules:impl"
+    ":modules:impl",
+    ":modules:testdouble"
 )
-include(":modules:testdouble")

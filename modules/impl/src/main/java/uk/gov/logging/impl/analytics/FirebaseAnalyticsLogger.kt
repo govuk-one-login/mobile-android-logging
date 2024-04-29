@@ -2,6 +2,7 @@ package uk.gov.logging.impl.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
+import uk.gov.logging.api.LogTagProvider
 import javax.inject.Inject
 import uk.gov.logging.api.Logger
 import uk.gov.logging.api.analytics.AnalyticsEvent
@@ -15,14 +16,14 @@ import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
 class FirebaseAnalyticsLogger @Inject constructor(
     private val analytics: FirebaseAnalytics,
     private val logger: Logger
-) : AnalyticsLogger {
+) : AnalyticsLogger, LogTagProvider {
 
     override fun logEvent(
         shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent
     ) {
         debugLog(
-            tag = this::class.java.simpleName,
+            tag = tag,
             msg = "Should log event: $shouldLogEvent"
         )
         if (shouldLogEvent) {
@@ -44,7 +45,7 @@ class FirebaseAnalyticsLogger @Inject constructor(
         val bundledParameters = event.toBundle()
         analytics.logEvent(event.eventType, bundledParameters)
         debugLog(
-            tag = this::class.java.simpleName,
+            tag = tag,
             msg = "Firebase event sent with: $bundledParameters"
         )
         Thread.sleep(1)

@@ -6,8 +6,6 @@ import uk.gov.logging.extensions.ProjectExtensions.versionName
 plugins {
     `maven-publish`
     id("uk.gov.logging.android-lib-config")
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -23,7 +21,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildToolsVersion = ApkConfig.ANDROID_BUILD_TOOLS_VERSION
+    buildToolsVersion = libs.versions.android.build.tools.get()
 
     buildTypes {
         release {
@@ -87,15 +85,6 @@ android {
 
 dependencies {
     listOf(
-        libs.firebase.analytics,
-        libs.hilt.android,
-        libs.ktor.client.core,
-        platform(libs.firebase.bom)
-    ).forEach {
-        implementation(it)
-}
-
-    listOf(
         libs.androidx.test.core.ktx,
         libs.androidx.test.espresso.accessibility,
         libs.androidx.test.espresso.contrib,
@@ -113,14 +102,21 @@ dependencies {
     }
 
     listOf(
+        libs.firebase.analytics,
+        libs.hilt.android,
+        libs.ktor.client.core,
+        platform(libs.firebase.bom)
+    ).forEach {
+        implementation(it)
+    }
+
+    listOf(
         libs.hilt.android.testing,
         libs.junit,
         libs.junit.jupiter
     ).forEach { dependency ->
         testImplementation(dependency)
     }
-
-    androidTestUtil(libs.androidx.test.orchestrator)
 
     listOf(
         libs.hilt.compiler
@@ -130,14 +126,23 @@ dependencies {
         kaptTest(it)
     }
 
+    androidTestUtil(libs.androidx.test.orchestrator)
     kapt(libs.lifecycle.compiler)
 }
 
 val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
-            "api-debug.aar",
-            "api-release.aar"
+            "api-build-debug.aar",
+            "api-build-release.aar",
+            "api-dev-debug.aar",
+            "api-dev-release.aar",
+            "api-integration-debug.aar",
+            "api-integration-release.aar",
+            "api-staging-debug.aar",
+            "api-staging-release.aar",
+            "api-production-debug.aar",
+            "api-production-release.aar"
         )
         val fileList = project.fileTree(
             "${project.buildDir}/outputs/aar"
@@ -230,10 +235,6 @@ publishing {
 project.tasks.named("publish").configure {
     mustRunAfter(verifyAarExistence)
     dependsOn(verifyAarExistence)
-}
-
-project.afterEvaluate {
-    println("MC: Components: ${components.map { it.name }}")
 }
 
 fun MavenPom.defaultPomSetup() {

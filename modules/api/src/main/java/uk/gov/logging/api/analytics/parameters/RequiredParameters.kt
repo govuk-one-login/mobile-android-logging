@@ -5,7 +5,6 @@ import java.util.Locale
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY
-import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY_VALUE
 import uk.gov.logging.api.analytics.logging.DOCUMENT_TYPE_JOURNEY_KEY
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 

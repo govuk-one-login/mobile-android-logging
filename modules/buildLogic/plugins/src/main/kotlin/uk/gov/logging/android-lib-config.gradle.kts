@@ -7,15 +7,15 @@ import uk.gov.logging.extensions.LintExtensions.configureLintOptions
 
 listOf(
     "com.android.library",
+    "kotlin-kapt",
     "org.jetbrains.kotlin.android",
-    "uk.gov.logging.jvm-toolchains",
-    "uk.gov.logging.emulator-config",
-    "uk.gov.logging.ktlint-config",
-    "uk.gov.logging.detekt-config",
     "org.owasp.dependencycheck",
-    "uk.gov.logging.sonarqube-module-config",
+    "uk.gov.logging.detekt-config",
+    "uk.gov.logging.emulator-config",
     "uk.gov.logging.jacoco-lib-config",
-    "kotlin-kapt"
+    "uk.gov.logging.jvm-toolchains",
+    "uk.gov.logging.ktlint-config",
+    "uk.gov.logging.sonarqube-module-config"
 ).forEach {
     project.plugins.apply(it)
 }

@@ -1,12 +1,13 @@
 package uk.gov.logging.api.analytics.logging
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event
+import uk.gov.logging.api.LogTagProvider
 import javax.inject.Inject
 import uk.gov.logging.api.analytics.AnalyticsEvent
 
 class MemorisedAnalyticsLogger @Inject constructor(
     private val subLogger: AnalyticsLogger
-) : AnalyticsLogger {
+) : AnalyticsLogger, LogTagProvider {
     private var memorisedEvent: AnalyticsEvent? = null
 
     override fun logEvent(
@@ -25,7 +26,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
 
                 subLogger.logEvent(shouldLogEvent, event).also {
                     subLogger.debugLog(
-                        tag = this::class.java.simpleName,
+                        tag = tag,
                         msg = "Sent event to log: " +
                             "eventType: $eventType; " +
                             "screenClass: $screenClass;" +
@@ -49,7 +50,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
                 val screenName = event.parameters["screen_name"].toString()
 
                 subLogger.debugLog(
-                    tag = this::class.java.simpleName,
+                    tag = tag,
                     msg = "Should log event: $result - " +
                         "Is a screen view: $isScreenView; " +
                         "Is a duplicate: $isDuplicateScreenView; " +

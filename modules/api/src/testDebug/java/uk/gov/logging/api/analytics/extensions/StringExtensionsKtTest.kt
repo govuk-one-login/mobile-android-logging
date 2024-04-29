@@ -14,7 +14,6 @@ internal class StringExtensionsKtTest {
         stringToHash: String,
         expectedOutput: String
     ) {
-        println("Expecting '$stringToHash' == '$expectedOutput'...")
         Assertions.assertEquals(expectedOutput, stringToHash.md5()) {
             "The MD5 Hash of '$stringToHash' should have matched '$expectedOutput'!"
         }

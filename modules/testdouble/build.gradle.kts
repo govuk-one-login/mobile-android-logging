@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner = "uk.gov.logging.testdouble.InstrumentationTestRunner"
     }
 
-    buildToolsVersion = ApkConfig.ANDROID_BUILD_TOOLS_VERSION
+    buildToolsVersion = libs.versions.android.build.tools.get()
 
     buildTypes {
         release {
@@ -75,22 +75,23 @@ android {
 
 dependencies {
     listOf(
-        libs.hilt.android,
-        platform(libs.firebase.bom),
-        libs.firebase.analytics
-    ).forEach {
-        implementation(it)
-    }
-    listOf(
-        libs.junit,
         libs.androidx.test.core.ktx,
+        libs.androidx.test.espresso.accessibility,
         libs.androidx.test.ext.junit.ktx,
         libs.androidx.test.runner,
-        libs.androidx.test.espresso.accessibility,
         libs.hilt.android.testing,
+        libs.junit,
         libs.mockito.android
     ).forEach {
         androidTestImplementation(it)
+    }
+
+    listOf(
+        libs.firebase.analytics,
+        libs.hilt.android,
+        platform(libs.firebase.bom)
+    ).forEach {
+        implementation(it)
     }
 
     listOf(
@@ -102,18 +103,24 @@ dependencies {
     }
 
     androidTestUtil(libs.androidx.test.orchestrator)
-
+    api(project(":modules:api"))
     kapt(libs.hilt.compiler)
     kaptAndroidTest(libs.hilt.compiler)
-
-    api(project(":modules:api"))
 }
 
 val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
-            "testdouble-debug.aar",
-            "testdouble-release.aar"
+            "testdouble-build-debug.aar",
+            "testdouble-build-release.aar",
+            "testdouble-dev-debug.aar",
+            "testdouble-dev-release.aar",
+            "testdouble-integration-debug.aar",
+            "testdouble-integration-release.aar",
+            "testdouble-staging-debug.aar",
+            "testdouble-staging-release.aar",
+            "testdouble-production-debug.aar",
+            "testdouble-production-release.aar"
         )
         val fileList = project.fileTree(
             "${project.buildDir}/outputs/aar"
@@ -202,10 +209,6 @@ publishing {
 project.tasks.named("publish").configure {
     mustRunAfter(verifyAarExistence)
     dependsOn(verifyAarExistence)
-}
-
-project.afterEvaluate {
-    println("MC: Components: ${components.map { it.name }}")
 }
 
 fun MavenPom.defaultPomSetup() {

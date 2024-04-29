@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner = "uk.gov.logging.impl.InstrumentationTestRunner"
     }
 
-    buildToolsVersion = ApkConfig.ANDROID_BUILD_TOOLS_VERSION
+    buildToolsVersion = libs.versions.android.build.tools.get()
 
     buildTypes {
         release {
@@ -75,33 +75,34 @@ android {
 
 dependencies {
     listOf(
-        libs.hilt.android,
-        platform(libs.firebase.bom),
-        libs.firebase.analytics,
-        libs.firebase.crashlytics
-    ).forEach {
-        implementation(it)
-    }
-    listOf(
-        libs.junit,
         libs.androidx.test.core.ktx,
-        libs.androidx.test.ext.junit.ktx,
-        libs.androidx.test.runner,
-        libs.androidx.test.orchestrator,
         libs.androidx.test.espresso.accessibility,
-        libs.androidx.test.espresso.core,
         libs.androidx.test.espresso.contrib,
+        libs.androidx.test.espresso.core,
         libs.androidx.test.espresso.intents,
+        libs.androidx.test.ext.junit.ktx,
+        libs.androidx.test.orchestrator,
+        libs.androidx.test.runner,
         libs.hilt.android.testing,
-        libs.mockito.kotlin,
-        libs.mockito.android
+        libs.junit,
+        libs.mockito.android,
+        libs.mockito.kotlin
     ).forEach {
         androidTestImplementation(it)
     }
 
     listOf(
-        libs.junit,
+        libs.firebase.analytics,
+        libs.firebase.crashlytics,
+        libs.hilt.android,
+        platform(libs.firebase.bom)
+    ).forEach {
+        implementation(it)
+    }
+
+    listOf(
         libs.hilt.android.testing,
+        libs.junit,
         libs.junit.jupiter,
         libs.mockito.kotlin,
         project(":modules:testdouble")
@@ -110,17 +111,24 @@ dependencies {
     }
 
     androidTestUtil(libs.androidx.test.orchestrator)
-
+    api(project(":modules:api"))
     kapt(libs.hilt.compiler)
     kaptAndroidTest(libs.hilt.compiler)
-    api(project(":modules:api"))
 }
 
 val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
-            "impl-debug.aar",
-            "impl-release.aar"
+            "impl-build-debug.aar",
+            "impl-build-release.aar",
+            "impl-dev-debug.aar",
+            "impl-dev-release.aar",
+            "impl-integration-debug.aar",
+            "impl-integration-release.aar",
+            "impl-staging-debug.aar",
+            "impl-staging-release.aar",
+            "impl-production-debug.aar",
+            "impl-production-release.aar"
         )
         val fileList = project.fileTree(
             "${project.buildDir}/outputs/aar"
@@ -209,10 +217,6 @@ publishing {
 project.tasks.named("publish").configure {
     mustRunAfter(verifyAarExistence)
     dependsOn(verifyAarExistence)
-}
-
-project.afterEvaluate {
-    println("MC: Components: ${components.map { it.name }}")
 }
 
 fun MavenPom.defaultPomSetup() {

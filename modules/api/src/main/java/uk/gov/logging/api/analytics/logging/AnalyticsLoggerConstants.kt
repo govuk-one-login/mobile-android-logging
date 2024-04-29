@@ -19,10 +19,6 @@ const val DIGITAL_IDENTITY_ID_VALUE = "digital identity"
  */
 const val DIGITAL_IDENTITY_JOURNEY = "di_journey"
 
-/**
- * Value used with the [DIGITAL_IDENTITY_JOURNEY] map key.
- */
-const val DIGITAL_IDENTITY_JOURNEY_VALUE = "document checking application"
 const val DOCUMENT_TYPE_JOURNEY_KEY = "cri_journey"
 const val ENDPOINT = "endpoint"
 const val EVENT_NAME = "eventName"
