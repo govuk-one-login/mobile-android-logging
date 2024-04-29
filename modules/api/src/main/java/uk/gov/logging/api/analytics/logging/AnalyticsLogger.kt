@@ -1,6 +1,5 @@
 package uk.gov.logging.api.analytics.logging
 
-import uk.gov.documentchecking.features.api.permissions.PermissionConditions
 import uk.gov.logging.api.analytics.AnalyticsEvent
 
 /**
@@ -11,10 +10,10 @@ interface AnalyticsLogger {
     /**
      * Sends the provided [AnalyticsEvent] objects to the data source.
      *
-     * @param conditions Container for holding the necessary validations.
+     * @param validation Boolean for holding the necessary validations.
      * @param events The data that's sent.
-     */
-    fun logEvent(conditions: PermissionConditions, vararg events: AnalyticsEvent)
+    */
+    fun logEvent(validation: Boolean, vararg events: AnalyticsEvent)
 
     /**
      * Enables / disables the data source's acceptance of [AnalyticsEvent] objects.

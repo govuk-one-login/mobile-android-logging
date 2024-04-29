@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
-import uk.gov.documentchecking.repositories.api.webhandover.documenttype.DocumentType.DRIVING_LICENCE
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY
@@ -37,7 +36,7 @@ internal class ButtonParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertEquals(
                 "The callToActionText parameter length is higher than 100!: " +
-                    "${ParametersTestData.overOneHundredString.length}",
+                        "${ParametersTestData.overOneHundredString.length}",
                 exception.message
             )
         }
@@ -57,7 +56,7 @@ internal class ButtonParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertEquals(
                 "The eventName parameter length is higher than 40!: " +
-                    "${ParametersTestData.fortyTwoString.length}",
+                        "${ParametersTestData.fortyTwoString.length}",
                 exception.message
             )
         }
@@ -125,7 +124,7 @@ internal class ButtonParametersTest {
             DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
             DIGITAL_IDENTITY_JOURNEY to DIGITAL_IDENTITY_JOURNEY_VALUE,
             LANGUAGE to Locale.getDefault().language,
-            DOCUMENT_TYPE_JOURNEY_KEY to DRIVING_LICENCE.journeyType
+            DOCUMENT_TYPE_JOURNEY_KEY to "driving licence"
         )
 
         val popupEventParameters = ButtonParameters(
@@ -133,7 +132,10 @@ internal class ButtonParametersTest {
             name = exampleScreenName,
             type = popUpEventName,
             action = callToActionType,
-            overrides = RequiredParameters(document = DRIVING_LICENCE)
+            overrides = RequiredParameters(
+                digitalIdentityJourney = "document checking application",
+                journeyType = "driving licence"
+            )
         )
 
         val actual = popupEventParameters.asMap()

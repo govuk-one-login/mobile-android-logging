@@ -1,7 +1,6 @@
 package uk.gov.logging.api.analytics.permissions
 
 import androidx.annotation.Keep
-import uk.gov.documentchecking.features.api.permissions.Permission
 import uk.gov.logging.api.BuildConfig
 
 /**

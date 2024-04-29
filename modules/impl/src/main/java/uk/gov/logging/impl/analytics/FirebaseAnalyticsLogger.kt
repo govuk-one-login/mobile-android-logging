@@ -3,11 +3,9 @@ package uk.gov.logging.impl.analytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
-import uk.gov.documentchecking.features.api.permissions.PermissionConditions
 import uk.gov.logging.api.Logger
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
-import uk.gov.logging.api.analytics.permissions.AnalyticsPermissions
 import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
 
 /**
@@ -20,10 +18,10 @@ class FirebaseAnalyticsLogger @Inject constructor(
 ) : AnalyticsLogger {
 
     override fun logEvent(
-        conditions: PermissionConditions,
+        validation: Boolean,
         vararg events: AnalyticsEvent
     ) {
-        if (shouldLogEvent(conditions)) {
+        if (shouldLogEvent(validation)) {
             events.forEach(::internalLogEvent)
         }
     }
@@ -49,10 +47,8 @@ class FirebaseAnalyticsLogger @Inject constructor(
     }
 
     private fun shouldLogEvent(
-        permissionConditions: PermissionConditions
-    ): Boolean = permissionConditions.hasGrantedPermission(
-        AnalyticsPermissions.GoogleAnalytics
-    ).also {
+        validation: Boolean
+    ): Boolean = validation.also {
         debugLog(
             tag = this::class.java.simpleName,
             msg = "Should log event: $it"

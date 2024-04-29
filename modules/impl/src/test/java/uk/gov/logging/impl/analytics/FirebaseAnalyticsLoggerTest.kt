@@ -16,8 +16,8 @@ import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
-import uk.gov.documentchecking.features.api.permissions.PermissionConditions
 import uk.gov.logging.api.analytics.AnalyticsEvent
+import uk.gov.logging.api.analytics.parameters.RequiredParameters
 import uk.gov.logging.api.analytics.permissions.AnalyticsPermissions.GoogleAnalytics
 import uk.gov.logging.testdouble.SystemLogger
 
@@ -34,14 +34,13 @@ internal class FirebaseAnalyticsLoggerTest {
     fun setup() {
         analytics = mock()
         logger = SystemLogger()
-        permissionConditions = mock()
     }
 
     @Test
     fun `screen view events are logged via Firebase`() {
         whenPermissionIsSetTo(true)
 
-        analyticsLogger.logEvent(permissionConditions, event)
+        analyticsLogger.logEvent(validation, event)
 
         verify(analytics, times(1)).logEvent(eq(event.eventType), any())
     }
@@ -54,7 +53,7 @@ internal class FirebaseAnalyticsLoggerTest {
     ) {
         whenPermissionIsSetTo(hasGrantedPermission)
 
-        analyticsLogger.logEvent(permissionConditions, event)
+        analyticsLogger.logEvent(validation, event)
 
         verify(analytics, never()).logEvent(any(), any())
     }
@@ -63,17 +62,17 @@ internal class FirebaseAnalyticsLoggerTest {
         private var analytics: FirebaseAnalytics = mock()
 
         private var logger = SystemLogger()
-        private var permissionConditions: PermissionConditions = mock()
+        private var validation: Boolean = mock()
         private val event = AnalyticsEvent.screenView(
-            screenClass = this::class.java.simpleName,
-            screenName = "Analytics"
+            RequiredParameters(
+                digitalIdentityJourney = "",
+                journeyType = "driving licence"
+            )
         )
 
         private fun whenPermissionIsSetTo(isGranted: Boolean) {
             whenever(
-                permissionConditions.hasGrantedPermission(
-                    eq(GoogleAnalytics)
-                )
+                validation
             ).thenReturn(isGranted)
         }
 

@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.Toast
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import uk.gov.documentchecking.features.api.permissions.PermissionConditions
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
 
@@ -16,7 +15,7 @@ class ToastingAnalyticsLogger @Inject constructor(
     private var enabled: Boolean = false
 
     override fun logEvent(
-        conditions: PermissionConditions,
+        validation: Boolean,
         vararg events: AnalyticsEvent
     ) {
         if (enabled) {

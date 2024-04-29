@@ -2,7 +2,6 @@ package uk.gov.logging.api.analytics.logging
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event
 import javax.inject.Inject
-import uk.gov.documentchecking.features.api.permissions.PermissionConditions
 import uk.gov.logging.api.analytics.AnalyticsEvent
 
 class MemorisedAnalyticsLogger @Inject constructor(
@@ -11,7 +10,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
     private var memorisedEvent: AnalyticsEvent? = null
 
     override fun logEvent(
-        conditions: PermissionConditions,
+        validation: Boolean,
         vararg events: AnalyticsEvent
     ) {
         events.forEach { event ->
@@ -24,7 +23,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
                     memorisedEvent = event
                 }
 
-                subLogger.logEvent(conditions, event).also {
+                subLogger.logEvent(validation, event).also {
                     subLogger.debugLog(
                         tag = this::class.java.simpleName,
                         msg = "Sent event to log: " +
