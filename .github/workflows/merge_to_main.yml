@@ -25,6 +25,7 @@ jobs:
           lfs: 'true'
           fetch-depth: 0
           fetch-tags: true
+          ref: 'main'
 
       - name: Setup GitHub Runner workflow
         uses: ./config/actions/setup-runner
@@ -43,7 +44,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./.sh/uploadToSonar.sh "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
+          ./.sh/uploadToSonar.sh "BRANCH" "main"
         shell: bash
 
       #      - name: SonarQube Quality Gate check
@@ -61,15 +62,8 @@ jobs:
 
       - name: Build API Android artefacts
         run: |
-          ./gradlew :modules:api:assemble
+          ./gradlew assemble
         shell: bash
-
-      - name: Publish package
-        uses: ./config/actions/maven-publish
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACTOR: ${{ github.actor }}
-          package-version: ${{ steps.version-name.outputs.version-name }}
 
       - name: Automatically bump semantic version via cocogitto
         run: |
@@ -82,6 +76,12 @@ jobs:
         run: |
           git push --follow-tags && git push --tags
         shell: bash
+
+      - name: Publish package
+        uses: ./config/actions/maven-publish
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
 
       - name: Generate Changelog
         run: |
