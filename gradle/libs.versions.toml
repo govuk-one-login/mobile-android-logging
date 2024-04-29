@@ -30,6 +30,7 @@ ktor = "2.3.10" # https://ktor.io/docs/releases.html#release-details
 ktx-activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
 material = "1.9.0" # https://github.com/mockito/mockito-kotlin/releases
 mockito-kotlin = "4.0.0" # https://github.com/mockito/mockito-kotlin/releases
+mockito-android = "5.11.0" # https://github.com/mockito/mockito/releases
 shellcheck-gradle = "1.4.6" # https://github.com/felipefzdz/gradle-shellcheck-plugin
 sonarqube-gradle = "4.3.0.3225" # https://github.com/SonarSource/sonar-scanner-gradle/releases
 
@@ -47,7 +48,7 @@ androidx-test-ext-junit-ktx = { module = "androidx.test.ext:junit-ktx", version.
 androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.ref = "androidx-test-orchestrator" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test-rules" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
-androidx-test-uiAutomator = { module = "androidx.test:uiautomator", version.ref = "androidx-test-uiautomator"}
+androidx-test-uiAutomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "androidx-test-uiautomator"}
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 com-android-tools-build-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }
@@ -73,7 +74,8 @@ ktlint-gradle = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", vers
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "androidx-lifecycle" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin"}
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito-android" }
 sonarqube-gradle = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarqube-gradle" }
 
 [plugins]

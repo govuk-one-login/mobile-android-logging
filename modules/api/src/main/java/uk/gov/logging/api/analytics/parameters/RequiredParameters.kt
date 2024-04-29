@@ -13,8 +13,8 @@ import uk.gov.logging.api.analytics.logging.LANGUAGE
 /**
  * Base class for providing values that's required for all events. These are:
  *
- * - [DIGITAL_IDENTITY_ID], with the value of [DIGITAL_IDENTITY_ID_VALUE].
- * - [DIGITAL_IDENTITY_JOURNEY], with the value of [DIGITAL_IDENTITY_JOURNEY_VALUE].
+ * - [DIGITAL_IDENTITY_ID], optional with the default value of [DIGITAL_IDENTITY_ID_VALUE].
+ * - [DIGITAL_IDENTITY_JOURNEY], with the value of [digitalIdentityJourney].
  * - [LANGUAGE], with the value of the default [Locale.getLanguage]. For english Users, this is
  *   `en`.
  * - [DOCUMENT_TYPE_JOURNEY_KEY], with the value of [DocumentType.journeyType]. This only occurs

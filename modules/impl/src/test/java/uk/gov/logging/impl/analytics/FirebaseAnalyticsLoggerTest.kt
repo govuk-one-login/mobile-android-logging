@@ -15,10 +15,8 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
-import uk.gov.logging.api.analytics.permissions.AnalyticsPermissions.GoogleAnalytics
 import uk.gov.logging.testdouble.SystemLogger
 
 internal class FirebaseAnalyticsLoggerTest {
@@ -38,9 +36,7 @@ internal class FirebaseAnalyticsLoggerTest {
 
     @Test
     fun `screen view events are logged via Firebase`() {
-        whenPermissionIsSetTo(true)
-
-        analyticsLogger.logEvent(shouldLogEvent, event)
+        analyticsLogger.logEvent(true, event)
 
         verify(analytics, times(1)).logEvent(eq(event.eventType), any())
     }
@@ -51,9 +47,7 @@ internal class FirebaseAnalyticsLoggerTest {
         hasGrantedPermission: Boolean,
         event: AnalyticsEvent
     ) {
-        whenPermissionIsSetTo(hasGrantedPermission)
-
-        analyticsLogger.logEvent(shouldLogEvent, event)
+        analyticsLogger.logEvent(hasGrantedPermission, event)
 
         verify(analytics, never()).logEvent(any(), any())
     }
@@ -62,19 +56,12 @@ internal class FirebaseAnalyticsLoggerTest {
         private var analytics: FirebaseAnalytics = mock()
 
         private var logger = SystemLogger()
-        private var shouldLogEvent: Boolean = mock()
         private val event = AnalyticsEvent.screenView(
             RequiredParameters(
                 digitalIdentityJourney = "",
                 journeyType = "driving licence"
             )
         )
-
-        private fun whenPermissionIsSetTo(isGranted: Boolean) {
-            whenever(
-                shouldLogEvent
-            ).thenReturn(isGranted)
-        }
 
         @JvmStatic
         fun setupLogEventEdgeCases(): Stream<Arguments> = Stream.of(

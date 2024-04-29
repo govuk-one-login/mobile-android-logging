@@ -16,11 +16,11 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
     var enabled: Boolean? = null
 
     override fun logEvent(
-        validation: Boolean,
+        shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent
     ) {
         events.forEach { event ->
-            if (shouldLog(event)) {
+            if (shouldLogEvent) {
                 if (isScreenView(event)) {
                     memorisedEvent = event
                 }
@@ -30,12 +30,7 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
         }
     }
 
-    private fun shouldLog(event: AnalyticsEvent): Boolean = !isScreenView(event) ||
-        !isDuplicateScreenView(event)
-
     private fun isScreenView(event: AnalyticsEvent): Boolean = event.eventType === SCREEN_VIEW
-
-    fun isDuplicateScreenView(event: AnalyticsEvent): Boolean = event == memorisedEvent
 
     override fun setEnabled(isEnabled: Boolean) {
         enabled = isEnabled

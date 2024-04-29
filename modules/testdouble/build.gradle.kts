@@ -14,7 +14,7 @@ android {
         compileSdk = ApkConfig.COMPILE_SDK_VERSION
         minSdk = ApkConfig.MINIMUM_SDK_VERSION
         targetSdk = ApkConfig.TARGET_SDK_VERSION
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "uk.gov.logging.testdouble.InstrumentationTestRunner"
     }
 
     buildToolsVersion = ApkConfig.ANDROID_BUILD_TOOLS_VERSION
@@ -75,9 +75,7 @@ android {
 
 dependencies {
     listOf(
-        libs.firebase.android,
         libs.hilt.android,
-        libs.com.android.tools.build.gradle,
         platform(libs.firebase.bom),
         libs.firebase.analytics
     ).forEach {
@@ -89,7 +87,8 @@ dependencies {
         libs.androidx.test.ext.junit.ktx,
         libs.androidx.test.runner,
         libs.androidx.test.espresso.accessibility,
-        libs.hilt.android.testing
+        libs.hilt.android.testing,
+        libs.mockito.android
     ).forEach {
         androidTestImplementation(it)
     }
@@ -105,6 +104,7 @@ dependencies {
     androidTestUtil(libs.androidx.test.orchestrator)
 
     kapt(libs.hilt.compiler)
+    kaptAndroidTest(libs.hilt.compiler)
 
     api(project(":modules:api"))
 }

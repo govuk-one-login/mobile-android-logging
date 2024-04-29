@@ -87,27 +87,24 @@ android {
 
 dependencies {
     listOf(
-        libs.firebase.android,
-        libs.hilt.android,
-        libs.com.android.tools.build.gradle,
-        libs.firebase.android,
-        platform(libs.firebase.bom),
         libs.firebase.analytics,
-        libs.ktor.client.core
+        libs.hilt.android,
+        libs.ktor.client.core,
+        platform(libs.firebase.bom)
     ).forEach {
         implementation(it)
 }
 
     listOf(
         libs.androidx.test.core.ktx,
-        libs.androidx.test.ext.junit.ktx,
-        libs.androidx.test.runner,
-        libs.androidx.test.rules,
-        libs.androidx.test.orchestrator,
         libs.androidx.test.espresso.accessibility,
-        libs.androidx.test.espresso.core,
         libs.androidx.test.espresso.contrib,
+        libs.androidx.test.espresso.core,
         libs.androidx.test.espresso.intents,
+        libs.androidx.test.ext.junit.ktx,
+        libs.androidx.test.orchestrator,
+        libs.androidx.test.rules,
+        libs.androidx.test.runner,
         libs.androidx.test.uiAutomator,
         libs.hilt.android.testing,
         libs.mockito.kotlin
@@ -116,8 +113,8 @@ dependencies {
     }
 
     listOf(
-        libs.junit,
         libs.hilt.android.testing,
+        libs.junit,
         libs.junit.jupiter
     ).forEach { dependency ->
         testImplementation(dependency)

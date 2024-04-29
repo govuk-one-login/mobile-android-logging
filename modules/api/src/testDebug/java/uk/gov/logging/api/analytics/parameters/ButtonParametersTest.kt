@@ -9,7 +9,6 @@ import org.junit.jupiter.api.fail
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY
-import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY_VALUE
 import uk.gov.logging.api.analytics.logging.DOCUMENT_TYPE_JOURNEY_KEY
 import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.LANGUAGE
@@ -122,9 +121,9 @@ internal class ButtonParametersTest {
 
             // RequiredParameters properties
             DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
-            DIGITAL_IDENTITY_JOURNEY to DIGITAL_IDENTITY_JOURNEY_VALUE,
+            DIGITAL_IDENTITY_JOURNEY to "popup event test",
             LANGUAGE to Locale.getDefault().language,
-            DOCUMENT_TYPE_JOURNEY_KEY to "driving licence"
+            DOCUMENT_TYPE_JOURNEY_KEY to "test journey"
         )
 
         val popupEventParameters = ButtonParameters(
@@ -133,8 +132,8 @@ internal class ButtonParametersTest {
             type = popUpEventName,
             action = callToActionType,
             overrides = RequiredParameters(
-                digitalIdentityJourney = "document checking application",
-                journeyType = "driving licence"
+                digitalIdentityJourney = "popup event test",
+                journeyType = "test journey"
             )
         )
 
