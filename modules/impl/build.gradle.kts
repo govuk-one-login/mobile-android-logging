@@ -157,14 +157,46 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             this.groupId = ApkConfig.APPLICATION_ID
-            this.artifactId = "mobile-android-logging"
+            this.artifactId = "logging-impl"
             this.version = project.versionName
-            this.artifact(file("${project.buildDir}/outputs/aar/impl-release.aar")) {
-                this.classifier = "release"
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-build-release.aar")) {
+                this.classifier = "build-release"
                 this.extension = "aar"
             }
-            this.artifact(file("${project.buildDir}/outputs/aar/impl-debug.aar")) {
-                this.classifier = "debug"
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-build-debug.aar")) {
+                this.classifier = "build-debug"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-dev-release.aar")) {
+                this.classifier = "dev-release"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-dev-debug.aar")) {
+                this.classifier = "dev-debug"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-integration-release.aar")) {
+                this.classifier = "integration-release"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-integration-debug.aar")) {
+                this.classifier = "integration-debug"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-staging-release.aar")) {
+                this.classifier = "staging-release"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-staging-debug.aar")) {
+                this.classifier = "staging-debug"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-production-release.aar")) {
+                this.classifier = "production-release"
+                this.extension = "aar"
+            }
+            this.artifact(file("${project.buildDir}/outputs/aar/impl-production-debug.aar")) {
+                this.classifier = "production-debug"
                 this.extension = "aar"
             }
             pom {
