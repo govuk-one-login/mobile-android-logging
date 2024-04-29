@@ -36,10 +36,9 @@ product flavour and buildLogic.plugins.build type across all Gradle modules for 
 ```shell
 cd $(git rev-parse --show-toplevel)
 
-# `testDebugUnitTest` runs all unit tests in modules that don't have a product flavor.
+# `testBuildDebugUnitTest` runs all unit tests in modules that don't have a product flavor.
 # `testBuildDebugUnitTest` runs all unit tests in modules that have a product flavor.
 ./gradlew \
-  testDebugUnitTest \
   testBuildDebugUnitTest 
 ```
 
@@ -63,8 +62,7 @@ Because of this, see the proceeding command for an example mapping:
 ```shell
 cd $(git rev-parse --show-toplevel)
 
-./gradlew googleApisPlaystorePixelXLApi30DebugAndroidTest \
-    googleApisPlaystorePixelXLApi30BuildDebugAndroidTest
+./gradlew googleAtdPixelXLApi33BuildDebugAndroidTest
 ```
 
 [Android studio setup tutorial]: ./androidStudioSetup.md
