@@ -85,7 +85,7 @@ jobs:
 
       - name: Generate Changelog
         run: |
-          cog changelog --at $(cog -v get-version) > CHANGELOG.md
+          cog changelog --at v$(cog -v get-version) > CHANGELOG.md
         shell: bash
 
       - name: Upload Changelog
