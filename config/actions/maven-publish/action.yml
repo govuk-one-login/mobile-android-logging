@@ -8,9 +8,6 @@ inputs:
   GITHUB_ACTOR:
     description: 'Service account username that allows publishing packages'
     required: true
-  package-version:
-    description: 'Package Version'
-    required: true
 
 runs:
   using: "composite"
@@ -18,14 +15,12 @@ runs:
     - name: Publish API package
       id: maven-publish
       run: |
-        echo "Package Version = ${INPUT_PACKAGE_VERSION}"
-        
         ./gradlew \
           :modules:api:publish \
-          -PpackageVersion=$INPUT_PACKAGE_VERSION
+          :modules:impl:publish \
+          :modules:testdouble:publish
       shell: bash
       env:
         CI: true
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ inputs.GITHUB_ACTOR }}
-        INPUT_PACKAGE_VERSION: ${{ inputs.package-version }}

@@ -2,9 +2,9 @@ package uk.gov.logging.extensions
 
 import org.gradle.api.Project
 import org.gradle.process.ExecSpec
-import uk.gov.logging.config.ApkConfig
 import uk.gov.logging.output.OutputStreamGroup
 import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 
 object ProjectExtensions {
     fun Project.execWithOutput(spec: ExecSpec.() -> Unit) =
@@ -22,7 +22,14 @@ object ProjectExtensions {
     val Project.versionCode
         get() = prop("versionCode", Integer.MAX_VALUE).toInt()
     val Project.versionName
-        get() = prop("versionName", ApkConfig.DEBUG_VERSION)
+        get() = execWithOutput {
+            workingDir = rootProject.file(".sh")
+            executable = "bash"
+            standardOutput = OutputStream.nullOutputStream()
+            args = listOf(
+                "./getCurrentVersion"
+            )
+        }
 
     private fun Project.prop(key: String, default: Any): String {
         return providers.gradleProperty(key).getOrElse(default.toString())
