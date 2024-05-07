@@ -2,7 +2,6 @@ package uk.gov.logging.testdouble.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
 import javax.inject.Inject
-import uk.gov.documentchecking.features.api.permissions.PermissionConditions
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
 
