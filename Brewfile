@@ -1,5 +1,5 @@
 # Taps (data sources)
-tap "homebrew/cask-versions" # Access alternative versions for homebrew casks
+tap "homebrew/homebrew-cask" # Access alternative versions for homebrew casks
 
 # terminal programs
 brew "awscli" unless system "aws", "--version"
