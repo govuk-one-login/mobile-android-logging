@@ -21,7 +21,8 @@ val rootSonarProperties by rootProject.extra(
         "sonar.projectVersion" to "${project.versionName}-${project.versionCode}",
         "sonar.organization" to "govuk-one-login",
         "sonar.sourceEncoding" to "UTF-8",
-        "sonar.sources" to ""
+        "sonar.sources" to "",
+        "sonar.exclusions" to "modules/testdouble",
     )
 )
 
