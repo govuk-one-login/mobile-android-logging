@@ -66,29 +66,41 @@ jobs:
         shell: bash
 
       - name: Automatically bump semantic version via cocogitto
+        id: versioning
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          
+          current_version=$(cog -v get-version)
+          new_version=$(cog bump --dry-run --auto)
+          
+          echo "current_version=$current_version" >> $GITHUB_OUTPUT
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
+          
           cog bump --auto
         shell: bash
 
       - name: Push version commit / tag generated from cocogitto
+        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
         run: |
           git push --follow-tags && git push --tags
         shell: bash
 
       - name: Publish package
+        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
         uses: ./config/actions/maven-publish
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
 
       - name: Generate Changelog
+        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
         run: |
           cog changelog --at v$(cog -v get-version) > CHANGELOG.md
         shell: bash
 
       - name: Upload Changelog
+        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
         id: uploadBuildReports
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
