@@ -1,23 +1,19 @@
 name: Release Mobile Android Logging
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - main
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   bump_version:
     env:
       JDK_VERSION: 17
-    if: github.event.pull_request.merged == true
     permissions:
       id-token: write
       contents: write
       packages: write
     runs-on: ubuntu-latest
-    #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
+
     steps:
       - name: Run checkout github action
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
