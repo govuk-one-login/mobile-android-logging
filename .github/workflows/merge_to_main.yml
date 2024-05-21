@@ -68,12 +68,12 @@ jobs:
           git config user.email github-actions@github.com
           
           current_version=$(cog -v get-version)
-          new_version=$(cog bump --dry-run --auto)
-          
           echo "current_version=$current_version" >> $GITHUB_OUTPUT
-          echo "new_version=$new_version" >> $GITHUB_OUTPUT
           
           cog bump --auto
+          
+          new_version=$(cog -v get-version)
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Push version commit / tag generated from cocogitto
