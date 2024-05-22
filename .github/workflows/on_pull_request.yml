@@ -62,15 +62,16 @@ jobs:
           ./.sh/uploadToSonar.sh "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
         shell: bash
 
-#      - name: SonarQube Quality Gate check
-#        uses: sonarsource/sonarqube-quality-gate-action@72f24ebf1f81eda168a979ce14b8203273b7c3ad # master, on 19/04/2024
-#        # Force to fail step after specific time
-#        timeout-minutes: 5
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          SONAR_HOST_URL: https://sonarcloud.io
-#        with:
-#          scanMetadataReportFile: ${{ github.workspace }}/build/sonar/report-task.txt
+      # Check the Quality Gate status.
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@d304d050d930b02a896b0f85935344f023928496 # pin@v1.1.0
+        # Force to fail step after specific time.
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          scanMetadataReportFile: ${{ github.workspace }}/build/sonar/report-task.txt
 
       - name: Bundle reports folder
         uses: ./config/actions/bundle-reports
