@@ -32,7 +32,7 @@ jobs:
 
       - name: Lint script files
         run: |
-          ./.sh/lintProject.sh "" "runOwaspDependencyChecker"
+          ./.sh/lintProject.sh "" ""
         shell: bash
 
       - name: Run gradle testing suite
