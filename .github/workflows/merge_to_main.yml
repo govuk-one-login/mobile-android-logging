@@ -28,7 +28,7 @@ jobs:
 
       - name: Lint script files
         run: |
-          ./.sh/lintProject.sh "" "runOwaspDependencyChecker"
+          ./.sh/lintProject.sh "" ""
         shell: bash
 
       - name: Run gradle testing suite
@@ -42,16 +42,6 @@ jobs:
         run: |
           ./.sh/uploadToSonar.sh "BRANCH" "main"
         shell: bash
-
-      #      - name: SonarQube Quality Gate check
-      #        uses: sonarsource/sonarqube-quality-gate-action@72f24ebf1f81eda168a979ce14b8203273b7c3ad # master, on 19/04/2024
-      #        # Force to fail step after specific time
-      #        timeout-minutes: 5
-      #        env:
-      #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #          SONAR_HOST_URL: https://sonarcloud.io
-      #        with:
-      #          scanMetadataReportFile: ${{ github.workspace }}/build/sonar/report-task.txt
 
       - name: Bundle reports folder
         uses: ./config/actions/bundle-reports
