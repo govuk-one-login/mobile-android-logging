@@ -10,7 +10,7 @@
 
 ## Running the app
 
-Please follow the [Android studio setup tutorial] for running the app within the IDE on either a
+Please follow the [Android studio setup tutorial] for running the app within the integrated developer environment (IDE) on either a
 virtual device or a physically connected device via `adb`.
 
 ## Running the tests via Android Studio
@@ -21,7 +21,7 @@ virtual device or a physically connected device via `adb`.
 
    ![](../img/androidStudioSelectBuildVariants.png)
 
-> [!TIP]
+> [!Tip]
 > It's recommended for developers to install the [Build variant matrix selector plugin] due to
 how the 'Build variants' ribbon doesn't always apply the variant across all Gradle modules.
 The plugin's default key binding of `Cmd+Shift+X` opens a window that'll apply the selected

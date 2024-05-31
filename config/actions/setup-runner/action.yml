@@ -41,13 +41,14 @@ runs:
       if: runner.os == 'macOS'
 
     - name: Install KVM hardware acceleration Dependencies
+      # see docs: https://help.ubuntu.com/community/KVM/Installation
       run: |
+        sudo apt-get update
         sudo apt-get install \
-          bridge-utils \
-          cpu-checker \
-          libvirt-clients \
-          libvirt-daemon-system \
           qemu-kvm \
+          libvirt-daemon-system \
+          libvirt-clients \
+          bridge-utils
       shell: bash
       if: runner.os == 'Linux'
 

@@ -8,7 +8,7 @@ import uk.gov.logging.extensions.ProjectExtensions.debugLog
 
 /**
  * [FileTreeFetcher] implementation designed to obtain the output files from the
- * [ASM bytecode framework](https://asm.ow2.io/).
+ * [Assembly (ASM) bytecode framework](https://asm.ow2.io/).
  *
  * Used by android app Gradle modules as part of pro-guard obfuscation.
  *

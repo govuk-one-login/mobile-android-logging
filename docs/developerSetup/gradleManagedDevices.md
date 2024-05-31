@@ -23,7 +23,7 @@ instrumentation tests via a Gradle managed device.
 ### Hardware rendering
 
 When running Gradle managed device tasks on systems that don't support hardware rendering, it's
-important to redefine the emulator's GPU as part of the command being ran to `swiftshader_indirect`.
+important to redefine the emulator's Graphics Processing Unit (GPU) as part of the command being ran to `swiftshader_indirect`.
 Please see the proceeding example for the property to pass in:
 
 ```shell
