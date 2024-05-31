@@ -43,12 +43,10 @@ runs:
     - name: Install KVM hardware acceleration Dependencies
       run: |
         sudo apt-get install \
-          bridge-utils \
-          cpu-checker \
-          libvirt-clients \
-          libvirt-daemon-system \
           qemu-kvm \
-          --fix-missing
+          libvirt-daemon-system \
+          libvirt-clients \
+          bridge-utils
       shell: bash
       if: runner.os == 'Linux'
 
