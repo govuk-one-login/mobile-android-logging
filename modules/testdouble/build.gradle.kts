@@ -51,26 +51,6 @@ android {
             isIncludeAndroidResources = true
         }
     }
-
-    flavorDimensions.add("env")
-    productFlavors {
-        listOf(
-            "build",
-            "dev",
-            "integration",
-            "production",
-            "staging"
-        ).forEach { flavourString ->
-            create(flavourString) {
-                dimension = "env"
-                val namespaceString = if (flavourString == "production") {
-                    "uk.gov.logging.testdouble"
-                } else {
-                    "uk.gov.logging.$flavourString.testdouble"
-                }
-            }
-        }
-    }
 }
 
 dependencies {
@@ -111,16 +91,7 @@ dependencies {
 val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
-            "testdouble-build-debug.aar",
-            "testdouble-build-release.aar",
-            "testdouble-dev-debug.aar",
-            "testdouble-dev-release.aar",
-            "testdouble-integration-debug.aar",
-            "testdouble-integration-release.aar",
-            "testdouble-staging-debug.aar",
-            "testdouble-staging-release.aar",
-            "testdouble-production-debug.aar",
-            "testdouble-production-release.aar"
+            "testdouble-release.aar",
         )
         val fileList = project.fileTree(
             "${project.buildDir}/outputs/aar"
@@ -159,44 +130,8 @@ publishing {
             this.groupId = ApkConfig.APPLICATION_ID
             this.artifactId = "logging-testdouble"
             this.version = project.versionName
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-build-release.aar")) {
-                this.classifier = "build-release"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-build-debug.aar")) {
-                this.classifier = "build-debug"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-dev-release.aar")) {
-                this.classifier = "dev-release"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-dev-debug.aar")) {
-                this.classifier = "dev-debug"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-integration-release.aar")) {
-                this.classifier = "integration-release"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-integration-debug.aar")) {
-                this.classifier = "integration-debug"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-staging-release.aar")) {
-                this.classifier = "staging-release"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-staging-debug.aar")) {
-                this.classifier = "staging-debug"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-production-release.aar")) {
-                this.classifier = "production-release"
-                this.extension = "aar"
-            }
-            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-production-debug.aar")) {
-                this.classifier = "production-debug"
+            this.artifact(file("${project.buildDir}/outputs/aar/testdouble-release.aar")) {
+                this.classifier = "release"
                 this.extension = "aar"
             }
             pom {
