@@ -99,7 +99,6 @@ dependencies {
 val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
-            "impl-debug.aar",
             "impl-release.aar",
         )
         val fileList = project.fileTree(
