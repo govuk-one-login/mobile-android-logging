@@ -30,20 +30,12 @@ fi
 
 if [[ $TEST_RUNNER_MODE == "unit" ]]
 then
-  ./gradlew testBuildDebugUnitTest
+  ./gradlew testDebugUnitTest
 elif [[ $TEST_RUNNER_MODE == "instrumentation" ]]
 then
-  ./gradlew googleAtdPixelXLApi30BuildDebugAndroidTest \
-      googleAtdPixelXLApi33DevDebugAndroidTest \
-      googleAtdPixelXLApi33StagingDebugAndroidTest \
-      googleAtdPixelXLApi33IntegrationDebugAndroidTest \
-      googleAtdPixelXLApi33ProductionDebugAndroidTest
+  ./gradlew googleAtdPixelXLApi30DebugAndroidTest
 elif [[ $TEST_RUNNER_MODE == "both" ]]
 then
-  ./gradlew googleAtdPixelXLApi30BuildDebugAndroidTest \
-      googleAtdPixelXLApi33DevDebugAndroidTest \
-      googleAtdPixelXLApi33StagingDebugAndroidTest \
-      googleAtdPixelXLApi33IntegrationDebugAndroidTest \
-      googleAtdPixelXLApi33ProductionDebugAndroidTest
-      testBuildDebugUnitTest
+  ./gradlew googleAtdPixelXLApi30DebugAndroidTest \
+      testDebugUnitTest
 fi
