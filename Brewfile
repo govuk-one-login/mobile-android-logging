@@ -13,6 +13,7 @@ brew "nvm" unless system "command", "-v", "nvm"
 brew "pinentry" unless system "pinentry", "--version"
 brew "pinentry-mac" unless system "pinentry-mac", "--version"
 brew "shellcheck" unless system "shellcheck", "--version"
+brew "sonarqube-lts" unless system "which", "sonar"
 brew "vale" unless system "vale", "--version"
 
 # casks (binary apps, such as from installers)
