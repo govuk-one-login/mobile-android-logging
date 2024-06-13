@@ -5,7 +5,7 @@ set -o errexit
 
 # Expects there to be a value for the environment variable `SONAR_TOKEN`.
 # If this isn't set, add it as a prefix before you locally use this script.
-# e.g.: `SONAR_TOKEN=1234_abcd ./.sh/uploadToSonar 12 "feature/someBranchName"`
+# e.g.: `SONAR_TOKEN=1234_abcd ./.sh/sonar/scan 12 "feature/someBranchName"`
 
 # Applicable values:
 # "PR"     - Performs a Pull Request analysis, then uploads to sonar cloud. Also requires values to
