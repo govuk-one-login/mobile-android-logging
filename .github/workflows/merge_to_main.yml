@@ -40,7 +40,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./.sh/uploadToSonar.sh "BRANCH" "main"
+          ./.sh/sonar/scan "BRANCH" "main"
         shell: bash
 
       - name: Bundle reports folder

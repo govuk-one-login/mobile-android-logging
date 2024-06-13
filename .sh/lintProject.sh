@@ -14,7 +14,8 @@ TEST_RUNNER_MODE="$1"
 # The condition only checks whether the value has a non-zero length.
 SHOULD_RUN_DEPENDENCY_CHECKER="$2"
 
-shellcheck .sh/*
+# Lint all files in the .sh folder / sub-folders
+find ./.sh -type f -exec shellcheck {} +
 
 ./gradlew \
   :buildLogic:plugins:detekt \
