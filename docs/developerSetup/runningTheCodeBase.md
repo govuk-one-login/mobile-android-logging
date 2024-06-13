@@ -36,8 +36,7 @@ product flavour and buildLogic.plugins.build type across all Gradle modules for 
 ```shell
 cd $(git rev-parse --show-toplevel)
 
-# `testDebugUnitTest` runs all unit tests in modules that don't have a product flavor.
-# `testDebugUnitTest` runs all unit tests in modules that have a product flavor.
+# `testDebugUnitTest` runs all unit tests in all modules.
 ./gradlew \
   testDebugUnitTest 
 ```
