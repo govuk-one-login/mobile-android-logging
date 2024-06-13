@@ -177,7 +177,7 @@ fun setupAndroidReporting(moduleProject: Project, variants: List<LibraryVariant>
         if (moduleVariant.buildType.name == "debug") {
             val flavor = moduleVariant.flavorName
             val capitalisedVariantName = moduleVariant.name.capitalize()
-            val reportPrefix = "$moduleProject.buildDir/reports/jacoco/${moduleVariant.name}"
+            val reportPrefix = "${moduleProject.buildDir}/reports/jacoco/${moduleVariant.name}"
 
             val kotlinCompileTask = moduleProject.tasks.named(
                 "compile${capitalisedVariantName}Kotlin"
