@@ -149,7 +149,7 @@ fun createJacocoReportTask(
             }
             this.html.apply {
                 required.set(true)
-                outputLocation.set(project.file("$outputDir/html"))
+                outputLocation.set(project.file("$outputDir/report.html"))
             }
         }
 
@@ -169,8 +169,8 @@ fun createJacocoReportTask(
 @Suppress("LongMethod", "MaxLineLength")
 fun setupAndroidReporting(moduleProject: Project, variants: List<LibraryVariant>) {
     moduleProject.tasks.withType<Test>().configureEach {
-        (this.property("jacoco") as JacocoTaskExtension).setIncludeNoLocationClasses(true)
-        (this.property("jacoco") as JacocoTaskExtension).setExcludes(listOf("jdk.internal.*"))
+        (this.property("jacoco") as JacocoTaskExtension).isIncludeNoLocationClasses = true
+        (this.property("jacoco") as JacocoTaskExtension).excludes = listOf("jdk.internal.*")
     }
 
     variants.forEach { moduleVariant ->
@@ -196,7 +196,7 @@ fun setupAndroidReporting(moduleProject: Project, variants: List<LibraryVariant>
             val unitTestTask = moduleProject.tasks.named("test${capitalisedVariantName}UnitTest")
             val unitTestExecutionDataFile = unitTestTask.flatMap { utTask ->
                 moduleProject.provider {
-                    (utTask as AndroidUnitTest).getJacocoCoverageOutputFile().get().asFile
+                    (utTask as AndroidUnitTest).jacocoCoverageOutputFile.get().asFile
                         .parentFile
                         .absolutePath
                 }
@@ -228,6 +228,7 @@ fun setupAndroidReporting(moduleProject: Project, variants: List<LibraryVariant>
                 this.finalizedBy(customUnitTestReportTask)
             }
 
+            // TODO
             val customConnectedJacocoReportTaskName =
                 "connected${capitalisedVariantName}JacocoTestReport"
             val androidConnectedJacocoReportTask = moduleProject.tasks.named(

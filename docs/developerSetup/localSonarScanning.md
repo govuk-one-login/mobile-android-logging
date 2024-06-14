@@ -21,4 +21,4 @@ The initial set up is only performed once on a per-project basis.
   ```
 
 [Dependencies tutorial]: ./dependencies.md
-[Root sonar configuration]: ../../buildLogic/plugins/src/main/kotlin/uk.gov.ui.sonarqube-root-config.gradle.kts
+[Root sonar configuration]: ../../buildLogic/plugins/src/main/kotlin/uk.gov.logging.sonarqube-root-config.gradle.kts

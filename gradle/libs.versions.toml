@@ -5,7 +5,7 @@
 
 activity = "1.9.0" # https://developer.android.com/jetpack/androidx/releases/activity
 android-build-tools = "34.0.0" # https://developer.android.com/tools/releases/build-tools
-android-gradle = "8.0.2" # https://developer.android.com/studio/releases/gradle-plugin
+android-gradle = "8.2.0" # https://developer.android.com/studio/releases/gradle-plugin
 androidx-lifecycle = "2.8.1" # https://developer.android.com/jetpack/androidx/releases/lifecycle
 androidx-test-core = "1.5.0" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-ext-junit = "1.1.5" # https://developer.android.com/jetpack/androidx/releases/test
@@ -15,7 +15,7 @@ androidx-test-runner = "1.5.2" # https://developer.android.com/jetpack/androidx/
 androidx-test-uiautomator = "2.3.0" # https://developer.android.com/jetpack/androidx/releases/test-uiautomator
 appcompat = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/appcompat
 core-ktx = "1.13.1"
-dagger = "2.44" # https://github.com/google/dagger/releases
+dagger = "2.51.1" # https://github.com/google/dagger/releases
 dependency-check-gradle = "9.2.0" # https://github.com/dependency-check/dependency-check-gradle/releases
 detekt-gradle = "1.23.0" # https://github.com/detekt/detekt/releases/tag/v1.23.6
 espresso = "3.5.1" # https://developer.android.com/jetpack/androidx/releases/test
@@ -25,7 +25,7 @@ google-services = "4.4.2" # https://developers.google.com/android/guides/google-
 jacoco = "0.8.12" # https://www.jacoco.org/jacoco/trunk/doc/changes.html
 junit-jupiter = "5.10.2" # https://junit.org/junit5/docs/current/user-guide/#release-notes
 junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
-kotlin-general = "1.8.20" # https://kotlinlang.org/docs/releases.html#release-details
+kotlin-general = "1.9.24" # https://kotlinlang.org/docs/releases.html#release-details
 ktlint-gradle = "11.3.1" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 ktor = "2.3.11" # https://ktor.io/docs/releases.html#release-details
 ktx-activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
@@ -63,7 +63,7 @@ firebase-bom = { group = 'com.google.firebase', name = 'firebase-bom', version.r
 firebase-crashlytics = { group = 'com.google.firebase', name = 'firebase-crashlytics' }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "dagger" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 jacoco-agent = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
 jacoco-ant = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
 jacoco-core = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
