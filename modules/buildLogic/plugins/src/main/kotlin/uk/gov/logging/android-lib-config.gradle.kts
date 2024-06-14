@@ -12,8 +12,8 @@ listOf(
     "org.owasp.dependencycheck",
     "uk.gov.logging.detekt-config",
     "uk.gov.logging.emulator-config",
-    "uk.gov.logging.jacoco-config",
-//    "uk.gov.logging.jacoco-lib-config",   // DCMAW-7001 remove one of the jacoco configurations
+//    "uk.gov.logging.jacoco-config",   // DCMAW-7001 remove one of the jacoco configurations
+    "uk.gov.logging.jacoco-lib-config",
     "uk.gov.logging.jvm-toolchains",
     "uk.gov.logging.ktlint-config",
     "uk.gov.logging.sonarqube-module-config"

@@ -15,7 +15,7 @@ echo "Cleaning the gradle project..."
 ./gradlew clean
 
 echo "Running the full test suite..."
-"${SONAR_SCRIPTS}"/../runTestingSuite
+"${SONAR_SCRIPTS}"/../runTestingSuite.sh
 
 echo "Starting the local sonar server..."
 "${SONAR_SCRIPTS}"/localStart
