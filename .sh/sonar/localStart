@@ -9,4 +9,4 @@ SONAR_SCRIPTS=$(dirname "$0")
 "${SONAR_SCRIPTS}"/verifyPath
 
 # Start local sonar instance
-sonar start | true
+sonar start || true
