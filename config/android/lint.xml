@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="InvalidPackage">
+        <ignore path="**/io.ktor/ktor-utils-jvm/2.3.9/**"/>
+        <ignore path="**/io.ktor/ktor-utils-jvm/2.1.2/**"/>
+        <ignore path="**/io.ktor/ktor-utils-jvm/2.3.11/**"/>
+    </issue>
+</lint>
+
