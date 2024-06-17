@@ -55,7 +55,7 @@ Because of this, see the proceeding command for an example mapping:
 
 * Google Play store APIs as the system image
 * Pixel XL as the device specification
-* API level 30 (Android 10)
+* API level 33 (Android 10)
 * Debug buildLogic.plugins.build type, as well as a 'buildLogic.plugins.build' product flavor aware task that's also the debug buildLogic.plugins.build type.
 
 ```shell
