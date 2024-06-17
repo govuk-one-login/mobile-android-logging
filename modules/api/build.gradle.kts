@@ -108,6 +108,7 @@ val verifyAarExistence by project.tasks.registering {
     doLast {
         val expectedFileNames = listOf(
             "api-release.aar",
+            "api-debug.aar"
         )
         val fileList = project.fileTree(
             "${project.buildDir}/outputs/aar"
