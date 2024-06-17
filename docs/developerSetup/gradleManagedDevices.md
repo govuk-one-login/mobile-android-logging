@@ -27,7 +27,7 @@ important to redefine the emulator's Graphics Processing Unit (GPU) as part of t
 Please see the proceeding example for the property to pass in:
 
 ```shell
-./gradlew googleApisPlaystorePixelXLApi29BuildDebugAndroidTest \
+./gradlew googleApisPlaystorePixelXLApi29DebugAndroidTest \
 -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect
 ```
 
@@ -39,7 +39,7 @@ family of instrumentation test tasks, meaning that running multiple setup tasks 
 workers may fail. To mitigate this, run the gradle task with only 1 worker:
 
 ```shell
-./gradlew googleAtdPixelXLApi33BuildDebugAndroidTest --max-workers=1
+./gradlew googleAtdPixelXLApi33DebugAndroidTest --max-workers=1
 ```
 
 

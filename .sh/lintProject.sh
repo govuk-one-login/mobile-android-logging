@@ -14,7 +14,8 @@ TEST_RUNNER_MODE="$1"
 # The condition only checks whether the value has a non-zero length.
 SHOULD_RUN_DEPENDENCY_CHECKER="$2"
 
-shellcheck .sh/*
+# Lint all files in the .sh folder / sub-folders
+find ./.sh -type f -exec shellcheck {} +
 
 ./gradlew \
   :buildLogic:plugins:detekt \
@@ -30,20 +31,12 @@ fi
 
 if [[ $TEST_RUNNER_MODE == "unit" ]]
 then
-  ./gradlew testBuildDebugUnitTest
+  ./gradlew testDebugUnitTest
 elif [[ $TEST_RUNNER_MODE == "instrumentation" ]]
 then
-  ./gradlew googleAtdPixelXLApi30BuildDebugAndroidTest \
-      googleAtdPixelXLApi33DevDebugAndroidTest \
-      googleAtdPixelXLApi33StagingDebugAndroidTest \
-      googleAtdPixelXLApi33IntegrationDebugAndroidTest \
-      googleAtdPixelXLApi33ProductionDebugAndroidTest
+  ./gradlew googleAtdPixelXLApi30DebugAndroidTest
 elif [[ $TEST_RUNNER_MODE == "both" ]]
 then
-  ./gradlew googleAtdPixelXLApi30BuildDebugAndroidTest \
-      googleAtdPixelXLApi33DevDebugAndroidTest \
-      googleAtdPixelXLApi33StagingDebugAndroidTest \
-      googleAtdPixelXLApi33IntegrationDebugAndroidTest \
-      googleAtdPixelXLApi33ProductionDebugAndroidTest
-      testBuildDebugUnitTest
+  ./gradlew googleAtdPixelXLApi30DebugAndroidTest \
+      testDebugUnitTest
 fi

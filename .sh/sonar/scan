@@ -5,7 +5,7 @@ set -o errexit
 
 # Expects there to be a value for the environment variable `SONAR_TOKEN`.
 # If this isn't set, add it as a prefix before you locally use this script.
-# e.g.: `SONAR_TOKEN=1234_abcd ./.sh/uploadToSonar 12 "feature/someBranchName"`
+# e.g.: `SONAR_TOKEN=1234_abcd ./.sh/sonar/scan 12 "feature/someBranchName"`
 
 # Applicable values:
 # "PR"     - Performs a Pull Request analysis, then uploads to sonar cloud. Also requires values to
@@ -43,10 +43,12 @@ then
 
 elif [[ "${ANALYSIS_TYPE}" == "LOCAL" ]]
 then
-  ./gradlew sonar \
-    -Dsonar.host.url=http://localhost:9000 \
-    -Dsonar.token="${SONAR_TOKEN}"
-
+  if [[ -z "${SONAR_TOKEN}" ]]
+  then
+    echo "SONAR_TOKEN environment variable not set! Did you do 'SONAR_TOKEN=sqa_asdf1234 ./.sh/sonar/localProcess'?"
+  else
+    ./gradlew sonar \
+      -Dsonar.host.url=http://localhost:9000 \
+      -Dsonar.login="${SONAR_TOKEN}"
+  fi
 fi
-
-

@@ -17,7 +17,7 @@ virtual device or a physically connected device via `adb`.
 
 1. Select the `buildLogic.plugins.build` product flavor from the 'Build variants' ribbon that's usually located at the
    bottom left of the active Android Studio window. If `buildLogic.plugins.build` isn't selected, click the currently
-   active Build variant to show a drop down arrow, then select `buildDebug` as the value:
+   active Build variant to show a drop down arrow, then select `Debug` as the value:
 
    ![](../img/androidStudioSelectBuildVariants.png)
 
@@ -36,10 +36,9 @@ product flavour and buildLogic.plugins.build type across all Gradle modules for 
 ```shell
 cd $(git rev-parse --show-toplevel)
 
-# `testBuildDebugUnitTest` runs all unit tests in modules that don't have a product flavor.
-# `testBuildDebugUnitTest` runs all unit tests in modules that have a product flavor.
+# `testDebugUnitTest` runs all unit tests in all modules.
 ./gradlew \
-  testBuildDebugUnitTest 
+  testDebugUnitTest 
 ```
 
 ### Instrumentation tests
@@ -62,7 +61,7 @@ Because of this, see the proceeding command for an example mapping:
 ```shell
 cd $(git rev-parse --show-toplevel)
 
-./gradlew googleAtdPixelXLApi33BuildDebugAndroidTest
+./gradlew googleAtdPixelXLApi33DebugAndroidTest
 ```
 
 [Android studio setup tutorial]: ./androidStudioSetup.md
