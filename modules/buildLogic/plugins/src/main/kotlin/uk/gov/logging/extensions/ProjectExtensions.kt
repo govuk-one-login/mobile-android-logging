@@ -26,7 +26,7 @@ object ProjectExtensions {
         get() = prop("versionCode", Integer.MAX_VALUE).toInt()
     val Project.versionName
         get() = execWithOutput {
-            workingDir = rootProject.file(".sh")
+            workingDir = rootProject.file("scripts")
             executable = "bash"
             standardOutput = OutputStream.nullOutputStream()
             args = listOf(

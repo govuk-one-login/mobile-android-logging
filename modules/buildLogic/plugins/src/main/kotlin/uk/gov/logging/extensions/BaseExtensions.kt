@@ -22,7 +22,7 @@ object BaseExtensions {
 
     /**
      * Registers a task that defers to the `getAllHardwareProfileNames` script found within the
-     * `.sh/` folder.
+     * `scripts/` folder.
      *
      * Outputs all applicable hardware profiles available on the machine running this task.
      */
@@ -32,7 +32,7 @@ object BaseExtensions {
     ) = project.tasks.register("getHardwareProfiles", Exec::class) {
         commandLine(
             "bash",
-            "${project.rootProject.rootDir}/.sh/getAllHardwareProfileNames",
+            "${project.rootProject.rootDir}/scripts/getAllHardwareProfileNames",
             hardwareProfilesOutput.absolutePath
         )
         onlyIf("The output file doesn't exist") {
