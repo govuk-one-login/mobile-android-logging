@@ -55,7 +55,6 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 com-android-tools-build-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 dagger-hilt-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger" }
-dependencycheck = { module = "org.owasp:dependency-check-gradle", version.ref = "dependency-check-gradle" }
 detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle" }
 firebase-analytics = { group = 'com.google.firebase', name = 'firebase-analytics' }
 firebase-android = { group = 'com.google.firebase', name = 'firebase-crashlytics-gradle', version.ref = "firebase-crashlytics-gradle" }
@@ -83,7 +82,6 @@ sonarqube-gradle = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-p
 
 android-application = { id = "com.android.application", version.ref = "android-gradle" }
 android-library = { id = "com.android.library", version.ref = "android-gradle" }
-dependency-check = { id = "org.owasp.dependencycheck", version.ref = "dependency-check-gradle" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt-gradle" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 hilt-gradle = { id = "dagger.hilt.android.plugin", version.ref = "dagger" }
