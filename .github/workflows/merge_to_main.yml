@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run pull request workflow
-        uses: govuk-one-login/mobile-android-pipelines@20261842e14e42e3fb601d27fe9b01758c402e95
+      - name: Run deployment workflow
+        uses: govuk-one-login/mobile-android-pipelines@feature/implement-deployment
         with:
-          action_ref: '20261842e14e42e3fb601d27fe9b01758c402e95'
+          action_ref: 'feature/implement-deployment'
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
