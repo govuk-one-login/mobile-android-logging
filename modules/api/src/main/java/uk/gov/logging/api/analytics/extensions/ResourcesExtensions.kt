@@ -7,6 +7,14 @@ import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import java.util.Locale
 
+/**
+ * Extension function to get the English versions of resource strings regardless of the language
+ * the user's device is in.
+ *
+ * @param context Context of user's current app environment.
+ * @param id String resource ID.
+ * @param formatArgs Any additional arguments to format the string.
+ */
 @Suppress("AppBundleLocaleChanges")
 fun Resources.getEnString(
     context: Context,
@@ -25,6 +33,9 @@ fun Resources.getEnString(
     }
 }
 
+/**
+ * Delegates to [Resources.getEnString] using the context that calls this method.
+ */
 @Suppress("AppBundleLocaleChanges")
 fun Context.getEnString(
     @StringRes
@@ -34,6 +45,15 @@ fun Context.getEnString(
     return resources.getEnString(this, id, formatArgs)
 }
 
+/**
+ * Extension function to get the English versions of resource plurals regardless of the language
+ * the user's device is in.
+ *
+ * @param context Context of user's current app environment.
+ * @param id Plural resource ID.
+ * @param quantity Integer quantity of plural resource.
+ * @param formatArgs Any additional arguments to format the resulting string.
+ */
 @Suppress("AppBundleLocaleChanges")
 fun Resources.getEnQuantityString(
     context: Context,
@@ -52,6 +72,9 @@ fun Resources.getEnQuantityString(
     }
 }
 
+/**
+ * Delegates to [Resources.getEnQuantityString] using the context that calls this method.
+ */
 @Suppress("AppBundleLocaleChanges")
 fun Context.getEnQuantityString(
     @PluralsRes
