@@ -47,3 +47,5 @@ onResume
 onStop
 runBlocking
 vararg
+screenView
+formatArgs
