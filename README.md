@@ -85,6 +85,12 @@ testImplementation(libs.gov.logging.testdouble) {
         type = "aar"
     }
 }
+androidTestImplementation(libs.gov.logging.testdouble) {
+    artifact {
+        classifier = "release"
+        type = "aar"
+    }
+}
 ```
 
 ## Hilt Configuration
