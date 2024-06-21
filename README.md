@@ -67,19 +67,19 @@ gov-logging-testdouble = { group = "uk.gov.logging", name = "logging-testdouble"
 Then in your `build.gradle.kts` files:
 
 ```kotlin
-implementation("libs.gov.logging.api") {
+implementation(libs.gov.logging.api) {
     artifact {
         classifier = "release"
         type = "aar"
     }
 }
-flavorImplementation("libs.gov.logging.impl") {
+flavorImplementation(libs.gov.logging.impl) {
     artifact {
         classifier = "release"
         type = "aar"
     }
 }
-testImplementation("libs.gov.logging.testdouble") {
+testImplementation(libs.gov.logging.testdouble) {
     artifact {
         classifier = "release"
         type = "aar"
