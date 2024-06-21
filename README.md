@@ -19,28 +19,28 @@ The three packages have the following functionality:
 ### Without a version catalog
 
 In your `build.gradle.kts` files, for each module (and for each build flavor), add dependencies
-needed e.g.:
+needed for example:
 
 ```kotlin
-implementation("uk.gov.logging:logging-api") {
+implementation("uk.gov.logging:logging-api:0.4.2") {
     artifact {
         classifier = "release"
         type = "aar"
     }
 }
-flavorImplementation("uk.gov.logging:logging-impl") {
+flavorImplementation("uk.gov.logging:logging-impl:0.4.2") {
     artifact {
         classifier = "release"
         type = "aar"
     }
 }
-testImplementation("uk.gov.logging:logging-testdouble") {
+testImplementation("uk.gov.logging:logging-testdouble:0.4.2") {
     artifact {
         classifier = "release"
         type = "aar"
     }
 }
-androidTestImplementation("uk.gov.logging:logging-testdouble") {
+androidTestImplementation("uk.gov.logging:logging-testdouble:0.4.2") {
     artifact {
         classifier = "release"
         type = "aar"
