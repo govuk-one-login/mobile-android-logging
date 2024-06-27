@@ -16,9 +16,6 @@ fun generateCommaSeparatedFiles(
     transform = File::getAbsolutePath
 )
 
-private val _owaspDependencyCheckBase by project.extra(
-    "**/reports/dependency-check-report.html"
-)
 val androidLintReportFiles by project.extra(
     generateCommaSeparatedFiles(listOf("**/reports/lint-results-*.xml"))
 )
@@ -47,12 +44,6 @@ val junitReportFiles by project.extra(
 )
 val ktLintReportFiles by project.extra(
     generateCommaSeparatedFiles(listOf("**/reports/ktlint/**/*.xml"))
-)
-val owaspDependencyCheckHtml by project.extra(
-    "$_owaspDependencyCheckBase.html"
-)
-val owaspDependencyCheckJson by project.extra(
-    "$_owaspDependencyCheckBase.json"
 )
 val sonarExclusions by project.extra(
     listOf(
@@ -84,9 +75,7 @@ configure<SonarExtension> {
         "sonar.coverage.jacoco.xmlReportPaths" to jacocoXmlReportFiles,
         "sonar.kotlin.detekt.reportPaths" to detektReportFiles,
         "sonar.kotlin.ktlint.reportPaths" to ktLintReportFiles,
-        "sonar.junit.reportPaths" to junitReportFiles,
-        "sonar.dependencyCheck.htmlReportPath" to owaspDependencyCheckHtml,
-        "sonar.dependencyCheck.jsonReportPath" to owaspDependencyCheckJson
+        "sonar.junit.reportPaths" to junitReportFiles
     )
 
     properties {

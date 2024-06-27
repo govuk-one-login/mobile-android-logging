@@ -7,7 +7,6 @@ plugins {
 dependencies {
     listOf(
         libs.android.build.tool,
-        libs.dependencycheck,
         libs.detekt.gradle,
         libs.kotlin.gradle.plugin,
         libs.ktlint.gradle,

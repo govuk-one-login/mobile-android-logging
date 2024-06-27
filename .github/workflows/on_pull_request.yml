@@ -24,57 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     steps:
-      - name: Run checkout github action
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - name: Run pull request workflow
+        uses: govuk-one-login/mobile-android-pipelines@19a01df3f6d6783b786442fd32610395330baf40
         with:
-          lfs: 'true'
-          fetch-depth: 0
-
-      - name: Clean workspace
-        uses: ./config/actions/clean-workspace
-
-      - name: Detect Arch
-        id: detect-arch
-        uses: ./config/actions/detect-arch
-
-      - name: Setup GitHub Runner workflow
-        uses: ./config/actions/setup-runner
-
-      - name: Verify Conventional commit standards against latest git tag
-        run: |
-          cog check
-        shell: bash
-
-      - name: Lint script files
-        run: |
-          ./.sh/lintProject.sh "" ""
-        shell: bash
-
-      - name: Run gradle testing suite
-        run: |
-          ./.sh/runTestingSuite.sh
-        shell: bash
-
-      - name: Upload results to sonarcloud
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./.sh/sonar/scan "PR" ${{ github.head_ref || github.ref_name }} ${{ github.event.number }}
-        shell: bash
-
-      # Check the Quality Gate status.
-      - name: SonarQube Quality Gate check
-        id: sonarqube-quality-gate-check
-        uses: sonarsource/sonarqube-quality-gate-action@d304d050d930b02a896b0f85935344f023928496 # pin@v1.1.0
-        # Force to fail step after specific time.
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          scanMetadataReportFile: ${{ github.workspace }}/build/sonar/report-task.txt
-
-      - name: Bundle reports folder
-        uses: ./config/actions/bundle-reports
-
-      - name: Clean workspace
-        uses: ./config/actions/clean-workspace
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

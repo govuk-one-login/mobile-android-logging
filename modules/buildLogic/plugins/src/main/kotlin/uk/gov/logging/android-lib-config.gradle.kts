@@ -9,7 +9,6 @@ listOf(
     "com.android.library",
     "kotlin-kapt",
     "org.jetbrains.kotlin.android",
-    "org.owasp.dependencycheck",
     "uk.gov.logging.detekt-config",
     "uk.gov.logging.emulator-config",
     "uk.gov.logging.jacoco-lib-config",

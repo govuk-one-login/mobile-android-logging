@@ -2,7 +2,6 @@ name: Release Mobile Android Logging
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
   bump_version:
@@ -15,86 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run checkout github action
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - name: Run deployment workflow
+        uses: govuk-one-login/mobile-android-pipelines@19a01df3f6d6783b786442fd32610395330baf40
         with:
-          lfs: 'true'
-          fetch-depth: 0
-          fetch-tags: true
-          ref: 'main'
-
-      - name: Setup GitHub Runner workflow
-        uses: ./config/actions/setup-runner
-
-      - name: Lint script files
-        run: |
-          ./.sh/lintProject.sh "" ""
-        shell: bash
-
-      - name: Run gradle testing suite
-        run: |
-          ./.sh/runTestingSuite.sh
-        shell: bash
-
-      - name: Upload results to sonarcloud
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./.sh/sonar/scan "BRANCH" "main"
-        shell: bash
-
-      - name: Bundle reports folder
-        uses: ./config/actions/bundle-reports
-
-      - name: Build API Android artefacts
-        run: |
-          ./gradlew assemble
-        shell: bash
-
-      - name: Automatically bump semantic version via cocogitto
-        id: versioning
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          
-          current_version=$(cog -v get-version)
-          echo "current_version=$current_version" >> $GITHUB_OUTPUT
-          
-          cog bump --auto
-          
-          new_version=$(cog -v get-version)
-          echo "new_version=$new_version" >> $GITHUB_OUTPUT
-        shell: bash
-
-      - name: Push version commit / tag generated from cocogitto
-        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
-        run: |
-          git push --follow-tags && git push --tags
-        shell: bash
-
-      - name: Publish package
-        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
-        uses: ./config/actions/maven-publish
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACTOR: ${{ github.actor }}
-
-      - name: Generate Changelog
-        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
-        run: |
-          cog changelog --at v$(cog -v get-version) > CHANGELOG.md
-        shell: bash
-
-      - name: Upload Changelog
-        if: steps.versioning.outputs.current_version != steps.versioning.outputs.new_version
-        id: uploadBuildReports
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
-        with:
-          name: CHANGELOG.md
-          retention-days: 1
-          if-no-files-found: error
-          path: |
-            CHANGELOG.md
-
-      - name: Clean workspace
-        uses: ./config/actions/clean-workspace
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
