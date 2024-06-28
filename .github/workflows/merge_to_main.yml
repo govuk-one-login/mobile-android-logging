@@ -1,7 +1,7 @@
 name: Release Mobile Android Logging
 on:
   push:
-    branches: [ main ]
+    branches: [ main, publish-step ]
 
 jobs:
   bump_version:
@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Run deployment workflow
-        uses: govuk-one-login/mobile-android-pipelines@19a01df3f6d6783b786442fd32610395330baf40
+        uses: govuk-one-login/mobile-android-pipelines@0ced974a40b06d5a92513639e9c82f7cb2f811cc
         with:
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
