@@ -7,7 +7,9 @@ import uk.gov.logging.api.analytics.AnalyticsEvent
 
 class MemorisedAnalyticsLogger @Inject constructor(
     private val subLogger: AnalyticsLogger
-) : AnalyticsLogger, LogTagProvider {
+) : AnalyticsLogger by subLogger,
+    LogTagProvider {
+
     private var memorisedEvent: AnalyticsEvent? = null
 
     override fun logEvent(
@@ -65,8 +67,6 @@ class MemorisedAnalyticsLogger @Inject constructor(
     private fun isScreenView(event: AnalyticsEvent): Boolean = event.eventType == Event.SCREEN_VIEW
 
     private fun isDuplicateScreenView(event: AnalyticsEvent): Boolean = event == memorisedEvent
-
-    override fun setEnabled(isEnabled: Boolean) = subLogger.setEnabled(isEnabled)
 
     companion object {
         const val INSTANCE_STATE_KEY = "MEMORISED_EVENTS"

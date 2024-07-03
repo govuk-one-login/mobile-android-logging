@@ -1,7 +1,6 @@
 package uk.gov.logging.api.analytics.parameters
 
 import androidx.annotation.CallSuper
-import io.ktor.http.HttpStatusCode
 import uk.gov.logging.api.analytics.logging.REASON
 
 @Suppress("MaxLineLength")

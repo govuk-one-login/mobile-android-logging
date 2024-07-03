@@ -45,4 +45,24 @@ data class FormResponseParameters(
 
         return bundle
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FormResponseParameters) return false
+
+        if (name != other.name) return false
+        if (!response.contentEquals(other.response)) return false
+        if (text != other.text) return false
+        if (overrides != other.overrides) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + response.contentHashCode()
+        result = 31 * result + text.hashCode()
+        result = 31 * result + (overrides?.hashCode() ?: 0)
+        return result
+    }
 }
