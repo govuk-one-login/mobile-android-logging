@@ -22,30 +22,14 @@ In your `build.gradle.kts` files, for each module (and for each build flavor), a
 needed for example:
 
 ```kotlin
-implementation("uk.gov.logging:logging-api:0.4.2") {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
-flavorImplementation("uk.gov.logging:logging-impl:0.4.2") {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
-testImplementation("uk.gov.logging:logging-testdouble:0.4.2") {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
-androidTestImplementation("uk.gov.logging:logging-testdouble:0.4.2") {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
+// Refer to the uploaded packages for the latest version:
+// https://github.com/orgs/govuk-one-login/packages?repo_name=mobile-android-logging
+val loggingLibraryVersion: String by rootProject.extra("1.2.3")
+
+// Both `impl` and `testdouble` artifacts provide the `api` module as a gradle `api` dependency.
+implementation("uk.gov.logging:logging-impl:$loggingLibraryVersion")
+testImplementation("uk.gov.logging:logging-testdouble:$loggingLibraryVersion")
+androidTestImplementation("uk.gov.logging:logging-testdouble:$loggingLibraryVersion")
 ```
 
 ### With a version catalog (recommended)
@@ -56,41 +40,21 @@ In your root `./gradle/libs.versions.toml` file:
 
 ```toml
 [versions]
-gov-logging = "0.4.2"
+gov-logging = "1.2.3" # https://github.com/orgs/govuk-one-login/packages?repo_name=mobile-android-logging
 
 [libraries]
-gov-logging-api = { group = "uk.gov.logging", name = "logging-api", version.ref = "gov-logging"}
-gov-logging-impl = { group = "uk.gov.logging", name = "logging-impl", version.ref = "gov-logging"}
-gov-logging-testdouble = { group = "uk.gov.logging", name = "logging-testdouble", version.ref = "gov-logging"}
+uk-gov-logging-api = { module = "uk.gov.logging:logging-api", version.ref = "gov-logging"}
+uk-gov-logging-impl = { module = "uk.gov.logging:logging-impl", version.ref = "gov-logging"}
+uk-gov-logging-testdouble = { module = "uk.gov.logging:logging-testdouble", version.ref = "gov-logging"}
 ```
 
 Then in your `build.gradle.kts` files:
 
 ```kotlin
-implementation(libs.gov.logging.api) {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
-flavorImplementation(libs.gov.logging.impl) {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
-testImplementation(libs.gov.logging.testdouble) {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
-androidTestImplementation(libs.gov.logging.testdouble) {
-    artifact {
-        classifier = "release"
-        type = "aar"
-    }
-}
+// Both `impl` and `testdouble` artifacts provide the `api` module as a gradle `api` dependency.
+implementation(libs.uk.gov.logging.impl)
+testImplementation(libs.uk.gov.logging.testdouble)
+androidTestImplementation(libs.uk.gov.logging.testdouble)
 ```
 
 ## Hilt Configuration

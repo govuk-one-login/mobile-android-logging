@@ -1,7 +1,17 @@
 plugins {
     `kotlin-dsl`
+    `java-gradle-plugin`
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
+}
+
+gradlePlugin {
+    plugins {
+        register("uk.gov.publishing.config") {
+            this.id = this.name
+            implementationClass = "uk.gov.publishing.MavenPublishingConfigPlugin"
+        }
+    }
 }
 
 dependencies {

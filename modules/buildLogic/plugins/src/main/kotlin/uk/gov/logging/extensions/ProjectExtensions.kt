@@ -42,6 +42,10 @@ object ProjectExtensions {
         logger.debug("${project.path}: $messageSuffix")
     }
 
+    fun Project.infoLog(messageSuffix: String) {
+        logger.info("${project.path}: $messageSuffix")
+    }
+
     val Project.libs
         get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 }
