@@ -98,7 +98,7 @@ object MavenPublishingConfigDefaults {
     /**
      * Configures the locations to publish to:
      *
-     * - The ID Check SDK GitHub packages registry
+     * - The One Login GitHub packages registry
      * - The `project.buildDir/repo` directory for locally verifying the contents that'll upload
      *   to the GitHub packages registry.
      */
