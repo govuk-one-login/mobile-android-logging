@@ -14,7 +14,8 @@ listOf(
     "uk.gov.logging.jacoco-lib-config",
     "uk.gov.logging.jvm-toolchains",
     "uk.gov.logging.ktlint-config",
-    "uk.gov.logging.sonarqube-module-config"
+    "uk.gov.logging.sonarqube-module-config",
+    "uk.gov.publishing.config"
 ).forEach {
     project.plugins.apply(it)
 }

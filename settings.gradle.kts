@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 rootProject.name = "GDS_Android_Logging"
 
 include(
-    ":modules:api",
-    ":modules:impl",
-    ":modules:testdouble"
+    ":modules:logging-api",
+    ":modules:logging-impl",
+    ":modules:logging-testdouble"
 )
