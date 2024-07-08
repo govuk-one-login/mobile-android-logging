@@ -2,7 +2,7 @@ enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
-    includeBuild("${rootProject.projectDir}/modules/buildLogic")
+    includeBuild("${rootProject.projectDir}/mobile-android-pipelines/buildLogic")
     repositories {
         gradlePluginPortal()
         google()
