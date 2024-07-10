@@ -1,3 +1,5 @@
+import uk.gov.pipelines.config.ApkConfig
+
 buildscript {
     repositories {
         google()
@@ -6,17 +8,17 @@ buildscript {
     }
 }
 
-
-val apkConfig by rootProject.extra {
-    debugVersion = "DEBUG_VERSION"
-    /*mapOf(
-        "application.id" to "uk.gov.logging",
-        "sdk.version.min" to "29",
-        "sdk.version.target" to "33",
-        "sdk.version.compile" to "34",
-        "debug_version" to "DEBUG_VERSION"
-    )*/
-}
+val apkConfig by rootProject.extra(
+    object: ApkConfig {
+        override val applicationId: String = "uk.gov.logging"
+        override val debugVersion: String = "DEBUG_VERSION"
+        override val sdkVersions = object: ApkConfig.SdkVersions {
+            override val minimum = 29
+            override val target = 33
+            override val compile = 34
+        }
+    }
+)
 
 plugins {
     id("uk.gov.pipelines.vale-config")
