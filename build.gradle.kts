@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
 }
-
+val projectKey: String by rootProject.extra("mobile-android-logging")
 val apkConfig by rootProject.extra(
     object: ApkConfig {
         override val applicationId: String = "uk.gov.logging"
