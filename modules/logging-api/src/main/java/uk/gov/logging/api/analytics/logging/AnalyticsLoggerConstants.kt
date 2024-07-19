@@ -15,7 +15,7 @@ const val DIGITAL_IDENTITY_ID_VALUE = "digital identity"
 
 /**
  * Constant value used to identify all DCMAW events and parameters within the digital identity
- * programme across web and app. This acts as a map key for analytics events.
+ * programme across web and app. This acts as a map key for analytics events. This will be changed
  */
 const val DIGITAL_IDENTITY_JOURNEY = "di_journey"
 
