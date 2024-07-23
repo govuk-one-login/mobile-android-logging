@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
+import uk.gov.logging.api.analytics.parameters.TaxonomyLevel2
+import uk.gov.logging.api.analytics.parameters.TaxonomyLevel3
 
 internal class AnalyticsEventTest {
 
@@ -13,8 +15,8 @@ internal class AnalyticsEventTest {
         assertTrue(
             AnalyticsEvent.screenView(
                 RequiredParameters(
-                    taxonomyLevel2 = "Test digital identity id",
-                    taxonomyLevel3 = "Test journey",
+                    taxonomyLevel2 = TaxonomyLevel2.GOVUK,
+                    taxonomyLevel3 = TaxonomyLevel3.UNDEFINED,
                 )
             ).isScreenView()
         ) {
@@ -26,13 +28,13 @@ internal class AnalyticsEventTest {
     fun `verify document type and cri journey is sent correctly for a DL screen view`() {
         val event = AnalyticsEvent.screenView(
             RequiredParameters(
-                taxonomyLevel2 = "document checking application",
-                taxonomyLevel3 = "driving licence",
+                taxonomyLevel2 = TaxonomyLevel2.DOCUMENT_CHECKING_APP,
+                taxonomyLevel3 = TaxonomyLevel3.DRIVING_LICENCE_CRI,
             )
         )
 
         assertEquals(
-            "driving licence",
+            TaxonomyLevel3.DRIVING_LICENCE_CRI.value,
             event.parameters[TAXONOMY_LEVEL3]
         )
     }

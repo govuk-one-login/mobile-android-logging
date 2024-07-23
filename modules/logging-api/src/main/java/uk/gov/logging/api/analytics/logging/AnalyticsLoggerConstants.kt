@@ -4,7 +4,7 @@ import java.util.regex.Pattern
 
 /**
  * Constant value used to identify all DCMAW events and parameters within the digital identity
- * programme across web and app. This acts as a map key for analytics events. This will be changed
+ * programme across web and app. This acts as a map key for analytics events.
  */
 
 // Required parameters
@@ -29,7 +29,6 @@ const val REASON = "reason"
 const val RESPONSE = "response"
 const val STATUS = "status"
 const val TEXT = "text"
-const val TITLE = "title"
 const val TYPE = "type"
 
 val LOWER_ALPHANUMERIC_FORTY_LIMIT: Pattern = Pattern.compile("^[a-z\\d]{1,40}$")

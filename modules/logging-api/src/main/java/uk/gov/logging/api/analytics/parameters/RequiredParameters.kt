@@ -30,7 +30,6 @@ import uk.gov.logging.api.analytics.parameters.TaxonomyLevel3.UNDEFINED
  * **see also:**
  *  - [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
  *
- * @param document The type of Document that the User is scanning as part of their journey.
  */
 open class RequiredParameters(
     private val savedDocType: SavedDocType = SavedDocType.UNDEFINED,
@@ -44,12 +43,12 @@ open class RequiredParameters(
     @CallSuper
     override fun asMap(): Map<out String, Any?> {
         val bundle = mutableMapOf(
-            SAVED_DOC_TYPE to savedDocType,
-            PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation,
-            ORGANISATION to organisation,
-            TAXONOMY_LEVEL1 to taxonomyLevel1,
-            TAXONOMY_LEVEL2 to taxonomyLevel2,
-            TAXONOMY_LEVEL3 to taxonomyLevel3,
+            SAVED_DOC_TYPE to savedDocType.value,
+            PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation.value,
+            ORGANISATION to organisation.value,
+            TAXONOMY_LEVEL1 to taxonomyLevel1.value,
+            TAXONOMY_LEVEL2 to taxonomyLevel2.value,
+            TAXONOMY_LEVEL3 to taxonomyLevel3.value,
             LANGUAGE to Locale.getDefault().language
         )
         return bundle

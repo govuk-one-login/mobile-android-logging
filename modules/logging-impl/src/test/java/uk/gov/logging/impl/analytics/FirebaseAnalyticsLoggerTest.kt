@@ -17,6 +17,8 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
+import uk.gov.logging.api.analytics.parameters.TaxonomyLevel2
+import uk.gov.logging.api.analytics.parameters.TaxonomyLevel3
 import uk.gov.logging.testdouble.SystemLogger
 
 internal class FirebaseAnalyticsLoggerTest {
@@ -58,8 +60,8 @@ internal class FirebaseAnalyticsLoggerTest {
         private var logger = SystemLogger()
         private val event = AnalyticsEvent.screenView(
             RequiredParameters(
-                taxonomyLevel2 = "",
-                taxonomyLevel3 = "driving licence",
+                taxonomyLevel2 = TaxonomyLevel2.WALLET,
+                taxonomyLevel3 = TaxonomyLevel3.DRIVING_LICENCE_CRI,
             )
         )
 

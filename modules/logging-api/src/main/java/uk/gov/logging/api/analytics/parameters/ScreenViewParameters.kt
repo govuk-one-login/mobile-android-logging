@@ -18,16 +18,16 @@ import uk.gov.logging.api.analytics.logging.LOWER_SNAKE_CASE_HUNDRED_LIMIT
  * - See [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
  * - [Manually track screen view events](https://firebase.google.com/docs/analytics/screenviews#manually_track_screens)
  *
- * @param screenClass The backend identifier of the screen. This is most commonly the fragment name.
- * Must be under 40 characters in length. This class internally handles the lower casing of the
+ * @param clazz The backend identifier of the screen. This is most commonly the fragment name.
+ * Must be under 100 characters in length. This class internally handles the lower casing of the
  * String.
- * @param name Unique name for each app screen, irrespective of the [screenClass] used to
- * identify pathways in the user journey. Must be `UPPER_SNAKE_CASE` and under 40 characters in
- * length. This class internally handles the upper casing of the String.
+ * @param name Unique name for each app screen, irrespective of the [clazz] used to
+ * identify pathways in the user journey. Must be `lower_snake_case` and under 100 characters in
+ * length. This class internally handles the lower casing of the String.
+ * @param id The lower cased unique identifier used to monitor the lifecycle of a given screen
+ * irrespective of copy updates
  * @param overrides [Mapper] object that's applied after the setup specific to this class. This
  * is most often a [RequiredParameters] object.
- * @param title The frontend display title. Must be lowercase and under 100 characters in length.
- * This class internally handles the lower casing of the String.
  */
 data class ScreenViewParameters(
     private val clazz: String,
@@ -37,7 +37,7 @@ data class ScreenViewParameters(
     private val overrides: Mapper? = null
 ) : Mapper {
 
-    private val _screenClass get() = clazz.take(HUNDRED_CHAR_LIMIT)
+    private val _screenClass get() = clazz.lowercase().take(HUNDRED_CHAR_LIMIT)
     private val _screenName get() = name.lowercase().take(HUNDRED_CHAR_LIMIT)
     private val _screenId get() = id.lowercase().take(HUNDRED_CHAR_LIMIT)
     private val _eventName get() = event.lowercase()
