@@ -2,57 +2,56 @@ package uk.gov.logging.api.analytics.parameters
 
 import androidx.annotation.CallSuper
 import java.util.Locale
-import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID
-import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
-import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
-import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.ORGANISATION
-import uk.gov.logging.api.analytics.logging.ORGANISATION_VALUE
 import uk.gov.logging.api.analytics.logging.PRIMARY_PUBLISHING_ORGANISATION
-import uk.gov.logging.api.analytics.logging.PRIMARY_PUBLISHING_ORGANISATION_VALUE
+import uk.gov.logging.api.analytics.logging.SAVED_DOC_TYPE
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL1
+import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
+import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
+import uk.gov.logging.api.analytics.parameters.Organisation.OT1056
+import uk.gov.logging.api.analytics.parameters.PrimaryPublishingOrganisation.GDS_DI
+import uk.gov.logging.api.analytics.parameters.TaxonomyLevel1.ONE_LOGIN
+import uk.gov.logging.api.analytics.parameters.TaxonomyLevel3.UNDEFINED
 
 @Suppress("MaxLineLength")
 /**
  * Base class for providing values that's required for all events. These are:
  *
- * - [DIGITAL_IDENTITY_ID], optional with the default value of [DIGITAL_IDENTITY_ID_VALUE].
+ * - [SAVED_DOC_TYPE], with the value of [savedDocType]. Default [UNDEFINED]
+ * - [PRIMARY_PUBLISHING_ORGANISATION], with the value of [primaryPublishingOrganisation]. Default[GDS_DI]
+ * - [ORGANISATION], with the value of [organisation]. Default [OT1056]
+ * - [TAXONOMY_LEVEL1], with the value of [taxonomyLevel1]. Default [ONE_LOGIN]
  * - [TAXONOMY_LEVEL2], with the value of [taxonomyLevel2].
+ * - [TAXONOMY_LEVEL3], with the value of [taxonomyLevel3]. Default [UNDEFINED]
  * - [LANGUAGE], with the value of the default [Locale.getLanguage]. For english Users, this is
- *   `en`.
- * - [TAXONOMY_LEVEL3], with the value of [DocumentType.journeyType]. This only occurs
- *   when the [DocumentType] isn't [DocumentType.UNDEFINED].
+ *   `en`
  *
  * **see also:**
- * - [Implementation Guide](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3543171117/Google+Analytics+Implementation+Guide)
+ *  - [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
  *
  * @param document The type of Document that the User is scanning as part of their journey.
  */
 open class RequiredParameters(
-    private val taxonomyLevel1: String,
-    private val taxonomyLevel2: String,
-    private val taxonomyLevel3: String,
-    private val digitalIdentityId: String = DIGITAL_IDENTITY_ID_VALUE,
-    private val primaryPublishingOrganisation: String = PRIMARY_PUBLISHING_ORGANISATION_VALUE,
-    private val organisation: String = ORGANISATION_VALUE
+    private val savedDocType: SavedDocType = SavedDocType.UNDEFINED,
+    private val primaryPublishingOrganisation: PrimaryPublishingOrganisation = GDS_DI,
+    private val organisation: Organisation = OT1056,
+    private val taxonomyLevel1: TaxonomyLevel1 = ONE_LOGIN,
+    private val taxonomyLevel2: TaxonomyLevel2,
+    private val taxonomyLevel3: TaxonomyLevel3 = UNDEFINED
 ) : Mapper {
 
     @CallSuper
     override fun asMap(): Map<out String, Any?> {
         val bundle = mutableMapOf(
-            DIGITAL_IDENTITY_ID to digitalIdentityId,
-            TAXONOMY_LEVEL1 to taxonomyLevel1,
-            TAXONOMY_LEVEL2 to taxonomyLevel2,
+            SAVED_DOC_TYPE to savedDocType,
             PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation,
             ORGANISATION to organisation,
+            TAXONOMY_LEVEL1 to taxonomyLevel1,
+            TAXONOMY_LEVEL2 to taxonomyLevel2,
+            TAXONOMY_LEVEL3 to taxonomyLevel3,
             LANGUAGE to Locale.getDefault().language
         )
-
-        if (taxonomyLevel3.isNotBlank()) {
-            bundle[TAXONOMY_LEVEL3] = taxonomyLevel3
-        }
-
         return bundle
     }
 }

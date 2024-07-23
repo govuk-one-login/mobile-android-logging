@@ -41,7 +41,7 @@ data class AnalyticsEvent(
             parameters.forEach {
                 bundle.putAll(it.asMap())
             }
-            val eventName = (bundle[EVENT_NAME] as? String) ?: "screen_view"
+            val eventName = (bundle[EVENT_NAME] as? String) ?: Event.SCREEN_VIEW
 
             return AnalyticsEvent(
                 eventName,

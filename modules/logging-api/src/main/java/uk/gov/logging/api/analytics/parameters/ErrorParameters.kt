@@ -32,10 +32,3 @@ data class ErrorParameters(
         return bundle
     }
 }
-
-//sealed class ScreenClass(val name: String) {
-//    data object MODAL: ScreenClass("modal")
-//    data object SPLASH_FRAGMENT: ScreenClass("splashfragment")
-//    data object ERROR_SCREEN: ScreenClass("errorscreen")
-//    data object WEBVIEW: ScreenClass("webview")
-//}

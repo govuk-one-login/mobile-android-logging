@@ -4,7 +4,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.FORTY_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
-import uk.gov.logging.api.analytics.logging.LOWER_SNAKE_CASE_FORTY_LIMIT
+import uk.gov.logging.api.analytics.logging.LOWER_SNAKE_CASE_HUNDRED_LIMIT
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
 
@@ -58,9 +58,9 @@ data class ButtonParameters(
         require(_eventName.length <= FORTY_CHAR_LIMIT) {
             "The eventName parameter length is higher than $FORTY_CHAR_LIMIT!: ${_eventName.length}"
         }
-        require(LOWER_SNAKE_CASE_FORTY_LIMIT.matcher(_eventName).matches()) {
+        require(LOWER_SNAKE_CASE_HUNDRED_LIMIT.matcher(_eventName).matches()) {
             "The eventName parameter is not considered lower snake-cased ( " +
-                "${LOWER_SNAKE_CASE_FORTY_LIMIT.pattern()} )!: $_eventName"
+                "${LOWER_SNAKE_CASE_HUNDRED_LIMIT.pattern()} )!: $_eventName"
         }
     }
 

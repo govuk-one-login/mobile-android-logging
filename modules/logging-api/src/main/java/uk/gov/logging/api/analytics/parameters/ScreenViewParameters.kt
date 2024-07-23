@@ -6,8 +6,8 @@ import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.LOWER_ALPHANUMERIC_FORTY_LIMIT
 import uk.gov.logging.api.analytics.logging.LOWER_ALPHANUMERIC_HUNDRED_LIMIT
-import uk.gov.logging.api.analytics.logging.TITLE
-import uk.gov.logging.api.analytics.logging.UPPER_SNAKE_CASE_FORTY_LIMIT
+import uk.gov.logging.api.analytics.logging.SCREEN_ID
+import uk.gov.logging.api.analytics.logging.LOWER_SNAKE_CASE_HUNDRED_LIMIT
 
 @Suppress("MaxLineLength")
 /**
@@ -30,16 +30,17 @@ import uk.gov.logging.api.analytics.logging.UPPER_SNAKE_CASE_FORTY_LIMIT
  * This class internally handles the lower casing of the String.
  */
 data class ScreenViewParameters(
+    private val clazz: String,
     private val name: String,
-    private val clazz: ScreenClass,
     private val id: String,
     private val event: String = FirebaseAnalytics.Event.SCREEN_VIEW,
     private val overrides: Mapper? = null
 ) : Mapper {
 
+    private val _screenClass get() = clazz.take(HUNDRED_CHAR_LIMIT)
+    private val _screenName get() = name.lowercase().take(HUNDRED_CHAR_LIMIT)
+    private val _screenId get() = id.lowercase().take(HUNDRED_CHAR_LIMIT)
     private val _eventName get() = event.lowercase()
-    private val _screenClass get() = clazz.value.take(HUNDRED_CHAR_LIMIT)
-    private val _screenName get() = name.uppercase().take(HUNDRED_CHAR_LIMIT)
 
     init {
         validateScreenClass()
@@ -49,14 +50,14 @@ data class ScreenViewParameters(
     private fun validateScreenClass() {
         require(LOWER_ALPHANUMERIC_HUNDRED_LIMIT.matcher(_screenClass).matches()) {
             "The screenClass parameter is not considered to be lower-cased alphanumeric ( " +
-                "${LOWER_ALPHANUMERIC_FORTY_LIMIT.pattern()} )!: $_screenClass"
+                    "${LOWER_ALPHANUMERIC_FORTY_LIMIT.pattern()} )!: $_screenClass"
         }
     }
 
     private fun validateScreenName() {
-        require(UPPER_SNAKE_CASE_FORTY_LIMIT.matcher(_screenName).matches()) {
-            "The screenName parameter is not considered to be upper snake cased ( " +
-                "${UPPER_SNAKE_CASE_FORTY_LIMIT.pattern()} )!: $_screenName"
+        require(LOWER_SNAKE_CASE_HUNDRED_LIMIT.matcher(_screenName).matches()) {
+            "The screenName parameter is not considered to be lower snake cased ( " +
+                    "${LOWER_SNAKE_CASE_HUNDRED_LIMIT.pattern()} )!: $_screenName"
         }
     }
 
@@ -64,6 +65,7 @@ data class ScreenViewParameters(
     override fun asMap(): Map<out String, Any?> {
         val bundle = mutableMapOf<String, Any?>(
             EVENT_NAME to _eventName,
+            SCREEN_ID to _screenId,
             FirebaseAnalytics.Param.SCREEN_CLASS to _screenClass,
             FirebaseAnalytics.Param.SCREEN_NAME to _screenName,
         )
