@@ -5,22 +5,22 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
-import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY
+import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 
 internal class RequiredParametersTest {
 
     private val expectedMap = mutableMapOf(
         DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
-        DIGITAL_IDENTITY_JOURNEY to "required parameters test",
+        TAXONOMY_LEVEL2 to "required parameters test",
         LANGUAGE to Locale.getDefault().language
     )
 
     @Test
     fun `Undefined DocumentType is skipped from result`() {
         val mapper = RequiredParameters(
-            digitalIdentityJourney = "required parameters test",
-            journeyType = ""
+            taxonomyLevel2 = "required parameters test",
+            taxonomyLevel3 = "",
         )
 
         assertEquals(

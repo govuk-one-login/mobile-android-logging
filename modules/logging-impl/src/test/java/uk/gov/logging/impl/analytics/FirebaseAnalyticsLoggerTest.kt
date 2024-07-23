@@ -58,8 +58,8 @@ internal class FirebaseAnalyticsLoggerTest {
         private var logger = SystemLogger()
         private val event = AnalyticsEvent.screenView(
             RequiredParameters(
-                digitalIdentityJourney = "",
-                journeyType = "driving licence"
+                taxonomyLevel2 = "",
+                taxonomyLevel3 = "driving licence",
             )
         )
 

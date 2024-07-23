@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
-import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY
-import uk.gov.logging.api.analytics.logging.DOCUMENT_TYPE_JOURNEY_KEY
+import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
+import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
 import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.TEXT
@@ -121,9 +121,9 @@ internal class ButtonParametersTest {
 
             // RequiredParameters properties
             DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
-            DIGITAL_IDENTITY_JOURNEY to "popup event test",
+            TAXONOMY_LEVEL2 to "popup event test",
             LANGUAGE to Locale.getDefault().language,
-            DOCUMENT_TYPE_JOURNEY_KEY to "test journey"
+            TAXONOMY_LEVEL3 to "test journey"
         )
 
         val popupEventParameters = ButtonParameters(
@@ -132,8 +132,8 @@ internal class ButtonParametersTest {
             type = popUpEventName,
             action = callToActionType,
             overrides = RequiredParameters(
-                digitalIdentityJourney = "popup event test",
-                journeyType = "test journey"
+                taxonomyLevel2 = "popup event test",
+                taxonomyLevel3 = "test journey",
             )
         )
 

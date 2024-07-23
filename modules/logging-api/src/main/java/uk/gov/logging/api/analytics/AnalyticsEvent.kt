@@ -27,7 +27,7 @@ data class AnalyticsEvent(
         /**
          * Method for logging screen view analytics events.
          *
-         * See [One Login Mobile Application Data Schema V1.0](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3790995627/GA4+One+Login+Mobile+Application+Data+Schema+V1.0+amended+to+V1.1#Tracked-Events).
+         * See [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
          *
          * @param parameters Parameters sent as part of analytics event. Should include a
          * [RequiredParameters] object and additionally any other parameters objects that are
@@ -54,7 +54,7 @@ data class AnalyticsEvent(
          * navigation. Simply defers to the [screenView] method, but named differently to align with
          * the analytics specification.
          *
-         * See [One Login Mobile Application Data Schema V1.0](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3790995627/GA4+One+Login+Mobile+Application+Data+Schema+V1.0+amended+to+V1.1#Tracked-Events).
+         * See [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
          *
          * @param parameters Takes the same arguments as the [screenView] method.
          */

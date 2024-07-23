@@ -20,9 +20,8 @@ internal class ScreenViewParametersTest {
     fun `Screen class must be alphanumeric`() {
         try {
             ScreenViewParameters(
-                clazz = "snake_cased_class",
                 name = exampleScreenName,
-                title = exampleTitle
+                clazz = "snake_cased_class",
             )
             fail {
                 "The screenClass should have thrown an exception!"
@@ -41,9 +40,8 @@ internal class ScreenViewParametersTest {
     fun `Screen name must be upper snake_cased`() {
         try {
             ScreenViewParameters(
-                clazz = exampleScreenClass,
                 name = "casing-is-handled-already-for-you",
-                title = exampleTitle
+                clazz = exampleScreenClass,
             )
             fail {
                 "The screenName should have thrown an exception!"
@@ -67,9 +65,8 @@ internal class ScreenViewParametersTest {
         )
 
         val mapper = ScreenViewParameters(
-            clazz = exampleScreenClass,
             name = exampleScreenName,
-            title = exampleTitle
+            clazz = exampleScreenClass,
         )
 
         val actual = mapper.asMap()
