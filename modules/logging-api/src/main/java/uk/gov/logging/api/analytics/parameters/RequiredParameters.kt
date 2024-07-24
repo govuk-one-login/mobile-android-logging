@@ -41,16 +41,13 @@ open class RequiredParameters(
 ) : Mapper {
 
     @CallSuper
-    override fun asMap(): Map<out String, Any?> {
-        val bundle = mutableMapOf(
-            SAVED_DOC_TYPE to savedDocType.value,
-            PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation.value,
-            ORGANISATION to organisation.value,
-            TAXONOMY_LEVEL1 to taxonomyLevel1.value,
-            TAXONOMY_LEVEL2 to taxonomyLevel2.value,
-            TAXONOMY_LEVEL3 to taxonomyLevel3.value,
-            LANGUAGE to Locale.getDefault().language
-        )
-        return bundle
-    }
+    override fun asMap(): Map<out String, Any?> = mutableMapOf(
+        SAVED_DOC_TYPE to savedDocType.value,
+        PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation.value,
+        ORGANISATION to organisation.value,
+        TAXONOMY_LEVEL1 to taxonomyLevel1.value,
+        TAXONOMY_LEVEL2 to taxonomyLevel2.value,
+        TAXONOMY_LEVEL3 to taxonomyLevel3.value,
+        LANGUAGE to Locale.getDefault().language
+    )
 }
