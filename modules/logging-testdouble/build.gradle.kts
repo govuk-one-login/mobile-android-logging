@@ -1,16 +1,17 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import uk.gov.logging.config.ApkConfig
+import uk.gov.pipelines.config.ApkConfig
 
 plugins {
-    id("uk.gov.logging.android-lib-config")
+    id("uk.gov.pipelines.android-lib-config")
 }
 
 android {
     defaultConfig {
-        namespace = ApkConfig.APPLICATION_ID + ".testdouble"
-        compileSdk = ApkConfig.COMPILE_SDK_VERSION
-        minSdk = ApkConfig.MINIMUM_SDK_VERSION
-        targetSdk = ApkConfig.TARGET_SDK_VERSION
+        val apkConfig: ApkConfig by project.rootProject.extra
+        namespace = apkConfig.applicationId + ".testdouble"
+        compileSdk = apkConfig.sdkVersions.compile
+        minSdk = apkConfig.sdkVersions.minimum
+        targetSdk = apkConfig.sdkVersions.target
         testInstrumentationRunner = "uk.gov.logging.testdouble.InstrumentationTestRunner"
     }
 
