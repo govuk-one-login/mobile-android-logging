@@ -1,4 +1,9 @@
+import uk.gov.pipelines.config.ApkConfig
+
 buildscript {
+    val projectKey: String by rootProject.extra("mobile-android-logging")
+    val projectId: String by rootProject.extra("uk.gov.logging")
+
     repositories {
         google()
         gradlePluginPortal()
@@ -6,9 +11,21 @@ buildscript {
     }
 }
 
+val apkConfig by rootProject.extra(
+    object: ApkConfig {
+        override val applicationId: String = "uk.gov.logging"
+        override val debugVersion: String = "DEBUG_VERSION"
+        override val sdkVersions = object: ApkConfig.SdkVersions {
+            override val minimum = 29
+            override val target = 33
+            override val compile = 34
+        }
+    }
+)
+
 plugins {
-    id("uk.gov.logging.vale-config")
-    id("uk.gov.logging.sonarqube-root-config")
+    id("uk.gov.pipelines.vale-config")
+    id("uk.gov.pipelines.sonarqube-root-config")
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.google.services) apply false
