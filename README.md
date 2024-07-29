@@ -90,6 +90,31 @@ The packages can be found at here at [Logging Module Packages].
 
 The tags can be found at here at [Logging Module Tags].
 
+## GA4 Migration Guide
+There has been a breaking change on some of the required parameters. We support both the original
+and the new GA4. However you will need to import the correct type based on your need.
+```kotlin
+// GA4 type
+import uk.gov.logging.api.analytics.parameters.v2.RequiredParameters
+```
+```kotlin
+// Original type
+import uk.gov.logging.api.analytics.parameters.RequiredParameters
+```
+
+If you need to use both GA4 and the original one in the same file, you will need to import 
+as an alias
+```kotlin
+import uk.gov.logging.api.analytics.parameters.RequiredParameters
+import uk.gov.logging.api.analytics.parameters.v2.RequiredParameters as RequiredParametersV2
+```
+# Legacy 
+[Implementation Guide](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3543171117/Google+Analytics+Implementation+Guide)
+[One Login Mobile Application Data Schema V1.0](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3790995627/GA4+One+Login+Mobile+Application+Data+Schema+V1.0+amended+to+V1.1#Tracked-Events).
+
+# GA4
+* See [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
+
 [Logging Module Packages]: https://github.com/orgs/govuk-one-login/packages?repo_name=mobile-android-logging
 [Logging Module Tags]: https://github.com/govuk-one-login/mobile-android-logging/tags
 [Gradle Version Catalogs]: https://developer.android.com/build/migrate-to-catalogs
