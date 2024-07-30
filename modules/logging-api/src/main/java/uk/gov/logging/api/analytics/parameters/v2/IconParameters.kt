@@ -14,7 +14,7 @@ import uk.gov.logging.api.analytics.parameters.data.TypeIcon
  *
  * @param text The text that the User had interacted with to create this event, such
  * as contents of a `TextView`.
- * @param type The type of analytics event. Default TypeIcon.ICON
+ * @param type The type of analytics event
  * @param overrides [Mapper] object that's applied after the setup specific to this
  * class. This is most often a [RequiredParameters] object.
  */

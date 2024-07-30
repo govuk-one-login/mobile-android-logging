@@ -20,7 +20,7 @@ import uk.gov.logging.api.analytics.parameters.data.TypeGenericLink
  *
  * @param domain The domain of the accessed URL, such as `www.gov.uk`
  * @param external Whether the navigation is accessing a URL that's considered external
- * @param text The lowercased text displayed to the user of the hyperlink/CTA that triggered
+ * @param text The lower case text displayed to the user of the hyperlink/cta that triggered
  * a navigation event
  * @param type Defaults to TypeGenericLink.GENERIC_LINK
  * @param overrides [Mapper] object that's applied after the setup specific to this
