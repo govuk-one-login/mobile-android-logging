@@ -10,7 +10,7 @@ import org.junit.jupiter.api.fail
 import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.TITLE
 
-internal class ScreenViewParametersTest {
+class ScreenViewParametersTest {
 
     private val exampleScreenClass = this::class.java.simpleName
     private val exampleScreenName = "UNIT_TEST"

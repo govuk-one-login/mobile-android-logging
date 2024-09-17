@@ -15,7 +15,7 @@ import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
 
-internal class ButtonParametersTest {
+class ButtonParametersTest {
 
     private val exampleCallToActionText = "button text"
     private val exampleEventName = "unit_test"

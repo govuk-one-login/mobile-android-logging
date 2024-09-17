@@ -1,4 +1,4 @@
-package uk.gov.logging.api.analytics.parameters
+package uk.gov.logging.api.analytics.parameters.v2
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -7,8 +7,9 @@ import org.junit.jupiter.params.provider.ValueSource
 import uk.gov.logging.api.analytics.logging.EXTERNAL
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.LINK_DOMAIN
+import uk.gov.logging.api.analytics.parameters.ParametersTestData
 
-internal class LinkParametersTest {
+class LinkParametersTest {
 
     private val exampleDomain = "www.unit.test"
 
@@ -17,6 +18,8 @@ internal class LinkParametersTest {
         assertEquals(
             ParametersTestData.overOneHundredString.lowercase().take(HUNDRED_CHAR_LIMIT),
             LinkParameters(
+                external = false,
+                text = "cta name",
                 domain = ParametersTestData.overOneHundredString
             ).asMap().get(LINK_DOMAIN)
         )
@@ -34,6 +37,7 @@ internal class LinkParametersTest {
 
         val mapper = LinkParameters(
             domain = exampleDomain,
+            text = "cta name",
             external = isExternal
         )
 

@@ -8,7 +8,7 @@ import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_ID_VALUE
 import uk.gov.logging.api.analytics.logging.DIGITAL_IDENTITY_JOURNEY
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 
-internal class RequiredParametersTest {
+class RequiredParametersTest {
 
     private val expectedMap = mutableMapOf(
         DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,

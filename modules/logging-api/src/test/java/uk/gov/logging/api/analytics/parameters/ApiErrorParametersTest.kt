@@ -12,7 +12,7 @@ import uk.gov.logging.api.analytics.logging.STATUS
 import uk.gov.logging.api.analytics.parameters.ParametersTestData.acceptableEndpoint
 import uk.gov.logging.api.analytics.parameters.ParametersTestData.fortyTwoString
 
-internal class ApiErrorParametersTest {
+class ApiErrorParametersTest {
 
     @Test
     fun `Endpoint length must be under 40 characters`() {
