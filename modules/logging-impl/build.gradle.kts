@@ -55,16 +55,9 @@ dependencies {
     listOf(
         libs.androidx.test.core.ktx,
         libs.androidx.test.espresso.accessibility,
-        libs.androidx.test.espresso.contrib,
-        libs.androidx.test.espresso.core,
-        libs.androidx.test.espresso.intents,
-        libs.androidx.test.ext.junit.ktx,
-        libs.androidx.test.orchestrator,
         libs.androidx.test.runner,
         libs.hilt.android.testing,
         libs.junit,
-        libs.mockito.android,
-        libs.mockito.kotlin
     ).forEach {
         androidTestImplementation(it)
     }
@@ -88,7 +81,6 @@ dependencies {
         testImplementation(dependency)
     }
 
-    androidTestUtil(libs.androidx.test.orchestrator)
     api(projects.modules.loggingApi)
     kapt(libs.hilt.compiler)
     kaptAndroidTest(libs.hilt.compiler)

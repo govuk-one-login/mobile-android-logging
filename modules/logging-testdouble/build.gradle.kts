@@ -55,7 +55,6 @@ dependencies {
     listOf(
         libs.androidx.test.core.ktx,
         libs.androidx.test.espresso.accessibility,
-        libs.androidx.test.ext.junit.ktx,
         libs.androidx.test.runner,
         libs.hilt.android.testing,
         libs.junit,
@@ -80,7 +79,6 @@ dependencies {
         testImplementation(dependency)
     }
 
-    androidTestUtil(libs.androidx.test.orchestrator)
     api(projects.modules.loggingApi)
     kapt(libs.hilt.compiler)
     kaptAndroidTest(libs.hilt.compiler)

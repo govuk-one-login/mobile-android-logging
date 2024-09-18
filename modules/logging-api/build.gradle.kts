@@ -57,23 +57,6 @@ android {
 
 dependencies {
     listOf(
-        libs.androidx.test.core.ktx,
-        libs.androidx.test.espresso.accessibility,
-        libs.androidx.test.espresso.contrib,
-        libs.androidx.test.espresso.core,
-        libs.androidx.test.espresso.intents,
-        libs.androidx.test.ext.junit.ktx,
-        libs.androidx.test.orchestrator,
-        libs.androidx.test.rules,
-        libs.androidx.test.runner,
-        libs.androidx.test.uiAutomator,
-        libs.hilt.android.testing,
-        libs.mockito.kotlin
-    ).forEach {
-        androidTestImplementation(it)
-    }
-
-    listOf(
         libs.firebase.analytics,
         libs.hilt.android,
         libs.ktor.client.core,
@@ -94,12 +77,8 @@ dependencies {
         libs.hilt.compiler
     ).forEach {
         kapt(it)
-        kaptAndroidTest(it)
         kaptTest(it)
     }
-
-    androidTestUtil(libs.androidx.test.orchestrator)
-    kapt(libs.lifecycle.compiler)
 }
 
 kapt {
