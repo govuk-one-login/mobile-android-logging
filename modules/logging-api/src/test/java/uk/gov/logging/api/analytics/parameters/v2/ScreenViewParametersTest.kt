@@ -9,10 +9,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.SCREEN_ID
+import uk.gov.logging.api.analytics.parameters.data.ScreenClazz
 
 class ScreenViewParametersTest {
 
-    private val exampleScreenClass = this::class.java.simpleName
+    private val exampleScreenClass = ScreenClazz.UNDEFINED
     private val exampleScreenName = "unit_test"
     private val exampleId = "someid"
 
@@ -42,7 +43,7 @@ class ScreenViewParametersTest {
         try {
             ScreenViewParameters(
                 name = "CASING-IS-HANDLED-ALREADY-FOR-YOU",
-                clazz = exampleScreenClass,
+                clazz = exampleScreenClass.value,
                 id = exampleId
             )
             fail {
@@ -62,13 +63,13 @@ class ScreenViewParametersTest {
         val expectedMap = mutableMapOf<String, Any?>(
             EVENT_NAME to SCREEN_VIEW,
             SCREEN_ID to exampleId,
-            SCREEN_CLASS to exampleScreenClass.lowercase(),
+            SCREEN_CLASS to exampleScreenClass.value.lowercase(),
             SCREEN_NAME to exampleScreenName.lowercase(),
         )
 
         val mapper = ScreenViewParameters(
             name = exampleScreenName,
-            clazz = exampleScreenClass,
+            clazz = exampleScreenClass.value,
             id = exampleId
         )
 

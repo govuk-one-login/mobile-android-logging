@@ -9,6 +9,7 @@ import uk.gov.logging.api.analytics.logging.LOWER_ALPHANUMERIC_HUNDRED_LIMIT
 import uk.gov.logging.api.analytics.logging.SCREEN_ID
 import uk.gov.logging.api.analytics.logging.LOWER_SNAKE_CASE_HUNDRED_LIMIT
 import uk.gov.logging.api.analytics.parameters.Mapper
+import uk.gov.logging.api.analytics.parameters.data.ScreenClazz
 
 @Suppress("MaxLineLength")
 /**
@@ -19,7 +20,8 @@ import uk.gov.logging.api.analytics.parameters.Mapper
  * - See [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
  * - [Manually track screen view events](https://firebase.google.com/docs/analytics/screenviews#manually_track_screens)
  *
- * @param clazz The backend identifier of the screen. This is most commonly the fragment name.
+ * @param clazz field used to categorise pages that is `modal`, `splashfragment`, `errorscreen`
+ * There is an enum [ScreenClazz] that holds the v3.1 provided values
  * Must be under 100 characters in length. This class internally handles the lower casing of the
  * String.
  * @param name Unique name for each app screen, irrespective of the [clazz] used to
@@ -31,7 +33,7 @@ import uk.gov.logging.api.analytics.parameters.Mapper
  * is most often a [RequiredParameters] object.
  */
 data class ScreenViewParameters(
-    private val clazz: String,
+    private val clazz: String = ScreenClazz.UNDEFINED.value,
     private val name: String,
     private val id: String,
     private val event: String = FirebaseAnalytics.Event.SCREEN_VIEW,
