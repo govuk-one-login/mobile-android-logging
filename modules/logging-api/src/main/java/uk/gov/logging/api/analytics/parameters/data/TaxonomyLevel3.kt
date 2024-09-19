@@ -6,5 +6,7 @@ enum class TaxonomyLevel3(val value: String) {
     BRP_CRI("brp cri"),
     BROWSE_WALLET("browse wallet"),
     VIEW_CREDENTIAL("view credential"),
+    SIGN_IN("sign in"),
+    RE_AUTH("re auth"),
     UNDEFINED("undefined")
 }
