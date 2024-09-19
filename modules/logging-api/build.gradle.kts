@@ -67,8 +67,11 @@ dependencies {
 
     listOf(
         libs.hilt.android.testing,
-        libs.junit,
-        libs.junit.jupiter
+        kotlin("test"),
+        libs.junit.jupiter,
+        libs.junit.jupiter.params,
+        libs.junit.jupiter.engine,
+        platform(libs.junit.bom),
     ).forEach { dependency ->
         testImplementation(dependency)
     }
