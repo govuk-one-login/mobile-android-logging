@@ -1,4 +1,4 @@
-package uk.gov.logging.api.analytics.parameters.v2
+package uk.gov.logging.api.analytics.parameters
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_CLASS
@@ -8,21 +8,21 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 import uk.gov.logging.api.analytics.logging.EVENT_NAME
-import uk.gov.logging.api.analytics.logging.SCREEN_ID
+import uk.gov.logging.api.analytics.logging.TITLE
 
-internal class ScreenViewParametersTest {
+class ScreenViewParametersTest {
 
     private val exampleScreenClass = this::class.java.simpleName
-    private val exampleScreenName = "unit_test"
-    private val exampleId = "someid"
+    private val exampleScreenName = "UNIT_TEST"
+    private val exampleTitle = "This is a unit test"
 
     @Test
     fun `Screen class must be alphanumeric`() {
         try {
             ScreenViewParameters(
-                name = exampleScreenName,
                 clazz = "snake_cased_class",
-                id = exampleId
+                name = exampleScreenName,
+                title = exampleTitle
             )
             fail {
                 "The screenClass should have thrown an exception!"
@@ -38,12 +38,12 @@ internal class ScreenViewParametersTest {
     }
 
     @Test
-    fun `Screen name must be lower snake_cased`() {
+    fun `Screen name must be upper snake_cased`() {
         try {
             ScreenViewParameters(
-                name = "CASING-IS-HANDLED-ALREADY-FOR-YOU",
                 clazz = exampleScreenClass,
-                id = exampleId
+                name = "casing-is-handled-already-for-you",
+                title = exampleTitle
             )
             fail {
                 "The screenName should have thrown an exception!"
@@ -51,7 +51,7 @@ internal class ScreenViewParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertTrue(
                 exception.message!!.startsWith(
-                    "The screenName parameter is not considered to be lower snake cased"
+                    "The screenName parameter is not considered to be upper snake cased"
                 )
             )
         }
@@ -61,15 +61,15 @@ internal class ScreenViewParametersTest {
     fun `Verify map output`() {
         val expectedMap = mutableMapOf<String, Any?>(
             EVENT_NAME to SCREEN_VIEW,
-            SCREEN_ID to exampleId,
             SCREEN_CLASS to exampleScreenClass.lowercase(),
-            SCREEN_NAME to exampleScreenName.lowercase(),
+            SCREEN_NAME to exampleScreenName.uppercase(),
+            TITLE to exampleTitle.lowercase()
         )
 
         val mapper = ScreenViewParameters(
-            name = exampleScreenName,
             clazz = exampleScreenClass,
-            id = exampleId
+            name = exampleScreenName,
+            title = exampleTitle
         )
 
         val actual = mapper.asMap()

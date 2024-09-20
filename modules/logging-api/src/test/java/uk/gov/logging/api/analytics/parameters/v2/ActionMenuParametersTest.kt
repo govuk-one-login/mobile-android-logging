@@ -7,9 +7,9 @@ import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
-import uk.gov.logging.api.analytics.parameters.data.TypeSubmitForm
+import uk.gov.logging.api.analytics.parameters.data.TypeActionMenu
 
-internal class ButtonParametersTest {
+class ActionMenuParametersTest {
 
     private val exampleCallToActionText = "button text"
 
@@ -17,9 +17,9 @@ internal class ButtonParametersTest {
     fun `text is truncated to be 100 characters or less`() {
         assertEquals(
             ParametersTestData.overOneHundredString.lowercase().take(HUNDRED_CHAR_LIMIT),
-            ButtonParameters(
+            ActionMenuParameters(
                 text = ParametersTestData.overOneHundredString,
-                type = TypeSubmitForm.SUBMIT_FORM,
+                type = TypeActionMenu.ACTION_MENU,
                 overrides = RequiredParameters(
                     taxonomyLevel2 = TaxonomyLevel2.GOVUK
                 )
@@ -31,12 +31,12 @@ internal class ButtonParametersTest {
     fun `Match output map`() {
         val expectedMap = mutableMapOf<String, Any?>(
             TEXT to exampleCallToActionText.lowercase(),
-            TYPE to "submit form"
+            TYPE to TypeActionMenu.ACTION_MENU.value
         )
 
-        val mapper = ButtonParameters(
+        val mapper = ActionMenuParameters(
             text = exampleCallToActionText,
-            type = TypeSubmitForm.SUBMIT_FORM,
+            type = TypeActionMenu.ACTION_MENU,
             overrides = RequiredParameters(
                 taxonomyLevel2 = TaxonomyLevel2.GOVUK
             )

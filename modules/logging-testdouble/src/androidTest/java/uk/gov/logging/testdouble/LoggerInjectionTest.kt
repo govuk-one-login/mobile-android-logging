@@ -1,18 +1,15 @@
 package uk.gov.logging.testdouble
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import javax.inject.Inject
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import uk.gov.logging.api.CrashLogger
 import uk.gov.logging.api.Logger
 
 @HiltAndroidTest
-@RunWith(AndroidJUnit4::class)
 class LoggerInjectionTest {
 
     @get:Rule

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import uk.gov.logging.api.analytics.logging.RESPONSE
 import uk.gov.logging.api.analytics.logging.TEXT
 
-internal class FormResponseParametersTest {
+class FormResponseParametersTest {
 
     private val exampleText = "option text"
     private val exampleResponse = arrayOf("option text")

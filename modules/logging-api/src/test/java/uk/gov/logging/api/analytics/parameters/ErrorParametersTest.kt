@@ -11,7 +11,7 @@ import uk.gov.logging.api.analytics.logging.STATUS
 import uk.gov.logging.api.analytics.parameters.ParametersTestData.acceptableEndpoint
 import uk.gov.logging.api.analytics.parameters.ParametersTestData.overOneHundredString
 
-internal class ErrorParametersTest {
+class ErrorParametersTest {
     @Test
     fun `Converts into a Map of String keys`() {
         val expectedMap = mutableMapOf<String, Any?>(

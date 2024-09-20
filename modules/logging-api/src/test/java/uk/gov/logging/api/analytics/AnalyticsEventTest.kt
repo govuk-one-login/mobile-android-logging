@@ -10,7 +10,7 @@ import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 
-internal class AnalyticsEventTest {
+class AnalyticsEventTest {
 
     @Test
     fun `V1 differentiate between screen views and navigation views`() {

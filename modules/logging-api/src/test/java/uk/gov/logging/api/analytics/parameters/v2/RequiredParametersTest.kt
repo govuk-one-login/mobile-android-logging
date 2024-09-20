@@ -17,7 +17,7 @@ import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 
-internal class RequiredParametersTest {
+class RequiredParametersTest {
 
     private val expectedMap = mutableMapOf(
         SAVED_DOC_TYPE to SavedDocType.UNDEFINED.value,

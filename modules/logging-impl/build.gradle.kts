@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
+    val apkConfig: ApkConfig by project.rootProject.extra
     defaultConfig {
-        val apkConfig: ApkConfig by project.rootProject.extra
         namespace = apkConfig.applicationId + ".impl"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
-        targetSdk = apkConfig.sdkVersions.target
+
         testInstrumentationRunner = "uk.gov.logging.impl.InstrumentationTestRunner"
     }
 
@@ -31,7 +31,9 @@ android {
         }
     }
 
+    @Suppress("UnstableApiUsage")
     testOptions {
+        targetSdk = apkConfig.sdkVersions.target
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
@@ -54,12 +56,7 @@ android {
 dependencies {
     listOf(
         libs.androidx.test.core.ktx,
-        libs.androidx.test.espresso.accessibility,
-        libs.androidx.test.espresso.contrib,
-        libs.androidx.test.espresso.core,
-        libs.androidx.test.espresso.intents,
-        libs.androidx.test.ext.junit.ktx,
-        libs.androidx.test.orchestrator,
+        libs.androidx.test.ext.junit,
         libs.androidx.test.runner,
         libs.hilt.android.testing,
         libs.junit,
@@ -80,15 +77,18 @@ dependencies {
 
     listOf(
         libs.hilt.android.testing,
-        libs.junit,
+        kotlin("test"),
         libs.junit.jupiter,
+        libs.junit.jupiter.params,
+        libs.junit.jupiter.engine,
+        platform(libs.junit.bom),
         libs.mockito.kotlin,
         projects.modules.loggingTestdouble
     ).forEach { dependency ->
         testImplementation(dependency)
     }
 
-    androidTestUtil(libs.androidx.test.orchestrator)
+    androidTestUtil(libs.androidx.orchestrator)
     api(projects.modules.loggingApi)
     kapt(libs.hilt.compiler)
     kaptAndroidTest(libs.hilt.compiler)
