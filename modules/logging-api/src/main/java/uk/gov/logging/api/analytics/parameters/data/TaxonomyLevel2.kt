@@ -5,4 +5,5 @@ enum class TaxonomyLevel2(val value: String) {
     WALLET("wallet"),
     LOGIN("login"),
     GOVUK("govuk"),
+    APP_SYSTEM("app system"),
 }

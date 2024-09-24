@@ -1,10 +1,8 @@
 package uk.gov.logging.api.analytics.parameters.v2
 
-import java.util.Locale
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.Test
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
-import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.ORGANISATION
 import uk.gov.logging.api.analytics.logging.PRIMARY_PUBLISHING_ORGANISATION
 import uk.gov.logging.api.analytics.logging.SAVED_DOC_TYPE
@@ -19,15 +17,15 @@ import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 
 class RequiredParametersTest {
 
-    private val expectedMap = mutableMapOf(
+    private val expectedMap = mapOf(
         SAVED_DOC_TYPE to SavedDocType.UNDEFINED.value,
         PRIMARY_PUBLISHING_ORGANISATION to GDS_DI.value,
         ORGANISATION to OT1056.value,
         TAXONOMY_LEVEL1 to ONE_LOGIN.value,
         TAXONOMY_LEVEL2 to TaxonomyLevel2.DOCUMENT_CHECKING_APP.value,
         TAXONOMY_LEVEL3 to TaxonomyLevel3.UNDEFINED.value,
-        LANGUAGE to Locale.getDefault().language
     )
+
     @Test
     fun `Required Parameters present in the result`() {
         val mapper = RequiredParameters(

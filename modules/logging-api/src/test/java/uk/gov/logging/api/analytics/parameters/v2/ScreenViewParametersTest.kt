@@ -1,90 +1,91 @@
 package uk.gov.logging.api.analytics.parameters.v2
 
-import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_CLASS
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_NAME
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.fail
-import uk.gov.logging.api.analytics.logging.EVENT_NAME
+import org.junit.Assert.assertArrayEquals
+import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
+import kotlin.test.assertEquals
+import kotlin.test.Test
 import uk.gov.logging.api.analytics.logging.SCREEN_ID
-import uk.gov.logging.api.analytics.parameters.data.ScreenClazz
+import uk.gov.logging.api.analytics.parameters.ParametersTestData
+import kotlin.test.assertContains
 
 class ScreenViewParametersTest {
-
-    private val exampleScreenClass = ScreenClazz.UNDEFINED
     private val exampleScreenName = "unit_test"
     private val exampleId = "someid"
 
     @Test
-    fun `Screen class must be alphanumeric`() {
-        try {
-            ScreenViewParameters(
-                name = exampleScreenName,
-                clazz = "snake_cased_class",
-                id = exampleId
-            )
-            fail {
-                "The screenClass should have thrown an exception!"
-            }
-        } catch (exception: IllegalArgumentException) {
-            assertTrue(
-                exception.message!!.startsWith(
-                    "The screenClass parameter is not considered to be lower-cased " +
-                        "alphanumeric"
-                )
-            )
-        }
+    fun `screen id parameter value is truncated to be 100 characters or less`() {
+        // Given ScreenViewParameters with screen id longer than 100 characters
+        val parameters = ScreenViewParameters(
+            name = exampleScreenName,
+            id = ParametersTestData.overOneHundredString
+        )
+        val actual = parameters.asMap()[SCREEN_ID]
+        // Then the screen id value is truncated to be 100 characters or less
+        assertEquals(
+            expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT),
+            actual = actual
+        )
     }
 
     @Test
-    fun `Screen name must be lower snake_cased`() {
-        try {
-            ScreenViewParameters(
-                name = "CASING-IS-HANDLED-ALREADY-FOR-YOU",
-                clazz = exampleScreenClass.value,
-                id = exampleId
-            )
-            fail {
-                "The screenName should have thrown an exception!"
-            }
-        } catch (exception: IllegalArgumentException) {
-            assertTrue(
-                exception.message!!.startsWith(
-                    "The screenName parameter is not considered to be lower snake cased"
-                )
-            )
-        }
+    fun `screen name parameter value is truncated to be 100 characters or less`() {
+        // Given ScreenViewParameters with screen name longer than 100 characters
+        val parameters = ScreenViewParameters(
+            name = ParametersTestData.overOneHundredString,
+            id = exampleId
+        )
+        val actual = parameters.asMap()[SCREEN_NAME]
+        // Then the screen name value is truncated to be 100 characters or less
+        assertEquals(
+            expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT),
+            actual = actual
+        )
     }
 
     @Test
     fun `Verify map output`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            EVENT_NAME to SCREEN_VIEW,
+        val expectedMap: Map<String, Any?> = mapOf(
             SCREEN_ID to exampleId,
-            SCREEN_CLASS to exampleScreenClass.value.lowercase(),
+            SCREEN_CLASS to exampleId,
             SCREEN_NAME to exampleScreenName.lowercase(),
         )
 
         val mapper = ScreenViewParameters(
             name = exampleScreenName,
-            clazz = exampleScreenClass.value,
             id = exampleId
         )
 
         val actual = mapper.asMap()
 
-        Assertions.assertArrayEquals(
+        assertArrayEquals(
             expectedMap.keys.toTypedArray(),
             actual.keys.toTypedArray()
         )
 
         expectedMap.forEach { (key, value) ->
-            Assertions.assertEquals(
+            assertEquals(
                 value,
                 actual[key]
             )
         }
+    }
+
+    @Test
+    fun `has required keys`() {
+        // Given ScreenViewParameters
+        val parameters = ScreenViewParameters(
+            name = exampleScreenName,
+            id = exampleId
+        )
+        // Then ScreenId and ScreenClass, and ScreenName parameters are set
+        requiredKeys.forEach { expectedKey ->
+            assertContains(parameters.asMap().toMap(), expectedKey)
+        }
+    }
+
+    companion object {
+        private val requiredKeys = listOf(SCREEN_ID, SCREEN_CLASS, SCREEN_NAME)
     }
 }
