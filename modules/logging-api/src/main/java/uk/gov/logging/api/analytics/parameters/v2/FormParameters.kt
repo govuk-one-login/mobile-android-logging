@@ -10,7 +10,7 @@ import uk.gov.logging.api.analytics.parameters.data.Type
 /**
  * Data class to build the key value parameter pairs required for the TrackEventForm AnalyticsEvent.
  * Use TrackEventForm o monitor the number of times users respond to questions in a
- * standard screen form i.e. checkboxes.
+ * standard screen form.
  *
  * @param text The text that the User had interacted with to create this event
  * @param response the answer to a call to action

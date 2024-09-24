@@ -11,7 +11,6 @@ import uk.gov.logging.api.analytics.parameters.data.Type
 import kotlin.test.assertContains
 
 class ActionMenuParametersTest {
-
     private val exampleCallToActionText = "button text"
 
     @Test

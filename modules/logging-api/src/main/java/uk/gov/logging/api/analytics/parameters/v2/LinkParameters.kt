@@ -12,7 +12,7 @@ import uk.gov.logging.api.analytics.parameters.data.Type
 /**
  * Data class to build the key value parameter pairs required for the TrackEventLink AnalyticsEvent.
  * Use TrackEventLink to monitor the number of times users interact with links in the app.
- * This includes all link type i.e. buttons and hyperlinked text.
+ * This includes all link type.
  *
  * **see also:**
  * - https://govukverify.atlassian.net/wiki/spaces/PI/pages/3790995627/GA4+One+Login+Mobile+Application+Data+Schema+V3.1

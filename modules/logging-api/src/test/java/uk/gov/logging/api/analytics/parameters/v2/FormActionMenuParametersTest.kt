@@ -28,7 +28,7 @@ class FormActionMenuParametersTest {
 
     @Test
     fun `response parameter value is truncated to be 100 characters or less`() {
-        // Given FormActionMenuParameters with domain longer than 100 characters
+        // Given FormActionMenuParameters with response longer than 100 characters
         val parameters = FormActionMenuParameters(
             text = "Test Button",
             response = ParametersTestData.overOneHundredString

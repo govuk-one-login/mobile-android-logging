@@ -16,7 +16,7 @@ class ScreenViewParametersTest {
 
     @Test
     fun `screen id parameter value is truncated to be 100 characters or less`() {
-        // Given ScreenViewParameters with text longer than 100 characters
+        // Given ScreenViewParameters with screen id longer than 100 characters
         val parameters = ScreenViewParameters(
             name = exampleScreenName,
             id = ParametersTestData.overOneHundredString
@@ -31,7 +31,7 @@ class ScreenViewParametersTest {
 
     @Test
     fun `screen name parameter value is truncated to be 100 characters or less`() {
-        // Given ScreenViewParameters with text longer than 100 characters
+        // Given ScreenViewParameters with screen name longer than 100 characters
         val parameters = ScreenViewParameters(
             name = ParametersTestData.overOneHundredString,
             id = exampleId

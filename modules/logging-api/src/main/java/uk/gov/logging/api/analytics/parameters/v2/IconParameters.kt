@@ -9,7 +9,7 @@ import uk.gov.logging.api.analytics.parameters.data.Type
 /**
  * Data class to build the key value parameter pairs required for the TrackEventIcon AnalyticsEvent.
  * Use TrackEventIcon to monitor the number of times users interact with icons in the app
- * that trigger actions in the app i.e. ellipses or circle encased crossed to close.
+ * that trigger actions in the app.
  *
  * @param text The text that the User had interacted with to create this event
  * @param overrides [Mapper] object that's applied after the setup specific to this

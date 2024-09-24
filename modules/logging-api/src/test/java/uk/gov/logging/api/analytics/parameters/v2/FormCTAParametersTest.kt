@@ -28,7 +28,7 @@ class FormCTAParametersTest {
 
     @Test
     fun `response parameter value is truncated to be 100 characters or less`() {
-        // Given FormCTAParameters with domain longer than 100 characters
+        // Given FormCTAParameters with response longer than 100 characters
         val parameters = FormCTAParameters(
             text = "Test Button",
             response = ParametersTestData.overOneHundredString

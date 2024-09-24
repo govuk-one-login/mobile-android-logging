@@ -34,7 +34,7 @@ class LinkParametersTest {
     }
 
     @Test
-    fun `Domain length is truncated to be 100 characters or less`() {
+    fun `domain parameter value is truncated to be 100 characters or less`() {
         // Given LinkParameters with domain longer than 100 characters
         val parameters = LinkParameters(
             isExternal = false,
