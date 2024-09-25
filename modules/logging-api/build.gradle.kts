@@ -10,12 +10,11 @@ android {
         buildConfig = true
     }
 
+    val apkConfig: ApkConfig by project.rootProject.extra
     defaultConfig {
-        val apkConfig: ApkConfig by project.rootProject.extra
         namespace = apkConfig.applicationId + ".api"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
-        targetSdk = apkConfig.sdkVersions.target
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,8 +33,9 @@ android {
             enableUnitTestCoverage = true
         }
     }
-
+    @Suppress("UnstableApiUsage")
     testOptions {
+        targetSdk = apkConfig.sdkVersions.target
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
