@@ -3,8 +3,8 @@ package uk.gov.logging.api.v3dot1.model
 import uk.gov.logging.api.analytics.parameters.Mapper
 
 /**
- * eventType [String] The event name.
- * parameters [RequiredParameters] shared parameters that are not specific to this
+ * `eventType` [String] The event name.
+ * `parameters` [RequiredParameters] shared parameters that aren't specific to this
  * event.
  *
  * @see RequiredParameters for the parameters required for any event.

@@ -13,9 +13,9 @@ private val Context.englishConfiguration: Configuration
  * Extension function to get the English versions of resource strings regardless of the language
  * the user's device is in.
  *
- * When using getEnString in OneLogin only the resources id was returned,
- * hence why a new method has been created. Unsure of how or why the original issue exists as
- * it is used extensively in the id-check project.
+ * When using getEnString in One Login the resources id is returned,
+ * hence a new method has been created. Unsure of how or why the original issue exists as
+ * it's used extensively in the id-check project.
  *
  * @param id String resource ID.
  * @param formatArgs Any additional arguments to format the string.

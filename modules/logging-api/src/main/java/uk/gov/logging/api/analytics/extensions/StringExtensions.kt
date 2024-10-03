@@ -14,6 +14,6 @@ fun String.md5(): String = MessageDigest.getInstance("MD5")
     .toHex()
 
 /**
- * @return the domain (host) section of a String URL using Android's [Uri] class
+ * @return the domain (host) section of a String URL
  */
 val String.domain: String get() = Uri.parse(this).host.orEmpty()
