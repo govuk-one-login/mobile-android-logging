@@ -57,6 +57,19 @@ android {
 
 dependencies {
     listOf(
+        kotlin("test"),
+        libs.androidx.test.core.ktx,
+        libs.androidx.test.ext.junit,
+        libs.androidx.test.runner,
+        libs.hilt.android.testing,
+        libs.junit,
+        libs.mockito.android,
+        libs.mockito.kotlin
+    ).forEach {
+        androidTestImplementation(it)
+    }
+
+    listOf(
         libs.firebase.analytics,
         libs.hilt.android,
         libs.ktor.client.core,
@@ -81,7 +94,10 @@ dependencies {
     ).forEach {
         kapt(it)
         kaptTest(it)
+        kaptAndroidTest(it)
     }
+
+    androidTestUtil(libs.androidx.orchestrator)
 }
 
 kapt {
