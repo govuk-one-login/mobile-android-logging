@@ -1,5 +1,6 @@
 package uk.gov.logging.api.analytics.extensions
 
+import android.net.Uri
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
@@ -11,3 +12,8 @@ import java.security.MessageDigest
 fun String.md5(): String = MessageDigest.getInstance("MD5")
     .digest(this.toByteArray(StandardCharsets.UTF_8))
     .toHex()
+
+/**
+ * @return the domain (host) section of a String URL using Android's [Uri] class
+ */
+val String.domain: String get() = Uri.parse(this).host.orEmpty()
