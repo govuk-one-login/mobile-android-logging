@@ -1,4 +1,4 @@
-package uk.gov.logging.api.analytics.parameters.v2
+package uk.gov.logging.api.v3dot1.model
 
 import kotlin.test.assertEquals
 import kotlin.test.Test
@@ -36,6 +36,13 @@ class RequiredParametersTest {
         assertEquals(
             expectedMap,
             mapper.asMap()
+        )
+    }
+
+    companion object {
+        val requiredKeys = listOf(
+            SAVED_DOC_TYPE, PRIMARY_PUBLISHING_ORGANISATION, ORGANISATION,
+            TAXONOMY_LEVEL1, TAXONOMY_LEVEL2, TAXONOMY_LEVEL3
         )
     }
 }

@@ -1,4 +1,4 @@
-package uk.gov.logging.api.analytics.parameters.v2
+package uk.gov.logging.api.v3dot1.model
 
 import kotlin.test.assertEquals
 import kotlin.test.Test
@@ -8,23 +8,22 @@ import uk.gov.logging.api.analytics.logging.TYPE
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.Type
+import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
 import kotlin.test.assertContains
 
-class IconParametersTest {
-
-    private val exampleCallToActionText = "button text"
+class IconTest {
+    private val exampleText = "button text"
+    private val required = RequiredParameters(taxonomyLevel2 = TaxonomyLevel2.GOVUK)
 
     @Test
-    fun `text parameter value is truncated to be 100 characters or less`() {
-        // Given IconParameters with text longer than 100 characters
-        val parameters = IconParameters(
+    fun `parameter values are truncated to be 100 characters or less`() {
+        // Given a TrackEvent.Icon with parameter values longer than 100 characters
+        val parameters = TrackEvent.Icon(
             text = ParametersTestData.overOneHundredString,
-            overrides = RequiredParameters(
-                taxonomyLevel2 = TaxonomyLevel2.GOVUK
-            )
+            params = required
         )
         val actual = parameters.asMap()[TEXT]
-        // Then the text value is truncated to be 100 characters or less
+        // Then truncate to 100 characters or less the parameters' values
         assertEquals(
             expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT),
             actual = actual
@@ -34,18 +33,16 @@ class IconParametersTest {
     @Test
     fun `Match output map`() {
         val expectedMap = mutableMapOf<String, Any?>(
-            TEXT to exampleCallToActionText.lowercase(),
+            TEXT to exampleText.lowercase(),
             TYPE to Type.Icon.value
         )
 
-        val mapper = IconParameters(
-            text = exampleCallToActionText,
-            overrides = RequiredParameters(
-                taxonomyLevel2 = TaxonomyLevel2.GOVUK
-            )
+        val event = TrackEvent.Icon(
+            text = exampleText,
+            params = required
         )
 
-        val actual = mapper.asMap()
+        val actual = event.asMap()
 
         expectedMap.forEach { (key, value) ->
             assertEquals(
@@ -57,17 +54,21 @@ class IconParametersTest {
 
     @Test
     fun `has required keys`() {
-        // Given IconParameters
-        val parameters = IconParameters(
-            text = "Test Button"
+        // Given TrackEvent.Icon
+        val event = TrackEvent.Icon(
+            text = exampleText,
+            params = required
         )
         // Then both Text and Type parameters should be set
+        iconKeys.forEach { expectedKey ->
+            assertContains(event.asMap().toMap(), expectedKey)
+        }
         requiredKeys.forEach { expectedKey ->
-            assertContains(parameters.asMap().toMap(), expectedKey)
+            assertContains(event.asMap().toMap(), expectedKey)
         }
     }
 
     companion object {
-        private val requiredKeys = listOf(TEXT, TYPE)
+        private val iconKeys = listOf(TEXT, TYPE)
     }
 }

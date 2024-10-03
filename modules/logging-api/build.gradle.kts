@@ -85,6 +85,7 @@ dependencies {
         libs.junit.jupiter.params,
         libs.junit.jupiter.engine,
         platform(libs.junit.bom),
+        libs.mockito.kotlin
     ).forEach { dependency ->
         testImplementation(dependency)
     }
