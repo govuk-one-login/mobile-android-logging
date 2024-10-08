@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="translatable_string">English</string>
+    <string name="openIdConnectBaseUrl" translatable="false">https://auth-stub.mobile.build.account.gov.uk%1$s</string>
+</resources>

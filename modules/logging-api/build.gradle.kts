@@ -10,12 +10,11 @@ android {
         buildConfig = true
     }
 
+    val apkConfig: ApkConfig by project.rootProject.extra
     defaultConfig {
-        val apkConfig: ApkConfig by project.rootProject.extra
         namespace = apkConfig.applicationId + ".api"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
-        targetSdk = apkConfig.sdkVersions.target
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,8 +33,9 @@ android {
             enableUnitTestCoverage = true
         }
     }
-
+    @Suppress("UnstableApiUsage")
     testOptions {
+        targetSdk = apkConfig.sdkVersions.target
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
@@ -57,6 +57,19 @@ android {
 
 dependencies {
     listOf(
+        kotlin("test"),
+        libs.androidx.test.core.ktx,
+        libs.androidx.test.ext.junit,
+        libs.androidx.test.runner,
+        libs.hilt.android.testing,
+        libs.junit,
+        libs.mockito.android,
+        libs.mockito.kotlin
+    ).forEach {
+        androidTestImplementation(it)
+    }
+
+    listOf(
         libs.firebase.analytics,
         libs.hilt.android,
         libs.ktor.client.core,
@@ -72,6 +85,7 @@ dependencies {
         libs.junit.jupiter.params,
         libs.junit.jupiter.engine,
         platform(libs.junit.bom),
+        libs.mockito.kotlin
     ).forEach { dependency ->
         testImplementation(dependency)
     }
@@ -81,7 +95,10 @@ dependencies {
     ).forEach {
         kapt(it)
         kaptTest(it)
+        kaptAndroidTest(it)
     }
+
+    androidTestUtil(libs.androidx.orchestrator)
 }
 
 kapt {

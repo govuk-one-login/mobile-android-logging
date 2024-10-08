@@ -1,4 +1,4 @@
-package uk.gov.logging.api.analytics.parameters.v2
+package uk.gov.logging.api.v3dot1.model
 
 import kotlin.test.assertEquals
 import kotlin.test.Test
@@ -10,43 +10,30 @@ import uk.gov.logging.api.analytics.logging.LINK_DOMAIN
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
+import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.Type
+import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
 import kotlin.test.assertContains
 
-class LinkParametersTest {
-
+class LinkTest {
     private val exampleDomain = "www.unit.test"
+    private val required = RequiredParameters(taxonomyLevel2 = TaxonomyLevel2.GOVUK)
 
     @Test
-    fun `text parameter value is truncated to be 100 characters or less`() {
-        // Given LinkParameters with text longer than 100 characters
-        val parameters = LinkParameters(
+    fun `parameter values are truncated to be 100 characters or less`() {
+        // Given a TrackEvent.Link with parameter values longer than 100 characters
+        val event = TrackEvent.Link(
             isExternal = false,
             text = ParametersTestData.overOneHundredString,
-            domain = exampleDomain
+            domain = ParametersTestData.overOneHundredString,
+            params = required
         )
-        val actual = parameters.asMap()[TEXT]
-        // Then the text value is truncated to be 100 characters or less
-        assertEquals(
-            expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT),
-            actual = actual
-        )
-    }
-
-    @Test
-    fun `domain parameter value is truncated to be 100 characters or less`() {
-        // Given LinkParameters with domain longer than 100 characters
-        val parameters = LinkParameters(
-            isExternal = false,
-            text = "cta name",
-            domain = ParametersTestData.overOneHundredString
-        )
-        val actual = parameters.asMap()[LINK_DOMAIN]
-        // Then the domain value is truncated to be 100 characters or less
-        assertEquals(
-            expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT),
-            actual = actual
-        )
+        val actualText = event.asMap()[TEXT]
+        val actualDomain = event.asMap()[LINK_DOMAIN]
+        // Then truncate to 100 characters or less the parameters' values
+        val expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT)
+        assertEquals(expected, actualText)
+        assertEquals(expected, actualDomain)
     }
 
     @ParameterizedTest
@@ -60,13 +47,14 @@ class LinkParametersTest {
             TYPE to Type.Link.value
         )
 
-        val mapper = LinkParameters(
+        val event = TrackEvent.Link(
             domain = exampleDomain,
             text = "cta name",
-            isExternal = isExternal
+            isExternal = isExternal,
+            params = required
         )
 
-        val actual = mapper.asMap()
+        val actual = event.asMap()
 
         expectedMap.forEach { (key, value) ->
             assertEquals(
@@ -78,19 +66,23 @@ class LinkParametersTest {
 
     @Test
     fun `has required keys`() {
-        // Given LinkParameters
-        val parameters = LinkParameters(
+        // Given TrackEvent.Link
+        val event = TrackEvent.Link(
             isExternal = true,
             domain = "domain.test",
-            text = "Test Button"
+            text = "Test Button",
+            params = required
         )
         // Then both Text and Type parameters should be set
+        linkKeys.forEach { expectedKey ->
+            assertContains(event.asMap().toMap(), expectedKey)
+        }
         requiredKeys.forEach { expectedKey ->
-            assertContains(parameters.asMap().toMap(), expectedKey)
+            assertContains(event.asMap().toMap(), expectedKey)
         }
     }
 
     companion object {
-        private val requiredKeys = listOf(TEXT, TYPE, LINK_DOMAIN, EXTERNAL)
+        private val linkKeys = listOf(TEXT, TYPE, LINK_DOMAIN, EXTERNAL)
     }
 }
