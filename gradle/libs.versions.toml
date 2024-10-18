@@ -11,7 +11,7 @@ google-services = "4.4.2" # https://developers.google.com/android/guides/google-
 androidx-test-core = "1.6.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-runner = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/test
-androidx-orchestratorr = "1.4.2" # https://developer.android.com/jetpack/androidx/releases/test
+androidx-orchestratorr = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/test
 # Firebase
 firebase-bom = "33.3.0" # https://firebase.google.com/docs/android/setup
 # Test
