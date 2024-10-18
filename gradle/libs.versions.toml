@@ -17,7 +17,7 @@ firebase-bom = "33.3.0" # https://firebase.google.com/docs/android/setup
 # Test
 junit = "5.11.0"
 junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
-mockito-android = "5.13.0" # https://github.com/mockito/mockito/releases
+mockito-android = "5.14.2" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.52" # https://github.com/google/dagger/releases
