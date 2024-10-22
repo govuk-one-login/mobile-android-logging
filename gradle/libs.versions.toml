@@ -15,7 +15,7 @@ androidx-orchestratorr = "1.5.1" # https://developer.android.com/jetpack/android
 # Firebase
 firebase-bom = "33.4.0" # https://firebase.google.com/docs/android/setup
 # Test
-junit = "5.11.2"
+junit = "5.11.3"
 junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
 mockito-android = "5.14.2" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
