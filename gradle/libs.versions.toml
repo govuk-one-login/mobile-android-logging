@@ -22,7 +22,7 @@ mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.52" # https://github.com/google/dagger/releases
 # Networking
-ktor = "3.0.0" # https://ktor.io/docs/releases.html#release-details
+ktor = "3.0.1" # https://ktor.io/docs/releases.html#release-details
 
 [libraries]
 # Gradle
