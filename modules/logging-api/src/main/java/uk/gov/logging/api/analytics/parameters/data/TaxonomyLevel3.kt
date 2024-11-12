@@ -4,9 +4,14 @@ enum class TaxonomyLevel3(val value: String) {
     PASSPORT_CRI("passport cri"),
     DRIVING_LICENCE_CRI("driving licence cri"),
     BRP_CRI("brp cri"),
-    BROWSE_WALLET("browse wallet"),
-    VIEW_CREDENTIAL("view credential"),
+    MANUAL_LINK("manual linking"),
+    WALLET_LIBRARY("wallet library"),
+    VIEW_DOCUMENT("view document"),
+    ADD_DOCUMENT("add document"),
+    MANAGE_ACCOUNT("manage account"),
+    DELETE_ACCOUNT("delete account"),
     SIGN_IN("sign in"),
+    SIGN_OUT("sign out"),
     RE_AUTH("re auth"),
     UNDEFINED("undefined")
 }
