@@ -1,9 +1,9 @@
 package uk.gov.logging.testdouble.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
-import javax.inject.Inject
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
+import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
 class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
@@ -17,7 +17,7 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
 
     override fun logEvent(
         shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent
+        vararg events: AnalyticsEvent,
     ) {
         events.forEach { event ->
             if (shouldLogEvent) {
@@ -31,7 +31,7 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
     }
 
     fun shouldLog(event: AnalyticsEvent): Boolean = !isScreenView(event) ||
-            !isDuplicateScreenView(event)
+        !isDuplicateScreenView(event)
 
     private fun isScreenView(event: AnalyticsEvent): Boolean = event.eventType === SCREEN_VIEW
 
@@ -44,7 +44,7 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
     operator fun contains(event: AnalyticsEvent): Boolean = event in this.events
 
     operator fun contains(
-        conditionBlock: (AnalyticsEvent) -> Boolean
+        conditionBlock: (AnalyticsEvent) -> Boolean,
     ): Boolean = this.events.any(conditionBlock)
 
     operator fun get(i: Int): AnalyticsEvent = this.events[i]
@@ -62,7 +62,7 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
     }
 
     fun filter(
-        predicate: (AnalyticsEvent) -> Boolean
+        predicate: (AnalyticsEvent) -> Boolean,
     ): List<AnalyticsEvent> = this.events.filter(predicate)
 
     override fun toString(): String {

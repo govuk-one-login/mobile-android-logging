@@ -17,24 +17,24 @@ class LinkParametersTest {
         assertEquals(
             ParametersTestData.overOneHundredString.lowercase().take(HUNDRED_CHAR_LIMIT),
             LinkParameters(
-                domain = ParametersTestData.overOneHundredString
-            ).asMap().get(LINK_DOMAIN)
+                domain = ParametersTestData.overOneHundredString,
+            ).asMap().get(LINK_DOMAIN),
         )
     }
 
     @ParameterizedTest
     @ValueSource(
-        booleans = [true, false]
+        booleans = [true, false],
     )
     fun `Match output map`(isExternal: Boolean) {
         val expectedMap = mutableMapOf<String, Any?>(
             EXTERNAL to "$isExternal",
-            LINK_DOMAIN to exampleDomain.lowercase()
+            LINK_DOMAIN to exampleDomain.lowercase(),
         )
 
         val mapper = LinkParameters(
             domain = exampleDomain,
-            external = isExternal
+            external = isExternal,
         )
 
         val actual = mapper.asMap()
@@ -42,7 +42,7 @@ class LinkParametersTest {
         expectedMap.forEach { (key, value) ->
             assertEquals(
                 value,
-                actual[key]
+                actual[key],
             )
         }
     }

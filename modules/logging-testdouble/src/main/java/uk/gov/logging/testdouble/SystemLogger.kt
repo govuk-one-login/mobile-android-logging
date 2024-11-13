@@ -1,7 +1,7 @@
 package uk.gov.logging.testdouble
 
-import javax.inject.Inject
 import uk.gov.logging.api.Logger
+import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
 class SystemLogger @Inject constructor() : Logger {

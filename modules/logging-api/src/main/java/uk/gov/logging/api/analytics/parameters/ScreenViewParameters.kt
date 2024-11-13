@@ -34,7 +34,7 @@ data class ScreenViewParameters(
     private val name: String,
     private val title: String,
     private val event: String = FirebaseAnalytics.Event.SCREEN_VIEW,
-    private val overrides: Mapper? = null
+    private val overrides: Mapper? = null,
 ) : Mapper {
 
     private val _eventName get() = event.lowercase()
@@ -67,7 +67,7 @@ data class ScreenViewParameters(
             EVENT_NAME to _eventName,
             FirebaseAnalytics.Param.SCREEN_CLASS to _screenClass,
             FirebaseAnalytics.Param.SCREEN_NAME to _screenName,
-            TITLE to _title
+            TITLE to _title,
         )
 
         val overwrittenValues: Map<out String, Any?> = overrides?.asMap() ?: mapOf()

@@ -30,7 +30,7 @@ import uk.gov.logging.api.analytics.logging.STATUS
 data class ApiErrorParameters(
     private val endpoint: String,
     private val status: Int = DEFAULT_HTTP_STATUS,
-    private val overrides: Mapper? = null
+    private val overrides: Mapper? = null,
 ) : Mapper {
 
     private val _endpoint: String get() = endpoint.lowercase()
@@ -71,7 +71,7 @@ data class ApiErrorParameters(
         val bundle = mutableMapOf<String, Any?>(
             ENDPOINT to _endpoint,
             STATUS to _httpStatus,
-            HASH to hash
+            HASH to hash,
         )
 
         bundle.putAll(overrides?.asMap() ?: mapOf())

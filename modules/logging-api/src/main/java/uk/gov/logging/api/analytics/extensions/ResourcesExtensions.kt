@@ -20,7 +20,7 @@ fun Resources.getEnString(
     context: Context,
     @StringRes
     id: Int,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): String {
     val enConfig = Configuration(configuration)
     enConfig.setLocale(Locale("en"))
@@ -40,7 +40,7 @@ fun Resources.getEnString(
 fun Context.getEnString(
     @StringRes
     id: Int,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): String {
     return resources.getEnString(this, id, formatArgs)
 }
@@ -60,7 +60,7 @@ fun Resources.getEnQuantityString(
     @PluralsRes
     id: Int,
     quantity: Int,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): String {
     val enConfig = Configuration(configuration)
     enConfig.setLocale(Locale("en"))
@@ -80,7 +80,7 @@ fun Context.getEnQuantityString(
     @PluralsRes
     id: Int,
     quantity: Int,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): String {
     return resources.getEnQuantityString(this, id, quantity, formatArgs)
 }

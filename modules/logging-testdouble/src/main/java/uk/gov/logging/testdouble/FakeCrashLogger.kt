@@ -3,12 +3,12 @@ package uk.gov.logging.testdouble
 import android.content.Context
 import android.widget.Toast
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import uk.gov.logging.api.CrashLogger
+import javax.inject.Inject
 
 class FakeCrashLogger @Inject constructor(
     @ApplicationContext
-    private val context: Context
+    private val context: Context,
 ) : CrashLogger {
     private var logs = mutableListOf<Pair<String?, Throwable>>()
 
@@ -21,8 +21,9 @@ class FakeCrashLogger @Inject constructor(
     }
 
     operator fun contains(entry: Pair<String?, Throwable>): Boolean = logs.any { (
-        message: String?, throwable: Throwable
-    ) ->
+        message: String?, throwable: Throwable,
+    ),
+        ->
         entry.first == message && entry.second == throwable
     }
 
@@ -30,13 +31,13 @@ class FakeCrashLogger @Inject constructor(
 
     override fun log(throwable: Throwable) {
         this.logs.add(
-            Pair(throwable.message, throwable)
+            Pair(throwable.message, throwable),
         )
 
         Toast.makeText(
             context,
             throwable.message,
-            Toast.LENGTH_SHORT
+            Toast.LENGTH_SHORT,
         )?.show()
     }
 

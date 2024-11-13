@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 
 class FormTest {
     private val required = RequiredParameters(
-        taxonomyLevel2 = TaxonomyLevel2.GOVUK
+        taxonomyLevel2 = TaxonomyLevel2.GOVUK,
     )
 
     @Test
@@ -22,7 +22,7 @@ class FormTest {
         val event = TrackEvent.Form(
             text = ParametersTestData.overOneHundredString,
             response = ParametersTestData.overOneHundredString,
-            params =  required
+            params = required,
         )
         val actualText = event.asMap()[TEXT]
         val actualResponse = event.asMap()[RESPONSE]
@@ -38,7 +38,7 @@ class FormTest {
         val event = TrackEvent.Form(
             text = "Test Button",
             response = ParametersTestData.overOneHundredString,
-            params =  required
+            params = required,
         )
         // Then Text, Response, and Type parameters are set
         formKeys.forEach { expectedKey ->

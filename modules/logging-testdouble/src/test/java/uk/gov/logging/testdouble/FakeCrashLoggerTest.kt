@@ -1,7 +1,6 @@
 package uk.gov.logging.testdouble
 
 import android.content.Context
-import java.util.stream.Stream
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Named.named
 import org.junit.jupiter.params.ParameterizedTest
@@ -12,6 +11,7 @@ import org.mockito.kotlin.mock
 import uk.gov.logging.api.CrashLogger
 import uk.gov.logging.testdouble.LoggingTestData.logMessage
 import uk.gov.logging.testdouble.LoggingTestData.logThrowable
+import java.util.stream.Stream
 
 internal class FakeCrashLoggerTest {
 
@@ -23,7 +23,7 @@ internal class FakeCrashLoggerTest {
     @Suppress("Unused")
     fun `Verify in-memory logging behaviour`(
         expectedMessage: String?,
-        action: (CrashLogger) -> Unit
+        action: (CrashLogger) -> Unit,
     ) {
         action.invoke(logger)
 
@@ -40,24 +40,24 @@ internal class FakeCrashLoggerTest {
             arguments(
                 named(
                     "Stores internally created Throwable out of provided String",
-                    logMessage
+                    logMessage,
                 ),
-                { log: CrashLogger -> log.log(logMessage) }
+                { log: CrashLogger -> log.log(logMessage) },
             ),
             arguments(
                 named(
                     "Uses Throwable message when provided a Throwable",
-                    logThrowable.message
+                    logThrowable.message,
                 ),
-                { log: CrashLogger -> log.log(logThrowable) }
+                { log: CrashLogger -> log.log(logThrowable) },
             ),
             arguments(
                 named(
                     "Accepts null messages from a Throwable",
-                    null
+                    null,
                 ),
-                { log: CrashLogger -> log.log(emptyThrowable) }
-            )
+                { log: CrashLogger -> log.log(emptyThrowable) },
+            ),
         )
     }
 }

@@ -3,10 +3,10 @@ package uk.gov.logging.api.analytics.extensions
 import android.content.Context
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
-import kotlin.test.assertEquals
+import uk.gov.logging.api.test.R
 import kotlin.test.Ignore
 import kotlin.test.Test
-import uk.gov.logging.api.test.R
+import kotlin.test.assertEquals
 
 class StringExtensionsTest {
 

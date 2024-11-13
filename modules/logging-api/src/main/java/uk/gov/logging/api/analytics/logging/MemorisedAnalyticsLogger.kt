@@ -2,11 +2,11 @@ package uk.gov.logging.api.analytics.logging
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event
 import uk.gov.logging.api.LogTagProvider
-import javax.inject.Inject
 import uk.gov.logging.api.analytics.AnalyticsEvent
+import javax.inject.Inject
 
 class MemorisedAnalyticsLogger @Inject constructor(
-    private val subLogger: AnalyticsLogger
+    private val subLogger: AnalyticsLogger,
 ) : AnalyticsLogger by subLogger,
     LogTagProvider {
 
@@ -14,7 +14,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
 
     override fun logEvent(
         shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent
+        vararg events: AnalyticsEvent,
     ) {
         events.forEach { event ->
             if (shouldLog(event)) {
@@ -32,7 +32,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
                         msg = "Sent event to log: " +
                             "eventType: $eventType; " +
                             "screenClass: $screenClass;" +
-                            "screenName: $screenName;"
+                            "screenName: $screenName;",
                     )
                 }
             }
@@ -58,7 +58,7 @@ class MemorisedAnalyticsLogger @Inject constructor(
                         "Is a duplicate: $isDuplicateScreenView; " +
                         "eventType: $eventType; " +
                         "screenClass: $screenClass; " +
-                        "screenName: $screenName; "
+                        "screenName: $screenName; ",
                 )
             }
         }

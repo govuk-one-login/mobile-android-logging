@@ -12,7 +12,7 @@ import uk.gov.logging.api.analytics.parameters.Mapper
  *  **see also:**
  *  - [GA4 Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
  */
-sealed interface AnalyticsEvent: Mapper {
+sealed interface AnalyticsEvent : Mapper {
     val eventType: String
     val parameters: RequiredParameters
 }

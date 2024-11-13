@@ -1,6 +1,5 @@
 package uk.gov.logging.testdouble
 
-import java.util.stream.Stream
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Named.named
 import org.junit.jupiter.params.ParameterizedTest
@@ -13,6 +12,7 @@ import uk.gov.logging.testdouble.LoggingTestData.logMessage
 import uk.gov.logging.testdouble.LoggingTestData.logMessageEntry
 import uk.gov.logging.testdouble.LoggingTestData.logTag
 import uk.gov.logging.testdouble.LoggingTestData.logThrowable
+import java.util.stream.Stream
 
 internal class SystemLoggerTest {
 
@@ -23,7 +23,7 @@ internal class SystemLoggerTest {
     @Suppress("Unused")
     fun `Verify in-memory logging behaviour`(
         expectedEntry: LogEntry,
-        action: (Logger) -> Unit
+        action: (Logger) -> Unit,
     ) {
         action.invoke(logger)
 
@@ -38,31 +38,31 @@ internal class SystemLoggerTest {
             arguments(
                 named(
                     "Debug messages are stored",
-                    logMessageEntry
+                    logMessageEntry,
                 ),
-                { log: Logger -> log.debug(logTag, logMessage) }
+                { log: Logger -> log.debug(logTag, logMessage) },
             ),
             arguments(
                 named(
                     "Info messages are stored",
-                    logMessageEntry
+                    logMessageEntry,
                 ),
-                { log: Logger -> log.info(logTag, logMessage) }
+                { log: Logger -> log.info(logTag, logMessage) },
             ),
             arguments(
                 named(
                     "Error messages are stored",
-                    logMessageEntry
+                    logMessageEntry,
                 ),
-                { log: Logger -> log.error(logTag, logMessage) }
+                { log: Logger -> log.error(logTag, logMessage) },
             ),
             arguments(
                 named(
                     "Error messages are stored with Throwable",
-                    logErrorEntry
+                    logErrorEntry,
                 ),
-                { log: Logger -> log.error(logTag, logMessage, logThrowable) }
-            )
+                { log: Logger -> log.error(logTag, logMessage, logThrowable) },
+            ),
         )
     }
 }

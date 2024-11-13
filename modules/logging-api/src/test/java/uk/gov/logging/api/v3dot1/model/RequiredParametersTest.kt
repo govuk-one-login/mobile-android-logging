@@ -1,12 +1,10 @@
 package uk.gov.logging.api.v3dot1.model
 
-import kotlin.test.assertEquals
-import kotlin.test.Test
-import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
 import uk.gov.logging.api.analytics.logging.ORGANISATION
 import uk.gov.logging.api.analytics.logging.PRIMARY_PUBLISHING_ORGANISATION
 import uk.gov.logging.api.analytics.logging.SAVED_DOC_TYPE
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL1
+import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
 import uk.gov.logging.api.analytics.parameters.data.Organisation.OT1056
 import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisation.GDS_DI
@@ -14,6 +12,8 @@ import uk.gov.logging.api.analytics.parameters.data.SavedDocType
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class RequiredParametersTest {
 
@@ -35,14 +35,18 @@ class RequiredParametersTest {
 
         assertEquals(
             expectedMap,
-            mapper.asMap()
+            mapper.asMap(),
         )
     }
 
     companion object {
         val requiredKeys = listOf(
-            SAVED_DOC_TYPE, PRIMARY_PUBLISHING_ORGANISATION, ORGANISATION,
-            TAXONOMY_LEVEL1, TAXONOMY_LEVEL2, TAXONOMY_LEVEL3
+            SAVED_DOC_TYPE,
+            PRIMARY_PUBLISHING_ORGANISATION,
+            ORGANISATION,
+            TAXONOMY_LEVEL1,
+            TAXONOMY_LEVEL2,
+            TAXONOMY_LEVEL3,
         )
     }
 }

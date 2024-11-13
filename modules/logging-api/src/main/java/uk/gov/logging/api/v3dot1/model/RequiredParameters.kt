@@ -8,13 +8,13 @@ import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
 import uk.gov.logging.api.analytics.parameters.Mapper
 import uk.gov.logging.api.analytics.parameters.data.Organisation
-import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1
-import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.Organisation.OT1056
 import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisation
-import uk.gov.logging.api.analytics.parameters.data.SavedDocType
 import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisation.GDS_DI
+import uk.gov.logging.api.analytics.parameters.data.SavedDocType
+import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
+import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3.UNDEFINED
 
@@ -38,7 +38,7 @@ open class RequiredParameters(
     private val organisation: Organisation = OT1056,
     private val taxonomyLevel1: TaxonomyLevel1 = ONE_LOGIN,
     private val taxonomyLevel2: TaxonomyLevel2,
-    private val taxonomyLevel3: TaxonomyLevel3 = UNDEFINED
+    private val taxonomyLevel3: TaxonomyLevel3 = UNDEFINED,
 ) : Mapper {
 
     override fun asMap(): Map<out String, Any?> = mapOf(
@@ -47,6 +47,6 @@ open class RequiredParameters(
         ORGANISATION to organisation.value,
         TAXONOMY_LEVEL1 to taxonomyLevel1.value,
         TAXONOMY_LEVEL2 to taxonomyLevel2.value,
-        TAXONOMY_LEVEL3 to taxonomyLevel3.value
+        TAXONOMY_LEVEL3 to taxonomyLevel3.value,
     )
 }

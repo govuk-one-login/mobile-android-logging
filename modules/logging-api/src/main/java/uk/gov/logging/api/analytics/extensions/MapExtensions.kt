@@ -17,7 +17,7 @@ object MapExtensions {
         return bundleOf(
             *this.map { entry ->
                 entry.key to entry.value
-            }.toTypedArray()
+            }.toTypedArray(),
         )
     }
 }

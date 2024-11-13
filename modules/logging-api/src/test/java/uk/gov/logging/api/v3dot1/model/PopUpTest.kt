@@ -1,7 +1,5 @@
 package uk.gov.logging.api.v3dot1.model
 
-import kotlin.test.assertEquals
-import kotlin.test.Test
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
@@ -9,7 +7,9 @@ import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.Type
 import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
+import kotlin.test.Test
 import kotlin.test.assertContains
+import kotlin.test.assertEquals
 
 class PopUpTest {
     private val exampleText = "button text"
@@ -20,13 +20,13 @@ class PopUpTest {
         // Given a TrackEvent.PopUp with parameter values longer than 100 characters
         val parameters = TrackEvent.PopUp(
             text = ParametersTestData.overOneHundredString,
-            params = required
+            params = required,
         )
         val actual = parameters.asMap()[TEXT]
         // Then truncate to 100 characters or less the parameters' values
         assertEquals(
             expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT),
-            actual = actual
+            actual = actual,
         )
     }
 
@@ -34,12 +34,12 @@ class PopUpTest {
     fun `Match output map`() {
         val expectedMap = mutableMapOf<String, Any?>(
             TEXT to exampleText.lowercase(),
-            TYPE to Type.PopUp.value
+            TYPE to Type.PopUp.value,
         )
 
         val mapper = TrackEvent.PopUp(
             text = exampleText,
-            params = required
+            params = required,
         )
 
         val actual = mapper.asMap()
@@ -47,7 +47,7 @@ class PopUpTest {
         expectedMap.forEach { (key, value) ->
             assertEquals(
                 value,
-                actual[key]
+                actual[key],
             )
         }
     }
@@ -57,7 +57,7 @@ class PopUpTest {
         // Given TrackEvent.PopUp
         val event = TrackEvent.PopUp(
             text = "Test Button",
-            params = required
+            params = required,
         )
         // Then both Text and Type parameters should be set
         popupKeys.forEach { expectedKey ->

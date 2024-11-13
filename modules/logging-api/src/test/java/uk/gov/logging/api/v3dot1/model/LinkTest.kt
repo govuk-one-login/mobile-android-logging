@@ -1,7 +1,5 @@
 package uk.gov.logging.api.v3dot1.model
 
-import kotlin.test.assertEquals
-import kotlin.test.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import uk.gov.logging.api.analytics.logging.EXTERNAL
@@ -13,7 +11,9 @@ import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.Type
 import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
+import kotlin.test.Test
 import kotlin.test.assertContains
+import kotlin.test.assertEquals
 
 class LinkTest {
     private val exampleDomain = "www.unit.test"
@@ -26,7 +26,7 @@ class LinkTest {
             isExternal = false,
             text = ParametersTestData.overOneHundredString,
             domain = ParametersTestData.overOneHundredString,
-            params = required
+            params = required,
         )
         val actualText = event.asMap()[TEXT]
         val actualDomain = event.asMap()[LINK_DOMAIN]
@@ -38,20 +38,20 @@ class LinkTest {
 
     @ParameterizedTest
     @ValueSource(
-        booleans = [true, false]
+        booleans = [true, false],
     )
     fun `Match output map`(isExternal: Boolean) {
         val expectedMap = mutableMapOf<String, Any?>(
             EXTERNAL to "$isExternal",
             LINK_DOMAIN to exampleDomain.lowercase(),
-            TYPE to Type.Link.value
+            TYPE to Type.Link.value,
         )
 
         val event = TrackEvent.Link(
             domain = exampleDomain,
             text = "cta name",
             isExternal = isExternal,
-            params = required
+            params = required,
         )
 
         val actual = event.asMap()
@@ -59,7 +59,7 @@ class LinkTest {
         expectedMap.forEach { (key, value) ->
             assertEquals(
                 value,
-                actual[key]
+                actual[key],
             )
         }
     }
@@ -71,7 +71,7 @@ class LinkTest {
             isExternal = true,
             domain = "domain.test",
             text = "Test Button",
-            params = required
+            params = required,
         )
         // Then both Text and Type parameters should be set
         linkKeys.forEach { expectedKey ->

@@ -1,12 +1,12 @@
 package uk.gov.logging.impl
 
 import android.util.Log
-import javax.inject.Inject
 import uk.gov.logging.api.CrashLogger
 import uk.gov.logging.api.Logger
+import javax.inject.Inject
 
 class AndroidLogger @Inject constructor(
-    private val crashLogger: CrashLogger
+    private val crashLogger: CrashLogger,
 ) : Logger {
     override fun debug(tag: String, msg: String) {
         Log.d(tag, msg)

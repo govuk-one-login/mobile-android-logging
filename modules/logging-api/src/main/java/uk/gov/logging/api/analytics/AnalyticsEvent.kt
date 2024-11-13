@@ -4,10 +4,10 @@ import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics.Event
 import uk.gov.logging.api.analytics.extensions.MapExtensions.toBundle
 import uk.gov.logging.api.analytics.logging.EVENT_NAME
+import uk.gov.logging.api.analytics.parameters.ButtonParameters
 import uk.gov.logging.api.analytics.parameters.Mapper
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
 import uk.gov.logging.api.analytics.parameters.ScreenViewParameters
-import uk.gov.logging.api.analytics.parameters.ButtonParameters
 
 /**
  * Wrapper class to contain information used when sending [Firebase] events.
@@ -15,7 +15,7 @@ import uk.gov.logging.api.analytics.parameters.ButtonParameters
 @Suppress("UnusedPrivateMember")
 data class AnalyticsEvent(
     val eventType: String,
-    val parameters: Map<String, Any?>
+    val parameters: Map<String, Any?>,
 ) {
 
     fun toBundle(): Bundle = parameters.toBundle()
@@ -46,7 +46,7 @@ data class AnalyticsEvent(
 
             return AnalyticsEvent(
                 eventName,
-                bundle
+                bundle,
             )
         }
 

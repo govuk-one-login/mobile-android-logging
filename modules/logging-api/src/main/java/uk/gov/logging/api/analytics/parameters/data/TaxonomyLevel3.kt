@@ -13,5 +13,5 @@ enum class TaxonomyLevel3(val value: String) {
     SIGN_IN("sign in"),
     SIGN_OUT("sign out"),
     RE_AUTH("re auth"),
-    UNDEFINED("undefined")
+    UNDEFINED("undefined"),
 }

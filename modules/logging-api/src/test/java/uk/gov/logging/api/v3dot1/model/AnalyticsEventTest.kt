@@ -79,7 +79,7 @@ class AnalyticsEventTest {
         // Then the event name is `screen_view`
         assertEquals(
             expected = FirebaseAnalytics.Event.SCREEN_VIEW,
-            actual = event.eventType
+            actual = event.eventType,
         )
     }
 
@@ -90,7 +90,7 @@ class AnalyticsEventTest {
         // Then the event name is `screen_view`
         assertEquals(
             expected = FirebaseAnalytics.Event.SCREEN_VIEW,
-            actual = event.eventType
+            actual = event.eventType,
         )
     }
 }

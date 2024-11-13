@@ -20,7 +20,7 @@ class FormActionMenuTest {
         val event = TrackEvent.FormActionMenu(
             text = ParametersTestData.overOneHundredString,
             response = ParametersTestData.overOneHundredString,
-            params = required
+            params = required,
         )
         val actualText = event.asMap()[TEXT]
         val actualResponse = event.asMap()[RESPONSE]
@@ -36,7 +36,7 @@ class FormActionMenuTest {
         val event = TrackEvent.FormActionMenu(
             text = "Test Button",
             response = ParametersTestData.overOneHundredString,
-            params = required
+            params = required,
         )
         // Then Text, Response, and Type parameters are set
         formActionMenuKeys.forEach { expectedKey ->

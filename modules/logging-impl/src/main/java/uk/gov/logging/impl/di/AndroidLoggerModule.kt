@@ -4,9 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import uk.gov.logging.api.Logger
 import uk.gov.logging.impl.AndroidLogger
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module

@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.test.platform.app.InstrumentationRegistry
 import java.util.Locale
-import kotlin.test.assertEquals
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import uk.gov.logging.api.test.R as T
 
 class ContextExtensionsTest {

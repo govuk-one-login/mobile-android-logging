@@ -9,11 +9,11 @@ object LoggingTestData {
 
     val logMessageEntry = LogEntry.Message(
         tag = logTag,
-        message = logMessage
+        message = logMessage,
     )
     val logErrorEntry = LogEntry.Error(
         tag = logTag,
         message = logMessage,
-        throwable = logThrowable
+        throwable = logThrowable,
     )
 }

@@ -1,16 +1,16 @@
 package uk.gov.logging.api.v3dot1.logger
 
-import kotlin.test.BeforeTest
-import kotlin.test.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.verify
-import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
-import uk.gov.logging.api.v3dot1.model.RequiredParameters
-import uk.gov.logging.api.v3dot1.model.TrackEvent
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
 import uk.gov.logging.api.analytics.logging.LINK_DOMAIN
 import uk.gov.logging.api.analytics.logging.TEXT
+import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
+import uk.gov.logging.api.v3dot1.model.RequiredParameters
+import uk.gov.logging.api.v3dot1.model.TrackEvent
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
@@ -32,7 +32,7 @@ class AnalyticsLoggerExtensionsTest {
             isExternal = true,
             domain = domain,
             text = text,
-            params = required
+            params = required,
         )
         // When calling `asLegacyEvent`
         val actual = event.asLegacyEvent()
@@ -51,7 +51,7 @@ class AnalyticsLoggerExtensionsTest {
             isExternal = true,
             domain = domain,
             text = text,
-            params = required
+            params = required,
         )
         // When calling `logEvent`
         logger.logEventV3Dot1(event)

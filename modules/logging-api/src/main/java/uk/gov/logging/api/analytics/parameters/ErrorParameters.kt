@@ -17,14 +17,14 @@ import uk.gov.logging.api.analytics.logging.REASON
  */
 data class ErrorParameters(
     private val reason: String,
-    private val overrides: Mapper? = null
+    private val overrides: Mapper? = null,
 ) : Mapper {
     private val _reason: String get() = reason.lowercase()
 
     @CallSuper
     override fun asMap(): Map<String, Any?> {
         val bundle = mutableMapOf<String, Any?>(
-            REASON to _reason
+            REASON to _reason,
         )
 
         bundle.putAll(overrides?.asMap() ?: mapOf())
