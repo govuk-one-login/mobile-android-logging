@@ -21,8 +21,6 @@ mockito-android = "5.14.2" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.52" # https://github.com/google/dagger/releases
-# Networking
-ktor = "3.0.1" # https://ktor.io/docs/releases.html#release-details
 
 [libraries]
 # Gradle
@@ -52,8 +50,6 @@ mockito-android = { module = "org.mockito:mockito-android", version.ref = "mocki
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "dagger" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
-# Networking
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle" }

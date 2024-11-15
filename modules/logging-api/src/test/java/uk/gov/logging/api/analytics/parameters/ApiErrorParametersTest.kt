@@ -1,6 +1,5 @@
 package uk.gov.logging.api.analytics.parameters
 
-import io.ktor.http.HttpStatusCode
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -19,7 +18,7 @@ class ApiErrorParametersTest {
         try {
             ApiErrorParameters(
                 endpoint = fortyTwoString,
-                status = HttpStatusCode.OK.value
+                status = 200
             )
             fail {
                 "The endpoint should have thrown an exception!"

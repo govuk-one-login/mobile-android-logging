@@ -1,7 +1,6 @@
 package uk.gov.logging.api.analytics.parameters
 
 import androidx.annotation.CallSuper
-import io.ktor.http.HttpStatusCode
 import uk.gov.logging.api.analytics.extensions.md5
 import uk.gov.logging.api.analytics.logging.ENDPOINT
 import uk.gov.logging.api.analytics.logging.FORTY_CHAR_LIMIT
@@ -30,7 +29,7 @@ import uk.gov.logging.api.analytics.logging.STATUS
  */
 data class ApiErrorParameters(
     private val endpoint: String,
-    private val status: Int = HttpStatusCode.InternalServerError.value,
+    private val status: Int = DEFAULT_HTTP_STATUS,
     private val overrides: Mapper? = null
 ) : Mapper {
 
@@ -78,5 +77,9 @@ data class ApiErrorParameters(
         bundle.putAll(overrides?.asMap() ?: mapOf())
 
         return bundle
+    }
+
+    companion object {
+        private const val DEFAULT_HTTP_STATUS = 500
     }
 }

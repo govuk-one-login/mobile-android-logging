@@ -72,7 +72,6 @@ dependencies {
     listOf(
         libs.firebase.analytics,
         libs.hilt.android,
-        libs.ktor.client.core,
         platform(libs.firebase.bom)
     ).forEach {
         implementation(it)
