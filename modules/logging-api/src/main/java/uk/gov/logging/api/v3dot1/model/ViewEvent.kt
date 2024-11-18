@@ -16,7 +16,7 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
     data class Screen(
         private val name: String,
         private val id: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : ViewEvent(params) {
         private val _screenName get() = name.take(HUNDRED_CHAR_LIMIT)
         private val _screenId get() = id.take(HUNDRED_CHAR_LIMIT)
@@ -34,7 +34,7 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
         private val endpoint: String,
         private val reason: String,
         private val status: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : ViewEvent(params) {
         private val _screenName get() = name.take(HUNDRED_CHAR_LIMIT)
         private val _screenId get() = id.take(HUNDRED_CHAR_LIMIT)

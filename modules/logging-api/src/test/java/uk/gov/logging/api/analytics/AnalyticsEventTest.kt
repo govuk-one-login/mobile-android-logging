@@ -14,9 +14,9 @@ class AnalyticsEventTest {
             AnalyticsEvent.screenView(
                 RequiredParameters(
                     digitalIdentityJourney = "Test digital identity id",
-                    journeyType = "Test journey"
-                )
-            ).isScreenView()
+                    journeyType = "Test journey",
+                ),
+            ).isScreenView(),
         ) {
             "The event should be corrected defined as a screen view event!"
         }
@@ -27,13 +27,13 @@ class AnalyticsEventTest {
         val event = AnalyticsEvent.screenView(
             RequiredParameters(
                 digitalIdentityJourney = "document checking application",
-                journeyType = "driving licence"
-            )
+                journeyType = "driving licence",
+            ),
         )
 
         assertEquals(
             "driving licence",
-            event.parameters[DOCUMENT_TYPE_JOURNEY_KEY]
+            event.parameters[DOCUMENT_TYPE_JOURNEY_KEY],
         )
     }
 }

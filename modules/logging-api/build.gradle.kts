@@ -25,7 +25,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -44,7 +44,7 @@ android {
                 events = setOf(
                     TestLogEvent.FAILED,
                     TestLogEvent.PASSED,
-                    TestLogEvent.SKIPPED
+                    TestLogEvent.SKIPPED,
                 )
             }
         }
@@ -64,7 +64,7 @@ dependencies {
         libs.hilt.android.testing,
         libs.junit,
         libs.mockito.android,
-        libs.mockito.kotlin
+        libs.mockito.kotlin,
     ).forEach {
         androidTestImplementation(it)
     }
@@ -72,7 +72,7 @@ dependencies {
     listOf(
         libs.firebase.analytics,
         libs.hilt.android,
-        platform(libs.firebase.bom)
+        platform(libs.firebase.bom),
     ).forEach {
         implementation(it)
     }
@@ -84,13 +84,13 @@ dependencies {
         libs.junit.jupiter.params,
         libs.junit.jupiter.engine,
         platform(libs.junit.bom),
-        libs.mockito.kotlin
+        libs.mockito.kotlin,
     ).forEach { dependency ->
         testImplementation(dependency)
     }
 
     listOf(
-        libs.hilt.compiler
+        libs.hilt.compiler,
     ).forEach {
         kapt(it)
         kaptTest(it)
@@ -107,12 +107,12 @@ kapt {
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Logging and Analytics Modules for Android Devices"
+            "Logging and Analytics Modules for Android Devices",
         )
         description.set(
             """
                 Gradle configured Android library for fire-and-forget logging and analytics.
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 }

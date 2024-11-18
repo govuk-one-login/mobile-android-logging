@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class AnalyticsPrefs @Inject constructor(
     @ApplicationContext
-    val context: Context
+    val context: Context,
 ) : IAnalyticsPrefs {
 
     private val analyticsPreferences get() = context.getSharedPreferences(name, mode)

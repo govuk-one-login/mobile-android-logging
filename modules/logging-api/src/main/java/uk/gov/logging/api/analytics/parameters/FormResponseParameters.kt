@@ -25,11 +25,11 @@ data class FormResponseParameters(
     private val name: String,
     private val response: Array<String>,
     private val text: String,
-    private val overrides: Mapper? = null
+    private val overrides: Mapper? = null,
 
 ) : Mapper {
     private val _response get() = response.joinToString(
-        separator = ","
+        separator = ",",
     ).take(HUNDRED_CHAR_LIMIT)
     private val _text get() = text.lowercase()
 
@@ -37,7 +37,7 @@ data class FormResponseParameters(
         val bundle = mutableMapOf<String, Any?>(
             RESPONSE to _response,
             TEXT to _text,
-            FirebaseAnalytics.Param.SCREEN_NAME to name
+            FirebaseAnalytics.Param.SCREEN_NAME to name,
         )
 
         val commonParameters: Map<out String, Any?> = overrides?.asMap() ?: mapOf()

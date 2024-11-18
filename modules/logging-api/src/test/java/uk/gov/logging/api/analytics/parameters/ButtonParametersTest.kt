@@ -1,7 +1,6 @@
 package uk.gov.logging.api.analytics.parameters
 
 import com.google.firebase.analytics.FirebaseAnalytics
-import java.util.Locale
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -14,6 +13,7 @@ import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
+import java.util.Locale
 
 class ButtonParametersTest {
 
@@ -27,7 +27,7 @@ class ButtonParametersTest {
             ButtonParameters(
                 callToActionText = ParametersTestData.overOneHundredString,
                 type = exampleEventName,
-                name = exampleScreenName
+                name = exampleScreenName,
             )
             fail {
                 "The callToActionText should have thrown an exception!"
@@ -35,8 +35,8 @@ class ButtonParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertEquals(
                 "The callToActionText parameter length is higher than 100!: " +
-                        "${ParametersTestData.overOneHundredString.length}",
-                exception.message
+                    "${ParametersTestData.overOneHundredString.length}",
+                exception.message,
             )
         }
     }
@@ -47,7 +47,7 @@ class ButtonParametersTest {
             ButtonParameters(
                 callToActionText = exampleCallToActionText,
                 type = ParametersTestData.fortyTwoString,
-                name = exampleScreenName
+                name = exampleScreenName,
             )
             fail {
                 "The eventName should have thrown an exception!"
@@ -55,8 +55,8 @@ class ButtonParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertEquals(
                 "The eventName parameter length is higher than 40!: " +
-                        "${ParametersTestData.fortyTwoString.length}",
-                exception.message
+                    "${ParametersTestData.fortyTwoString.length}",
+                exception.message,
             )
         }
     }
@@ -67,7 +67,7 @@ class ButtonParametersTest {
             ButtonParameters(
                 callToActionText = exampleCallToActionText,
                 type = "CASING-IS-HANDLED-ALREADY",
-                name = exampleScreenName
+                name = exampleScreenName,
             )
             fail {
                 "The eventName should have thrown an exception!"
@@ -75,8 +75,8 @@ class ButtonParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertTrue(
                 exception.message!!.startsWith(
-                    "The eventName parameter is not considered lower snake-cased"
-                )
+                    "The eventName parameter is not considered lower snake-cased",
+                ),
             )
         }
     }
@@ -87,14 +87,14 @@ class ButtonParametersTest {
             EVENT_NAME to exampleEventName.lowercase(),
             TEXT to exampleCallToActionText.lowercase(),
             TYPE to "submit form",
-            FirebaseAnalytics.Param.SCREEN_NAME to exampleScreenName
+            FirebaseAnalytics.Param.SCREEN_NAME to exampleScreenName,
         )
 
         val mapper = ButtonParameters(
             callToActionText = exampleCallToActionText,
             type = exampleEventName,
             name = exampleScreenName,
-            action = "submit form"
+            action = "submit form",
         )
 
         val actual = mapper.asMap()
@@ -102,7 +102,7 @@ class ButtonParametersTest {
         expectedMap.forEach { (key, value) ->
             assertEquals(
                 value,
-                actual[key]
+                actual[key],
             )
         }
     }
@@ -123,7 +123,7 @@ class ButtonParametersTest {
             DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
             DIGITAL_IDENTITY_JOURNEY to "popup event test",
             LANGUAGE to Locale.getDefault().language,
-            DOCUMENT_TYPE_JOURNEY_KEY to "test journey"
+            DOCUMENT_TYPE_JOURNEY_KEY to "test journey",
         )
 
         val popupEventParameters = ButtonParameters(
@@ -133,8 +133,8 @@ class ButtonParametersTest {
             action = callToActionType,
             overrides = RequiredParameters(
                 digitalIdentityJourney = "popup event test",
-                journeyType = "test journey"
-            )
+                journeyType = "test journey",
+            ),
         )
 
         val actual = popupEventParameters.asMap()
@@ -146,7 +146,7 @@ class ButtonParametersTest {
         expectedMap.forEach { (key, value) ->
             assertEquals(
                 value,
-                actual[key]
+                actual[key],
             )
         }
     }

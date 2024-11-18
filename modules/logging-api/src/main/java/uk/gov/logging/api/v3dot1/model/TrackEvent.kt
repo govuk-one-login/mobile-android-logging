@@ -10,14 +10,14 @@ import uk.gov.logging.api.analytics.parameters.data.Type
 
 sealed class TrackEvent(
     type: String,
-    params: RequiredParameters
+    params: RequiredParameters,
 ) : AnalyticsEvent {
     override val eventType: String = type
     override val parameters: RequiredParameters = params
 
     data class Button(
         private val text: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
 
@@ -29,7 +29,7 @@ sealed class TrackEvent(
 
     data class Icon(
         private val text: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
 
@@ -43,7 +43,7 @@ sealed class TrackEvent(
         private val isExternal: Boolean,
         private val domain: String,
         private val text: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
         private val _linkDomain get() = domain.take(HUNDRED_CHAR_LIMIT)
         private val _isExternal get() = isExternal.toString()
@@ -60,7 +60,7 @@ sealed class TrackEvent(
     data class FormActionMenu(
         private val text: String,
         private val response: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.FORM_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
         private val _response get() = response.take(HUNDRED_CHAR_LIMIT)
@@ -75,7 +75,7 @@ sealed class TrackEvent(
     data class FormCallToAction(
         private val text: String,
         private val response: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.FORM_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
         private val _response get() = response.take(HUNDRED_CHAR_LIMIT)
@@ -90,7 +90,7 @@ sealed class TrackEvent(
     data class Form(
         private val text: String,
         private val response: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.FORM_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
         private val _response get() = response.take(HUNDRED_CHAR_LIMIT)
@@ -104,7 +104,7 @@ sealed class TrackEvent(
 
     data class ActionMenu(
         private val text: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.POPUP_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
 
@@ -116,7 +116,7 @@ sealed class TrackEvent(
 
     data class PopUp(
         private val text: String,
-        private val params: RequiredParameters
+        private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.POPUP_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
 

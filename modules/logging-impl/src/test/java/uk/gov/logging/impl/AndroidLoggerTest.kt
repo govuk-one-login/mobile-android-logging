@@ -41,7 +41,7 @@ internal class AndroidLoggerTest {
         staticLogMock.verify {
             Log.d(
                 eq(logTag),
-                eq(logMessage)
+                eq(logMessage),
             )
         }
     }
@@ -53,7 +53,7 @@ internal class AndroidLoggerTest {
         staticLogMock.verify {
             Log.i(
                 eq(logTag),
-                eq(logMessage)
+                eq(logMessage),
             )
         }
         verify(crashLogger).log(eq("I : $logTag : $logMessage"))
@@ -66,7 +66,7 @@ internal class AndroidLoggerTest {
         staticLogMock.verify {
             Log.e(
                 eq(logTag),
-                eq(logMessage)
+                eq(logMessage),
             )
         }
         verify(crashLogger).log(eq("E : $logTag : $logMessage"))
@@ -80,7 +80,7 @@ internal class AndroidLoggerTest {
             Log.e(
                 eq(logTag),
                 eq(logMessage),
-                eq(logThrowable)
+                eq(logThrowable),
             )
         }
         verify(crashLogger).log(eq(logThrowable))

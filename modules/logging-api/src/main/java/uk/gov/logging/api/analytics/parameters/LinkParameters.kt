@@ -26,7 +26,7 @@ import uk.gov.logging.api.analytics.logging.LINK_DOMAIN
 data class LinkParameters(
     private val domain: String,
     private val external: Boolean = false,
-    private val overrides: Mapper? = null
+    private val overrides: Mapper? = null,
 ) : Mapper {
 
     private val _domain get() = domain.lowercase().take(HUNDRED_CHAR_LIMIT)
@@ -35,7 +35,7 @@ data class LinkParameters(
     override fun asMap(): Map<out String, Any?> {
         val bundle = mutableMapOf<String, Any?>(
             EXTERNAL to _external,
-            LINK_DOMAIN to _domain
+            LINK_DOMAIN to _domain,
         )
 
         val commonParameters: Map<out String, Any?> = overrides?.asMap() ?: mapOf()

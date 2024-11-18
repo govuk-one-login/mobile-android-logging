@@ -3,20 +3,20 @@ package uk.gov.logging.testdouble.analytics
 import android.content.Context
 import android.widget.Toast
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
+import javax.inject.Inject
 
 class ToastingAnalyticsLogger @Inject constructor(
     @ApplicationContext
-    private val context: Context
+    private val context: Context,
 ) : AnalyticsLogger {
 
     private var enabled: Boolean = false
 
     override fun logEvent(
         shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent
+        vararg events: AnalyticsEvent,
     ) {
         if (enabled) {
             events.forEach { event ->
@@ -41,7 +41,7 @@ class ToastingAnalyticsLogger @Inject constructor(
         Toast.makeText(
             context,
             text,
-            Toast.LENGTH_SHORT
+            Toast.LENGTH_SHORT,
         ).show()
     }
 }

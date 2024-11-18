@@ -2,12 +2,12 @@ package uk.gov.logging.testdouble
 
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import javax.inject.Inject
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.logging.api.CrashLogger
 import uk.gov.logging.api.Logger
+import javax.inject.Inject
 
 @HiltAndroidTest
 class LoggerInjectionTest {
@@ -27,12 +27,12 @@ class LoggerInjectionTest {
 
         assertTrue(
             "There should have been a successful CrashLogger injection!",
-            crashLogger is FakeCrashLogger
+            crashLogger is FakeCrashLogger,
         )
 
         assertTrue(
             "There should have been a successful Logger injection!",
-            logger is SystemLogger
+            logger is SystemLogger,
         )
     }
 }

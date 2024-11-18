@@ -20,7 +20,7 @@ class FormCallToActionTest {
         val event = TrackEvent.FormCallToAction(
             text = ParametersTestData.overOneHundredString,
             response = ParametersTestData.overOneHundredString,
-            params = required
+            params = required,
         )
         val actualText = event.asMap()[TEXT]
         val actualResponse = event.asMap()[RESPONSE]
@@ -36,7 +36,7 @@ class FormCallToActionTest {
         val event = TrackEvent.FormCallToAction(
             text = "Test Button",
             response = ParametersTestData.overOneHundredString,
-            params = required
+            params = required,
         )
         // Then Text, Response, and Type parameters are set
         formCallToActionKeys.forEach { expectedKey ->

@@ -20,7 +20,7 @@ class ErrorTest {
     private val exampleName = "Signing out will delete your app data"
     private val exampleId = "30a6b339-75a8-44a2-a79a-e108546419bf"
     private val required = RequiredParameters(
-        taxonomyLevel2 = TaxonomyLevel2.GOVUK
+        taxonomyLevel2 = TaxonomyLevel2.GOVUK,
     )
 
     @Test
@@ -32,7 +32,7 @@ class ErrorTest {
             endpoint = ParametersTestData.overOneHundredString,
             reason = ParametersTestData.overOneHundredString,
             status = ParametersTestData.overOneHundredString,
-            params = required
+            params = required,
         )
         val actualName = parameters.asMap()[SCREEN_NAME]
         val actualId = parameters.asMap()[SCREEN_ID]
@@ -57,13 +57,13 @@ class ErrorTest {
             endpoint = "www.signin.gov.uk",
             reason = "",
             status = "404",
-            params = required
+            params = required,
         )
         val actual = parameters.asMap()[HASH]
         // Then the screen name value is truncated to be 100 characters or less
         assertEquals(
             expected = ("www.signin.gov.uk_404").lowercase().md5(),
-            actual = actual
+            actual = actual,
         )
     }
 
@@ -78,7 +78,7 @@ class ErrorTest {
             endpoint = "www.sigin.gov.uk",
             reason = "",
             status = "404",
-            params = required
+            params = required,
         )
         // Then ScreenId and ScreenClass, and ScreenName parameters are set
         errorKeys.forEach { expectedKey ->
@@ -91,7 +91,13 @@ class ErrorTest {
 
     companion object {
         private val errorKeys = listOf(
-            SCREEN_ID, ENDPOINT, REASON, STATUS, HASH, SCREEN_CLASS, SCREEN_NAME
+            SCREEN_ID,
+            ENDPOINT,
+            REASON,
+            STATUS,
+            HASH,
+            SCREEN_CLASS,
+            SCREEN_NAME,
         )
     }
 }

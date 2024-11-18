@@ -36,7 +36,7 @@ data class ButtonParameters(
     private val name: String,
     private val type: String = "navigation",
     private val action: String = "submit form",
-    private val overrides: Mapper? = null
+    private val overrides: Mapper? = null,
 ) : Mapper {
     private val _callToActionText get() = callToActionText.lowercase()
     private val _eventName get() = type.lowercase()
@@ -69,7 +69,7 @@ data class ButtonParameters(
             EVENT_NAME to _eventName,
             TEXT to _callToActionText,
             TYPE to _eventType,
-            FirebaseAnalytics.Param.SCREEN_NAME to name
+            FirebaseAnalytics.Param.SCREEN_NAME to name,
         )
 
         val commonParameters: Map<out String, Any?> = overrides?.asMap() ?: mapOf()

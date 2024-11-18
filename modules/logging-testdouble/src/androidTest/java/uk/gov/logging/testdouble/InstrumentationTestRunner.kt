@@ -10,12 +10,12 @@ class InstrumentationTestRunner : AndroidJUnitRunner() {
     override fun newApplication(
         cl: ClassLoader?,
         className: String?,
-        context: Context?
+        context: Context?,
     ): Application {
         return super.newApplication(
             cl,
             HiltTestApplication::class.java.name,
-            context
+            context,
         )
     }
 }

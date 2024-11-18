@@ -22,7 +22,7 @@ class ScreenViewParametersTest {
             ScreenViewParameters(
                 clazz = "snake_cased_class",
                 name = exampleScreenName,
-                title = exampleTitle
+                title = exampleTitle,
             )
             fail {
                 "The screenClass should have thrown an exception!"
@@ -31,8 +31,8 @@ class ScreenViewParametersTest {
             assertTrue(
                 exception.message!!.startsWith(
                     "The screenClass parameter is not considered to be lower-cased " +
-                        "alphanumeric"
-                )
+                        "alphanumeric",
+                ),
             )
         }
     }
@@ -43,7 +43,7 @@ class ScreenViewParametersTest {
             ScreenViewParameters(
                 clazz = exampleScreenClass,
                 name = "casing-is-handled-already-for-you",
-                title = exampleTitle
+                title = exampleTitle,
             )
             fail {
                 "The screenName should have thrown an exception!"
@@ -51,8 +51,8 @@ class ScreenViewParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertTrue(
                 exception.message!!.startsWith(
-                    "The screenName parameter is not considered to be upper snake cased"
-                )
+                    "The screenName parameter is not considered to be upper snake cased",
+                ),
             )
         }
     }
@@ -63,26 +63,26 @@ class ScreenViewParametersTest {
             EVENT_NAME to SCREEN_VIEW,
             SCREEN_CLASS to exampleScreenClass.lowercase(),
             SCREEN_NAME to exampleScreenName.uppercase(),
-            TITLE to exampleTitle.lowercase()
+            TITLE to exampleTitle.lowercase(),
         )
 
         val mapper = ScreenViewParameters(
             clazz = exampleScreenClass,
             name = exampleScreenName,
-            title = exampleTitle
+            title = exampleTitle,
         )
 
         val actual = mapper.asMap()
 
         Assertions.assertArrayEquals(
             expectedMap.keys.toTypedArray(),
-            actual.keys.toTypedArray()
+            actual.keys.toTypedArray(),
         )
 
         expectedMap.forEach { (key, value) ->
             Assertions.assertEquals(
                 value,
-                actual[key]
+                actual[key],
             )
         }
     }

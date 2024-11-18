@@ -26,14 +26,14 @@ class FormResponseParametersTest {
                 "0123456789",
                 "0123456789",
                 "0123456789",
-                "0123456789"
+                "0123456789",
             ),
-            text = exampleText
+            text = exampleText,
         ).let {
             assertEquals(
                 "0123456789,0123456789,0123456789,0123456789,0123456789,0123456789,0123456789," +
                     "0123456789,0123456789,0",
-                it.asMap()[RESPONSE]
+                it.asMap()[RESPONSE],
             )
         }
     }
@@ -43,7 +43,7 @@ class FormResponseParametersTest {
         FormResponseParameters(
             name = exampleScreenName,
             response = exampleResponse,
-            text = exampleText
+            text = exampleText,
         ).let {
             assertEquals(exampleResponse[0], it.asMap()[RESPONSE])
             assertEquals(exampleText, it.asMap()[TEXT])

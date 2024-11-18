@@ -8,5 +8,5 @@ enum class Type(val value: String) {
     CallToAction("call to action"),
     SubmitForm("submit form"),
     ActionMenu("action menu"),
-    Icon("icon")
+    Icon("icon"),
 }

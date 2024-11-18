@@ -18,7 +18,7 @@ class ApiErrorParametersTest {
         try {
             ApiErrorParameters(
                 endpoint = fortyTwoString,
-                status = 200
+                status = 200,
             )
             fail {
                 "The endpoint should have thrown an exception!"
@@ -26,7 +26,7 @@ class ApiErrorParametersTest {
         } catch (exception: IllegalArgumentException) {
             assertEquals(
                 "The endpoint parameter is higher than 40!: ${fortyTwoString.length}",
-                exception.message
+                exception.message,
             )
         }
     }
@@ -36,24 +36,24 @@ class ApiErrorParametersTest {
         val expectedMap = mutableMapOf<String, Any?>(
             ENDPOINT to acceptableEndpoint,
             STATUS to Integer.MAX_VALUE.toString(),
-            HASH to "${Integer.MAX_VALUE}_$acceptableEndpoint".md5().lowercase()
+            HASH to "${Integer.MAX_VALUE}_$acceptableEndpoint".md5().lowercase(),
         )
         val mapper = ApiErrorParameters(
             endpoint = acceptableEndpoint,
-            status = Integer.MAX_VALUE
+            status = Integer.MAX_VALUE,
         )
 
         val actual = mapper.asMap()
 
         assertArrayEquals(
             expectedMap.keys.toTypedArray(),
-            actual.keys.toTypedArray()
+            actual.keys.toTypedArray(),
         )
 
         expectedMap.forEach { (key, value) ->
             assertEquals(
                 value,
-                actual[key]
+                actual[key],
             )
         }
     }
