@@ -64,12 +64,16 @@ class FakeAnalyticsLoggerTest {
         logger.logEvent(true, event1, event2, event3)
 
         assertTrue(logger.contains(logger[0]))
-        assertTrue(logger.contains {
-            it.eventType.contains("Screen")
-        })
-        assertFalse(logger.contains {
-            it.eventType.contains("Something wrong")
-        })
+        assertTrue(
+            logger.contains {
+                it.eventType.contains("Screen")
+            },
+        )
+        assertFalse(
+            logger.contains {
+                it.eventType.contains("Something wrong")
+            },
+        )
     }
 
     @Test
@@ -160,7 +164,7 @@ class FakeAnalyticsLoggerTest {
         val event2 = AnalyticsEvent("Screen2", mapOf())
         logger.logEvent(true, event1)
 
-        assertThrows <IllegalArgumentException>{
+        assertThrows<IllegalArgumentException> {
             (logger.containsOnly(listOf(event1, event2)))
         }
     }
