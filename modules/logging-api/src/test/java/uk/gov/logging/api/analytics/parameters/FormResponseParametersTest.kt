@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.analytics.logging.RESPONSE
 import uk.gov.logging.api.analytics.logging.TEXT
+import kotlin.test.assertNotEquals
 
 class FormResponseParametersTest {
 
@@ -48,6 +49,18 @@ class FormResponseParametersTest {
             assertEquals(exampleResponse[0], it.asMap()[RESPONSE])
             assertEquals(exampleText, it.asMap()[TEXT])
             assertEquals(exampleScreenName, it.asMap()[SCREEN_NAME])
+        }
+    }
+
+    @Test
+    fun `FormResponseParameters equals`() {
+        FormResponseParameters(
+            name = exampleScreenName,
+            response = exampleResponse,
+            text = exampleText,
+        ).let {
+            assertEquals(it, it)
+            assertNotEquals(it, it.copy(name = "something else"))
         }
     }
 }
