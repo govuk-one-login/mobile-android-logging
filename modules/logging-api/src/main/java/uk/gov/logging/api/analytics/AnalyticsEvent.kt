@@ -30,7 +30,7 @@ data class AnalyticsEvent(
          * See [One Login Mobile Application Data Schema V1.0](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3790995627/GA4+One+Login+Mobile+Application+Data+Schema+V1.0+amended+to+V1.1#Tracked-Events).
          * See [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
          *
-         * @param parameters Parameters sent as part of analytics event. Should include a
+         * @param parameters sent as part of analytics event. Should include a
          * [RequiredParameters] object and additionally any other parameters objects that are
          * relevant for the analytics event, most commonly [ScreenViewParameters] or
          * [ButtonParameters] objects.
