@@ -5,4 +5,4 @@
 set -o errexit
 
 # Lint the project via the script. Include unit test suite.
-./mobile-android-pipelines/scripts/lintProject "unit"
+./mobile-android-pipelines/scripts/lintProject.sh "unit"
