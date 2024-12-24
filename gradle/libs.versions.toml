@@ -21,6 +21,7 @@ mockito-android = "5.14.2" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.54" # https://github.com/google/dagger/releases
+ksp = "2.1.0-1.0.29" # https://github.com/google/ksp/releases
 
 [libraries]
 # Gradle
@@ -58,3 +59,4 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt-gradle" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-general" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}

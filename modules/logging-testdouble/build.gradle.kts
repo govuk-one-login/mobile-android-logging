@@ -3,6 +3,7 @@ import uk.gov.pipelines.config.ApkConfig
 
 plugins {
     id("uk.gov.pipelines.android-lib-config")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -84,8 +85,9 @@ dependencies {
 
     androidTestUtil(libs.androidx.orchestrator)
     api(projects.modules.loggingApi)
-    kapt(libs.hilt.compiler)
-    kaptAndroidTest(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
+    kspTest(libs.hilt.compiler)
+    kspAndroidTest(libs.hilt.compiler)
 }
 
 mavenPublishingConfig {
