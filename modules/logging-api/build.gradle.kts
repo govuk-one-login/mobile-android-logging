@@ -3,6 +3,7 @@ import uk.gov.pipelines.config.ApkConfig
 
 plugins {
     id("uk.gov.pipelines.android-lib-config")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -89,19 +90,11 @@ dependencies {
         testImplementation(dependency)
     }
 
-    listOf(
-        libs.hilt.compiler,
-    ).forEach {
-        kapt(it)
-        kaptTest(it)
-        kaptAndroidTest(it)
-    }
+    ksp(libs.hilt.compiler)
+    kspTest(libs.hilt.compiler)
+    kspAndroidTest(libs.hilt.compiler)
 
     androidTestUtil(libs.androidx.orchestrator)
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 mavenPublishingConfig {
