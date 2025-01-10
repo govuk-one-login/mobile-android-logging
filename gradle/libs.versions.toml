@@ -20,7 +20,7 @@ junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
 mockito-android = "5.15.2" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
-dagger = "2.54" # https://github.com/google/dagger/releases
+dagger = "2.55" # https://github.com/google/dagger/releases
 ksp = "2.1.0-1.0.29" # https://github.com/google/ksp/releases
 
 [libraries]
