@@ -34,7 +34,7 @@ class ButtonTest {
     fun `Match output map`() {
         val expectedMap = mutableMapOf<String, Any?>(
             TEXT to exampleText.lowercase(),
-            TYPE to Type.CallToAction.value,
+            TYPE to Type.SubmitForm.value,
         )
 
         val event = TrackEvent.Button(

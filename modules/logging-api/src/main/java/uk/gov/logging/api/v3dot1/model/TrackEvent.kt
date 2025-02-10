@@ -23,7 +23,7 @@ sealed class TrackEvent(
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
-            TYPE to Type.CallToAction.value,
+            TYPE to Type.SubmitForm.value,
         ) + params.asMap()
     }
 
