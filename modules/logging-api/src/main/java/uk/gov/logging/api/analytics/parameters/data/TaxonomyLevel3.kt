@@ -17,4 +17,5 @@ enum class TaxonomyLevel3(val value: String) {
     UNLOCK("unlock"),
     BIOMETRICS("biometrics"),
     UNDEFINED("undefined"),
+    ERROR("error"),
 }

@@ -7,5 +7,6 @@ enum class TaxonomyLevel2(val value: String) {
     GOVUK("govuk"),
     APP_SYSTEM("app system"),
     ACCOUNT("account"),
-    HOME("home")
+    HOME("home"),
+    SETTINGS("settings"),
 }
