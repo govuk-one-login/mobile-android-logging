@@ -12,7 +12,7 @@ android {
         namespace = apkConfig.applicationId + ".testdouble"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
-        testInstrumentationRunner = "uk.gov.logging.testdouble.InstrumentationTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildToolsVersion = libs.versions.android.build.tools.get()
