@@ -13,7 +13,7 @@ android {
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
 
-        testInstrumentationRunner = "uk.gov.logging.impl.InstrumentationTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildToolsVersion = libs.versions.android.build.tools.get()

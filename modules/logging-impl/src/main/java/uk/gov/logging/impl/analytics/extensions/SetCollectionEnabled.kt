@@ -9,5 +9,5 @@ import com.google.firebase.ktx.Firebase
  */
 fun Firebase.setCollectionEnabled(isEnabled: Boolean) {
     this.analytics.setAnalyticsCollectionEnabled(isEnabled)
-    this.crashlytics.setCrashlyticsCollectionEnabled(isEnabled)
+    this.crashlytics.isCrashlyticsCollectionEnabled = isEnabled
 }
