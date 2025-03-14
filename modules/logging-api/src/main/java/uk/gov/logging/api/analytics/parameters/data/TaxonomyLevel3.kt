@@ -19,5 +19,5 @@ enum class TaxonomyLevel3(val value: String) {
     BIOMETRICS("biometrics"),
     UNDEFINED("undefined"),
     ERROR("error"),
-    LICENCES("licences")
+    LICENCES("licences"),
 }
