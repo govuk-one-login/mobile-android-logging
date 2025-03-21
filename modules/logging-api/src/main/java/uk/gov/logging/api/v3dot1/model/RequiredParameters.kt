@@ -1,5 +1,6 @@
 package uk.gov.logging.api.v3dot1.model
 
+import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.ORGANISATION
 import uk.gov.logging.api.analytics.logging.PRIMARY_PUBLISHING_ORGANISATION
 import uk.gov.logging.api.analytics.logging.SAVED_DOC_TYPE
@@ -17,6 +18,7 @@ import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3.UNDEFINED
+import java.util.Locale
 
 @Suppress("MaxLineLength")
 /**
@@ -48,5 +50,6 @@ open class RequiredParameters(
         TAXONOMY_LEVEL1 to taxonomyLevel1.value,
         TAXONOMY_LEVEL2 to taxonomyLevel2.value,
         TAXONOMY_LEVEL3 to taxonomyLevel3.value,
+        LANGUAGE to Locale.getDefault().language,
     )
 }
