@@ -10,6 +10,7 @@ repository = "mobile-android-logging"
 owner = "govuk-one-login"
 
 [commit_types]
+build = { changelog_title = "Build", bump_patch = true }
 wip = { changelog_title = "Work in Progress", omit_from_changelog = true }
 ops = { changelog_title = "Operations", omit_from_changelog = false }
 
