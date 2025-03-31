@@ -15,6 +15,7 @@ enum class TaxonomyLevel3(val value: String) {
     RE_AUTH("re auth"),
     RESUME("resume"),
     DOCUMENT_SELECTION("document selection"),
+    HANDBACK("handback"),
     UNLOCK("unlock"),
     BIOMETRICS("biometrics"),
     UNDEFINED("undefined"),
