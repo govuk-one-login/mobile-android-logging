@@ -9,4 +9,5 @@ enum class TaxonomyLevel2(val value: String) {
     ACCOUNT("account"),
     HOME("home"),
     SETTINGS("settings"),
+    ONBOARDING("onboarding")
 }
