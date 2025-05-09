@@ -18,8 +18,8 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
         private val id: String,
         private val params: RequiredParameters,
     ) : ViewEvent(params) {
-        private val _screenName get() = name.take(HUNDRED_CHAR_LIMIT)
-        private val _screenId get() = id.take(HUNDRED_CHAR_LIMIT)
+        private val _screenName get() = name.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _screenId get() = id.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf(
             SCREEN_ID to _screenId,
@@ -36,10 +36,10 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
         private val status: String,
         private val params: RequiredParameters,
     ) : ViewEvent(params) {
-        private val _screenName get() = name.take(HUNDRED_CHAR_LIMIT)
-        private val _screenId get() = id.take(HUNDRED_CHAR_LIMIT)
-        private val _endpoint get() = endpoint.take(HUNDRED_CHAR_LIMIT)
-        private val _reason get() = reason.take(HUNDRED_CHAR_LIMIT)
+        private val _screenName get() = name.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _screenId get() = id.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _endpoint get() = endpoint.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _reason get() = reason.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _status get() = status.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _hash get() = (_endpoint + "_" + _status).take(HUNDRED_CHAR_LIMIT).lowercase().md5()
 

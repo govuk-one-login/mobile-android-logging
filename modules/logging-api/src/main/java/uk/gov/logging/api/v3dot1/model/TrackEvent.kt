@@ -19,7 +19,7 @@ sealed class TrackEvent(
         private val text: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
@@ -31,7 +31,7 @@ sealed class TrackEvent(
         private val text: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
@@ -45,9 +45,9 @@ sealed class TrackEvent(
         private val text: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
-        private val _linkDomain get() = domain.take(HUNDRED_CHAR_LIMIT)
-        private val _isExternal get() = isExternal.toString()
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
+        private val _linkDomain get() = domain.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _isExternal get() = isExternal.toString().lowercase()
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             EXTERNAL to _isExternal,
@@ -62,8 +62,8 @@ sealed class TrackEvent(
         private val response: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.FORM_EVENT, params) {
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
-        private val _response get() = response.take(HUNDRED_CHAR_LIMIT)
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _response get() = response.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
@@ -77,8 +77,8 @@ sealed class TrackEvent(
         private val response: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.FORM_EVENT, params) {
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
-        private val _response get() = response.take(HUNDRED_CHAR_LIMIT)
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _response get() = response.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
@@ -92,8 +92,8 @@ sealed class TrackEvent(
         private val response: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.FORM_EVENT, params) {
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
-        private val _response get() = response.take(HUNDRED_CHAR_LIMIT)
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
+        private val _response get() = response.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
@@ -106,7 +106,7 @@ sealed class TrackEvent(
         private val text: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.POPUP_EVENT, params) {
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
@@ -118,7 +118,7 @@ sealed class TrackEvent(
         private val text: String,
         private val params: RequiredParameters,
     ) : TrackEvent(EventTypes.POPUP_EVENT, params) {
-        private val _text get() = text.take(HUNDRED_CHAR_LIMIT)
+        private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,

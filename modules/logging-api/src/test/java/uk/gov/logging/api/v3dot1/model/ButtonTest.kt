@@ -25,7 +25,7 @@ class ButtonTest {
         val actual = event.asMap()[TEXT]
         // Then truncate to 100 characters or less the parameters' values
         assertEquals(
-            expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT),
+            expected = ParametersTestData.overOneHundredString.take(HUNDRED_CHAR_LIMIT).lowercase(),
             actual = actual,
         )
     }
