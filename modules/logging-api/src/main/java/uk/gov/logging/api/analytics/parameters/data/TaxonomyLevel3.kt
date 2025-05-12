@@ -8,6 +8,8 @@ enum class TaxonomyLevel3(val value: String) {
     WALLET_LIBRARY("wallet library"),
     VIEW_DOCUMENT("view document"),
     ADD_DOCUMENT("add document"),
+    OVERVIEW("overview"),
+    INFORMATION("information"),
     MANAGE_ACCOUNT("manage account"),
     DELETE_ACCOUNT("delete account"),
     SIGN_IN("sign in"),
