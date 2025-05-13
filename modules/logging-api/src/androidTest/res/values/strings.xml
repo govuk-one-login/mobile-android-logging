@@ -2,4 +2,9 @@
 <resources>
     <string name="translatable_string">English</string>
     <string name="openIdConnectBaseUrl" translatable="false">https://auth-stub.mobile.build.account.gov.uk%1$s</string>
+
+    <plurals name="translatable_plural">
+        <item quantity="one">English One</item>
+        <item quantity="other">English Other</item>
+    </plurals>
 </resources>
