@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="translatable_string">Welsh</string>
+
+    <plurals name="translatable_plural">
+        <item quantity="zero">Welsh Zero</item>
+        <item quantity="one">Welsh One</item>
+        <item quantity="two">Welsh Two</item>
+        <item quantity="other">Welsh Other</item>
+        <item quantity="few">Welsh Few</item>
+        <item quantity="many">Welsh many</item>
+    </plurals>
 </resources>
