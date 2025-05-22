@@ -60,7 +60,7 @@ class FormTest {
             type = Type.Toggle,
         )
         // Type parameters is different from default value and as expected
-       val eventMap = event.asMap().toMap()
+        val eventMap = event.asMap().toMap()
         assertEquals(Type.Toggle.value, eventMap[TYPE])
     }
 
