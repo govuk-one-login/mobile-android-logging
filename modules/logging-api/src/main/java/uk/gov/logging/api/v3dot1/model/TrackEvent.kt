@@ -91,6 +91,7 @@ sealed class TrackEvent(
         private val text: String,
         private val response: String,
         private val params: RequiredParameters,
+        private val type: Type = Type.SubmitForm,
     ) : TrackEvent(EventTypes.FORM_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _response get() = response.take(HUNDRED_CHAR_LIMIT).lowercase()
@@ -98,7 +99,7 @@ sealed class TrackEvent(
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             TEXT to _text,
             RESPONSE to _response,
-            TYPE to Type.SubmitForm.value,
+            TYPE to type.value,
         ) + params.asMap()
     }
 

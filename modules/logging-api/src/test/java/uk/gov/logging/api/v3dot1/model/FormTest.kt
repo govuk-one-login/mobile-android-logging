@@ -6,6 +6,7 @@ import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
+import uk.gov.logging.api.analytics.parameters.data.Type
 import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
 import kotlin.test.Test
 import kotlin.test.assertContains
@@ -47,6 +48,20 @@ class FormTest {
         requiredKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)
         }
+    }
+
+    @Test
+    fun `change type`() {
+        // Given TrackEvent.Form
+        val event = TrackEvent.Form(
+            text = "Test Button",
+            response = ParametersTestData.overOneHundredString,
+            params = required,
+            type = Type.Toggle,
+        )
+        // Type parameters is different from default value and as expected
+       val eventMap = event.asMap().toMap()
+        assertEquals(Type.Toggle.value, eventMap[TYPE])
     }
 
     companion object {

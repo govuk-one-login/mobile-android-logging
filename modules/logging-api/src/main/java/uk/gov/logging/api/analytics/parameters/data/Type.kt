@@ -9,4 +9,5 @@ enum class Type(val value: String) {
     SubmitForm("submit form"),
     ActionMenu("action menu"),
     Icon("icon"),
+    Toggle("toggle"),
 }
