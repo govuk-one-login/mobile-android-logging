@@ -6,8 +6,8 @@ import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.CrashLogger
-import uk.gov.logging.impl.LoggingTestData.logMessage
-import uk.gov.logging.impl.LoggingTestData.logThrowable
+import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
+import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
 
 internal class CrashlyticsLoggerTest {
     private val firebaseCrashlytics: FirebaseCrashlytics = mock()
