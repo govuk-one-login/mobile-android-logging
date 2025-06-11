@@ -1,6 +1,6 @@
 package uk.gov.logging.impl
 
-object LoggingTestData {
+object LoggingTestDataRelease {
     private const val throwableMessage = "This is a unit test!"
 
     const val logMessage = "Unit test log message"

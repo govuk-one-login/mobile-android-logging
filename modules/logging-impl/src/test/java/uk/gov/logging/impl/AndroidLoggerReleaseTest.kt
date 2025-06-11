@@ -9,13 +9,14 @@ import org.mockito.Mockito
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
+import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.CrashLogger
 import uk.gov.logging.api.Logger
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
 
-internal class AndroidLoggerTest {
+internal class AndroidLoggerReleaseTest {
 
     private val crashLogger: CrashLogger = mock()
     private lateinit var staticLogMock: MockedStatic<Log>
@@ -38,30 +39,67 @@ internal class AndroidLoggerTest {
     fun `Debug messages defer to static Android log function`() {
         logger.debug(tag = logTag, msg = logMessage)
 
-        staticLogMock.verifyNoInteractions()
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.d(
+                    eq(logTag),
+                    eq(logMessage),
+                )
+            }
+        } else {
+            staticLogMock.verifyNoInteractions()
+        }
     }
 
     @Test
     fun `Info messages call crash logger and static logger`() {
         logger.info(tag = logTag, msg = logMessage)
 
-        staticLogMock.verifyNoInteractions()
-        verify(crashLogger).log(eq("I : $logTag : $logMessage"))
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.i(
+                    eq(logTag),
+                    eq(logMessage),
+                )
+            }
+            verify(crashLogger).log(eq("I : $logTag : $logMessage"))
+        } else {
+            staticLogMock.verifyNoInteractions()
+        }
     }
 
     @Test
     fun `Error messages call crash logger and static logger`() {
         logger.error(tag = logTag, msg = logMessage)
 
-        staticLogMock.verifyNoInteractions()
-        verify(crashLogger).log(eq("E : $logTag : $logMessage"))
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.e(
+                    eq(logTag),
+                    eq(logMessage),
+                )
+            }
+            verify(crashLogger).log(eq("E : $logTag : $logMessage"))
+        } else {
+            staticLogMock.verifyNoInteractions()
+        }
     }
 
     @Test
     fun `Error messages with throwable call crash logger and static logger`() {
         logger.error(tag = logTag, msg = logMessage, throwable = logThrowable)
 
-        staticLogMock.verifyNoInteractions()
-        verify(crashLogger).log(eq(logThrowable))
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.e(
+                    eq(logTag),
+                    eq(logMessage),
+                    eq(logThrowable),
+                )
+            }
+            verify(crashLogger).log(eq(logThrowable))
+        } else {
+            staticLogMock.verifyNoInteractions()
+        }
     }
 }
