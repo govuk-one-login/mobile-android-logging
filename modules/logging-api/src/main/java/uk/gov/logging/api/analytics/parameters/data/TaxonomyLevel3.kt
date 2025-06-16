@@ -20,6 +20,7 @@ enum class TaxonomyLevel3(val value: String) {
     DOCUMENT_SELECTION("document selection"),
     HANDBACK("handback"),
     UNLOCK("unlock"),
+    LOCKED("locked"),
     BIOMETRICS("biometrics"),
     BIOMETRICS_TOGGLE("biometrics toggle"),
     UNDEFINED("undefined"),
