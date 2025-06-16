@@ -22,7 +22,7 @@ mockito-android = "5.17.0" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.56.2" # https://github.com/google/dagger/releases
-ksp = "2.1.21-2.0.1" # https://github.com/google/ksp/releases
+ksp = "2.1.21-2.0.2" # https://github.com/google/ksp/releases
 
 [libraries]
 # Gradle
