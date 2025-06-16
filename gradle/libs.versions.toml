@@ -14,7 +14,7 @@ androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androi
 androidx-test-runner = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-orchestratorr = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/test
 # Firebase
-firebase-bom = "33.14.0" # https://firebase.google.com/docs/android/setup
+firebase-bom = "33.15.0" # https://firebase.google.com/docs/android/setup
 # Test
 junit = "5.13.1"
 junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
@@ -22,7 +22,7 @@ mockito-android = "5.17.0" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.56.2" # https://github.com/google/dagger/releases
-ksp = "2.1.21-2.0.1" # https://github.com/google/ksp/releases
+ksp = "2.1.21-2.0.2" # https://github.com/google/ksp/releases
 
 [libraries]
 # Gradle
