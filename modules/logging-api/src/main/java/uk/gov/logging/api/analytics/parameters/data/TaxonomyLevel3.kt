@@ -26,4 +26,5 @@ enum class TaxonomyLevel3(val value: String) {
     UNDEFINED("undefined"),
     ERROR("error"),
     LICENCES("licences"),
+    INITIALISATION("initialisation"),
 }
