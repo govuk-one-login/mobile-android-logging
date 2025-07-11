@@ -1,8 +1,9 @@
 package uk.gov.logging.api.analytics.parameters.data
 
 enum class SavedDocType(val value: String) {
-    PASSPORT("passport"),
-    BRP("brp"),
-    DRIVING_LICENCE("driving licence"),
+    DBS("dbs"),
+    NINO("nino"),
+    VETERANS_CARD("veterans card"),
+    DRIVING_LICENCE("mdl"),
     UNDEFINED("undefined"),
 }
