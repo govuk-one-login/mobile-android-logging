@@ -11,7 +11,6 @@ import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.required
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 
 class ScreenTest {
     private val exampleScreenName = "unit_test"
@@ -29,8 +28,8 @@ class ScreenTest {
             params = required,
         )
         // Then hardcoded values are correct
-        val actualIsError = parameters.asMap()[IS_ERROR] as Boolean
-        assertFalse(actualIsError)
+        val actualIsError = parameters.asMap()[IS_ERROR]
+        assertEquals("false", actualIsError)
     }
 
     @Test

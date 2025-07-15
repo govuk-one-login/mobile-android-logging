@@ -16,7 +16,6 @@ import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.required
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class ErrorTest {
     private val exampleName = "Signing out will delete your app data"
@@ -37,8 +36,8 @@ class ErrorTest {
             params = required,
         )
         // Then hardcoded values are correct
-        val actualIsError = parameters.asMap()[IS_ERROR]as Boolean
-        assertTrue(actualIsError)
+        val actualIsError = parameters.asMap()[IS_ERROR]
+        assertEquals("true", actualIsError)
     }
 
     @Test
