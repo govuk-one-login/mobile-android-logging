@@ -43,6 +43,7 @@ const val TAXONOMY_LEVEL1 = "taxonomy_level1"
 const val TAXONOMY_LEVEL2 = "taxonomy_level2"
 const val TAXONOMY_LEVEL3 = "taxonomy_level3"
 const val SCREEN_ID = "screen_id"
+const val IS_ERROR = "is_error"
 
 val LOWER_ALPHANUMERIC_FORTY_LIMIT: Pattern = Pattern.compile("^[a-z\\d]{1,40}$")
 val LOWER_ALPHANUMERIC_HUNDRED_LIMIT: Pattern = Pattern.compile("^[a-z\\d]{1,100}$")

@@ -3,6 +3,7 @@ package uk.gov.logging.api.v3dot1.model
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_CLASS
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_NAME
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
+import uk.gov.logging.api.analytics.logging.IS_ERROR
 import uk.gov.logging.api.analytics.logging.SCREEN_ID
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
@@ -10,6 +11,7 @@ import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.required
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class ScreenTest {
     private val exampleScreenName = "unit_test"
@@ -17,6 +19,19 @@ class ScreenTest {
     private val required = RequiredParameters(
         taxonomyLevel2 = TaxonomyLevel2.GOVUK,
     )
+
+    @Test
+    fun `hardcoded parameter values are as expected`() {
+        // Given a ViewEvent.Screen
+        val parameters = ViewEvent.Screen(
+            name = ParametersTestData.overOneHundredString,
+            id = ParametersTestData.overOneHundredString,
+            params = required,
+        )
+        // Then hardcoded values are correct
+        val actualIsError = parameters.asMap()[IS_ERROR] as Boolean
+        assertFalse(actualIsError)
+    }
 
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
@@ -76,6 +91,11 @@ class ScreenTest {
     }
 
     companion object {
-        private val screenKeys = listOf(SCREEN_ID, SCREEN_CLASS, SCREEN_NAME)
+        private val screenKeys = listOf(
+            SCREEN_ID,
+            SCREEN_CLASS,
+            SCREEN_NAME,
+            IS_ERROR,
+        )
     }
 }

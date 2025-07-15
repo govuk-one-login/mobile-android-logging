@@ -6,6 +6,7 @@ import uk.gov.logging.api.analytics.extensions.md5
 import uk.gov.logging.api.analytics.logging.ENDPOINT
 import uk.gov.logging.api.analytics.logging.HASH
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
+import uk.gov.logging.api.analytics.logging.IS_ERROR
 import uk.gov.logging.api.analytics.logging.REASON
 import uk.gov.logging.api.analytics.logging.SCREEN_ID
 import uk.gov.logging.api.analytics.logging.STATUS
@@ -15,6 +16,7 @@ import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.required
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class ErrorTest {
     private val exampleName = "Signing out will delete your app data"
@@ -22,6 +24,22 @@ class ErrorTest {
     private val required = RequiredParameters(
         taxonomyLevel2 = TaxonomyLevel2.GOVUK,
     )
+
+    @Test
+    fun `hardcoded parameter values are as expected`() {
+        // Given a ViewEvent.Error
+        val parameters = ViewEvent.Error(
+            name = ParametersTestData.overOneHundredString,
+            id = ParametersTestData.overOneHundredString,
+            endpoint = ParametersTestData.overOneHundredString,
+            reason = ParametersTestData.overOneHundredString,
+            status = ParametersTestData.overOneHundredString,
+            params = required,
+        )
+        // Then hardcoded values are correct
+        val actualIsError = parameters.asMap()[IS_ERROR]as Boolean
+        assertTrue(actualIsError)
+    }
 
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
@@ -98,6 +116,7 @@ class ErrorTest {
             HASH,
             SCREEN_CLASS,
             SCREEN_NAME,
+            IS_ERROR,
         )
     }
 }
