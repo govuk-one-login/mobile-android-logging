@@ -35,7 +35,7 @@ class RequiredParametersTest {
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given RequiredParameters with values longer than 100 characters
         val parameters = RequiredParameters(
-            savedDocType = ParametersTestData.overOneHundredString,
+            docType = ParametersTestData.overOneHundredString,
             taxonomyLevel2 = TaxonomyLevel2.DOCUMENT_CHECKING_APP,
             taxonomyLevel3 = TaxonomyLevel3.UNDEFINED,
         )
