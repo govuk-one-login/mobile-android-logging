@@ -14,6 +14,7 @@ import uk.gov.logging.api.analytics.parameters.data.Organisation
 import uk.gov.logging.api.analytics.parameters.data.Organisation.OT1056
 import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisation
 import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisation.GDS_DI
+import uk.gov.logging.api.analytics.parameters.data.SavedDocType
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
@@ -36,14 +37,15 @@ import java.util.Locale
  *  - [GA4 Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
  */
 open class RequiredParameters(
-    private val savedDocType: String = SAVED_DOC_TYPE_UNDEFINED,
+    private val savedDocType: SavedDocType = SavedDocType.UNDEFINED,
+    private val docType: String = SAVED_DOC_TYPE_UNDEFINED,
     private val primaryPublishingOrganisation: PrimaryPublishingOrganisation = GDS_DI,
     private val organisation: Organisation = OT1056,
     private val taxonomyLevel1: TaxonomyLevel1 = ONE_LOGIN,
     private val taxonomyLevel2: TaxonomyLevel2,
     private val taxonomyLevel3: TaxonomyLevel3 = UNDEFINED,
 ) : Mapper {
-    private val _savedDocType get() = savedDocType.take(HUNDRED_CHAR_LIMIT)
+    private val _savedDocType get() = docType.take(HUNDRED_CHAR_LIMIT)
 
     override fun asMap(): Map<out String, Any?> = mapOf(
         SAVED_DOC_TYPE to _savedDocType,
