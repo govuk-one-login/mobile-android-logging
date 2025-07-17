@@ -22,7 +22,7 @@ import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3.UNDEFINED
 import java.util.Locale
 
-@Suppress("MaxLineLength")
+@Suppress("MaxLineLength", "LongParameterList", "UnusedPrivateProperty")
 /**
  * Base class for providing values that's required for all events. These are:
  *
