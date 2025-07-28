@@ -14,7 +14,7 @@ androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androi
 androidx-test-runner = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-orchestratorr = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/test
 # Firebase
-firebase-bom = "33.16.0" # https://firebase.google.com/docs/android/setup
+firebase-bom = "34.0.0" # https://firebase.google.com/docs/android/setup
 # Test
 junit = "5.13.3"
 junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
