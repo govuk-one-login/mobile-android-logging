@@ -25,6 +25,6 @@ enum class TaxonomyLevel3(val value: String) {
     BIOMETRICS_TOGGLE("biometrics toggle"),
     UNDEFINED("undefined"),
     ERROR("error"),
-    LICENCES("licences"),
+    LICENCES("open source licences"),
     INITIALISATION("initialisation"),
 }
