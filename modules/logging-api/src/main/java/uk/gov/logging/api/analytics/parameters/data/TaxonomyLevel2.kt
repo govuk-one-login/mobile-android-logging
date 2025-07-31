@@ -10,4 +10,5 @@ enum class TaxonomyLevel2(val value: String) {
     HOME("home"),
     SETTINGS("settings"),
     ONBOARDING("onboarding"),
+    LOCAL_AUTH_MANAGER("local auth manager")
 }
