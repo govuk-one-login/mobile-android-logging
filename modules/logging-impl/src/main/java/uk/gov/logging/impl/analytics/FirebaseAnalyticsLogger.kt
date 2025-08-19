@@ -1,7 +1,7 @@
 package uk.gov.logging.impl.analytics
 
+import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.ktx.Firebase
 import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.Logger
 import uk.gov.logging.api.analytics.AnalyticsEvent
