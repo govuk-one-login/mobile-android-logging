@@ -25,7 +25,7 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
         override fun asMap(): Map<out String, Any?> = mapOf(
             IS_ERROR to "false",
             SCREEN_ID to _screenId,
-            FirebaseAnalytics.Param.SCREEN_CLASS to _screenId,
+            FirebaseAnalytics.Param.SCREEN_CLASS to _screenName,
             FirebaseAnalytics.Param.SCREEN_NAME to _screenName,
         ) + params.asMap()
     }
@@ -52,7 +52,7 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
             REASON to _reason,
             STATUS to _status,
             HASH to _hash,
-            FirebaseAnalytics.Param.SCREEN_CLASS to _screenId,
+            FirebaseAnalytics.Param.SCREEN_CLASS to _screenName,
             FirebaseAnalytics.Param.SCREEN_NAME to _screenName,
         ) + params.asMap()
     }

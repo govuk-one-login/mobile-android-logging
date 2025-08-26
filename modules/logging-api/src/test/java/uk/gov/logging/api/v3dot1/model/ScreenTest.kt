@@ -52,7 +52,7 @@ class ScreenTest {
     fun `Verify map output`() {
         val expectedMap: Map<String, Any?> = mapOf(
             SCREEN_ID to exampleId,
-            SCREEN_CLASS to exampleId,
+            SCREEN_CLASS to exampleScreenName.lowercase(),
             SCREEN_NAME to exampleScreenName.lowercase(),
         )
 
