@@ -24,10 +24,6 @@ jobs:
     runs-on: ubuntu-24.04
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-
-      - uses: gradle/actions/wrapper-validation@beb45655ae31314951c106b46303ff0d0bf2898d # v5
-
       - name: Run pull request workflow
         uses: govuk-one-login/mobile-android-pipelines@8fdf2e86f8a1ae8edd135115c0ba8ba70e8e10de
         with:
