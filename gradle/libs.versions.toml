@@ -11,7 +11,7 @@ ktlint-cli = "0.49.1"
 # Android
 androidx-test-core = "1.6.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androidx/releases/test
-androidx-test-runner = "1.6.2" # https://developer.android.com/jetpack/androidx/releases/test
+androidx-test-runner = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-orchestratorr = "1.6.1" # https://developer.android.com/jetpack/androidx/releases/test
 # Firebase
 firebase-bom = "34.1.0" # https://firebase.google.com/docs/android/setup
