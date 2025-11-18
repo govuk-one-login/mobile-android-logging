@@ -3,5 +3,8 @@
     <issue id="InvalidPackage">
         <ignore path="**/io.ktor/ktor-utils-jvm/**"/>
     </issue>
+    <issue id="UseKtx">
+        <ignore path="**/**"/>
+    </issue>
 </lint>
 
