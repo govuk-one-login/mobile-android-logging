@@ -16,8 +16,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildToolsVersion = libs.versions.android.build.tools.get()
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -32,7 +30,6 @@ android {
         }
     }
 
-    @Suppress("UnstableApiUsage")
     testOptions {
         targetSdk = apkConfig.sdkVersions.target
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
