@@ -19,6 +19,7 @@ kotlin = "2.2.20"
 
 [libraries]
 # Android
+junit = { group = "junit", name = "junit", version.ref = "junit4" }
 androidx-test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "androidx-test-core" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidx-test-runner" }
@@ -28,12 +29,13 @@ firebase-analytics = { group = 'com.google.firebase', name = 'firebase-analytics
 firebase-bom = { group = 'com.google.firebase', name = 'firebase-bom', version.ref = "firebase-bom"}
 firebase-crashlytics = { group = 'com.google.firebase', name = 'firebase-crashlytics' }
 firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
-# Test
-junit = { group = "junit", name = "junit", version.ref = "junit4" }
+# JUnit5
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine"}
-junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito-android" }
 # DI

@@ -83,13 +83,15 @@ dependencies {
         kotlin("test"),
         libs.junit.jupiter,
         libs.junit.jupiter.params,
-        libs.junit.jupiter.engine,
         platform(libs.junit.bom),
         libs.mockito.kotlin,
         projects.modules.loggingTestdouble,
     ).forEach { dependency ->
         testImplementation(dependency)
     }
+
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     androidTestUtil(libs.androidx.orchestrator)
     api(projects.modules.loggingApi)
