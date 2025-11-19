@@ -25,6 +25,7 @@ androidx-orchestrator = { group = "androidx.test", name = "orchestrator", versio
 firebase-analytics = { group = 'com.google.firebase', name = 'firebase-analytics' }
 firebase-bom = { group = 'com.google.firebase', name = 'firebase-bom', version.ref = "firebase-bom"}
 firebase-crashlytics = { group = 'com.google.firebase', name = 'firebase-crashlytics' }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit4" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-api" }
