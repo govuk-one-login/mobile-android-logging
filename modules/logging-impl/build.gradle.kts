@@ -68,6 +68,7 @@ dependencies {
     listOf(
         libs.firebase.analytics,
         libs.firebase.crashlytics,
+        libs.firebase.performance,
         libs.hilt.android,
         platform(libs.firebase.bom),
     ).forEach {
