@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -7,11 +9,6 @@ pluginManagement {
         google()
         mavenCentral()
     }
-}
-
-plugins {
-    // See https://jmfayard.github.io/refreshVersions
-    id("de.fayard.refreshVersions") version "0.60.5"
 }
 
 dependencyResolutionManagement {
