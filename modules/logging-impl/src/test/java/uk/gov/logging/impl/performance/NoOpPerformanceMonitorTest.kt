@@ -5,7 +5,7 @@ import java.net.URL
 import kotlin.test.Test
 
 class NoOpPerformanceMonitorTest {
-    private val monitor = NoOpPerformanceMonitor()
+    private val monitor = NoOpPerformanceMonitor
 
     @Test
     fun `newTrace starts the trace and returns NoOp wrapper`() {

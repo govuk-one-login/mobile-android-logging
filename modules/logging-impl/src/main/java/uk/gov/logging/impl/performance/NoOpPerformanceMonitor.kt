@@ -4,15 +4,15 @@ import uk.gov.logging.api.performance.HttpMethod
 import uk.gov.logging.api.performance.PerformanceMonitor
 import java.net.URL
 
-class NoOpPerformanceMonitor : PerformanceMonitor {
-    override fun newTrace(name: String): PerformanceMonitor.Trace = Trace()
+object NoOpPerformanceMonitor : PerformanceMonitor {
+    override fun newTrace(name: String): PerformanceMonitor.Trace = Trace
 
     override fun newHTTPMetric(
         url: URL,
         method: HttpMethod,
-    ): PerformanceMonitor.HttpMetric = HttpMetric()
+    ): PerformanceMonitor.HttpMetric = HttpMetric
 
-    class Trace : PerformanceMonitor.Trace {
+    object Trace : PerformanceMonitor.Trace {
         override fun putAttribute(
             key: String,
             value: String,
@@ -26,7 +26,7 @@ class NoOpPerformanceMonitor : PerformanceMonitor {
         override fun stop() = Unit
     }
 
-    class HttpMetric : PerformanceMonitor.HttpMetric {
+    object HttpMetric : PerformanceMonitor.HttpMetric {
         override fun setRequestSize(bytes: Long) = Unit
 
         override fun setResponseSize(bytes: Long) = Unit
