@@ -66,6 +66,8 @@ dependencies {
     }
 
     listOf(
+        platform(libs.kotlin.bom),
+        libs.kotlinx.coroutines,
         libs.firebase.analytics,
         libs.firebase.crashlytics,
         libs.firebase.performance,
@@ -77,6 +79,7 @@ dependencies {
 
     listOf(
         libs.hilt.android.testing,
+        libs.kotlinx.coroutines.test,
         kotlin("test"),
         libs.junit.jupiter,
         libs.junit.jupiter.params,
