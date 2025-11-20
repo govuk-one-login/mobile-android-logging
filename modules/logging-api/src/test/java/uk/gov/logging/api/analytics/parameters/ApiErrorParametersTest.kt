@@ -12,7 +12,6 @@ import uk.gov.logging.api.analytics.parameters.ParametersTestData.acceptableEndp
 import uk.gov.logging.api.analytics.parameters.ParametersTestData.fortyTwoString
 
 class ApiErrorParametersTest {
-
     @Test
     fun `Endpoint length must be under 40 characters`() {
         try {
@@ -33,15 +32,17 @@ class ApiErrorParametersTest {
 
     @Test
     fun `Max integer value has no issue with expected output`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            ENDPOINT to acceptableEndpoint,
-            STATUS to Integer.MAX_VALUE.toString(),
-            HASH to "${Integer.MAX_VALUE}_$acceptableEndpoint".md5().lowercase(),
-        )
-        val mapper = ApiErrorParameters(
-            endpoint = acceptableEndpoint,
-            status = Integer.MAX_VALUE,
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                ENDPOINT to acceptableEndpoint,
+                STATUS to Integer.MAX_VALUE.toString(),
+                HASH to "${Integer.MAX_VALUE}_$acceptableEndpoint".md5().lowercase(),
+            )
+        val mapper =
+            ApiErrorParameters(
+                endpoint = acceptableEndpoint,
+                status = Integer.MAX_VALUE,
+            )
 
         val actual = mapper.asMap()
 

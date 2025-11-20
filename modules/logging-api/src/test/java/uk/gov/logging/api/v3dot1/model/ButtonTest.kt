@@ -18,10 +18,11 @@ class ButtonTest {
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a TrackEvent.Button with parameter values longer than 100 characters
-        val event = TrackEvent.Button(
-            text = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val event =
+            TrackEvent.Button(
+                text = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actual = event.asMap()[TEXT]
         // Then truncate to 100 characters or less the parameters' values
         assertEquals(
@@ -32,15 +33,17 @@ class ButtonTest {
 
     @Test
     fun `Match output map`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            TEXT to exampleText.lowercase(),
-            TYPE to Type.SubmitForm.value,
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                TEXT to exampleText.lowercase(),
+                TYPE to Type.SubmitForm.value,
+            )
 
-        val event = TrackEvent.Button(
-            text = exampleText,
-            params = required,
-        )
+        val event =
+            TrackEvent.Button(
+                text = exampleText,
+                params = required,
+            )
 
         val actual = event.asMap()
 
@@ -55,10 +58,11 @@ class ButtonTest {
     @Test
     fun `has required keys`() {
         // Given AnalyticsEvent.Track.Button
-        val event = TrackEvent.Button(
-            text = "Test Button",
-            params = required,
-        )
+        val event =
+            TrackEvent.Button(
+                text = "Test Button",
+                params = required,
+            )
         // Then both Text and Type parameters should be set
         buttonKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)

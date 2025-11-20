@@ -8,7 +8,6 @@ import uk.gov.logging.api.analytics.logging.TEXT
 import kotlin.test.assertNotEquals
 
 class FormResponseParametersTest {
-
     private val exampleText = "option text"
     private val exampleResponse = arrayOf("option text")
     private val exampleScreenName = "screen_name"
@@ -17,18 +16,19 @@ class FormResponseParametersTest {
     fun `Response text is truncated 100 characters`() {
         FormResponseParameters(
             name = exampleScreenName,
-            response = arrayOf(
-                "0123456789",
-                "0123456789",
-                "0123456789",
-                "0123456789",
-                "0123456789",
-                "0123456789",
-                "0123456789",
-                "0123456789",
-                "0123456789",
-                "0123456789",
-            ),
+            response =
+                arrayOf(
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                    "0123456789",
+                ),
             text = exampleText,
         ).let {
             assertEquals(

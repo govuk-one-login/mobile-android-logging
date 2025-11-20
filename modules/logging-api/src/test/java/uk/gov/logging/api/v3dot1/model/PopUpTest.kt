@@ -18,10 +18,11 @@ class PopUpTest {
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a TrackEvent.PopUp with parameter values longer than 100 characters
-        val parameters = TrackEvent.PopUp(
-            text = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val parameters =
+            TrackEvent.PopUp(
+                text = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actual = parameters.asMap()[TEXT]
         // Then truncate to 100 characters or less the parameters' values
         assertEquals(
@@ -32,15 +33,17 @@ class PopUpTest {
 
     @Test
     fun `Match output map`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            TEXT to exampleText.lowercase(),
-            TYPE to Type.PopUp.value,
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                TEXT to exampleText.lowercase(),
+                TYPE to Type.PopUp.value,
+            )
 
-        val mapper = TrackEvent.PopUp(
-            text = exampleText,
-            params = required,
-        )
+        val mapper =
+            TrackEvent.PopUp(
+                text = exampleText,
+                params = required,
+            )
 
         val actual = mapper.asMap()
 
@@ -55,10 +58,11 @@ class PopUpTest {
     @Test
     fun `has required keys`() {
         // Given TrackEvent.PopUp
-        val event = TrackEvent.PopUp(
-            text = "Test Button",
-            params = required,
-        )
+        val event =
+            TrackEvent.PopUp(
+                text = "Test Button",
+                params = required,
+            )
         // Then both Text and Type parameters should be set
         popupKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)

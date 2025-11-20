@@ -66,12 +66,13 @@ data class ButtonParameters(
     }
 
     override fun asMap(): Map<out String, Any?> {
-        val bundle = mutableMapOf<String, Any?>(
-            EVENT_NAME to _eventName,
-            TEXT to _callToActionText,
-            TYPE to _eventType,
-            FirebaseAnalytics.Param.SCREEN_NAME to name,
-        )
+        val bundle =
+            mutableMapOf<String, Any?>(
+                EVENT_NAME to _eventName,
+                TEXT to _callToActionText,
+                TYPE to _eventType,
+                FirebaseAnalytics.Param.SCREEN_NAME to name,
+            )
 
         val commonParameters: Map<out String, Any?> = overrides?.asMap() ?: mapOf()
         bundle.putAll(commonParameters)

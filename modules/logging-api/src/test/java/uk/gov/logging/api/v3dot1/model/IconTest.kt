@@ -18,10 +18,11 @@ class IconTest {
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a TrackEvent.Icon with parameter values longer than 100 characters
-        val parameters = TrackEvent.Icon(
-            text = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val parameters =
+            TrackEvent.Icon(
+                text = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actual = parameters.asMap()[TEXT]
         // Then truncate to 100 characters or less the parameters' values
         assertEquals(
@@ -32,15 +33,17 @@ class IconTest {
 
     @Test
     fun `Match output map`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            TEXT to exampleText.lowercase(),
-            TYPE to Type.Icon.value,
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                TEXT to exampleText.lowercase(),
+                TYPE to Type.Icon.value,
+            )
 
-        val event = TrackEvent.Icon(
-            text = exampleText,
-            params = required,
-        )
+        val event =
+            TrackEvent.Icon(
+                text = exampleText,
+                params = required,
+            )
 
         val actual = event.asMap()
 
@@ -55,10 +58,11 @@ class IconTest {
     @Test
     fun `has required keys`() {
         // Given TrackEvent.Icon
-        val event = TrackEvent.Icon(
-            text = exampleText,
-            params = required,
-        )
+        val event =
+            TrackEvent.Icon(
+                text = exampleText,
+                params = required,
+            )
         // Then both Text and Type parameters should be set
         iconKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)

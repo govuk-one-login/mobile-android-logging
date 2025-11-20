@@ -9,28 +9,26 @@ class AnalyticsPrefs @Inject constructor(
     @ApplicationContext
     val context: Context,
 ) : IAnalyticsPrefs {
+    private val analyticsPreferences get() = context.getSharedPreferences(NAME, MODE)
 
-    private val analyticsPreferences get() = context.getSharedPreferences(name, mode)
+    override fun deniedPermanently(): Boolean = this isGranting PERMANENT_KEY
 
-    override fun deniedPermanently(): Boolean = this isGranting permanentKey
+    override fun isGranted(): Boolean = this isGranting GRANTED_KEY
 
-    override fun isGranted(): Boolean = this isGranting grantedKey
-
-    private infix fun isGranting(preferencesKey: String): Boolean {
-        return analyticsPreferences.getBoolean(preferencesKey, defValue)
-    }
+    private infix fun isGranting(preferencesKey: String): Boolean =
+        analyticsPreferences.getBoolean(preferencesKey, DEFAULT_VALUE)
 
     override fun updateGranted(granted: Boolean) {
         val editor: SharedPreferences.Editor = analyticsPreferences.edit()
-        editor.putBoolean(grantedKey, granted)
+        editor.putBoolean(GRANTED_KEY, granted)
         editor.apply()
     }
 
     companion object {
-        private const val name = "ANALYTICS_DENIED"
-        private const val mode = Context.MODE_PRIVATE
-        private const val permanentKey = "PERMANENT"
-        private const val grantedKey = "GRANTED"
-        private const val defValue = false
+        private const val NAME = "ANALYTICS_DENIED"
+        private const val MODE = Context.MODE_PRIVATE
+        private const val PERMANENT_KEY = "PERMANENT"
+        private const val GRANTED_KEY = "GRANTED"
+        private const val DEFAULT_VALUE = false
     }
 }

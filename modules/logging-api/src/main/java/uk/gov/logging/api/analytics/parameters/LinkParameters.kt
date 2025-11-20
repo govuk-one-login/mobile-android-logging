@@ -29,15 +29,15 @@ data class LinkParameters(
     private val external: Boolean = false,
     private val overrides: Mapper? = null,
 ) : Mapper {
-
     private val _domain get() = domain.lowercase().take(HUNDRED_CHAR_LIMIT)
     private val _external get() = external.toString().lowercase()
 
     override fun asMap(): Map<out String, Any?> {
-        val bundle = mutableMapOf<String, Any?>(
-            EXTERNAL to _external,
-            LINK_DOMAIN to _domain,
-        )
+        val bundle =
+            mutableMapOf<String, Any?>(
+                EXTERNAL to _external,
+                LINK_DOMAIN to _domain,
+            )
 
         val commonParameters: Map<out String, Any?> = overrides?.asMap() ?: mapOf()
         bundle.putAll(commonParameters)

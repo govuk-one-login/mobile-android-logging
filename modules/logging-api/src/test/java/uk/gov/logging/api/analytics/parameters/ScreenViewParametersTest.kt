@@ -11,7 +11,6 @@ import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.TITLE
 
 class ScreenViewParametersTest {
-
     private val exampleScreenClass = this::class.java.simpleName
     private val exampleScreenName = "UNIT_TEST"
     private val exampleTitle = "This is a unit test"
@@ -59,18 +58,20 @@ class ScreenViewParametersTest {
 
     @Test
     fun `Verify map output`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            EVENT_NAME to SCREEN_VIEW,
-            SCREEN_CLASS to exampleScreenClass.lowercase(),
-            SCREEN_NAME to exampleScreenName.uppercase(),
-            TITLE to exampleTitle.lowercase(),
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                EVENT_NAME to SCREEN_VIEW,
+                SCREEN_CLASS to exampleScreenClass.lowercase(),
+                SCREEN_NAME to exampleScreenName.uppercase(),
+                TITLE to exampleTitle.lowercase(),
+            )
 
-        val mapper = ScreenViewParameters(
-            clazz = exampleScreenClass,
-            name = exampleScreenName,
-            title = exampleTitle,
-        )
+        val mapper =
+            ScreenViewParameters(
+                clazz = exampleScreenClass,
+                name = exampleScreenName,
+                title = exampleTitle,
+            )
 
         val actual = mapper.asMap()
 

@@ -24,9 +24,10 @@ data class ErrorParameters(
 
     @CallSuper
     override fun asMap(): Map<String, Any?> {
-        val bundle = mutableMapOf<String, Any?>(
-            REASON to _reason,
-        )
+        val bundle =
+            mutableMapOf<String, Any?>(
+                REASON to _reason,
+            )
 
         bundle.putAll(overrides?.asMap() ?: mapOf())
 

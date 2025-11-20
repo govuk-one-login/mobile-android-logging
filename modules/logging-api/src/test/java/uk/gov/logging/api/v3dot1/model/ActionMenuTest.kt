@@ -18,10 +18,11 @@ class ActionMenuTest {
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a TrackEvent.Button with parameter values longer than 100 characters
-        val parameters = TrackEvent.ActionMenu(
-            text = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val parameters =
+            TrackEvent.ActionMenu(
+                text = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actual = parameters.asMap()[TEXT]
         // Then truncate to 100 characters or less the parameters' values
         assertEquals(
@@ -32,15 +33,17 @@ class ActionMenuTest {
 
     @Test
     fun `Match output map`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            TEXT to exampleText.lowercase(),
-            TYPE to Type.ActionMenu.value,
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                TEXT to exampleText.lowercase(),
+                TYPE to Type.ActionMenu.value,
+            )
 
-        val mapper = TrackEvent.ActionMenu(
-            text = exampleText,
-            params = required,
-        )
+        val mapper =
+            TrackEvent.ActionMenu(
+                text = exampleText,
+                params = required,
+            )
 
         val actual = mapper.asMap()
 
@@ -55,10 +58,11 @@ class ActionMenuTest {
     @Test
     fun `has required keys`() {
         // Given TrackEvent.ActionMenu
-        val event = TrackEvent.ActionMenu(
-            text = "Test Button",
-            params = required,
-        )
+        val event =
+            TrackEvent.ActionMenu(
+                text = "Test Button",
+                params = required,
+            )
         // Then both Text and Type parameters should be set
         actionMenuKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)

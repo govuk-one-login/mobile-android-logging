@@ -16,16 +16,19 @@ class FakeCrashLogger @Inject constructor(
 
     fun any(condition: (Pair<String?, Throwable>) -> Boolean) = logs.any(condition)
 
-    operator fun contains(message: String?): Boolean = logs.any { entry ->
-        message == entry.first
-    }
+    operator fun contains(message: String?): Boolean =
+        logs.any { entry ->
+            message == entry.first
+        }
 
-    operator fun contains(entry: Pair<String?, Throwable>): Boolean = logs.any { (
-        message: String?, throwable: Throwable,
-    ),
-        ->
-        entry.first == message && entry.second == throwable
-    }
+    operator fun contains(entry: Pair<String?, Throwable>): Boolean =
+        logs.any {
+            (
+                message: String?, throwable: Throwable,
+            ),
+            ->
+            entry.first == message && entry.second == throwable
+        }
 
     operator fun get(i: Int): Pair<String?, Throwable> = this.logs[i]
 
@@ -34,11 +37,12 @@ class FakeCrashLogger @Inject constructor(
             Pair(throwable.message, throwable),
         )
 
-        Toast.makeText(
-            context,
-            throwable.message,
-            Toast.LENGTH_SHORT,
-        )?.show()
+        Toast
+            .makeText(
+                context,
+                throwable.message,
+                Toast.LENGTH_SHORT,
+            )?.show()
     }
 
     override fun log(message: String) {
@@ -55,11 +59,7 @@ class FakeCrashLogger @Inject constructor(
         return true
     }
 
-    override fun hashCode(): Int {
-        return logs.hashCode()
-    }
+    override fun hashCode(): Int = logs.hashCode()
 
-    override fun toString(): String {
-        return "FakeCrashLogger(size=$size, logs=$logs)"
-    }
+    override fun toString(): String = "FakeCrashLogger(size=$size, logs=$logs)"
 }

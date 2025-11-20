@@ -46,13 +46,14 @@ open class RequiredParameters(
 ) : Mapper {
     private val _savedDocType get() = savedDocType.take(HUNDRED_CHAR_LIMIT)
 
-    override fun asMap(): Map<out String, Any?> = mapOf(
-        SAVED_DOC_TYPE to _savedDocType,
-        PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation.value,
-        ORGANISATION to organisation.value,
-        TAXONOMY_LEVEL1 to taxonomyLevel1.value,
-        TAXONOMY_LEVEL2 to taxonomyLevel2.value,
-        TAXONOMY_LEVEL3 to taxonomyLevel3.value,
-        LANGUAGE to Locale.getDefault().language,
-    )
+    override fun asMap(): Map<out String, Any?> =
+        mapOf(
+            SAVED_DOC_TYPE to _savedDocType,
+            PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation.value,
+            ORGANISATION to organisation.value,
+            TAXONOMY_LEVEL1 to taxonomyLevel1.value,
+            TAXONOMY_LEVEL2 to taxonomyLevel2.value,
+            TAXONOMY_LEVEL3 to taxonomyLevel3.value,
+            LANGUAGE to Locale.getDefault().language,
+        )
 }

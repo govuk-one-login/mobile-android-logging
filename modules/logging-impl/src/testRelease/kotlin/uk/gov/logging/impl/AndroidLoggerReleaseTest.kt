@@ -16,7 +16,6 @@ import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
 
 internal class AndroidLoggerReleaseTest {
-
     private val crashLogger: CrashLogger = mock()
     private lateinit var staticLogMock: MockedStatic<Log>
 

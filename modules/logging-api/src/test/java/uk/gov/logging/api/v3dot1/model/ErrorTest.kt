@@ -20,21 +20,23 @@ import kotlin.test.assertEquals
 class ErrorTest {
     private val exampleName = "Signing out will delete your app data"
     private val exampleId = "30a6b339-75a8-44a2-a79a-e108546419bf"
-    private val required = RequiredParameters(
-        taxonomyLevel2 = TaxonomyLevel2.GOVUK,
-    )
+    private val required =
+        RequiredParameters(
+            taxonomyLevel2 = TaxonomyLevel2.GOVUK,
+        )
 
     @Test
     fun `hardcoded parameter values are as expected`() {
         // Given a ViewEvent.Error
-        val parameters = ViewEvent.Error(
-            name = ParametersTestData.overOneHundredString,
-            id = ParametersTestData.overOneHundredString,
-            endpoint = ParametersTestData.overOneHundredString,
-            reason = ParametersTestData.overOneHundredString,
-            status = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val parameters =
+            ViewEvent.Error(
+                name = ParametersTestData.overOneHundredString,
+                id = ParametersTestData.overOneHundredString,
+                endpoint = ParametersTestData.overOneHundredString,
+                reason = ParametersTestData.overOneHundredString,
+                status = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         // Then hardcoded values are correct
         val actualIsError = parameters.asMap()[IS_ERROR]
         assertEquals("true", actualIsError)
@@ -43,14 +45,15 @@ class ErrorTest {
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a ViewEvent.Error with parameter values longer than 100 characters
-        val parameters = ViewEvent.Error(
-            name = ParametersTestData.overOneHundredString,
-            id = ParametersTestData.overOneHundredString,
-            endpoint = ParametersTestData.overOneHundredString,
-            reason = ParametersTestData.overOneHundredString,
-            status = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val parameters =
+            ViewEvent.Error(
+                name = ParametersTestData.overOneHundredString,
+                id = ParametersTestData.overOneHundredString,
+                endpoint = ParametersTestData.overOneHundredString,
+                reason = ParametersTestData.overOneHundredString,
+                status = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actualName = parameters.asMap()[SCREEN_NAME]
         val actualId = parameters.asMap()[SCREEN_ID]
         val actualEndpoint = parameters.asMap()[ENDPOINT]
@@ -68,14 +71,15 @@ class ErrorTest {
     @Test
     fun `hash parameter value is md5 hashed`() {
         // Given ViewEvent.Error
-        val parameters = ViewEvent.Error(
-            name = exampleName,
-            id = exampleId,
-            endpoint = "www.signin.gov.uk",
-            reason = "",
-            status = "404",
-            params = required,
-        )
+        val parameters =
+            ViewEvent.Error(
+                name = exampleName,
+                id = exampleId,
+                endpoint = "www.signin.gov.uk",
+                reason = "",
+                status = "404",
+                params = required,
+            )
         val actual = parameters.asMap()[HASH]
         // Then the screen name value is truncated to be 100 characters or less
         assertEquals(
@@ -89,14 +93,15 @@ class ErrorTest {
         // Given ViewEvent.Error
         val exampleName = "Signing out will delete your app data"
         val exampleId = "30a6b339-75a8-44a2-a79a-e108546419bf"
-        val event = ViewEvent.Error(
-            name = exampleName,
-            id = exampleId,
-            endpoint = "www.sigin.gov.uk",
-            reason = "",
-            status = "404",
-            params = required,
-        )
+        val event =
+            ViewEvent.Error(
+                name = exampleName,
+                id = exampleId,
+                endpoint = "www.sigin.gov.uk",
+                reason = "",
+                status = "404",
+                params = required,
+            )
         // Then ScreenId and ScreenClass, and ScreenName parameters are set
         errorKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)
@@ -107,15 +112,16 @@ class ErrorTest {
     }
 
     companion object {
-        private val errorKeys = listOf(
-            SCREEN_ID,
-            ENDPOINT,
-            REASON,
-            STATUS,
-            HASH,
-            SCREEN_CLASS,
-            SCREEN_NAME,
-            IS_ERROR,
-        )
+        private val errorKeys =
+            listOf(
+                SCREEN_ID,
+                ENDPOINT,
+                REASON,
+                STATUS,
+                HASH,
+                SCREEN_CLASS,
+                SCREEN_NAME,
+                IS_ERROR,
+            )
     }
 }

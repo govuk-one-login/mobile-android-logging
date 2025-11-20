@@ -9,7 +9,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class StringExtensionsTest {
-
     @Test
     fun realDomainExtensionProperty() {
         val context: Context = ApplicationProvider.getApplicationContext()

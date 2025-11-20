@@ -15,7 +15,6 @@ import uk.gov.logging.testdouble.LoggingTestData.logThrowable
 import java.util.stream.Stream
 
 internal class SystemLoggerTest {
-
     private val logger = SystemLogger()
 
     @ParameterizedTest(name = "{index}: {0}")
@@ -34,35 +33,36 @@ internal class SystemLoggerTest {
 
     companion object {
         @JvmStatic
-        fun provideLoggingTestCases(): Stream<Arguments> = Stream.of(
-            arguments(
-                named(
-                    "Debug messages are stored",
-                    logMessageEntry,
+        fun provideLoggingTestCases(): Stream<Arguments> =
+            Stream.of(
+                arguments(
+                    named(
+                        "Debug messages are stored",
+                        logMessageEntry,
+                    ),
+                    { log: Logger -> log.debug(logTag, logMessage) },
                 ),
-                { log: Logger -> log.debug(logTag, logMessage) },
-            ),
-            arguments(
-                named(
-                    "Info messages are stored",
-                    logMessageEntry,
+                arguments(
+                    named(
+                        "Info messages are stored",
+                        logMessageEntry,
+                    ),
+                    { log: Logger -> log.info(logTag, logMessage) },
                 ),
-                { log: Logger -> log.info(logTag, logMessage) },
-            ),
-            arguments(
-                named(
-                    "Error messages are stored",
-                    logMessageEntry,
+                arguments(
+                    named(
+                        "Error messages are stored",
+                        logMessageEntry,
+                    ),
+                    { log: Logger -> log.error(logTag, logMessage) },
                 ),
-                { log: Logger -> log.error(logTag, logMessage) },
-            ),
-            arguments(
-                named(
-                    "Error messages are stored with Throwable",
-                    logErrorEntry,
+                arguments(
+                    named(
+                        "Error messages are stored with Throwable",
+                        logErrorEntry,
+                    ),
+                    { log: Logger -> log.error(logTag, logMessage, logThrowable) },
                 ),
-                { log: Logger -> log.error(logTag, logMessage, logThrowable) },
-            ),
-        )
+            )
     }
 }

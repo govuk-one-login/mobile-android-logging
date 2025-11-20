@@ -30,14 +30,14 @@ open class RequiredParameters(
     private val journeyType: String,
     private val digitalIdentityId: String = DIGITAL_IDENTITY_ID_VALUE,
 ) : Mapper {
-
     @CallSuper
     override fun asMap(): Map<out String, Any?> {
-        val bundle = mutableMapOf(
-            DIGITAL_IDENTITY_ID to digitalIdentityId,
-            DIGITAL_IDENTITY_JOURNEY to digitalIdentityJourney,
-            LANGUAGE to Locale.getDefault().language,
-        )
+        val bundle =
+            mutableMapOf(
+                DIGITAL_IDENTITY_ID to digitalIdentityId,
+                DIGITAL_IDENTITY_JOURNEY to digitalIdentityJourney,
+                LANGUAGE to Locale.getDefault().language,
+            )
 
         if (journeyType.isNotBlank()) {
             bundle[DOCUMENT_TYPE_JOURNEY_KEY] = journeyType

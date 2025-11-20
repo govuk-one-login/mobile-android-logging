@@ -9,9 +9,11 @@ import java.security.MessageDigest
  *
  * @return the hexadecimal String representation of the hashed byte array.
  */
-fun String.md5(): String = MessageDigest.getInstance("MD5")
-    .digest(this.toByteArray(StandardCharsets.UTF_8))
-    .toHex()
+fun String.md5(): String =
+    MessageDigest
+        .getInstance("MD5")
+        .digest(this.toByteArray(StandardCharsets.UTF_8))
+        .toHex()
 
 /**
  * @return the domain (host) section of a String URL

@@ -37,7 +37,6 @@ data class ScreenViewParameters(
     private val event: String = FirebaseAnalytics.Event.SCREEN_VIEW,
     private val overrides: Mapper? = null,
 ) : Mapper {
-
     private val _eventName get() = event.lowercase()
     private val _screenClass get() = clazz.lowercase().take(FORTY_CHAR_LIMIT)
     private val _screenName get() = name.uppercase().take(FORTY_CHAR_LIMIT)
@@ -64,12 +63,13 @@ data class ScreenViewParameters(
 
     @CallSuper
     override fun asMap(): Map<out String, Any?> {
-        val bundle = mutableMapOf<String, Any?>(
-            EVENT_NAME to _eventName,
-            FirebaseAnalytics.Param.SCREEN_CLASS to _screenClass,
-            FirebaseAnalytics.Param.SCREEN_NAME to _screenName,
-            TITLE to _title,
-        )
+        val bundle =
+            mutableMapOf<String, Any?>(
+                EVENT_NAME to _eventName,
+                FirebaseAnalytics.Param.SCREEN_CLASS to _screenClass,
+                FirebaseAnalytics.Param.SCREEN_NAME to _screenName,
+                TITLE to _title,
+            )
 
         val overwrittenValues: Map<out String, Any?> = overrides?.asMap() ?: mapOf()
 

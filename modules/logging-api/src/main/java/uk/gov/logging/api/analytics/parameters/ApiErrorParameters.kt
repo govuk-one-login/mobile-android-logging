@@ -33,7 +33,6 @@ data class ApiErrorParameters(
     private val status: Int = DEFAULT_HTTP_STATUS,
     private val overrides: Mapper? = null,
 ) : Mapper {
-
     private val _endpoint: String get() = endpoint.lowercase()
     private val _httpStatus: String get() = status.toString().lowercase()
     private val hash: String = "${_httpStatus}_$_endpoint".md5().lowercase()
@@ -69,11 +68,12 @@ data class ApiErrorParameters(
 
     @CallSuper
     override fun asMap(): Map<String, Any?> {
-        val bundle = mutableMapOf<String, Any?>(
-            ENDPOINT to _endpoint,
-            STATUS to _httpStatus,
-            HASH to hash,
-        )
+        val bundle =
+            mutableMapOf<String, Any?>(
+                ENDPOINT to _endpoint,
+                STATUS to _httpStatus,
+                HASH to hash,
+            )
 
         bundle.putAll(overrides?.asMap() ?: mapOf())
 

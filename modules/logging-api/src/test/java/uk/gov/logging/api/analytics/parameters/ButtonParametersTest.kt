@@ -16,7 +16,6 @@ import uk.gov.logging.api.analytics.logging.TYPE
 import java.util.Locale
 
 class ButtonParametersTest {
-
     private val exampleCallToActionText = "button text"
     private val exampleEventName = "unit_test"
     private val exampleScreenName = "screen_name"
@@ -83,19 +82,21 @@ class ButtonParametersTest {
 
     @Test
     fun `Match output map`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            EVENT_NAME to exampleEventName.lowercase(),
-            TEXT to exampleCallToActionText.lowercase(),
-            TYPE to "submit form",
-            FirebaseAnalytics.Param.SCREEN_NAME to exampleScreenName,
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                EVENT_NAME to exampleEventName.lowercase(),
+                TEXT to exampleCallToActionText.lowercase(),
+                TYPE to "submit form",
+                FirebaseAnalytics.Param.SCREEN_NAME to exampleScreenName,
+            )
 
-        val mapper = ButtonParameters(
-            callToActionText = exampleCallToActionText,
-            type = exampleEventName,
-            name = exampleScreenName,
-            action = "submit form",
-        )
+        val mapper =
+            ButtonParameters(
+                callToActionText = exampleCallToActionText,
+                type = exampleEventName,
+                name = exampleScreenName,
+                action = "submit form",
+            )
 
         val actual = mapper.asMap()
 
@@ -112,30 +113,32 @@ class ButtonParametersTest {
         val callToActionType = "call to action"
         val popUpEventName = "popup"
 
-        val expectedMap = mutableMapOf<String, Any?>(
-            // ButtonParameters properties
-            EVENT_NAME to popUpEventName.lowercase(),
-            TEXT to exampleCallToActionText.lowercase(),
-            TYPE to callToActionType,
-            FirebaseAnalytics.Param.SCREEN_NAME to exampleScreenName,
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                // ButtonParameters properties
+                EVENT_NAME to popUpEventName.lowercase(),
+                TEXT to exampleCallToActionText.lowercase(),
+                TYPE to callToActionType,
+                FirebaseAnalytics.Param.SCREEN_NAME to exampleScreenName,
+                // RequiredParameters properties
+                DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
+                DIGITAL_IDENTITY_JOURNEY to "popup event test",
+                LANGUAGE to Locale.getDefault().language,
+                DOCUMENT_TYPE_JOURNEY_KEY to "test journey",
+            )
 
-            // RequiredParameters properties
-            DIGITAL_IDENTITY_ID to DIGITAL_IDENTITY_ID_VALUE,
-            DIGITAL_IDENTITY_JOURNEY to "popup event test",
-            LANGUAGE to Locale.getDefault().language,
-            DOCUMENT_TYPE_JOURNEY_KEY to "test journey",
-        )
-
-        val popupEventParameters = ButtonParameters(
-            callToActionText = exampleCallToActionText,
-            name = exampleScreenName,
-            type = popUpEventName,
-            action = callToActionType,
-            overrides = RequiredParameters(
-                digitalIdentityJourney = "popup event test",
-                journeyType = "test journey",
-            ),
-        )
+        val popupEventParameters =
+            ButtonParameters(
+                callToActionText = exampleCallToActionText,
+                name = exampleScreenName,
+                type = popUpEventName,
+                action = callToActionType,
+                overrides =
+                    RequiredParameters(
+                        digitalIdentityJourney = "popup event test",
+                        journeyType = "test journey",
+                    ),
+            )
 
         val actual = popupEventParameters.asMap()
 

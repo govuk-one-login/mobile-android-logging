@@ -17,11 +17,9 @@ data class AnalyticsEvent(
     val eventType: String,
     val parameters: Map<String, Any?>,
 ) {
-
     fun toBundle(): Bundle = parameters.toBundle()
 
-    fun isScreenView(): Boolean =
-        this.eventType == Event.SCREEN_VIEW
+    fun isScreenView(): Boolean = this.eventType == Event.SCREEN_VIEW
 
     companion object {
         /**

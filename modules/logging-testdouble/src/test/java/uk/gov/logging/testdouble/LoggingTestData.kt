@@ -9,13 +9,15 @@ object LoggingTestData {
     const val logTag = "Example log tag"
     val logThrowable = Throwable(message = throwableMessage)
 
-    val logMessageEntry = LogEntry.Message(
-        tag = logTag,
-        message = logMessage,
-    )
-    val logErrorEntry = LogEntry.Error(
-        tag = logTag,
-        message = logMessage,
-        throwable = logThrowable,
-    )
+    val logMessageEntry =
+        LogEntry.Message(
+            tag = logTag,
+            message = logMessage,
+        )
+    val logErrorEntry =
+        LogEntry.Error(
+            tag = logTag,
+            message = logMessage,
+            throwable = logThrowable,
+        )
 }
