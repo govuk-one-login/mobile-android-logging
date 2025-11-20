@@ -1,5 +1,4 @@
 [versions]
-ktlint-cli = "0.49.1"
 # Android
 androidx-test-core = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-ext-junit = "1.3.0" # https://developer.android.com/jetpack/androidx/releases/test

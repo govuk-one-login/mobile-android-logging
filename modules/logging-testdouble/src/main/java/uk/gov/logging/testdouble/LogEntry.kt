@@ -4,7 +4,6 @@ sealed class LogEntry private constructor(
     open val tag: String,
     open val message: String,
 ) {
-
     data class Message(
         override val tag: String,
         override val message: String,

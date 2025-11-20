@@ -28,12 +28,13 @@ class AnalyticsLoggerExtensionsTest {
         // Given an AnalyticsEvent from the v3_1 schema
         val domain = "test_domain"
         val text = "test_button_text"
-        val event = TrackEvent.Link(
-            isExternal = true,
-            domain = domain,
-            text = text,
-            params = required,
-        )
+        val event =
+            TrackEvent.Link(
+                isExternal = true,
+                domain = domain,
+                text = text,
+                params = required,
+            )
         // When calling `asLegacyEvent`
         val actual = event.asLegacyEvent()
         // Then log that event the adapter
@@ -47,12 +48,13 @@ class AnalyticsLoggerExtensionsTest {
         // Given an AnalyticsEvent from the v3_1 schema
         val domain = "test_domain"
         val text = "test_button_text"
-        val event = TrackEvent.Link(
-            isExternal = true,
-            domain = domain,
-            text = text,
-            params = required,
-        )
+        val event =
+            TrackEvent.Link(
+                isExternal = true,
+                domain = domain,
+                text = text,
+                params = required,
+            )
         // When calling `logEvent`
         logger.logEventV3Dot1(event)
         // Then log that event the adapter

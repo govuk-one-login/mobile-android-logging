@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -8,7 +10,6 @@ import uk.gov.logging.api.analytics.logging.LOWER_SNAKE_CASE_FORTY_LIMIT
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
 
-@Suppress("MaxLineLength")
 /**
  * Data class to contain the necessary values required for creating an Analytics event based on
  * navigating a User via a Button. This is different to the [LinkParameters] class, due to
@@ -65,12 +66,13 @@ data class ButtonParameters(
     }
 
     override fun asMap(): Map<out String, Any?> {
-        val bundle = mutableMapOf<String, Any?>(
-            EVENT_NAME to _eventName,
-            TEXT to _callToActionText,
-            TYPE to _eventType,
-            FirebaseAnalytics.Param.SCREEN_NAME to name,
-        )
+        val bundle =
+            mutableMapOf<String, Any?>(
+                EVENT_NAME to _eventName,
+                TEXT to _callToActionText,
+                TYPE to _eventType,
+                FirebaseAnalytics.Param.SCREEN_NAME to name,
+            )
 
         val commonParameters: Map<out String, Any?> = overrides?.asMap() ?: mapOf()
         bundle.putAll(commonParameters)

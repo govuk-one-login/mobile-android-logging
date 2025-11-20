@@ -9,7 +9,6 @@ class MemorisedAnalyticsLogger @Inject constructor(
     private val subLogger: AnalyticsLogger,
 ) : AnalyticsLogger by subLogger,
     LogTagProvider {
-
     private var memorisedEvent: AnalyticsEvent? = null
 
     override fun logEvent(
@@ -29,10 +28,11 @@ class MemorisedAnalyticsLogger @Inject constructor(
                 subLogger.logEvent(shouldLogEvent, event).also {
                     subLogger.debugLog(
                         tag = tag,
-                        msg = "Sent event to log: " +
-                            "eventType: $eventType; " +
-                            "screenClass: $screenClass;" +
-                            "screenName: $screenName;",
+                        msg =
+                            "Sent event to log: " +
+                                "eventType: $eventType; " +
+                                "screenClass: $screenClass;" +
+                                "screenName: $screenName;",
                     )
                 }
             }
@@ -53,12 +53,13 @@ class MemorisedAnalyticsLogger @Inject constructor(
 
                 subLogger.debugLog(
                     tag = tag,
-                    msg = "Should log event: $result - " +
-                        "Is a screen view: $isScreenView; " +
-                        "Is a duplicate: $isDuplicateScreenView; " +
-                        "eventType: $eventType; " +
-                        "screenClass: $screenClass; " +
-                        "screenName: $screenName; ",
+                    msg =
+                        "Should log event: $result - " +
+                            "Is a screen view: $isScreenView; " +
+                            "Is a duplicate: $isDuplicateScreenView; " +
+                            "eventType: $eventType; " +
+                            "screenClass: $screenClass; " +
+                            "screenName: $screenName; ",
                 )
             }
         }

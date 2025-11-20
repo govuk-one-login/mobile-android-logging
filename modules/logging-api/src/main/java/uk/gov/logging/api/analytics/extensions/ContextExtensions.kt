@@ -21,8 +21,10 @@ private val Context.englishConfiguration: Configuration
  * @param id String resource ID.
  * @param formatArgs Any additional arguments to format the string.
  */
-fun Context.getEnglishString(@StringRes id: Int, vararg formatArgs: Any): String =
-    with(createConfigurationContext(englishConfiguration)) { getString(id, *formatArgs) }
+fun Context.getEnglishString(
+    @StringRes id: Int,
+    vararg formatArgs: Any,
+): String = with(createConfigurationContext(englishConfiguration)) { getString(id, *formatArgs) }
 
 /**
  * Extension function to get the English versions of resource quantity strings regardless of the

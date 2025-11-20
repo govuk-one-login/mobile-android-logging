@@ -15,18 +15,20 @@ import kotlin.test.assertEquals
 class ScreenTest {
     private val exampleScreenName = "unit_test"
     private val exampleId = "someid"
-    private val required = RequiredParameters(
-        taxonomyLevel2 = TaxonomyLevel2.GOVUK,
-    )
+    private val required =
+        RequiredParameters(
+            taxonomyLevel2 = TaxonomyLevel2.GOVUK,
+        )
 
     @Test
     fun `hardcoded parameter values are as expected`() {
         // Given a ViewEvent.Screen
-        val parameters = ViewEvent.Screen(
-            name = ParametersTestData.overOneHundredString,
-            id = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val parameters =
+            ViewEvent.Screen(
+                name = ParametersTestData.overOneHundredString,
+                id = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         // Then hardcoded values are correct
         val actualIsError = parameters.asMap()[IS_ERROR]
         assertEquals("false", actualIsError)
@@ -35,11 +37,12 @@ class ScreenTest {
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a ViewEvent.Screen with parameter values longer than 100 characters
-        val parameters = ViewEvent.Screen(
-            name = ParametersTestData.overOneHundredString,
-            id = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val parameters =
+            ViewEvent.Screen(
+                name = ParametersTestData.overOneHundredString,
+                id = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actualName = parameters.asMap()[SCREEN_NAME]
         val actualId = parameters.asMap()[SCREEN_ID]
         // Then truncate to 100 characters or less the parameters' values
@@ -50,17 +53,19 @@ class ScreenTest {
 
     @Test
     fun `Verify map output`() {
-        val expectedMap: Map<String, Any?> = mapOf(
-            SCREEN_ID to exampleId,
-            SCREEN_CLASS to exampleScreenName.lowercase(),
-            SCREEN_NAME to exampleScreenName.lowercase(),
-        )
+        val expectedMap: Map<String, Any?> =
+            mapOf(
+                SCREEN_ID to exampleId,
+                SCREEN_CLASS to exampleScreenName.lowercase(),
+                SCREEN_NAME to exampleScreenName.lowercase(),
+            )
 
-        val mapper = ViewEvent.Screen(
-            name = exampleScreenName,
-            id = exampleId,
-            params = required,
-        )
+        val mapper =
+            ViewEvent.Screen(
+                name = exampleScreenName,
+                id = exampleId,
+                params = required,
+            )
 
         val actual = mapper.asMap()
 
@@ -75,11 +80,12 @@ class ScreenTest {
     @Test
     fun `has required keys`() {
         // Given ViewEvent.Screen
-        val event = ViewEvent.Screen(
-            name = exampleScreenName,
-            id = exampleId,
-            params = required,
-        )
+        val event =
+            ViewEvent.Screen(
+                name = exampleScreenName,
+                id = exampleId,
+                params = required,
+            )
         // Then ScreenId and ScreenClass, and ScreenName parameters are set
         screenKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)
@@ -90,11 +96,12 @@ class ScreenTest {
     }
 
     companion object {
-        private val screenKeys = listOf(
-            SCREEN_ID,
-            SCREEN_CLASS,
-            SCREEN_NAME,
-            IS_ERROR,
-        )
+        private val screenKeys =
+            listOf(
+                SCREEN_ID,
+                SCREEN_CLASS,
+                SCREEN_NAME,
+                IS_ERROR,
+            )
     }
 }

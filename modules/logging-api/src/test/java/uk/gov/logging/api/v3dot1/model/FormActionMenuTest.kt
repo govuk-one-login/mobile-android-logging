@@ -17,11 +17,12 @@ class FormActionMenuTest {
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a TrackEvent.FormActionMenu with parameter values longer than 100 characters
-        val event = TrackEvent.FormActionMenu(
-            text = ParametersTestData.overOneHundredString,
-            response = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val event =
+            TrackEvent.FormActionMenu(
+                text = ParametersTestData.overOneHundredString,
+                response = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actualText = event.asMap()[TEXT]
         val actualResponse = event.asMap()[RESPONSE]
         // Then truncate to 100 characters or less the parameters' values
@@ -33,11 +34,12 @@ class FormActionMenuTest {
     @Test
     fun `has required keys`() {
         // Given TrackEvent.FormActionMenu
-        val event = TrackEvent.FormActionMenu(
-            text = "Test Button",
-            response = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val event =
+            TrackEvent.FormActionMenu(
+                text = "Test Button",
+                response = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         // Then Text, Response, and Type parameters are set
         formActionMenuKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)

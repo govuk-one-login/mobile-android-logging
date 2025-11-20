@@ -39,21 +39,18 @@ android {
         unitTests.all {
             it.useJUnitPlatform()
             it.testLogging {
-                events = setOf(
-                    TestLogEvent.FAILED,
-                    TestLogEvent.PASSED,
-                    TestLogEvent.SKIPPED,
-                )
+                events =
+                    setOf(
+                        TestLogEvent.FAILED,
+                        TestLogEvent.PASSED,
+                        TestLogEvent.SKIPPED,
+                    )
             }
         }
         unitTests {
             isReturnDefaultValues = true
             isIncludeAndroidResources = true
         }
-    }
-
-    ktlint {
-        version = libs.versions.ktlint.cli.get()
     }
 }
 
@@ -105,7 +102,7 @@ mavenPublishingConfig {
         )
         description.set(
             """
-                Gradle configured Android library for fire-and-forget logging and analytics.
+            Gradle configured Android library for fire-and-forget logging and analytics.
             """.trimIndent(),
         )
     }

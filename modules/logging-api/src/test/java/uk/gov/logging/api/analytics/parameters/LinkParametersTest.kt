@@ -9,7 +9,6 @@ import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.LINK_DOMAIN
 
 class LinkParametersTest {
-
     private val exampleDomain = "www.unit.test"
 
     @Test
@@ -27,15 +26,17 @@ class LinkParametersTest {
         booleans = [true, false],
     )
     fun `Match output map`(isExternal: Boolean) {
-        val expectedMap = mutableMapOf<String, Any?>(
-            EXTERNAL to "$isExternal",
-            LINK_DOMAIN to exampleDomain.lowercase(),
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                EXTERNAL to "$isExternal",
+                LINK_DOMAIN to exampleDomain.lowercase(),
+            )
 
-        val mapper = LinkParameters(
-            domain = exampleDomain,
-            external = isExternal,
-        )
+        val mapper =
+            LinkParameters(
+                domain = exampleDomain,
+                external = isExternal,
+            )
 
         val actual = mapper.asMap()
 

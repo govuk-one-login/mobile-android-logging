@@ -20,7 +20,6 @@ import uk.gov.logging.testdouble.SystemLogger
 import java.util.stream.Stream
 
 internal class FirebaseAnalyticsLoggerTest {
-
     private val analyticsLogger by lazy {
         FirebaseAnalyticsLogger(
             analytics = analytics,
@@ -56,22 +55,24 @@ internal class FirebaseAnalyticsLoggerTest {
         private var analytics: FirebaseAnalytics = mock()
 
         private var logger = SystemLogger()
-        private val event = AnalyticsEvent.screenView(
-            RequiredParameters(
-                digitalIdentityJourney = "",
-                journeyType = "driving licence",
-            ),
-        )
+        private val event =
+            AnalyticsEvent.screenView(
+                RequiredParameters(
+                    digitalIdentityJourney = "",
+                    journeyType = "driving licence",
+                ),
+            )
 
         @JvmStatic
-        fun setupLogEventEdgeCases(): Stream<Arguments> = Stream.of(
-            arguments(
-                named(
-                    "Fails due to disabled permission",
-                    false,
+        fun setupLogEventEdgeCases(): Stream<Arguments> =
+            Stream.of(
+                arguments(
+                    named(
+                        "Fails due to disabled permission",
+                        false,
+                    ),
+                    event,
                 ),
-                event,
-            ),
-        )
+            )
     }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming")
+
 package uk.gov.logging.api.v3dot1.model
 
 import uk.gov.logging.api.analytics.logging.EXTERNAL
@@ -21,10 +23,11 @@ sealed class TrackEvent(
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            TEXT to _text,
-            TYPE to Type.SubmitForm.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                TEXT to _text,
+                TYPE to Type.SubmitForm.value,
+            ) + params.asMap()
     }
 
     data class Icon(
@@ -33,10 +36,11 @@ sealed class TrackEvent(
     ) : TrackEvent(EventTypes.NAVIGATION_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            TEXT to _text,
-            TYPE to Type.Icon.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                TEXT to _text,
+                TYPE to Type.Icon.value,
+            ) + params.asMap()
     }
 
     data class Link(
@@ -49,12 +53,13 @@ sealed class TrackEvent(
         private val _isExternal get() = isExternal.toString().lowercase()
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            EXTERNAL to _isExternal,
-            LINK_DOMAIN to _linkDomain,
-            TEXT to _text,
-            TYPE to Type.Link.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                EXTERNAL to _isExternal,
+                LINK_DOMAIN to _linkDomain,
+                TEXT to _text,
+                TYPE to Type.Link.value,
+            ) + params.asMap()
     }
 
     data class FormActionMenu(
@@ -65,11 +70,12 @@ sealed class TrackEvent(
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _response get() = response.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            TEXT to _text,
-            RESPONSE to _response,
-            TYPE to Type.ActionMenu.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                TEXT to _text,
+                RESPONSE to _response,
+                TYPE to Type.ActionMenu.value,
+            ) + params.asMap()
     }
 
     data class FormCallToAction(
@@ -80,11 +86,12 @@ sealed class TrackEvent(
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _response get() = response.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            TEXT to _text,
-            RESPONSE to _response,
-            TYPE to Type.CallToAction.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                TEXT to _text,
+                RESPONSE to _response,
+                TYPE to Type.CallToAction.value,
+            ) + params.asMap()
     }
 
     data class Form(
@@ -96,11 +103,12 @@ sealed class TrackEvent(
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _response get() = response.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            TEXT to _text,
-            RESPONSE to _response,
-            TYPE to type.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                TEXT to _text,
+                RESPONSE to _response,
+                TYPE to type.value,
+            ) + params.asMap()
     }
 
     data class ActionMenu(
@@ -109,10 +117,11 @@ sealed class TrackEvent(
     ) : TrackEvent(EventTypes.POPUP_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            TEXT to _text,
-            TYPE to Type.ActionMenu.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                TEXT to _text,
+                TYPE to Type.ActionMenu.value,
+            ) + params.asMap()
     }
 
     data class PopUp(
@@ -121,10 +130,11 @@ sealed class TrackEvent(
     ) : TrackEvent(EventTypes.POPUP_EVENT, params) {
         private val _text get() = text.take(HUNDRED_CHAR_LIMIT).lowercase()
 
-        override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
-            TEXT to _text,
-            TYPE to Type.PopUp.value,
-        ) + params.asMap()
+        override fun asMap(): Map<out String, Any?> =
+            mapOf<String, Any?>(
+                TEXT to _text,
+                TYPE to Type.PopUp.value,
+            ) + params.asMap()
     }
 
     object EventTypes {

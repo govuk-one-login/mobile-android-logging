@@ -10,7 +10,6 @@ import org.junit.jupiter.api.assertThrows
 import uk.gov.logging.api.analytics.AnalyticsEvent
 
 class FakeAnalyticsLoggerTest {
-
     private lateinit var logger: FakeAnalyticsLogger
 
     @BeforeEach

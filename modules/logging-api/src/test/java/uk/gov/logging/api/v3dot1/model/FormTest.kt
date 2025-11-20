@@ -13,18 +13,20 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class FormTest {
-    private val required = RequiredParameters(
-        taxonomyLevel2 = TaxonomyLevel2.GOVUK,
-    )
+    private val required =
+        RequiredParameters(
+            taxonomyLevel2 = TaxonomyLevel2.GOVUK,
+        )
 
     @Test
     fun `parameter values are truncated to be 100 characters or less`() {
         // Given a TrackEvent.Form with parameter values longer than 100 characters
-        val event = TrackEvent.Form(
-            text = ParametersTestData.overOneHundredString,
-            response = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val event =
+            TrackEvent.Form(
+                text = ParametersTestData.overOneHundredString,
+                response = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         val actualText = event.asMap()[TEXT]
         val actualResponse = event.asMap()[RESPONSE]
         // Then truncate to 100 characters or less the parameters' values
@@ -36,11 +38,12 @@ class FormTest {
     @Test
     fun `has required keys`() {
         // Given TrackEvent.Form
-        val event = TrackEvent.Form(
-            text = "Test Button",
-            response = ParametersTestData.overOneHundredString,
-            params = required,
-        )
+        val event =
+            TrackEvent.Form(
+                text = "Test Button",
+                response = ParametersTestData.overOneHundredString,
+                params = required,
+            )
         // Then Text, Response, and Type parameters are set
         formKeys.forEach { expectedKey ->
             assertContains(event.asMap().toMap(), expectedKey)
@@ -53,12 +56,13 @@ class FormTest {
     @Test
     fun `change type`() {
         // Given TrackEvent.Form
-        val event = TrackEvent.Form(
-            text = "Test Button",
-            response = ParametersTestData.overOneHundredString,
-            params = required,
-            type = Type.Toggle,
-        )
+        val event =
+            TrackEvent.Form(
+                text = "Test Button",
+                response = ParametersTestData.overOneHundredString,
+                params = required,
+                type = Type.Toggle,
+            )
         // Type parameters is different from default value and as expected
         val eventMap = event.asMap().toMap()
         assertEquals(Type.Toggle.value, eventMap[TYPE])

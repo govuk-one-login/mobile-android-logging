@@ -8,7 +8,6 @@ import uk.gov.logging.api.analytics.AnalyticsEvent
 import kotlin.test.Test
 
 class MemorisedAnalyticsLoggerTest {
-
     private val subLogger: AnalyticsLogger = mock()
     private val memorisedAnalyticsLogger = MemorisedAnalyticsLogger(subLogger)
 
@@ -21,14 +20,16 @@ class MemorisedAnalyticsLoggerTest {
 
     @Test
     fun `logEvent should log screen view event if not a duplicate`() {
-        val event1 = AnalyticsEvent(
-            SCREEN_VIEW,
-            mapOf("screen_class" to "TestScreen", "screen_name" to "TestName"),
-        )
-        val event2 = AnalyticsEvent(
-            SCREEN_VIEW,
-            mapOf("screen_class" to "TestScreen", "screen_name" to "TestName"),
-        )
+        val event1 =
+            AnalyticsEvent(
+                SCREEN_VIEW,
+                mapOf("screen_class" to "TestScreen", "screen_name" to "TestName"),
+            )
+        val event2 =
+            AnalyticsEvent(
+                SCREEN_VIEW,
+                mapOf("screen_class" to "TestScreen", "screen_name" to "TestName"),
+            )
         memorisedAnalyticsLogger.logEvent(true, event1)
         memorisedAnalyticsLogger.logEvent(true, event2)
         verify(subLogger).logEvent(true, event1)
@@ -37,10 +38,11 @@ class MemorisedAnalyticsLoggerTest {
 
     @Test
     fun `logEvent should not log duplicate screen view event`() {
-        val event = AnalyticsEvent(
-            SCREEN_VIEW,
-            mapOf("screen_class" to "TestScreen", "screen_name" to "TestName"),
-        )
+        val event =
+            AnalyticsEvent(
+                SCREEN_VIEW,
+                mapOf("screen_class" to "TestScreen", "screen_name" to "TestName"),
+            )
         memorisedAnalyticsLogger.logEvent(true, event)
         memorisedAnalyticsLogger.logEvent(true, event)
         verify(subLogger, times(1)).logEvent(true, event)

@@ -1,6 +1,8 @@
 package uk.gov.logging.api.analytics.parameters.data
 
-enum class TaxonomyLevel3(val value: String) {
+enum class TaxonomyLevel3(
+    val value: String,
+) {
     PASSPORT("passport"),
     DRIVING_LICENCE("driving licence"),
     BRP("brp"),

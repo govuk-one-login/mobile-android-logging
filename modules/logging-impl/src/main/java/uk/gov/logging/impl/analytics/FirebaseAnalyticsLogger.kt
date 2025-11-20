@@ -16,8 +16,8 @@ import javax.inject.Inject
 class FirebaseAnalyticsLogger @Inject constructor(
     private val analytics: FirebaseAnalytics,
     private val logger: Logger,
-) : AnalyticsLogger, LogTagProvider {
-
+) : AnalyticsLogger,
+    LogTagProvider {
     override fun logEvent(
         shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent,
@@ -50,5 +50,9 @@ class FirebaseAnalyticsLogger @Inject constructor(
         )
         Thread.sleep(1)
     }
-    override fun debugLog(tag: String, msg: String) = logger.debug(tag, msg)
+
+    override fun debugLog(
+        tag: String,
+        msg: String,
+    ) = logger.debug(tag, msg)
 }

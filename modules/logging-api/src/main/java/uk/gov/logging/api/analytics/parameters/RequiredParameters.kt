@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import androidx.annotation.CallSuper
@@ -8,7 +10,6 @@ import uk.gov.logging.api.analytics.logging.DOCUMENT_TYPE_JOURNEY_KEY
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import java.util.Locale
 
-@Suppress("MaxLineLength")
 /**
  * Base class for providing values that's required for all events. These are:
  *
@@ -29,14 +30,14 @@ open class RequiredParameters(
     private val journeyType: String,
     private val digitalIdentityId: String = DIGITAL_IDENTITY_ID_VALUE,
 ) : Mapper {
-
     @CallSuper
     override fun asMap(): Map<out String, Any?> {
-        val bundle = mutableMapOf(
-            DIGITAL_IDENTITY_ID to digitalIdentityId,
-            DIGITAL_IDENTITY_JOURNEY to digitalIdentityJourney,
-            LANGUAGE to Locale.getDefault().language,
-        )
+        val bundle =
+            mutableMapOf(
+                DIGITAL_IDENTITY_ID to digitalIdentityId,
+                DIGITAL_IDENTITY_JOURNEY to digitalIdentityJourney,
+                LANGUAGE to Locale.getDefault().language,
+            )
 
         if (journeyType.isNotBlank()) {
             bundle[DOCUMENT_TYPE_JOURNEY_KEY] = journeyType

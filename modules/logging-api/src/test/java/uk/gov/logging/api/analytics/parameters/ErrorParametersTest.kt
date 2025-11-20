@@ -9,12 +9,14 @@ import uk.gov.logging.api.analytics.parameters.ParametersTestData.overOneHundred
 class ErrorParametersTest {
     @Test
     fun `Converts into a Map of String keys`() {
-        val expectedMap = mutableMapOf<String, Any?>(
-            REASON to overOneHundredString.lowercase(),
-        )
-        val mapper = ErrorParameters(
-            reason = overOneHundredString,
-        )
+        val expectedMap =
+            mutableMapOf<String, Any?>(
+                REASON to overOneHundredString.lowercase(),
+            )
+        val mapper =
+            ErrorParameters(
+                reason = overOneHundredString,
+            )
 
         val actual = mapper.asMap()
 

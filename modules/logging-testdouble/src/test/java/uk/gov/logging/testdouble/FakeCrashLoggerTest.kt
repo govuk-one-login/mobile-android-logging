@@ -83,28 +83,29 @@ internal class FakeCrashLoggerTest {
         private val emptyThrowable = Throwable()
 
         @JvmStatic
-        fun provideLoggingTestCases(): Stream<Arguments> = Stream.of(
-            arguments(
-                named(
-                    "Stores internally created Throwable out of provided String",
-                    logMessage,
+        fun provideLoggingTestCases(): Stream<Arguments> =
+            Stream.of(
+                arguments(
+                    named(
+                        "Stores internally created Throwable out of provided String",
+                        logMessage,
+                    ),
+                    { log: CrashLogger -> log.log(logMessage) },
                 ),
-                { log: CrashLogger -> log.log(logMessage) },
-            ),
-            arguments(
-                named(
-                    "Uses Throwable message when provided a Throwable",
-                    logThrowable.message,
+                arguments(
+                    named(
+                        "Uses Throwable message when provided a Throwable",
+                        logThrowable.message,
+                    ),
+                    { log: CrashLogger -> log.log(logThrowable) },
                 ),
-                { log: CrashLogger -> log.log(logThrowable) },
-            ),
-            arguments(
-                named(
-                    "Accepts null messages from a Throwable",
-                    null,
+                arguments(
+                    named(
+                        "Accepts null messages from a Throwable",
+                        null,
+                    ),
+                    { log: CrashLogger -> log.log(emptyThrowable) },
                 ),
-                { log: CrashLogger -> log.log(emptyThrowable) },
-            ),
-        )
+            )
     }
 }

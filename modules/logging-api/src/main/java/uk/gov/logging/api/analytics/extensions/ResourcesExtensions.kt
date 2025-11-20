@@ -41,9 +41,7 @@ fun Context.getEnString(
     @StringRes
     id: Int,
     vararg formatArgs: Any,
-): String {
-    return resources.getEnString(this, id, formatArgs)
-}
+): String = resources.getEnString(this, id, formatArgs)
 
 /**
  * Extension function to get the English versions of resource plurals regardless of the language
@@ -81,6 +79,4 @@ fun Context.getEnQuantityString(
     id: Int,
     quantity: Int,
     vararg formatArgs: Any,
-): String {
-    return resources.getEnQuantityString(this, id, quantity, formatArgs)
-}
+): String = resources.getEnQuantityString(this, id, quantity, formatArgs)
