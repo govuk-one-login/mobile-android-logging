@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -8,7 +10,6 @@ import uk.gov.logging.api.analytics.logging.LOWER_SNAKE_CASE_FORTY_LIMIT
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
 
-@Suppress("MaxLineLength")
 /**
  * Data class to contain the necessary values required for creating an Analytics event based on
  * navigating a User via a Button. This is different to the [LinkParameters] class, due to

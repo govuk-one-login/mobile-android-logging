@@ -1,9 +1,10 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import androidx.annotation.CallSuper
 import uk.gov.logging.api.analytics.logging.REASON
 
-@Suppress("MaxLineLength")
 /**
  * Data class to contain the additional values required for creating an Analytics event based on
  * navigating a User to an Error screen.

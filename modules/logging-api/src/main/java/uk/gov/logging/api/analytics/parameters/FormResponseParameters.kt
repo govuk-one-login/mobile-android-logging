@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -5,7 +7,6 @@ import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.RESPONSE
 import uk.gov.logging.api.analytics.logging.TEXT
 
-@Suppress("MaxLineLength")
 /**
  * Data class to contain the necessary values required for creating an Analytics event based on
  * a Users response to a form.

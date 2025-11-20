@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.v3dot1.model
 
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
@@ -21,7 +23,6 @@ import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3.UNDEFINED
 import java.util.Locale
 
-@Suppress("MaxLineLength")
 /**
  * Base class for providing values that's required for all events. These are:
  *

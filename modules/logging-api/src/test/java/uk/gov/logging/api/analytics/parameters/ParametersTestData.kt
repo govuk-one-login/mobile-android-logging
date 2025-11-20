@@ -1,3 +1,5 @@
+@file:Suppress("ConstPropertyName")
+
 package uk.gov.logging.api.analytics.parameters
 
 object ParametersTestData {

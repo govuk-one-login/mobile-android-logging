@@ -1,10 +1,11 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import uk.gov.logging.api.analytics.logging.EXTERNAL
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.LINK_DOMAIN
 
-@Suppress("MaxLineLength")
 /**
  * Data class to contain the necessary values required for creating an Analytics event based on
  * navigating a User via a URL. Because of this, there is a need for both the [domain] and whether

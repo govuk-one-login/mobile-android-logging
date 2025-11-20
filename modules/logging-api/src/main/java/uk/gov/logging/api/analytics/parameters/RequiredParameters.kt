@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import androidx.annotation.CallSuper
@@ -8,7 +10,6 @@ import uk.gov.logging.api.analytics.logging.DOCUMENT_TYPE_JOURNEY_KEY
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import java.util.Locale
 
-@Suppress("MaxLineLength")
 /**
  * Base class for providing values that's required for all events. These are:
  *

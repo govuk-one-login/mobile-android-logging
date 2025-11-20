@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming")
+
 package uk.gov.logging.api.v3dot1.model
 
 import uk.gov.logging.api.analytics.logging.EXTERNAL

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming")
+
 package uk.gov.logging.api.v3dot1.model
 
 import com.google.firebase.analytics.FirebaseAnalytics

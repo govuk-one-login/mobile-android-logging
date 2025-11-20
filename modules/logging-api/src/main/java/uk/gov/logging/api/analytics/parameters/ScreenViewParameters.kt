@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:backing-property-naming", "MaxLineLength")
+
 package uk.gov.logging.api.analytics.parameters
 
 import androidx.annotation.CallSuper
@@ -9,7 +11,6 @@ import uk.gov.logging.api.analytics.logging.LOWER_ALPHANUMERIC_FORTY_LIMIT
 import uk.gov.logging.api.analytics.logging.TITLE
 import uk.gov.logging.api.analytics.logging.UPPER_SNAKE_CASE_FORTY_LIMIT
 
-@Suppress("MaxLineLength")
 /**
  * Data class to contain the necessary values required for creating an Analytics event based on
  * a User viewing a new screen.
