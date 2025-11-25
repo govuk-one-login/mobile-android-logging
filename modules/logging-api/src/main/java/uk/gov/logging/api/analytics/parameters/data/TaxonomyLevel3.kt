@@ -29,4 +29,5 @@ enum class TaxonomyLevel3(
     ERROR("error"),
     LICENCES("open source licences"),
     INITIALISATION("initialisation"),
+    ADD_NEW_DOCUMENT("add new document"),
 }
