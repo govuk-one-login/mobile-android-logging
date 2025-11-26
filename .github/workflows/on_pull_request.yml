@@ -25,7 +25,7 @@ jobs:
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     steps:
       - name: Run pull request workflow
-        uses: govuk-one-login/mobile-android-pipelines@7d7e554785f664ef77af97d8692148ade44985fa
+        uses: govuk-one-login/mobile-android-pipelines@5e9ce73c09cbf46ffc93053e56d76dff9aee5db9
         with:
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
