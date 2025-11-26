@@ -12,7 +12,7 @@ junit4 = "4.13.2" # https://github.com/junit-team/junit4/releases
 mockito-android = "5.20.0" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "6.1.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
-dagger = "2.57" # https://github.com/google/dagger/releases
+dagger = "2.57.2" # https://github.com/google/dagger/releases
 ksp = "2.3.2" # https://github.com/google/ksp/releases
 
 [libraries]
