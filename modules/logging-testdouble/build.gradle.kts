@@ -63,6 +63,8 @@ dependencies {
     }
 
     listOf(
+        platform(libs.kotlin.bom),
+        libs.kotlinx.coroutines,
         libs.firebase.analytics,
         libs.hilt.android,
         platform(libs.firebase.bom),
@@ -71,15 +73,18 @@ dependencies {
     }
 
     listOf(
+        libs.kotlinx.coroutines.test,
         kotlin("test"),
         libs.junit.jupiter,
         libs.junit.jupiter.params,
-        libs.junit.jupiter.engine,
         platform(libs.junit.bom),
         libs.mockito.kotlin,
     ).forEach { dependency ->
         testImplementation(dependency)
     }
+
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     androidTestUtil(libs.androidx.orchestrator)
     api(projects.modules.loggingApi)
