@@ -50,3 +50,5 @@ vararg
 screenView
 formatArgs
 gnupg
+(?i)Hotfix
+gradlew
