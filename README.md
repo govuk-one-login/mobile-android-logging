@@ -3,6 +3,11 @@
 An Android package usable for HTTP logging and passing analytics to a third-party SDK. Also included
 is an abstraction class for using Google's Firebase analytics platform.
 
+## Status
+
+[![On Branch Push (main)](https://github.com/govuk-one-login/mobile-android-logging/actions/workflows/merge_to_main.yml/badge.svg)](https://github.com/govuk-one-login/mobile-android-logging/actions/workflows/merge_to_main.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mobile-android-logging&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mobile-android-logging)
+
 ## Functionality provided by Logging module
 
 The main functionality of the logging module is to provide a single source of truth for standardised
