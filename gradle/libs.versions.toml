@@ -13,9 +13,9 @@ mockito-android = "5.21.0" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "6.1.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.57.2" # https://github.com/google/dagger/releases
-ksp = "2.3.4" # https://github.com/google/ksp/releases
+ksp = "2.3.6" # https://github.com/google/ksp/releases
 # Kotlin
-kotlin = "2.2.21"
+kotlin = "2.3.10"
 
 [libraries]
 # Android
