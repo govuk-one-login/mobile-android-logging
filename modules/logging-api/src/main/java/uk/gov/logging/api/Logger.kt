@@ -1,4 +1,5 @@
 package uk.gov.logging.api
+// due for deprecation
 
 /**
  * Abstraction for declaring Android Logger behaviour.

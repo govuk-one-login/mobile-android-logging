@@ -7,6 +7,7 @@ import javax.inject.Inject
 class CrashlyticsLogger @Inject constructor(
     private val crashlytics: FirebaseCrashlytics,
 ) : CrashLogger {
+
     override fun log(message: String) {
         crashlytics.log(message)
     }

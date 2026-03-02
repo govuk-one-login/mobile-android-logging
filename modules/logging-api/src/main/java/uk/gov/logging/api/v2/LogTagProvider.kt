@@ -1,5 +1,4 @@
-package uk.gov.logging.api
-// due for deprecation
+package uk.gov.logging.api.v2
 
 /**
  * Abstraction for declaring a default value to use as a tag when logging messages via a [Logger].
