@@ -10,14 +10,13 @@ import uk.gov.logging.api.analytics.logging.AnalyticsLogger
 import uk.gov.logging.api.v2.LogTagProvider
 import uk.gov.logging.api.v2.Logger
 import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
-import javax.inject.Inject
 
 /**
  * Analytics Logging implementation that utilises the static
  * [com.google.firebase.analytics.FirebaseAnalytics] object for logging [AnalyticsEvent]s.
  */
 
-class FirebaseAnalyticsLogger @Inject constructor(
+class FirebaseAnalyticsLogger(
     private val analytics: FirebaseAnalytics,
     private val logger: Logger,
 ) : AnalyticsLogger,
@@ -62,5 +61,4 @@ class FirebaseAnalyticsLogger @Inject constructor(
         tag: String,
         msg: String,
     ) = logger.debug(tag, msg)
-
 }

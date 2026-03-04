@@ -1,7 +1,7 @@
 package uk.gov.logging.api.v2
 
 /**
- * Abstraction for declaring a default value to use as a tag when logging messages via a [Logger].
+ * Abstraction for declaring a default value to use as a tag when logging messages via a [uk.gov.logging.api.v2.stash.Logger].
  */
 interface LogTagProvider {
     /**

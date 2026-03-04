@@ -3,24 +3,12 @@ package uk.gov.logging.impl.v2
 import android.util.Log
 import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.v2.CrashLogger
-import uk.gov.logging.api.v2.LogEntry
 import uk.gov.logging.api.v2.Logger
-import javax.inject.Inject
+import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 
-class AndroidLogger @Inject constructor(
+class AndroidLogger(
     private val crashLogger: CrashLogger,
 ) : Logger {
-    override fun log(entries: Collection<LogEntry>): Unit =
-        entries.forEach { entries ->
-
-            if (BuildConfig.DEBUG) {
-                Log.d(entries.tag, entries.message)
-            }
-            crashLogger.log(
-                entries.message,
-            )
-        }
-
     override fun debug(
         tag: String,
         message: String,
@@ -44,21 +32,22 @@ class AndroidLogger @Inject constructor(
     override fun error(
         tag: String,
         message: String,
+        throwable: Throwable,
+        errorKeys: ErrorKeys?,
     ) {
         if (BuildConfig.DEBUG) {
-            Log.e(tag, message)
+            Log.e(tag, message, throwable)
         }
-        crashLogger.log(message)
+        crashLogger.log(throwable, errorKeys)
     }
 
     override fun error(
         tag: String,
         message: String,
-        throwable: Throwable,
     ) {
         if (BuildConfig.DEBUG) {
-            Log.e(tag, message, throwable)
+            Log.e(tag, message)
         }
-        crashLogger.log(throwable)
+        crashLogger.log("E: $tag : $message")
     }
 }
