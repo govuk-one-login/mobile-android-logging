@@ -2,7 +2,7 @@ package uk.gov.logging.testdouble.v2
 
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 
-sealed class LogEntry private constructor(
+sealed class LogEntry(
     open val tag: String,
     open val message: String,
 ) {
@@ -15,8 +15,6 @@ sealed class LogEntry private constructor(
         override val tag: String,
         override val message: String,
         val throwable: Throwable,
-        val errorKeys: ErrorKeys?
+        val errorKeys: ErrorKeys?,
     ) : LogEntry(tag, message)
-
-
 }

@@ -3,10 +3,8 @@ package uk.gov.logging.testdouble.v2
 import uk.gov.logging.api.v2.Logger
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 
-
 @Suppress("TooManyFunctions")
-class SystemLogger() : Logger {
-
+class SystemLogger : Logger {
     private var logs = mutableListOf<LogEntry>()
 
     val size: Int get() = logs.size
@@ -18,20 +16,18 @@ class SystemLogger() : Logger {
             entry.message == message
         }
 
-
     operator fun contains(entry: LogEntry): Boolean =
         when (entry) {
             is LogEntry.Message -> entry in logs
             is LogEntry.Error ->
                 logs.any { logEntry ->
                     logEntry is LogEntry.Error &&
-                            logEntry.tag == entry.tag &&
-                            logEntry.message == entry.message &&
-                            logEntry.throwable.javaClass == entry.throwable.javaClass &&
-                            logEntry.throwable.message == entry.throwable.message &&
-                            logEntry.errorKeys?.key == entry.errorKeys?.key &&
-                            logEntry.errorKeys?.value == entry.errorKeys?.value
-
+                        logEntry.tag == entry.tag &&
+                        logEntry.message == entry.message &&
+                        logEntry.throwable.javaClass == entry.throwable.javaClass &&
+                        logEntry.throwable.message == entry.throwable.message &&
+                        logEntry.errorKeys?.key == entry.errorKeys?.key &&
+                        logEntry.errorKeys?.value == entry.errorKeys?.value
                 }
         }
 
@@ -46,7 +42,7 @@ class SystemLogger() : Logger {
 
     override fun info(
         tag: String,
-        message: String
+        message: String,
     ) {
         doLog(tag, message)
     }
@@ -55,9 +51,9 @@ class SystemLogger() : Logger {
         tag: String,
         message: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys?
+        errorKeys: ErrorKeys?,
     ) {
-        doLog(tag, message, throwable,errorKeys)
+        doLog(tag, message, throwable, errorKeys)
     }
 
     override fun error(
@@ -66,7 +62,6 @@ class SystemLogger() : Logger {
     ) {
         doLog(tag, message)
     }
-
 
     override fun toString(): String = "SystemLogger(logs=${logs.toTypedArray().contentToString()})"
 
@@ -82,10 +77,9 @@ class SystemLogger() : Logger {
         tag: String,
         msg: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys?
+        errorKeys: ErrorKeys?,
     ) {
         println("$tag: $msg")
-        logs.add(LogEntry.Error(tag, msg, throwable,errorKeys))
+        logs.add(LogEntry.Error(tag, msg, throwable, errorKeys))
     }
-
 }

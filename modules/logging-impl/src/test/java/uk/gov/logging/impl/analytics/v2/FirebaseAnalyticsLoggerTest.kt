@@ -20,7 +20,6 @@ import uk.gov.logging.testdouble.v2.SystemLogger
 import java.util.stream.Stream
 
 class FirebaseAnalyticsLoggerTest {
-
     private val analyticsLogger by lazy {
         FirebaseAnalyticsLogger(
             analytics = analytics,
@@ -30,8 +29,8 @@ class FirebaseAnalyticsLoggerTest {
 
     @BeforeEach
     fun setup() {
-      analytics = mock()
-      logger = SystemLogger()
+        analytics = mock()
+        logger = SystemLogger()
     }
 
     @Test

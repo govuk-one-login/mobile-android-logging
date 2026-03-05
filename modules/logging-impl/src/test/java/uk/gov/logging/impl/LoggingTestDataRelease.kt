@@ -11,9 +11,11 @@ object LoggingTestDataRelease {
     const val logTag = "Example log tag"
     val logThrowable = Throwable(message = throwableMessage)
 
-    val nullErrorKey  = null
+    val nullErrorKey = null
 
-    val errorKeysNotnull : ErrorKeys = ErrorKeys.IntKey(
-        "key",1
-    )
+    val errorKeysNotnull: ErrorKeys =
+        ErrorKeys.IntKey(
+            "key",
+            1,
+        )
 }

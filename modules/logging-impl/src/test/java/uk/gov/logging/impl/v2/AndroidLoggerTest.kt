@@ -10,18 +10,16 @@ import org.mockito.Mockito.mock
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.BuildConfig
-import uk.gov.logging.api.v2.Logger
 import uk.gov.logging.api.v2.CrashLogger
+import uk.gov.logging.api.v2.Logger
 import uk.gov.logging.impl.LoggingTestDataRelease.errorKeysNotnull
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
 import uk.gov.logging.impl.LoggingTestDataRelease.nullErrorKey
 
-
 internal class AndroidLoggerTest {
-
-    private val  crashLogger: CrashLogger = mock()
+    private val crashLogger: CrashLogger = mock()
 
     private lateinit var staticLogMock: MockedStatic<Log>
 
@@ -30,7 +28,7 @@ internal class AndroidLoggerTest {
     }
 
     @AfterEach
-    fun tearDown(){
+    fun tearDown() {
         staticLogMock.close()
     }
 
@@ -72,7 +70,6 @@ internal class AndroidLoggerTest {
         verify(crashLogger).log(eq("I : $logTag : $logMessage"))
     }
 
-
     @Test
     fun `Error messages call crash logger and static logger`() {
         logger.error(tag = logTag, message = logMessage)
@@ -109,21 +106,20 @@ internal class AndroidLoggerTest {
     }
 
     @Test
-    fun `Error messages with throwable and non null error key call crash logger and static logger`(){
-        logger.error(tag =logTag, message = logMessage, throwable = logThrowable, errorKeysNotnull )
+    fun `Error messages with throwable and non null error key call crash logger and static logger`() {
+        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, errorKeysNotnull)
 
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             staticLogMock.verify {
                 Log.e(
                     eq(logTag),
                     eq(logMessage),
-                    eq(logThrowable)
+                    eq(logThrowable),
                 )
             }
         } else {
             staticLogMock.verifyNoInteractions()
         }
-       verify(crashLogger).log(eq(logThrowable),eq(errorKeysNotnull))
+        verify(crashLogger).log(eq(logThrowable), eq(errorKeysNotnull))
     }
-
 }

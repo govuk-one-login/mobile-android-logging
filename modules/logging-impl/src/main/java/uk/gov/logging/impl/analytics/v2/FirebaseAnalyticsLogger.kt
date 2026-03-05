@@ -34,7 +34,6 @@ class FirebaseAnalyticsLogger(
         }
     }
 
-
     override fun setEnabled(isEnabled: Boolean) {
         Firebase.setCollectionEnabled(isEnabled)
     }
