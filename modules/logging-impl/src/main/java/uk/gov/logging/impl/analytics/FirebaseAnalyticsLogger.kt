@@ -8,12 +8,21 @@ import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
 import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
 import javax.inject.Inject
-// due for deprecation
 
 /**
  * Analytics Logging implementation that utilises the static
  * [com.google.firebase.analytics.FirebaseAnalytics] object for logging [AnalyticsEvent]s.
  */
+
+@Deprecated(
+    message = "Replace with version v2",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-impl/src/main/" +
+                "java/uk/gov/logging/impl/analytics/v2/FirebaseAnalyticsLogger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 class FirebaseAnalyticsLogger @Inject constructor(
     private val analytics: FirebaseAnalytics,
     private val logger: Logger,
