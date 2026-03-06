@@ -6,6 +6,15 @@ import uk.gov.logging.api.CrashLogger
 import uk.gov.logging.api.Logger
 import javax.inject.Inject
 
+@Deprecated(
+    message = "Replace with v2 version which allows to set custom error keys",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-impl/src/main/" +
+                "java/uk/gov/logging/impl/v2/AndroidLogger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 class AndroidLogger @Inject constructor(
     private val crashLogger: CrashLogger,
 ) : Logger {

@@ -1,8 +1,19 @@
 package uk.gov.logging.api
+// due for deprecation
 
 /**
  * Abstraction for declaring Android Logger behaviour.
  */
+
+@Deprecated(
+    message = "Replace with v2 version which allows to set custom error keys",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-api/src/main" +
+                "/java/uk/gov/logging/api/v2/Logger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 interface Logger {
     fun debug(
         tag: String,
