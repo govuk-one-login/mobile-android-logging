@@ -5,9 +5,9 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
-import uk.gov.logging.api.v2.LogTagProvider
 import uk.gov.logging.api.v2.Logger
 import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
 
