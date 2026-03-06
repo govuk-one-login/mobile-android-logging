@@ -11,7 +11,7 @@ import javax.inject.Inject
     replaceWith =
         ReplaceWith(
             "mobile-android-logging/modules/logging-impl/src/main/" +
-                "ava/uk/gov/logging/impl/v2/AndroidLogger.kt",
+                "java/uk/gov/logging/impl/v2/AndroidLogger.kt",
         ),
     level = DeprecationLevel.WARNING,
 )
