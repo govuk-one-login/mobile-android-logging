@@ -28,6 +28,12 @@ class CrashlyticsLoggerTest {
         verify(firebaseCrashlytics).log(eq(logMessage))
     }
 
+    @Test
+    fun `log throwable message on firebase crashlytics`() {
+        crashLogger.log(exception)
+        verify(firebaseCrashlytics).recordException(eq(exception))
+    }
+
     @ParameterizedTest(name = "{index}: test key {2} with value {3}")
     @MethodSource("setUpTestValues")
     fun `test error keys set on firebase crashlytics`(

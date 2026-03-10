@@ -15,6 +15,12 @@ sealed class LogEntry(
         override val tag: String,
         override val message: String,
         val throwable: Throwable,
-        val errorKeys: ErrorKeys?,
+        val errorKeys: ErrorKeys,
+    ) : LogEntry(tag, message)
+
+    data class ErrorNoKeys(
+        override val tag: String,
+        override val message: String,
+        val throwable: Throwable,
     ) : LogEntry(tag, message)
 }

@@ -1,5 +1,8 @@
 package uk.gov.logging.api.v2.errorKeys
 
+/**
+ * Sealed class for setting custom error keys on Firebase Crashlytics
+ */
 sealed class ErrorKeys(
     open val key: String,
     open val value: Any,

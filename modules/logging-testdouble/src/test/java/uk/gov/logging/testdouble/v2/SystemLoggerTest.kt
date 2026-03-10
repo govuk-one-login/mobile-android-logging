@@ -11,6 +11,7 @@ import uk.gov.logging.testdouble.v2.LoggingTestData.LOG_MESSAGE
 import uk.gov.logging.testdouble.v2.LoggingTestData.LOG_TAG
 import uk.gov.logging.testdouble.v2.LoggingTestData.errorKeys
 import uk.gov.logging.testdouble.v2.LoggingTestData.logErrorEntry
+import uk.gov.logging.testdouble.v2.LoggingTestData.logErrorEntryNoKeys
 import uk.gov.logging.testdouble.v2.LoggingTestData.logMessageEntry
 import uk.gov.logging.testdouble.v2.LoggingTestData.logThrowable
 import java.util.stream.Stream
@@ -59,10 +60,24 @@ internal class SystemLoggerTest {
                 ),
                 arguments(
                     named(
-                        "Error messages are stored with Throwable",
+                        "Error messages are stored with Throwable and errorKeys",
                         logErrorEntry,
                     ),
                     { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE, logThrowable, errorKeys) },
+                ),
+                arguments(
+                    named(
+                        "Error messages are stored with Throwable",
+                        logErrorEntryNoKeys,
+                    ),
+                    { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE, logThrowable) },
+                ),
+                arguments(
+                    named(
+                        "Warning messages are stored",
+                        logMessageEntry,
+                    ),
+                    { log: Logger -> log.warning(LOG_TAG, LOG_MESSAGE) },
                 ),
             )
     }

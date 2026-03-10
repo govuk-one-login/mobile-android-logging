@@ -27,4 +27,10 @@ object LoggingTestData {
             throwable = logThrowable,
             errorKeys,
         )
+    val logErrorEntryNoKeys =
+        LogEntry.ErrorNoKeys(
+            tag = LOG_TAG,
+            message = LOG_MESSAGE,
+            throwable = logThrowable,
+        )
 }

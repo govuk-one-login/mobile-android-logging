@@ -9,14 +9,18 @@ class CrashlyticsLogger(
 ) : CrashLogger {
     override fun log(
         throwable: Throwable,
-        vararg errorKeys: ErrorKeys?,
+        vararg errorKeys: ErrorKeys,
     ) {
         crashlytics.recordException(throwable)
         errorKeys.forEach {
-            it?.let {
+            it.let {
                 crashlytics.setCustomKey(it.key, it.value.toString())
             }
         }
+    }
+
+    override fun log(throwable: Throwable) {
+        crashlytics.recordException(throwable)
     }
 
     override fun log(message: String) {

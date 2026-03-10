@@ -16,7 +16,6 @@ import uk.gov.logging.impl.LoggingTestDataRelease.errorKeysNotnull
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
-import uk.gov.logging.impl.LoggingTestDataRelease.nullErrorKey
 
 internal class AndroidLoggerTest {
     private val crashLogger: CrashLogger = mock()
@@ -88,25 +87,7 @@ internal class AndroidLoggerTest {
     }
 
     @Test
-    fun `Error messages with throwable  and null error key call crash logger and static logger`() {
-        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, nullErrorKey)
-
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.e(
-                    eq(logTag),
-                    eq(logMessage),
-                    eq(logThrowable),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-        verify(crashLogger).log(eq(logThrowable), eq(nullErrorKey))
-    }
-
-    @Test
-    fun `Error messages with throwable and non null error key call crash logger and static logger`() {
+    fun `Error messages with throwable  error key call crash logger and static logger`() {
         logger.error(tag = logTag, message = logMessage, throwable = logThrowable, errorKeysNotnull)
 
         if (BuildConfig.DEBUG) {
@@ -121,5 +102,41 @@ internal class AndroidLoggerTest {
             staticLogMock.verifyNoInteractions()
         }
         verify(crashLogger).log(eq(logThrowable), eq(errorKeysNotnull))
+    }
+
+    @Test
+    fun `Error messages with throwable and no error key call crash logger and static logger`() {
+        logger.error(tag = logTag, message = logMessage, throwable = logThrowable)
+
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.e(
+                    eq(logTag),
+                    eq(logMessage),
+                    eq(logThrowable),
+                )
+            }
+        } else {
+            staticLogMock.verifyNoInteractions()
+        }
+        verify(crashLogger).log(eq(logThrowable))
+    }
+
+    @Test
+    fun `warning messages call crash logger and static logger`() {
+        logger.warning(tag = logTag, message = logMessage)
+
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.w(
+                    eq(logTag),
+                    eq(logMessage),
+                )
+            }
+        } else {
+            staticLogMock.verifyNoInteractions()
+        }
+
+        verify(crashLogger).log(eq("W: $logTag : $logMessage"))
     }
 }

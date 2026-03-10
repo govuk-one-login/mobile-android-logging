@@ -33,7 +33,7 @@ class AndroidLogger(
         tag: String,
         message: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys?,
+        errorKeys: ErrorKeys,
     ) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message, throwable)
@@ -44,10 +44,31 @@ class AndroidLogger(
     override fun error(
         tag: String,
         message: String,
+        throwable: Throwable,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.e(tag, message, throwable)
+        }
+        crashLogger.log(throwable)
+    }
+
+    override fun error(
+        tag: String,
+        message: String,
     ) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message)
         }
         crashLogger.log("E: $tag : $message")
+    }
+
+    override fun warning(
+        tag: String,
+        message: String,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.w(tag, message)
+        }
+        crashLogger.log("W: $tag : $message")
     }
 }

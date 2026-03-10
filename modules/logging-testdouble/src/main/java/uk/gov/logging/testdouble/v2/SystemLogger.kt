@@ -26,8 +26,16 @@ class SystemLogger : Logger {
                         logEntry.message == entry.message &&
                         logEntry.throwable.javaClass == entry.throwable.javaClass &&
                         logEntry.throwable.message == entry.throwable.message &&
-                        logEntry.errorKeys?.key == entry.errorKeys?.key &&
-                        logEntry.errorKeys?.value == entry.errorKeys?.value
+                        logEntry.errorKeys.key == entry.errorKeys.key &&
+                        logEntry.errorKeys.value == entry.errorKeys.value
+                }
+            is LogEntry.ErrorNoKeys ->
+                logs.any { logEntry ->
+                    logEntry is LogEntry.ErrorNoKeys &&
+                        logEntry.tag == entry.tag &&
+                        logEntry.message == entry.message &&
+                        logEntry.throwable.javaClass == entry.throwable.javaClass &&
+                        logEntry.throwable.message == entry.throwable.message
                 }
         }
 
@@ -51,12 +59,27 @@ class SystemLogger : Logger {
         tag: String,
         message: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys?,
+    ) {
+        doLog(tag, message, throwable)
+    }
+
+    override fun error(
+        tag: String,
+        message: String,
+        throwable: Throwable,
+        errorKeys: ErrorKeys,
     ) {
         doLog(tag, message, throwable, errorKeys)
     }
 
     override fun error(
+        tag: String,
+        message: String,
+    ) {
+        doLog(tag, message)
+    }
+
+    override fun warning(
         tag: String,
         message: String,
     ) {
@@ -77,9 +100,18 @@ class SystemLogger : Logger {
         tag: String,
         msg: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys?,
+        errorKeys: ErrorKeys,
     ) {
         println("$tag: $msg")
         logs.add(LogEntry.Error(tag, msg, throwable, errorKeys))
+    }
+
+    private fun doLog(
+        tag: String,
+        msg: String,
+        throwable: Throwable,
+    ) {
+        println("$tag: $msg")
+        logs.add(LogEntry.ErrorNoKeys(tag, msg, throwable))
     }
 }

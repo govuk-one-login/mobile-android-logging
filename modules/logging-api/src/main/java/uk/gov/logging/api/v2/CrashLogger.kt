@@ -8,8 +8,10 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 interface CrashLogger {
     fun log(
         throwable: Throwable,
-        vararg errorKeys: ErrorKeys?,
+        vararg errorKeys: ErrorKeys,
     )
+
+    fun log(throwable: Throwable)
 
     fun log(message: String)
 }

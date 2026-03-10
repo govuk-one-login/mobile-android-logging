@@ -17,10 +17,21 @@ interface Logger {
         tag: String,
         message: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys? = null,
+        errorKeys: ErrorKeys,
     )
 
     fun error(
+        tag: String,
+        message: String,
+        throwable: Throwable,
+    )
+
+    fun error(
+        tag: String,
+        message: String,
+    )
+
+    fun warning(
         tag: String,
         message: String,
     )
