@@ -6,6 +6,10 @@ import uk.gov.logging.api.v2.CrashLogger
 import uk.gov.logging.api.v2.Logger
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 
+/**
+ * Android Logger using [uk.gov.logging.api.v2.Logger]
+ * @param crashLogger
+ */
 class AndroidLogger(
     private val crashLogger: CrashLogger,
 ) : Logger {

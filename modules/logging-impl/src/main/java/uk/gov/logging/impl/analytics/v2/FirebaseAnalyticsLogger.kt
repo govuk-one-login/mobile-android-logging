@@ -14,6 +14,7 @@ import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
 /**
  * Analytics Logging implementation that utilises the static
  * [com.google.firebase.analytics.FirebaseAnalytics] object for logging [AnalyticsEvent]s.
+ * FirebaseAnalytics Logger requires [uk.gov.logging.api.v2.Logger]
  */
 
 class FirebaseAnalyticsLogger(
