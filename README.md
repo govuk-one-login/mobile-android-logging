@@ -92,9 +92,9 @@ It also allows developers to record exceptions either with custom error keys or 
 
 The logger provides the following functions:
 
-debug – Logs debug messages.
+debug–Logs debug messages.
 
-info – Logs informational messages.
+info–Logs informational messages.
 
 Error Logging 
 
@@ -104,7 +104,7 @@ An error function that allows the consumer to log an error, set a tag, and recor
 
 An error function that allows the consumer to log only error messages and set a tag, without recording an exception or custom error keys.
 
-warning – Logs warning messages and allows the user to set tags.
+warning–Logs warning messages and allows the user to set tags.
 
 
 ```kotlin
