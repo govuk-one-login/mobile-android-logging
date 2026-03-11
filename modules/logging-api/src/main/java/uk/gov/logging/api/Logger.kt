@@ -5,7 +5,9 @@ package uk.gov.logging.api
  */
 
 @Deprecated(
-    message = "Replace with v2 version which allows to set custom error keys",
+    message =
+        "Replace with v2 version which allows to set custom error keys" +
+            " -aim to remove by 10th of May 26 2026",
     replaceWith =
         ReplaceWith(
             "mobile-android-logging/modules/logging-api/src/main" +

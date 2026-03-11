@@ -13,11 +13,26 @@ import uk.gov.logging.testdouble.v2.LoggingTestData.errorKeys
 import uk.gov.logging.testdouble.v2.LoggingTestData.logErrorEntry
 import uk.gov.logging.testdouble.v2.LoggingTestData.logErrorEntryNoKeys
 import uk.gov.logging.testdouble.v2.LoggingTestData.logMessageEntry
+import uk.gov.logging.testdouble.v2.LoggingTestData.logMessageEntryFalse
+import uk.gov.logging.testdouble.v2.LoggingTestData.logTagEntryFalse
 import uk.gov.logging.testdouble.v2.LoggingTestData.logThrowable
 import java.util.stream.Stream
+import kotlin.test.assertFalse
 
 internal class SystemLoggerTest {
     private val logger = SystemLogger()
+
+    @ParameterizedTest(name = "{index}: {0}")
+    @MethodSource("provideNegativeLoggingTestCase")
+    fun `verify in-memory logging behaviour with false entry`(
+        falseEntry: LogEntry,
+        message: String,
+        action: (Logger, String) -> Unit,
+    ) {
+        action.invoke(logger, message)
+
+        assertFalse(falseEntry in logger)
+    }
 
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("provideLoggingTestCases")
@@ -78,6 +93,27 @@ internal class SystemLoggerTest {
                         logMessageEntry,
                     ),
                     { log: Logger -> log.warning(LOG_TAG, LOG_MESSAGE) },
+                ),
+            )
+
+        @JvmStatic
+        fun provideNegativeLoggingTestCase(): Stream<Arguments> =
+            Stream.of(
+                arguments(
+                    named(
+                        "Debug messages are stored",
+                        logMessageEntryFalse,
+                    ),
+                    LOG_MESSAGE,
+                    { log: Logger, message: String -> log.debug(LOG_TAG, message) },
+                ),
+                arguments(
+                    named(
+                        "Debug message are stored",
+                        logTagEntryFalse,
+                    ),
+                    LOG_TAG,
+                    { log: Logger, tag: String -> log.debug(tag, LOG_MESSAGE) },
                 ),
             )
     }

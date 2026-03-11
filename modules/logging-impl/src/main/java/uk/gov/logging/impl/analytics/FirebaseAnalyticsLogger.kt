@@ -15,7 +15,9 @@ import javax.inject.Inject
  */
 
 @Deprecated(
-    message = "Replace with version v2",
+    message =
+        "Replace with version v2 " +
+            "-aim to remove by 10th of May 26 2026",
     replaceWith =
         ReplaceWith(
             "mobile-android-logging/modules/logging-impl/src/main/" +
