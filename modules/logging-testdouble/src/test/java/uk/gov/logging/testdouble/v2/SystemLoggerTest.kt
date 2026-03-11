@@ -17,10 +17,29 @@ import uk.gov.logging.testdouble.v2.LoggingTestData.logMessageEntryFalse
 import uk.gov.logging.testdouble.v2.LoggingTestData.logTagEntryFalse
 import uk.gov.logging.testdouble.v2.LoggingTestData.logThrowable
 import java.util.stream.Stream
+import kotlin.test.Test
 import kotlin.test.assertFalse
 
 internal class SystemLoggerTest {
     private val logger = SystemLogger()
+
+    @Test
+    fun `verify in-memory logging behaviour with any function`() {
+        logger.debug(LOG_TAG, LOG_MESSAGE)
+        assertTrue {
+            logger.any {
+                it.message == LOG_MESSAGE
+            }
+        }
+    }
+
+    @Test
+    fun `verify in-memory logging behaviour with contains function`() {
+        logger.debug(LOG_TAG, LOG_MESSAGE)
+        assertTrue {
+            logger.contains(LOG_MESSAGE)
+        }
+    }
 
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("provideNegativeLoggingTestCase")
