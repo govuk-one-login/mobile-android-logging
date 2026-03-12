@@ -86,6 +86,95 @@ class FirebaseSingletonModule {
     fun providesFirebaseAnalytics(): FirebaseAnalytics = Firebase.analytics
 }
 ```
+## Android Logger V2
+Android Logger v2 offers a set of convenience functions for logging messages and exceptions. 
+It also allows developers to record exceptions either with custom error keys or without custom error keys.
+
+The logger provides the following functions:
+
+debug–Logs debug messages.
+
+info–Logs informational messages.
+
+Error Logging 
+
+An error function that allows the consumer to set custom error keys, set a tag, and record an exception.
+
+An error function that allows the consumer to log an error, set a tag, and record an exception, without setting custom error keys.
+
+An error function that allows the consumer to log only error messages and set a tag, without recording an exception or custom error keys.
+
+warning–Logs warning messages and allows the user to set tags.
+
+
+```kotlin
+class AndroidLogger(
+    private val crashLogger: CrashLogger,
+) : Logger {
+    override fun debug(
+        tag: String,
+        message: String,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.d(tag, message)
+        }
+        crashLogger.log("I : $tag : $message")
+    }
+
+    override fun info(
+        tag: String,
+        message: String,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.i(tag, message)
+        }
+        crashLogger.log("I : $tag : $message")
+    }
+
+    override fun error(
+        tag: String,
+        message: String,
+        throwable: Throwable,
+        errorKeys: ErrorKeys,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.e(tag, message, throwable)
+        }
+        crashLogger.log(throwable, errorKeys)
+    }
+
+    override fun error(
+        tag: String,
+        message: String,
+        throwable: Throwable,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.e(tag, message, throwable)
+        }
+        crashLogger.log(throwable)
+    }
+
+    override fun error(
+        tag: String,
+        message: String,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.e(tag, message)
+        }
+        crashLogger.log("E: $tag : $message")
+    }
+
+    override fun warning(
+        tag: String,
+        message: String,
+    ) {
+        if (BuildConfig.DEBUG) {
+            Log.w(tag, message)
+        }
+        crashLogger.log("W: $tag : $message")
+    }
+}
+```
 
 ## Releases
 
