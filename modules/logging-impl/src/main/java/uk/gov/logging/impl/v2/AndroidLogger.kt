@@ -20,7 +20,6 @@ class AndroidLogger(
         if (BuildConfig.DEBUG) {
             Log.d(tag, message)
         }
-        crashLogger.log("I : $tag : $message")
     }
 
     override fun info(
