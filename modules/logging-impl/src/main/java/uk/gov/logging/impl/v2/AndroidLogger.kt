@@ -29,7 +29,7 @@ class AndroidLogger(
         if (BuildConfig.DEBUG) {
             Log.i(tag, message)
         }
-        crashLogger.log("I : $tag : $message")
+        crashLogger.log("I: $tag : $message")
     }
 
     override fun error(
