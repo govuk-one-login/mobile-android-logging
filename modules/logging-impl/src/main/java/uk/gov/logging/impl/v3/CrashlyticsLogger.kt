@@ -38,11 +38,12 @@ class CrashlyticsLogger(
         }
     }
 
-    override fun error(
-        tag: String,
-        message: String,
-    ) {
-        crashlytics.log("E : $tag : $message")
+    fun logBasicEntries(entry: LogEntry) {
+        when (entry.level) {
+            Log.WARN -> warning(entry.tag, entry.message)
+            Log.ERROR -> error(entry.tag, entry.message)
+            Log.INFO -> info(entry.tag, entry.message)
+        }
     }
 
     override fun info(
@@ -50,6 +51,21 @@ class CrashlyticsLogger(
         message: String,
     ) {
         crashlytics.log("I : $tag : $message")
+    }
+
+    override fun error(
+        tag: String,
+        message: String,
+    ) {
+        crashlytics.log("E : $tag : $message")
+    }
+
+    override fun error(
+        tag: String,
+        message: String,
+        throwable: Throwable,
+    ) {
+        crashlytics.recordException(throwable)
     }
 
     override fun error(
@@ -73,13 +89,5 @@ class CrashlyticsLogger(
         message: String,
     ) {
         crashlytics.log("W : $tag : $message")
-    }
-
-    fun logBasicEntries(entry: LogEntry) {
-        when (entry.level) {
-            Log.WARN -> warning(entry.tag, entry.message)
-            Log.ERROR -> error(entry.tag, entry.message)
-            Log.INFO -> info(entry.tag, entry.message)
-        }
     }
 }
