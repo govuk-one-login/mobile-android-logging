@@ -66,7 +66,7 @@ internal class AndroidLoggerTest {
         } else {
             staticLogMock.verifyNoInteractions()
         }
-        verify(crashLogger).log(eq("I : $logTag : $logMessage"))
+        verify(crashLogger).log(eq("I: $logTag : $logMessage"))
     }
 
     @Test
