@@ -2,7 +2,6 @@ package uk.gov.logging.impl.v3
 
 import android.util.Log
 import uk.gov.logging.api.BuildConfig
-import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 import uk.gov.logging.api.v3.CrashLogger
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
@@ -20,85 +19,42 @@ class AndroidLogger(
     }
 
     fun logBasicEntries(logEntry: LogEntry) {
+        if (BuildConfig.DEBUG) {
+            when (logEntry.level) {
+                Log.DEBUG -> Log.d(logEntry.tag, logEntry.message)
+                Log.WARN -> Log.w(logEntry.tag, logEntry.message)
+                Log.ERROR -> Log.e(logEntry.tag, logEntry.message)
+                Log.INFO -> Log.i(logEntry.tag, logEntry.message)
+            }
+        }
         when (logEntry.level) {
-            Log.DEBUG -> if (BuildConfig.DEBUG) debug(logEntry.tag, logEntry.message)
-            Log.WARN -> warning(logEntry.tag, logEntry.message)
-            Log.ERROR -> error(logEntry.tag, logEntry.message)
-            Log.INFO -> info(logEntry.tag, logEntry.message)
+            Log.WARN -> crashLogger(logEntry.tag, logEntry.message, "W")
+            Log.ERROR -> crashLogger(logEntry.tag, logEntry.message, "E")
+            Log.INFO -> crashLogger(logEntry.tag, logEntry.message, "I")
         }
     }
 
     private fun logEntriesWithException(logEntry: LogEntry.WithException) {
+        if (BuildConfig.DEBUG) {
+            Log.e(logEntry.tag, logEntry.message, logEntry.throwable)
+        }
         when (logEntry.level) {
             Log.ERROR ->
-                if (logEntry.errorKeys == null) {
-                    error(logEntry.tag, logEntry.message, logEntry.throwable)
-                } else {
-                    error(logEntry.tag, logEntry.message, logEntry.throwable, logEntry.errorKeys)
+                {
+                    crashLogger.log(logEntry.throwable)
+
+                    logEntry.customKeys?.forEach {
+                        crashLogger.log(logEntry.throwable, it)
+                    }
                 }
         }
     }
 
-    override fun debug(
+    fun crashLogger(
         tag: String,
         message: String,
+        suffix: String,
     ) {
-        if (BuildConfig.DEBUG) {
-            Log.d(tag, message)
-        }
-    }
-
-    override fun warning(
-        tag: String,
-        message: String,
-    ) {
-        if (BuildConfig.DEBUG) {
-            Log.w(tag, message)
-        }
-
-        crashLogger.log("W : $tag : $message")
-    }
-
-    override fun info(
-        tag: String,
-        message: String,
-    ) {
-        if (BuildConfig.DEBUG) {
-            Log.i(tag, message)
-        }
-        crashLogger.log("I : $tag : $message")
-    }
-
-    override fun error(
-        tag: String,
-        message: String,
-    ) {
-        if (BuildConfig.DEBUG) {
-            Log.e(tag, message)
-        }
-        crashLogger.log("E : $tag : $message")
-    }
-
-    override fun error(
-        tag: String,
-        message: String,
-        throwable: Throwable,
-    ) {
-        if (BuildConfig.DEBUG) {
-            Log.e(tag, message, throwable)
-        }
-        crashLogger.log(throwable)
-    }
-
-    override fun error(
-        tag: String,
-        message: String,
-        throwable: Throwable,
-        errorKeys: ErrorKeys?,
-    ) {
-        if (BuildConfig.DEBUG) {
-            Log.e(tag, message, throwable)
-        }
-        crashLogger.log(throwable)
+        crashLogger.log("$suffix : $tag : $message")
     }
 }

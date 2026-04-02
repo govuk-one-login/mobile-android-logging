@@ -14,11 +14,11 @@ import org.mockito.Mockito.mock
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.BuildConfig
-import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 import uk.gov.logging.api.v3.CrashLogger
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
-import uk.gov.logging.impl.LoggingTestDataRelease.errorKeysNotnull
+import uk.gov.logging.api.v3.customKeys.CustomKeys
+import uk.gov.logging.impl.LoggingTestDataRelease.customKeysNotnull
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
@@ -47,11 +47,13 @@ class AndroidLoggerTest {
     @Test
     fun `test log entries with debug entry `() {
         logger.log(basicDebugEntry)
-        staticLogMock.verify {
-            Log.d(
-                eq(logTag),
-                eq(logMessage),
-            )
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.d(
+                    eq(logTag),
+                    eq(logMessage),
+                )
+            }
         }
     }
 
@@ -67,8 +69,8 @@ class AndroidLoggerTest {
     }
 
     @Test
-    fun `test log entry with exception and error keys is not equals to null `() {
-        logger.log(errorEntryWithErrorKeys)
+    fun `test log entry with exception and custom keys is not equals to null `() {
+        logger.log(errorEntryWithCustomKeys)
 
         if (BuildConfig.DEBUG) {
             staticLogMock.verify {
@@ -86,8 +88,8 @@ class AndroidLoggerTest {
     }
 
     @Test
-    fun `test log entry with exception and error keys is equals to null `() {
-        logger.log(errorEntryWithOutErrorKeys)
+    fun `test log entry with exception and custom keys is equals to null `() {
+        logger.log(errorEntryWithOutCustomKeys)
 
         if (BuildConfig.DEBUG) {
             staticLogMock.verify {
@@ -152,7 +154,7 @@ class AndroidLoggerTest {
     }
 
     @Test
-    fun `Error messages logged with throwable no error key call crash logger and static logger `() {
+    fun `Error messages logged with throwable no custom key call crash logger and static logger `() {
         logger.error(tag = logTag, message = logMessage, throwable = logThrowable)
 
         if (BuildConfig.DEBUG) {
@@ -170,8 +172,8 @@ class AndroidLoggerTest {
     }
 
     @Test
-    fun `Error messages with throwable and error key call crash logger and static logger `() {
-        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, errorKeysNotnull)
+    fun `Error messages with throwable and custom key call crash logger and static logger `() {
+        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, customKeysNotnull)
 
         if (BuildConfig.DEBUG) {
             staticLogMock.verify {
@@ -247,27 +249,27 @@ class AndroidLoggerTest {
         const val LEVEL_SYMBOL_WARN = "W"
 
         const val INT_VALUE = 1
-        val intErrorKey = ErrorKeys.IntKey(KEY, INT_VALUE)
+        val intCustomKey: List<CustomKeys> = listOf(CustomKeys.IntKey(KEY, INT_VALUE))
 
-        val errorEntryWithErrorKeys =
+        val errorEntryWithCustomKeys =
             listOf<LogEntry>(
                 LogEntry.Error(
                     tag = logTag,
                     message = logMessage,
                     level = Log.ERROR,
                     throwable = logThrowable,
-                    errorKeys = intErrorKey,
+                    customKeys = intCustomKey,
                 ),
             )
 
-        val errorEntryWithOutErrorKeys =
+        val errorEntryWithOutCustomKeys =
             listOf<LogEntry>(
                 LogEntry.Error(
                     tag = logTag,
                     message = logMessage,
                     level = Log.ERROR,
                     throwable = logThrowable,
-                    errorKeys = null,
+                    customKeys = null,
                 ),
             )
 

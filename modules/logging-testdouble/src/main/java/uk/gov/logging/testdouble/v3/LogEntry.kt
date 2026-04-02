@@ -1,6 +1,6 @@
 package uk.gov.logging.testdouble.v3
 
-import uk.gov.logging.api.v2.errorKeys.ErrorKeys
+import uk.gov.logging.api.v3.customKeys.CustomKeys
 
 sealed interface LogEntry {
     val level: Int
@@ -9,7 +9,7 @@ sealed interface LogEntry {
 
     interface WithException : LogEntry {
         val throwable: Throwable
-        val errorKeys: ErrorKeys?
+        val customKeys: CustomKeys
     }
 
     data class Basic(
@@ -23,6 +23,6 @@ sealed interface LogEntry {
         override val message: String,
         override val tag: String,
         override val throwable: Throwable,
-        override val errorKeys: ErrorKeys?,
+        override val customKeys: CustomKeys,
     ) : WithException
 }

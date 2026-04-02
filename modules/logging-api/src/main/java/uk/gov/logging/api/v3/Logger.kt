@@ -1,7 +1,7 @@
 package uk.gov.logging.api.v3
 
 import android.util.Log
-import uk.gov.logging.api.v2.errorKeys.ErrorKeys
+import uk.gov.logging.api.v3.customKeys.CustomKeys
 
 fun interface Logger {
     fun log(entries: Collection<LogEntry>)
@@ -51,7 +51,7 @@ fun interface Logger {
             message = message,
             throwable = throwable,
             level = Log.ERROR,
-            errorKeys = null,
+            customKeys = null,
         ),
     )
 
@@ -59,14 +59,14 @@ fun interface Logger {
         tag: String,
         message: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys?,
+        vararg customKeys: CustomKeys?,
     ) = log(
         LogEntry.Error(
             tag = tag,
             message = message,
             throwable = throwable,
             level = Log.ERROR,
-            errorKeys = errorKeys,
+            customKeys = customKeys.filterNotNull(),
         ),
     )
 

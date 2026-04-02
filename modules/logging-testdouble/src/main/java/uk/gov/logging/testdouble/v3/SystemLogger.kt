@@ -1,10 +1,12 @@
 package uk.gov.logging.testdouble.v3
 
 import android.util.Log
-import uk.gov.logging.api.v2.errorKeys.ErrorKeys
+import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
+import uk.gov.logging.api.v3.customKeys.CustomKeys
+import kotlin.collections.forEach
 
 @Suppress("TooManyFunctions", "CyclomaticComplexMethod")
 class SystemLogger : Logger {
@@ -13,18 +15,37 @@ class SystemLogger : Logger {
             when (entry) {
                 is LogEntry.Basic -> logBasicEntries(entry)
                 is LogEntry.Error -> {
-                    error(entry.tag, entry.message, entry.throwable, entry.errorKeys)
+                    doLog(entry.tag, entry.message, entry.throwable, null)
+                    entry.customKeys?.forEach { customKeys ->
+
+                        doLog(entry.tag, entry.message, entry.throwable, customKeys)
+                    }
                 }
                 is LocalLogEntry.Basic -> {
                     logBasicEntries(entry)
                 }
-                is LocalLogEntry.Error -> error(entry.tag, entry.message, entry.throwable, entry.errorKeys)
-                is LogEntry.WithException -> error(entry.tag, entry.message, entry.throwable, entry.errorKeys)
+                is LocalLogEntry.Error -> {
+                    doLog(entry.tag, entry.message, entry.throwable, null)
+                    entry.customKeys?.forEach { customKeys ->
+
+                        doLog(entry.tag, entry.message, entry.throwable, customKeys)
+                    }
+                }
+                is LogEntry.WithException -> {
+                    doLog(entry.tag, entry.message, entry.throwable, null)
+                    entry.customKeys?.forEach { customKeys ->
+
+                        doLog(entry.tag, entry.message, entry.throwable, customKeys)
+                    }
+                }
             }
         }
     }
 
     private fun logBasicEntries(entry: LogEntry) {
+        if (BuildConfig.DEBUG) {
+            doLog(entry.tag, entry.message, entry.level)
+        }
         when (entry.level) {
             Log.WARN -> warning(entry.tag, entry.message)
             Log.ERROR -> error(entry.tag, entry.message)
@@ -52,9 +73,7 @@ class SystemLogger : Logger {
                         logEntry.tag == entry.tag &&
                         logEntry.message == entry.message &&
                         logEntry.throwable.javaClass == entry.throwable.javaClass &&
-                        logEntry.throwable.message == entry.throwable.message &&
-                        logEntry.errorKeys?.key == entry.errorKeys?.key &&
-                        logEntry.errorKeys?.value == entry.errorKeys?.value
+                        logEntry.throwable.message == entry.throwable.message
                 }
 
             is LocalLogEntry.Basic -> entry in logs
@@ -65,8 +84,7 @@ class SystemLogger : Logger {
                         logEntry.message == entry.message &&
                         logEntry.throwable.javaClass == entry.throwable.javaClass &&
                         logEntry.throwable.message == entry.throwable.message &&
-                        logEntry.errorKeys?.key == entry.errorKeys?.key &&
-                        logEntry.errorKeys?.value == entry.errorKeys?.value
+                        logEntry.customKeys == entry.customKeys
                 }
 
             is LogEntry.WithException ->
@@ -76,8 +94,7 @@ class SystemLogger : Logger {
                         logEntry.message == entry.message &&
                         logEntry.throwable.javaClass == entry.throwable.javaClass &&
                         logEntry.throwable.message == entry.throwable.message &&
-                        logEntry.errorKeys?.key == entry.errorKeys?.key &&
-                        logEntry.errorKeys?.value == entry.errorKeys?.value
+                        logEntry.customKeys == entry.customKeys
                 }
         }
 
@@ -121,15 +138,6 @@ class SystemLogger : Logger {
         doLog(tag, message, throwable, null)
     }
 
-    override fun error(
-        tag: String,
-        message: String,
-        throwable: Throwable,
-        errorKeys: ErrorKeys?,
-    ) {
-        doLog(tag, message, throwable, errorKeys)
-    }
-
     private fun doLog(
         tag: String,
         msg: String,
@@ -143,9 +151,9 @@ class SystemLogger : Logger {
         tag: String,
         msg: String,
         throwable: Throwable,
-        errorKeys: ErrorKeys?,
+        vararg customKeys: CustomKeys?,
     ) {
         println("$tag: $msg")
-        logs.add(LogEntry.Error(Log.ERROR, msg, tag, throwable, errorKeys))
+        logs.add(LogEntry.Error(Log.ERROR, msg, tag, throwable, customKeys.filterNotNull()))
     }
 }

@@ -1,6 +1,6 @@
 package uk.gov.logging.api.v3
 
-import uk.gov.logging.api.v2.errorKeys.ErrorKeys
+import uk.gov.logging.api.v3.customKeys.CustomKeys
 
 /**
  * Abstraction for declaring crashlytics logger behaviour.
@@ -8,7 +8,7 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 interface CrashLogger : Logger {
     fun log(
         throwable: Throwable,
-        vararg errorKeys: ErrorKeys,
+        vararg customKeys: CustomKeys,
     )
 
     fun log(throwable: Throwable)
