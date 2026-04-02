@@ -3,6 +3,7 @@
 package uk.gov.logging.impl
 
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
+import uk.gov.logging.api.v3.customKeys.CustomKeys
 
 object LoggingTestDataRelease {
     private const val throwableMessage = "This is a unit test!"
@@ -11,7 +12,13 @@ object LoggingTestDataRelease {
     const val logTag = "Example log tag"
     val logThrowable = Throwable(message = throwableMessage)
 
-    val errorKeysNotnull: ErrorKeys =
+    val customKeysNotnull: CustomKeys =
+        CustomKeys.IntKey(
+            "key",
+            1,
+        )
+
+    val errorKeysNotNull: ErrorKeys =
         ErrorKeys.IntKey(
             "key",
             1,
