@@ -3,17 +3,12 @@ import uk.gov.pipelines.config.ApkConfig
 
 plugins {
     id("uk.gov.pipelines.android-lib-config")
-    alias(libs.plugins.ksp)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-    }
-
     val apkConfig: ApkConfig by project.rootProject.extra
     defaultConfig {
-        namespace = apkConfig.applicationId + ".api"
+        namespace = apkConfig.applicationId + ".testfixture"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -32,6 +27,7 @@ android {
             enableUnitTestCoverage = true
         }
     }
+
     testOptions {
         targetSdk = apkConfig.sdkVersions.target
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
@@ -58,60 +54,29 @@ android {
 }
 
 dependencies {
-    listOf(
-        kotlin("test"),
-        libs.androidx.test.core.ktx,
-        libs.androidx.test.ext.junit,
-        libs.androidx.test.runner,
-        libs.hilt.android.testing,
-        libs.junit,
-        libs.mockito.android,
-        libs.mockito.kotlin,
-    ).forEach {
-        androidTestImplementation(it)
-    }
-
+    implementation(libs.androidx.junit.ktx)
+    androidTestImplementation(libs.junit.junit)
     listOf(
         platform(libs.kotlin.bom),
-        libs.kotlinx.coroutines,
-        libs.firebase.analytics,
-        libs.hilt.android,
-        platform(libs.firebase.bom),
-    ).forEach {
-        implementation(it)
-    }
+        libs.hamcrest,
+    ).forEach(::implementation)
 
     listOf(
-        libs.hilt.android.testing,
-        libs.kotlinx.coroutines.test,
         kotlin("test"),
+        libs.hamcrest,
         libs.junit.jupiter,
         libs.junit.jupiter.params,
         platform(libs.junit.bom),
-        libs.mockito.kotlin,
-    ).forEach { dependency ->
-        testImplementation(dependency)
-    }
+    ).forEach(::testImplementation)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
 
-    ksp(libs.hilt.compiler)
-    kspTest(libs.hilt.compiler)
-    kspAndroidTest(libs.hilt.compiler)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     androidTestUtil(libs.androidx.orchestrator)
-}
+    api(projects.modules.loggingApi)
 
-mavenPublishingConfig {
-    mavenConfigBlock {
-        name.set(
-            "Logging and Analytics Modules for Android Devices",
-        )
-        description.set(
-            """
-            Gradle configured Android library for fire-and-forget logging and analytics.
-            """.trimIndent(),
-        )
-    }
+    testFixturesImplementation(libs.kotlin.stdlib)
 }

@@ -32,12 +32,14 @@ class CrashlyticsLogger(
     override fun log(entries: Collection<LogEntry>) {
         entries.forEach { entry ->
             when (entry) {
-                is LogEntry.WithException -> {
+                is LogEntry.Error -> {
                     crashlytics.recordException(entry.throwable)
                     entry.customKeys?.forEach { customkeys ->
                         crashlytics.setCustomKey(customkeys.key, customkeys.value.toString())
                     }
                 }
+                is LogEntry.WithException -> crashlytics.recordException(entry.throwable)
+
                 else -> logBasicEntries(entry)
             }
         }

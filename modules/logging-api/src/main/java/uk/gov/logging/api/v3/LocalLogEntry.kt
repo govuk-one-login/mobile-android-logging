@@ -34,6 +34,6 @@ sealed class LocalLogEntry(
             tag = tag,
         ),
         LogEntry.WithException {
-        override val customKeys: List<CustomKeys>? = null
+        val customKeys: List<CustomKeys>? = null
     }
 }

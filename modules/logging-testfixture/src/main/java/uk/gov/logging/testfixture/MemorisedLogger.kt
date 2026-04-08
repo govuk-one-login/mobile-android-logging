@@ -1,14 +1,14 @@
-package uk.gov.logging.api.v3.logger
+package uk.gov.logging.testfixture
 
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
 
 /**
- * [Logger] test fixture implementation that stores the provided entries from the [log] function
+ * [uk.gov.logging.api.v3.Logger] test fixture implementation that stores the provided entries from the [log] function
  * into the internal [entries] property for later assertions.
  *
- * @param subLogger The underlying [Logger] implementation to decorate. Defaults to an empty
- * implementation, meaning that the provided [LogEntry] objects are only stored in memory.
+ * @param subLogger The underlying [uk.gov.logging.api.v3.Logger] implementation to decorate. Defaults to an empty
+ * implementation, meaning that the provided [uk.gov.logging.api.v3.LogEntry] objects are only stored in memory.
  *
 */
 data class MemorisedLogger(

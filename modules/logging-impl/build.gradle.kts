@@ -86,6 +86,7 @@ dependencies {
         platform(libs.junit.bom),
         libs.mockito.kotlin,
         projects.modules.loggingTestdouble,
+        libs.org.robolectric,
     ).forEach { dependency ->
         testImplementation(dependency)
     }

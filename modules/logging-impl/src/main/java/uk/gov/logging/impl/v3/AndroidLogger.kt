@@ -3,6 +3,7 @@ package uk.gov.logging.impl.v3
 import android.util.Log
 import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.v3.CrashLogger
+import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
 
@@ -12,7 +13,8 @@ class AndroidLogger(
     override fun log(entries: Collection<LogEntry>) {
         entries.forEach { entry ->
             when (entry) {
-                is LogEntry.WithException -> logEntriesWithException(entry)
+                is LogEntry.Error -> logEntriesWithException(entry)
+                is LocalLogEntry.Error -> {}
                 else -> logBasicEntries(entry)
             }
         }
@@ -34,7 +36,7 @@ class AndroidLogger(
         }
     }
 
-    private fun logEntriesWithException(logEntry: LogEntry.WithException) {
+    private fun logEntriesWithException(logEntry: LogEntry.Error) {
         if (BuildConfig.DEBUG) {
             Log.e(logEntry.tag, logEntry.message, logEntry.throwable)
         }

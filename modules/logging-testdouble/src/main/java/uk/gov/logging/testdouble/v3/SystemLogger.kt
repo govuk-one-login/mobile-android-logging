@@ -47,6 +47,5 @@ class SystemLogger : Logger {
             tag == other.tag &&
             message == other.message &&
             throwable.javaClass == other.throwable.javaClass &&
-            throwable.message == other.throwable.message &&
-            customKeys == other.customKeys
+            throwable.message == other.throwable.message
 }

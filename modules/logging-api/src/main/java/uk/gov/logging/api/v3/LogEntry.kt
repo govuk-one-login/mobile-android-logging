@@ -9,7 +9,6 @@ sealed interface LogEntry {
 
     interface WithException : LogEntry {
         val throwable: Throwable
-        val customKeys: List<CustomKeys>?
     }
 
     data class Basic(
@@ -23,6 +22,6 @@ sealed interface LogEntry {
         override val message: String,
         override val tag: String,
         override val throwable: Throwable,
-        override val customKeys: List<CustomKeys>?,
+        val customKeys: List<CustomKeys>?,
     ) : WithException
 }
