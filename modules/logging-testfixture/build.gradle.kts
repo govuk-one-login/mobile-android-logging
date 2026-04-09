@@ -58,11 +58,11 @@ dependencies {
     androidTestImplementation(libs.junit.junit)
     listOf(
         platform(libs.kotlin.bom),
+        libs.hamcrest,
     ).forEach(::implementation)
 
     listOf(
         kotlin("test"),
-        libs.hamcrest,
         libs.junit.jupiter,
         libs.junit.jupiter.params,
         platform(libs.junit.bom),
