@@ -1,9 +1,9 @@
 package uk.gov.logging.testfixture
 
 import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.TypeSafeMatcher
 import uk.gov.logging.api.v3.LogEntry
 import kotlin.reflect.KClass
