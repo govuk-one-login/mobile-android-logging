@@ -57,7 +57,21 @@ android {
     }
 }
 
+/**
+ * Workaround for duplicate hamcrest classes
+ * we have one hamcrest dependency on the pipeline
+ * we need one for test fixtures on the logging-api module
+ */
+
+configurations.configureEach {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("org.hamcrest:hamcrest-core"))
+            .using(module("org.hamcrest:hamcrest:3.0"))
+    }
+}
+
 dependencies {
+
     listOf(
         kotlin("test"),
         libs.androidx.test.core.ktx,
@@ -105,20 +119,6 @@ dependencies {
     testFixturesImplementation(libs.kotlin.stdlib)
     testFixturesImplementation(libs.hamcrest)
 }
-
-/**
- * Workaround for duplicate hamcrest classes
- * we have one hamcrest dependency on the pipeline
- * we need one for test fixtures on the logging-api module
- */
-
-tasks
-    .matching { task ->
-        task.name.contains("checkDebugAndroidTestDuplicateClasses") or
-            task.name.contains("checkDebugAndroidTestDuplicateClasses")
-    }.configureEach {
-        enabled = false
-    }
 
 mavenPublishingConfig {
     mavenConfigBlock {
