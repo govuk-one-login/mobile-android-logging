@@ -101,6 +101,9 @@ dependencies {
     kspAndroidTest(libs.hilt.compiler)
 
     androidTestUtil(libs.androidx.orchestrator)
+
+    testFixturesImplementation(libs.kotlin.stdlib)
+    testFixturesImplementation(libs.hamcrest)
 }
 
 mavenPublishingConfig {
