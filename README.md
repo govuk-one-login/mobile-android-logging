@@ -175,6 +175,81 @@ class AndroidLogger(
     }
 }
 ```
+## Android Logger V3
+Android Logger v3 introduces a structured, entry-based logging API. Instead of calling individual log methods with separate parameters, v3 uses LogEntry sealed types to represent log events, which are processed through a single log function. It also supports CustomKey types for setting typed key-value pairs on crash reports.
+
+The logger provides the following functions:
+
+debug–Logs debug messages with a tag.
+
+info–Logs informational messages with a tag.
+
+warning–Logs warning messages with a tag.
+
+Error Logging
+
+An error function that allows the consumer to log an error message and set a tag, without recording an exception or custom keys.
+
+An error function that allows the consumer to log an error, set a tag, and record an exception, without setting custom keys.
+
+An error function that allows the consumer to log an error, set a tag, record an exception, and set typed custom keys (StringKey, IntKey, DoubleKey, BooleanKey).
+
+Log Entries
+
+LogEntry.Basic–Represents a simple log event with a level, tag, and message.
+
+LogEntry.Error–Represents an error log event with a exception and optional custom keys.
+
+LocalLogEntry.Basic / LocalLogEntry.Error–Log entries intended for local-only logging. Logger implementations that perform network calls should not log these entries.
+
+```kotlin
+class AndroidLogger(
+    private val crashLogger: CrashLogger,
+) : Logger {
+    override fun log(entries: Collection<LogEntry>) =
+        entries.forEach { entry ->
+            when (entry) {
+                is LogEntry.Basic -> logBasicEntries(entry)
+                is LogEntry.Error -> logEntriesWithException(entry)
+                is LocalLogEntry.Basic -> logBasicEntries(entry)
+                is LocalLogEntry.Error -> logBasicEntries(entry)
+                else -> logBasicEntries(entry)
+            }
+        }
+
+    private fun logBasicEntries(logEntry: LogEntry) {
+        if (BuildConfig.DEBUG) {
+            when (logEntry.level) {
+                Log.DEBUG -> Log.d(logEntry.tag, logEntry.message)
+                Log.WARN -> Log.w(logEntry.tag, logEntry.message)
+                Log.ERROR -> Log.e(logEntry.tag, logEntry.message)
+                Log.INFO -> Log.i(logEntry.tag, logEntry.message)
+            }
+        }
+        when (logEntry.level) {
+            Log.WARN -> crashLogger(logEntry.tag, logEntry.message, "W")
+            Log.ERROR -> crashLogger(logEntry.tag, logEntry.message, "E")
+            Log.INFO -> crashLogger(logEntry.tag, logEntry.message, "I")
+        }
+    }
+
+    private fun logEntriesWithException(logEntry: LogEntry.Error) {
+        if (BuildConfig.DEBUG) {
+            Log.e(logEntry.tag, logEntry.message, logEntry.throwable)
+        }
+
+        crashLogger.log(logEntry.throwable, *logEntry.customKeys.toTypedArray())
+    }
+
+    private fun crashLogger(
+        tag: String,
+        message: String,
+        suffix: String,
+    ) {
+        crashLogger.log("$suffix : $tag : $message")
+    }
+}
+```
 
 ## Releases
 
