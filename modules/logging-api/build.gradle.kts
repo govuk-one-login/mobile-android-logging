@@ -106,6 +106,20 @@ dependencies {
     testFixturesImplementation(libs.hamcrest)
 }
 
+/**
+ * Workaround for duplicate hamcrest classes
+ * we have one hamcrest dependency on the pipeline
+ * we need one for test fixtures on the logging-api module
+ */
+
+tasks
+    .matching { task ->
+        task.name.contains("checkDebugAndroidTestDuplicateClasses") or
+            task.name.contains("checkDebugAndroidTestDuplicateClasses")
+    }.configureEach {
+        enabled = false
+    }
+
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
