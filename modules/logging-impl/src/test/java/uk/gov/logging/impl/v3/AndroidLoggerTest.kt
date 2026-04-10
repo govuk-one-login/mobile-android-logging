@@ -12,16 +12,18 @@ import org.mockito.MockedStatic
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.eq
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.v3.CrashLogger
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
-import uk.gov.logging.api.v3.customKeys.CustomKeys
-import uk.gov.logging.impl.LoggingTestDataRelease.customKeysNotnull
+import uk.gov.logging.api.v3.customKeys.CustomKey
+import uk.gov.logging.impl.LoggingTestDataRelease.customKeyNotnull
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
+import uk.gov.logging.impl.LoggingTestDataRelease.multipleCustomKeys
 import uk.gov.logging.impl.v2.CrashlyticsLoggerTest.Companion.KEY
 import java.util.stream.Stream
 
@@ -84,7 +86,7 @@ class AndroidLoggerTest {
             staticLogMock.verifyNoInteractions()
         }
 
-        verify(crashLogger).log(eq(logThrowable))
+        verify(crashLogger).log(eq(logThrowable), eq(customKeyNotnull))
     }
 
     @Test
@@ -173,7 +175,7 @@ class AndroidLoggerTest {
 
     @Test
     fun `Error messages with throwable and custom key call crash logger and static logger `() {
-        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, customKeysNotnull)
+        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, customKeyNotnull)
 
         if (BuildConfig.DEBUG) {
             staticLogMock.verify {
@@ -186,7 +188,27 @@ class AndroidLoggerTest {
         } else {
             staticLogMock.verifyNoInteractions()
         }
-        verify(crashLogger).log(eq(logThrowable))
+        verify(crashLogger, times(0)).log(eq(logThrowable))
+        verify(crashLogger, times(1)).log(eq(logThrowable), eq(customKeyNotnull))
+    }
+
+    @Test
+    fun `Error messages with throwable and multiple custom key call crash logger and static logger `() {
+        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, *multipleCustomKeys.toTypedArray())
+
+        if (BuildConfig.DEBUG) {
+            staticLogMock.verify {
+                Log.e(
+                    eq(logTag),
+                    eq(logMessage),
+                    eq(logThrowable),
+                )
+            }
+        } else {
+            staticLogMock.verifyNoInteractions()
+        }
+        verify(crashLogger, times(0)).log(eq(logThrowable))
+        verify(crashLogger, times(1)).log(eq(logThrowable), eq(multipleCustomKeys[0]), eq(multipleCustomKeys[1]))
     }
 
     @Test
@@ -249,7 +271,7 @@ class AndroidLoggerTest {
         const val LEVEL_SYMBOL_WARN = "W"
 
         const val INT_VALUE = 1
-        val intCustomKey: List<CustomKeys> = listOf(CustomKeys.IntKey(KEY, INT_VALUE))
+        val intCustomKey: List<CustomKey> = listOf(CustomKey.IntKey(KEY, INT_VALUE))
 
         val errorEntryWithCustomKeys =
             listOf<LogEntry>(
@@ -269,7 +291,7 @@ class AndroidLoggerTest {
                     message = logMessage,
                     level = Log.ERROR,
                     throwable = logThrowable,
-                    customKeys = null,
+                    customKeys = listOf(),
                 ),
             )
 

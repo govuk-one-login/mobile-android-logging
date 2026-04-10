@@ -1,6 +1,6 @@
 package uk.gov.logging.api.v3
 
-import uk.gov.logging.api.v3.customKeys.CustomKeys
+import uk.gov.logging.api.v3.customKeys.CustomKey
 
 /**
  * [LogEntry] implementation used for logging events.
@@ -34,6 +34,6 @@ sealed class LocalLogEntry(
             tag = tag,
         ),
         LogEntry.WithException {
-        val customKeys: List<CustomKeys>? = null
+        val customKeys: List<CustomKey>? = null
     }
 }

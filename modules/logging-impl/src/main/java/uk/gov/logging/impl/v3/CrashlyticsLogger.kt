@@ -3,25 +3,21 @@ package uk.gov.logging.impl.v3
 import android.util.Log
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import uk.gov.logging.api.v3.CrashLogger
+import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
-import uk.gov.logging.api.v3.customKeys.CustomKeys
+import uk.gov.logging.api.v3.customKeys.CustomKey
 
+@Suppress("SpreadOperator")
 class CrashlyticsLogger(
     private val crashlytics: FirebaseCrashlytics,
 ) : CrashLogger {
     override fun log(
         throwable: Throwable,
-        vararg customKeys: CustomKeys,
+        vararg customKeys: CustomKey,
     ) {
-        crashlytics.recordException(throwable)
         customKeys.forEach {
-            it.let {
-                crashlytics.setCustomKey(it.key, it.value.toString())
-            }
+            crashlytics.setCustomKey(it.key, it.value.toString())
         }
-    }
-
-    override fun log(throwable: Throwable) {
         crashlytics.recordException(throwable)
     }
 
@@ -32,12 +28,9 @@ class CrashlyticsLogger(
     override fun log(entries: Collection<LogEntry>) {
         entries.forEach { entry ->
             when (entry) {
-                is LogEntry.Error -> {
-                    crashlytics.recordException(entry.throwable)
-                    entry.customKeys?.forEach { customkeys ->
-                        crashlytics.setCustomKey(customkeys.key, customkeys.value.toString())
-                    }
-                }
+                is LogEntry.Error -> log(entry.throwable, *entry.customKeys.toTypedArray())
+                is LocalLogEntry.Basic -> logBasicEntries(entry)
+                is LocalLogEntry.Error -> logBasicEntries(entry)
                 is LogEntry.WithException -> crashlytics.recordException(entry.throwable)
 
                 else -> logBasicEntries(entry)
@@ -47,9 +40,9 @@ class CrashlyticsLogger(
 
     fun logBasicEntries(entry: LogEntry) {
         when (entry.level) {
-            Log.WARN -> crashlytics.log("W : ${entry.tag} : ${entry.message}")
-            Log.ERROR -> crashlytics.log("E : ${entry.tag} : ${entry.message}")
-            Log.INFO -> crashlytics.log("I : ${entry.tag} : ${entry.message}")
+            Log.WARN -> log("W : ${entry.tag} : ${entry.message}")
+            Log.ERROR -> log("E : ${entry.tag} : ${entry.message}")
+            Log.INFO -> log("I : ${entry.tag} : ${entry.message}")
         }
     }
 }

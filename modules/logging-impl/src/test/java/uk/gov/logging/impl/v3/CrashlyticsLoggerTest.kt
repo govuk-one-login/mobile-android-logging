@@ -13,7 +13,7 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.v3.CrashLogger
 import uk.gov.logging.api.v3.LogEntry
-import uk.gov.logging.api.v3.customKeys.CustomKeys
+import uk.gov.logging.api.v3.customKeys.CustomKey
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
@@ -37,11 +37,11 @@ class CrashlyticsLoggerTest {
     @MethodSource("setUpTestValues")
     fun `log throwable message and custom keys on firebase crashlytics `(
         throwable: Throwable,
-        customKeys: CustomKeys,
+        customKey: CustomKey,
         expectedKey: String,
         expectedValue: String,
     ) {
-        crashLogger.log(throwable, customKeys)
+        crashLogger.log(throwable, customKey)
         verify(firebaseCrashlytics).recordException(eq(throwable))
         verify(firebaseCrashlytics).setCustomKey(eq(expectedKey), eq(expectedValue))
     }
@@ -72,17 +72,6 @@ class CrashlyticsLoggerTest {
     }
 
     @Test
-    fun `log error message with log tag and log message on firebase crashlytics with null error keys`() {
-        crashLogger.error(
-            logTag,
-            logMessage,
-            exception,
-            null,
-        )
-        verify(firebaseCrashlytics).recordException(eq(exception))
-    }
-
-    @Test
     fun `log basic entries on firebase crashlytics  without throwable`() {
         crashLogger.log(listBasicEntries)
 
@@ -101,7 +90,7 @@ class CrashlyticsLoggerTest {
     @MethodSource("setUpTestValues")
     fun `test log error message with log tag  and set custom key on firebase crashlytics  `(
         throwable: Throwable,
-        customKeys: CustomKeys,
+        customKey: CustomKey,
         expectedKey: String,
         expectedValue: String,
     ) {
@@ -109,7 +98,7 @@ class CrashlyticsLoggerTest {
             logTag,
             logMessage,
             throwable,
-            customKeys,
+            customKey,
         )
         verify(firebaseCrashlytics).recordException(eq(exception))
 
@@ -120,18 +109,18 @@ class CrashlyticsLoggerTest {
         const val KEY = "key"
 
         const val STRING_VALUE = "error"
-        val stringErrorKey = CustomKeys.StringKey(KEY, STRING_VALUE)
+        val stringErrorKey = CustomKey.StringKey(KEY, STRING_VALUE)
 
         const val INT_VALUE = 1
-        val intErrorKey = CustomKeys.IntKey(KEY, INT_VALUE)
+        val intErrorKey = CustomKey.IntKey(KEY, INT_VALUE)
 
         const val DOUBLE_VALUE = 1.0
 
-        val doubleErrorKey = CustomKeys.DoubleKey(KEY, DOUBLE_VALUE)
+        val doubleErrorKey = CustomKey.DoubleKey(KEY, DOUBLE_VALUE)
 
         const val BOOLEAN_VALUE = false
 
-        val booleanErrorKey = CustomKeys.BooleanKey(KEY, BOOLEAN_VALUE)
+        val booleanErrorKey = CustomKey.BooleanKey(KEY, BOOLEAN_VALUE)
 
         val exception = Exception("error throwable")
 
@@ -168,7 +157,7 @@ class CrashlyticsLoggerTest {
                     message = logMessage,
                     level = Log.ERROR,
                     throwable = logThrowable,
-                    customKeys = null,
+                    customKeys = listOf(),
                 ),
             )
 

@@ -3,7 +3,7 @@ package uk.gov.logging.testdouble.v3
 import android.util.Log
 import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
-import uk.gov.logging.api.v3.customKeys.CustomKeys
+import uk.gov.logging.api.v3.customKeys.CustomKey
 
 object LoggingTestData {
     private const val THROWABLE_MESSAGE = "This is a unit test!"
@@ -16,7 +16,7 @@ object LoggingTestData {
 
     val logThrowable = Throwable(message = THROWABLE_MESSAGE)
 
-    val intCustomKey = CustomKeys.IntKey("Key", 1)
+    val intCustomKey = CustomKey.IntKey("Key", 1)
 
     val basicDebugEntry =
         LogEntry.Basic(
@@ -64,7 +64,7 @@ object LoggingTestData {
             LOG_MESSAGE,
             LOG_TAG,
             logThrowable,
-            customKeys = null,
+            customKeys = listOf(),
         )
 
     val errorLocalThrowableEntry =
@@ -81,7 +81,7 @@ object LoggingTestData {
             tag = LOG_TAG,
             message = LOG_MESSAGE,
             throwable = logThrowable,
-            customKeys = null,
+            customKeys = listOf(),
         )
 
     val withExceptionLocalEntry: LogEntry.WithException =

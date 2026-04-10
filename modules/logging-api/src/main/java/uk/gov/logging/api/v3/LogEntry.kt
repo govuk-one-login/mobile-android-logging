@@ -1,6 +1,6 @@
 package uk.gov.logging.api.v3
 
-import uk.gov.logging.api.v3.customKeys.CustomKeys
+import uk.gov.logging.api.v3.customKeys.CustomKey
 
 sealed interface LogEntry {
     val level: Int
@@ -22,6 +22,6 @@ sealed interface LogEntry {
         override val message: String,
         override val tag: String,
         override val throwable: Throwable,
-        val customKeys: List<CustomKeys>?,
+        val customKeys: List<CustomKey>,
     ) : WithException
 }

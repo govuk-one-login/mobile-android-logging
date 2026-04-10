@@ -7,20 +7,22 @@ import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
 
+@Suppress("SpreadOperator")
 class AndroidLogger(
     private val crashLogger: CrashLogger,
 ) : Logger {
-    override fun log(entries: Collection<LogEntry>) {
+    override fun log(entries: Collection<LogEntry>) =
         entries.forEach { entry ->
             when (entry) {
+                is LogEntry.Basic -> logBasicEntries(entry)
                 is LogEntry.Error -> logEntriesWithException(entry)
-                is LocalLogEntry.Error -> {}
+                is LocalLogEntry.Basic -> logBasicEntries(entry)
+                is LocalLogEntry.Error -> logBasicEntries(entry)
                 else -> logBasicEntries(entry)
             }
         }
-    }
 
-    fun logBasicEntries(logEntry: LogEntry) {
+    private fun logBasicEntries(logEntry: LogEntry) {
         if (BuildConfig.DEBUG) {
             when (logEntry.level) {
                 Log.DEBUG -> Log.d(logEntry.tag, logEntry.message)
@@ -40,19 +42,11 @@ class AndroidLogger(
         if (BuildConfig.DEBUG) {
             Log.e(logEntry.tag, logEntry.message, logEntry.throwable)
         }
-        when (logEntry.level) {
-            Log.ERROR ->
-                {
-                    crashLogger.log(logEntry.throwable)
 
-                    logEntry.customKeys?.forEach {
-                        crashLogger.log(logEntry.throwable, it)
-                    }
-                }
-        }
+        crashLogger.log(logEntry.throwable, *logEntry.customKeys.toTypedArray())
     }
 
-    fun crashLogger(
+    private fun crashLogger(
         tag: String,
         message: String,
         suffix: String,

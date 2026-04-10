@@ -47,7 +47,6 @@ class FirebaseAnalyticsLogger(
                 tag = tag,
                 msg = "Firebase event sent with: $bundledParameters",
             )
-            delay(1)
         }
     }
 

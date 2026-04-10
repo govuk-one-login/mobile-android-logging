@@ -26,7 +26,6 @@ include(
     ":modules:logging-api",
     ":modules:logging-impl",
     ":modules:logging-testdouble",
-    ":modules:logging-testfixture",
 )
 
 includeBuild("${rootProject.projectDir}/mobile-android-pipelines/buildLogic")
