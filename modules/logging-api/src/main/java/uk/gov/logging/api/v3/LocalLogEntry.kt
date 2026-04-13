@@ -3,10 +3,14 @@ package uk.gov.logging.api.v3
 import uk.gov.logging.api.v3.customKeys.CustomKey
 
 /**
- * [LogEntry] implementation used for logging events.
+ * LocalLogEntry implements the [LogEntry] interface for logging entries
+ * that are not yet ready to be logged remotely or entries to be logged locally.
  *
  * [Logger] implementations that perform network calls shouldn't log [LogEntry] instances of this
  * data type.
+ * @property level the logging level
+ * @property message the log message
+ * @property tag the log tag
  */
 sealed class LocalLogEntry(
     override val level: Int,
@@ -34,6 +38,6 @@ sealed class LocalLogEntry(
             tag = tag,
         ),
         LogEntry.WithException {
-        val customKeys: List<CustomKey>? = null
+        val customKeys: List<CustomKey> = listOf()
     }
 }

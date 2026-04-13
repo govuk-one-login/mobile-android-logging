@@ -16,6 +16,7 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.v3.CrashLogger
+import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
 import uk.gov.logging.api.v3.customKeys.CustomKey
@@ -50,12 +51,12 @@ class AndroidLoggerTest {
     fun `test log entries with debug entry `() {
         logger.log(basicDebugEntry)
         if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
+            staticLogMock.verify({
                 Log.d(
                     eq(logTag),
                     eq(logMessage),
                 )
-            }
+            }, times(2))
         }
     }
 
@@ -71,7 +72,7 @@ class AndroidLoggerTest {
     }
 
     @Test
-    fun `test log entry with exception and custom keys is not equals to null `() {
+    fun `test log entry with exception and with custom key`() {
         logger.log(errorEntryWithCustomKeys)
 
         if (BuildConfig.DEBUG) {
@@ -90,7 +91,7 @@ class AndroidLoggerTest {
     }
 
     @Test
-    fun `test log entry with exception and custom keys is equals to null `() {
+    fun `test log entries with exception and no custom key `() {
         logger.log(errorEntryWithOutCustomKeys)
 
         if (BuildConfig.DEBUG) {
@@ -229,10 +230,48 @@ class AndroidLoggerTest {
         verify(crashLogger).log(eq("W : $logTag : $logMessage"))
     }
 
+    @Test
+    fun `test local log info entry`() {
+        logger.log(basicInfoLocalEntry)
+        staticLogMock.verify {
+            Log.i(
+                eq(logTag),
+                eq(logMessage),
+            )
+        }
+    }
+
+    @Test
+    fun `test local log warn entry`() {
+        logger.log(basicWarnLocalEntry)
+        staticLogMock.verify {
+            Log.w(
+                eq(logTag),
+                eq(logMessage),
+            )
+        }
+    }
+
+    @Test
+    fun `test local log error entry`() {
+        logger.log(localErrorEntries)
+        staticLogMock.verify({
+            Log.e(
+                eq(logTag),
+                eq(logMessage),
+            )
+        }, times(2))
+    }
+
     companion object {
         val basicDebugEntry =
-            listOf<LogEntry>(
+            listOf(
                 LogEntry.Basic(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.DEBUG,
+                ),
+                LocalLogEntry.Basic(
                     tag = logTag,
                     message = logMessage,
                     level = Log.DEBUG,
@@ -240,7 +279,7 @@ class AndroidLoggerTest {
             )
 
         val basicInfoEntry =
-            listOf<LogEntry>(
+            listOf(
                 LogEntry.Basic(
                     tag = logTag,
                     message = logMessage,
@@ -248,22 +287,57 @@ class AndroidLoggerTest {
                 ),
             )
 
+        val basicInfoLocalEntry =
+            LocalLogEntry.Basic(
+                tag = logTag,
+                message = logMessage,
+                level = Log.INFO,
+            )
+
         val basicWarnEntry =
-            listOf<LogEntry>(
+            listOf(
                 LogEntry.Basic(
                     tag = logTag,
                     message = logMessage,
                     level = Log.WARN,
                 ),
+                LocalLogEntry.Basic(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.WARN,
+                ),
+            )
+
+        val basicWarnLocalEntry =
+            LocalLogEntry.Basic(
+                tag = logTag,
+                message = logMessage,
+                level = Log.WARN,
             )
         val basicErrorEntry =
-            listOf<LogEntry>(
+            listOf(
                 LogEntry.Basic(
                     tag = logTag,
                     message = logMessage,
                     level = Log.ERROR,
                 ),
             )
+
+        val localErrorEntries =
+            listOf(
+                LocalLogEntry.Basic(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.ERROR,
+                ),
+                LocalLogEntry.Error(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.ERROR,
+                    throwable = logThrowable,
+                ),
+            )
+
         const val LEVEL_SYMBOL_INFO = "I"
 
         const val LEVEL_SYMBOL_ERROR = "E"

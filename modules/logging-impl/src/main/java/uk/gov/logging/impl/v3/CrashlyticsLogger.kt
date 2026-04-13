@@ -29,8 +29,8 @@ class CrashlyticsLogger(
         entries.forEach { entry ->
             when (entry) {
                 is LogEntry.Error -> log(entry.throwable, *entry.customKeys.toTypedArray())
-                is LocalLogEntry.Basic -> logBasicEntries(entry)
-                is LocalLogEntry.Error -> logBasicEntries(entry)
+                is LocalLogEntry.Basic -> logLocalBasicEntries(entry)
+                is LocalLogEntry.Error -> logLocalErrorLogEntry(entry, entry.throwable)
                 is LogEntry.WithException -> crashlytics.recordException(entry.throwable)
 
                 else -> logBasicEntries(entry)
@@ -38,11 +38,28 @@ class CrashlyticsLogger(
         }
     }
 
-    fun logBasicEntries(entry: LogEntry) {
-        when (entry.level) {
-            Log.WARN -> log("W : ${entry.tag} : ${entry.message}")
-            Log.ERROR -> log("E : ${entry.tag} : ${entry.message}")
-            Log.INFO -> log("I : ${entry.tag} : ${entry.message}")
+    private fun logBasicEntries(entry: LogEntry) {
+        if (entry !is LocalLogEntry) {
+            when (entry.level) {
+                Log.WARN -> log("W : ${entry.tag} : ${entry.message}")
+                Log.ERROR -> log("E : ${entry.tag} : ${entry.message}")
+                Log.INFO -> log("I : ${entry.tag} : ${entry.message}")
+            }
         }
+    }
+
+    private fun logLocalBasicEntries(entry: LocalLogEntry) {
+        when (entry.level) {
+            Log.WARN -> Log.w(entry.tag, entry.message)
+            Log.ERROR -> Log.e(entry.tag, entry.message)
+            Log.INFO -> Log.i(entry.tag, entry.message)
+        }
+    }
+
+    private fun logLocalErrorLogEntry(
+        entry: LocalLogEntry,
+        throwable: Throwable,
+    ) {
+        Log.e(entry.tag, entry.message, throwable)
     }
 }

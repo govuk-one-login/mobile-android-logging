@@ -23,7 +23,7 @@ class AndroidLogger(
         }
 
     private fun logBasicEntries(logEntry: LogEntry) {
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG || logEntry is LocalLogEntry) {
             when (logEntry.level) {
                 Log.DEBUG -> Log.d(logEntry.tag, logEntry.message)
                 Log.WARN -> Log.w(logEntry.tag, logEntry.message)
@@ -31,10 +31,12 @@ class AndroidLogger(
                 Log.INFO -> Log.i(logEntry.tag, logEntry.message)
             }
         }
-        when (logEntry.level) {
-            Log.WARN -> crashLogger(logEntry.tag, logEntry.message, "W")
-            Log.ERROR -> crashLogger(logEntry.tag, logEntry.message, "E")
-            Log.INFO -> crashLogger(logEntry.tag, logEntry.message, "I")
+        if (logEntry !is LocalLogEntry) {
+            when (logEntry.level) {
+                Log.WARN -> crashLogger(logEntry.tag, logEntry.message, "W")
+                Log.ERROR -> crashLogger(logEntry.tag, logEntry.message, "E")
+                Log.INFO -> crashLogger(logEntry.tag, logEntry.message, "I")
+            }
         }
     }
 

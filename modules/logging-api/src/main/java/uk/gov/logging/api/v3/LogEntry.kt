@@ -2,6 +2,13 @@ package uk.gov.logging.api.v3
 
 import uk.gov.logging.api.v3.customKeys.CustomKey
 
+/**
+ * LogEntry is the data structure that wraps
+ * log entries into a common data structure.
+ * @property level the logging level
+ * @property message the log message
+ * @property tag the log tag
+ */
 sealed interface LogEntry {
     val level: Int
     val message: String

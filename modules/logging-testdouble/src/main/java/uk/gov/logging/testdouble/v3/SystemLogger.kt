@@ -25,8 +25,8 @@ class SystemLogger : Logger {
             is LogEntry.Basic -> logs.contains(entry)
             is LogEntry.Error -> logs.any { it.matchesError(entry) }
             is LocalLogEntry.Basic -> logs.contains(entry)
-            is LocalLogEntry.Error -> logs.any { it.matchesWithException(entry) }
-            is LogEntry.WithException -> logs.any { it.matchesWithException(entry) }
+            is LocalLogEntry.Error -> logs.contains(entry)
+            is LogEntry.WithException -> logs.contains(entry)
         }
 
     operator fun get(i: Int) = logs[i]
@@ -41,11 +41,4 @@ class SystemLogger : Logger {
             throwable.message == other.throwable.message &&
             customKeys == other.customKeys &&
             level == other.level
-
-    private fun LogEntry.matchesWithException(other: LogEntry.WithException) =
-        this is LogEntry.WithException &&
-            tag == other.tag &&
-            message == other.message &&
-            throwable.javaClass == other.throwable.javaClass &&
-            throwable.message == other.throwable.message
 }

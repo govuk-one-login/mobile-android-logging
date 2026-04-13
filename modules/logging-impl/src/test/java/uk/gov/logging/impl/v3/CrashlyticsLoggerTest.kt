@@ -2,16 +2,21 @@ package uk.gov.logging.impl.v3
 
 import android.util.Log
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
+import org.mockito.MockedStatic
+import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.v3.CrashLogger
+import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.customKeys.CustomKey
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
@@ -24,6 +29,18 @@ class CrashlyticsLoggerTest {
 
     private val crashLogger: CrashLogger by lazy {
         CrashlyticsLogger(firebaseCrashlytics)
+    }
+
+    private lateinit var staticLogMock: MockedStatic<Log>
+
+    @BeforeEach
+    fun setUp() {
+        staticLogMock = Mockito.mockStatic(Log::class.java)
+    }
+
+    @AfterEach
+    fun tearDown() {
+        staticLogMock.close()
     }
 
     @Test
@@ -105,6 +122,16 @@ class CrashlyticsLoggerTest {
         verify(firebaseCrashlytics).setCustomKey(eq(expectedKey), eq(expectedValue))
     }
 
+    @Test
+    fun `log local log entries on crash logger  without throwable`() {
+        crashLogger.log(listLocalLogEntries)
+
+        staticLogMock.verify { Log.i(logTag, logMessage) }
+        staticLogMock.verify { Log.w(logTag, logMessage) }
+        staticLogMock.verify({ Log.e(logTag, logMessage) })
+        staticLogMock.verify({ Log.e(logTag, logMessage, logThrowable) })
+    }
+
     companion object {
         const val KEY = "key"
 
@@ -158,6 +185,31 @@ class CrashlyticsLoggerTest {
                     level = Log.ERROR,
                     throwable = logThrowable,
                     customKeys = listOf(),
+                ),
+            )
+
+        val listLocalLogEntries =
+            listOf(
+                LocalLogEntry.Basic(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.INFO,
+                ),
+                LocalLogEntry.Basic(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.WARN,
+                ),
+                LocalLogEntry.Basic(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.ERROR,
+                ),
+                LocalLogEntry.Error(
+                    tag = logTag,
+                    message = logMessage,
+                    level = Log.ERROR,
+                    throwable = logThrowable,
                 ),
             )
 
