@@ -1,6 +1,7 @@
 package uk.gov.logging.impl.v3
 
 import android.util.Log
+import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
 
@@ -8,8 +9,8 @@ import uk.gov.logging.api.v3.Logger
  * [uk.gov.logging.api.v3.Logger] implementation for android Log functions
  */
 data object LogcatLogger : Logger {
-    override fun log(entries: Collection<LogEntry>): Unit =
-        entries.forEach { entry ->
+    override fun log(entries: Iterable<LogEntry>): Unit =
+        entries.filterIsInstance<LocalLogEntry>().forEach { entry ->
             when (entry) {
                 is LogEntry.WithException -> handleExceptionLogEntry(entry)
                 else -> handleBasicLogEntry(entry)

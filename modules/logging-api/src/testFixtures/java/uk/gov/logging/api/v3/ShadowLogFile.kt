@@ -1,4 +1,4 @@
-package uk.gov.logging.impl.v3
+package uk.gov.logging.api.v3
 
 import org.junit.rules.TemporaryFolder
 import org.robolectric.shadows.ShadowLog
@@ -8,9 +8,9 @@ import java.io.PrintStream
 import java.nio.charset.Charset
 
 /**
- * [TemporaryFolder] implementation that creates a log file for assertions.
+ * [org.junit.rules.TemporaryFolder] implementation that creates a log file for assertions.
  *
- * Use in classes that update robolectric configurations with [ShadowLog].
+ * Use in classes that update robolectric configurations with [org.robolectric.shadows.ShadowLog].
  */
 class ShadowLogFile(
     private val fileName: String,

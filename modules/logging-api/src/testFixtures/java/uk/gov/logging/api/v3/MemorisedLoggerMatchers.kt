@@ -7,8 +7,6 @@ import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import kotlin.reflect.KClass
 
-// MARK: Hamcrest assertions for testing
-
 object MemorisedLoggerMatchers {
     fun hasSize(expected: Int): Matcher<MemorisedLogger> = hasSize(equalTo(expected))
 

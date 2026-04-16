@@ -14,7 +14,7 @@ data class MemorisedLogger(
     Iterable<LogEntry> by entries {
     val size: Int get() = entries.size
 
-    override fun log(entries: Collection<LogEntry>) {
+    override fun log(entries: Iterable<LogEntry>) {
         this.entries.addAll(entries)
         subLogger.log(entries)
     }

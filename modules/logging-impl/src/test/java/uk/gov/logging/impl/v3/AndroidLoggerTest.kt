@@ -2,6 +2,8 @@ package uk.gov.logging.impl.v3
 
 import android.util.Log
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -10,224 +12,135 @@ import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.MockedStatic
 import org.mockito.Mockito
-import org.mockito.Mockito.mock
 import org.mockito.kotlin.eq
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
 import uk.gov.logging.api.BuildConfig
-import uk.gov.logging.api.v3.CrashLogger
 import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
-import uk.gov.logging.api.v3.customKeys.CustomKey
-import uk.gov.logging.impl.LoggingTestDataRelease.customKeyNotnull
+import uk.gov.logging.api.v3.customkey.CustomKey
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
-import uk.gov.logging.impl.LoggingTestDataRelease.multipleCustomKeys
 import uk.gov.logging.impl.v2.CrashlyticsLoggerTest.Companion.KEY
+import uk.gov.logging.impl.v3.LoggingTestDataRelease.customKeyNotnull
+import uk.gov.logging.impl.v3.LoggingTestDataRelease.multipleCustomKeys
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
 import java.util.stream.Stream
 
 class AndroidLoggerTest {
-    private val crashLogger: CrashLogger = mock()
+    private val crashLogger: Logger = CrashLogger
 
     private lateinit var staticLogMock: MockedStatic<Log>
+    private lateinit var outputStream: ByteArrayOutputStream
+    private lateinit var originalOut: PrintStream
+
+    private val logCatLogger: Logger by lazy {
+        LogcatLogger
+    }
 
     private val logger: Logger by lazy {
-        AndroidLogger(crashLogger = crashLogger)
+        AndroidLogger(multiLogger = MultiLogger(crashLogger, logCatLogger))
     }
 
     @BeforeEach
     fun setUp() {
         staticLogMock = Mockito.mockStatic(Log::class.java)
+        originalOut = System.out
+        outputStream = ByteArrayOutputStream()
+        System.setOut(PrintStream(outputStream))
     }
 
     @AfterEach
     fun tearDown() {
+        System.setOut(originalOut)
         staticLogMock.close()
     }
 
+    private fun capturedOutput(): String = outputStream.toString()
+
     @Test
-    fun `test log entries with debug entry `() {
+    fun `test log entries with debug entry does not print to crash logger`() {
         logger.log(basicDebugEntry)
         if (BuildConfig.DEBUG) {
-            staticLogMock.verify({
+            staticLogMock.verify {
                 Log.d(
                     eq(logTag),
                     eq(logMessage),
                 )
-            }, times(2))
+            }
         }
+        assertFalse(capturedOutput().contains(logTag))
     }
 
     @ParameterizedTest(name = "{index}: {1}")
     @MethodSource("setUpTestValuesBasicEntry")
-    fun `test log entries logs basics entries `(
+    fun `test log entries logs basics entries on crash logger`(
         entries: Collection<LogEntry>,
         symbol: String,
     ) {
         logger.log(entries)
 
-        verify(crashLogger).log(eq("$symbol : $logTag : $logMessage"))
+        assertTrue(capturedOutput().contains("$symbol : $logTag : $logMessage"))
     }
 
     @Test
-    fun `test log entry with exception and with custom key`() {
+    fun `test log entry with exception and with custom key on crash logger`() {
         logger.log(errorEntryWithCustomKeys)
 
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.e(
-                    eq(logTag),
-                    eq(logMessage),
-                    eq(logThrowable),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-
-        verify(crashLogger).log(eq(logThrowable), eq(customKeyNotnull))
+        assertTrue(capturedOutput().contains("E : $logTag : $logMessage"))
     }
 
     @Test
     fun `test log entries with exception and no custom key `() {
         logger.log(errorEntryWithOutCustomKeys)
 
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.e(
-                    eq(logTag),
-                    eq(logMessage),
-                    eq(logThrowable),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-
-        verify(crashLogger).log(eq(logThrowable))
+        assertTrue(capturedOutput().contains("E : $logTag : $logMessage"))
     }
 
     @Test
-    fun `Debug messages defer to static Android log function`() {
+    fun `Debug messages does not get printed on  crash logger`() {
         logger.debug(tag = logTag, message = logMessage)
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.d(
-                    eq(logTag),
-                    eq(logMessage),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
+        assertFalse(capturedOutput().contains(logTag))
     }
 
     @Test
-    fun `Info messages call crash logger and static logger`() {
+    fun `Info messages is logged on crash logger`() {
         logger.info(tag = logTag, message = logMessage)
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.i(
-                    eq(logTag),
-                    eq(logMessage),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-        verify(crashLogger).log(eq("I : $logTag : $logMessage"))
+        assertTrue(capturedOutput().contains("I : $logTag : $logMessage"))
     }
 
     @Test
-    fun `Error messages is logged when crash logger  and static logger`() {
+    fun `Error messages is logged on crash logger`() {
         logger.error(tag = logTag, message = logMessage)
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.e(
-                    eq(logTag),
-                    eq(logMessage),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-        verify(crashLogger).log(eq("E : $logTag : $logMessage"))
+
+        assertTrue(capturedOutput().contains("E : $logTag : $logMessage"))
     }
 
     @Test
-    fun `Error messages logged with throwable no custom key call crash logger and static logger `() {
+    fun `Error messages logged with throwable no custom key on crash logger `() {
         logger.error(tag = logTag, message = logMessage, throwable = logThrowable)
-
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.e(
-                    eq(logTag),
-                    eq(logMessage),
-                    eq(logThrowable),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-        verify(crashLogger).log(eq(logThrowable))
+        assertTrue(capturedOutput().contains("E : $logTag : $logMessage"))
     }
 
     @Test
-    fun `Error messages with throwable and custom key call crash logger and static logger `() {
+    fun `Error messages with throwable and custom key call crash logger`() {
         logger.error(tag = logTag, message = logMessage, throwable = logThrowable, customKeyNotnull)
-
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.e(
-                    eq(logTag),
-                    eq(logMessage),
-                    eq(logThrowable),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-        verify(crashLogger, times(0)).log(eq(logThrowable))
-        verify(crashLogger, times(1)).log(eq(logThrowable), eq(customKeyNotnull))
+        assertTrue(capturedOutput().contains("E : $logTag : $logMessage"))
     }
 
     @Test
-    fun `Error messages with throwable and multiple custom key call crash logger and static logger `() {
+    fun `Error messages with throwable and multiple custom key call crash logger and static logger`() {
         logger.error(tag = logTag, message = logMessage, throwable = logThrowable, *multipleCustomKeys.toTypedArray())
 
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.e(
-                    eq(logTag),
-                    eq(logMessage),
-                    eq(logThrowable),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-        verify(crashLogger, times(0)).log(eq(logThrowable))
-        verify(crashLogger, times(1)).log(eq(logThrowable), eq(multipleCustomKeys[0]), eq(multipleCustomKeys[1]))
+        assertTrue(capturedOutput().contains("E : $logTag : $logMessage"))
     }
 
     @Test
-    fun `warning messages call crash logger and static logger`() {
+    fun `warning messages call crash logger`() {
         logger.warning(tag = logTag, message = logMessage)
 
-        if (BuildConfig.DEBUG) {
-            staticLogMock.verify {
-                Log.w(
-                    eq(logTag),
-                    eq(logMessage),
-                )
-            }
-        } else {
-            staticLogMock.verifyNoInteractions()
-        }
-
-        verify(crashLogger).log(eq("W : $logTag : $logMessage"))
+        assertTrue(capturedOutput().contains("W : $logTag : $logMessage"))
     }
 
     @Test
@@ -254,24 +167,24 @@ class AndroidLoggerTest {
 
     @Test
     fun `test local log error entry`() {
-        logger.log(localErrorEntries)
-        staticLogMock.verify({
+        logger.log(localErrorBasicEntry)
+        staticLogMock.verify {
             Log.e(
                 eq(logTag),
                 eq(logMessage),
             )
-        }, times(2))
+        }
     }
 
     companion object {
         val basicDebugEntry =
             listOf(
-                LogEntry.Basic(
+                LocalLogEntry.Basic(
                     tag = logTag,
                     message = logMessage,
                     level = Log.DEBUG,
                 ),
-                LocalLogEntry.Basic(
+                LogEntry.Basic(
                     tag = logTag,
                     message = logMessage,
                     level = Log.DEBUG,
@@ -301,11 +214,6 @@ class AndroidLoggerTest {
                     message = logMessage,
                     level = Log.WARN,
                 ),
-                LocalLogEntry.Basic(
-                    tag = logTag,
-                    message = logMessage,
-                    level = Log.WARN,
-                ),
             )
 
         val basicWarnLocalEntry =
@@ -314,6 +222,7 @@ class AndroidLoggerTest {
                 message = logMessage,
                 level = Log.WARN,
             )
+
         val basicErrorEntry =
             listOf(
                 LogEntry.Basic(
@@ -323,19 +232,11 @@ class AndroidLoggerTest {
                 ),
             )
 
-        val localErrorEntries =
-            listOf(
-                LocalLogEntry.Basic(
-                    tag = logTag,
-                    message = logMessage,
-                    level = Log.ERROR,
-                ),
-                LocalLogEntry.Error(
-                    tag = logTag,
-                    message = logMessage,
-                    level = Log.ERROR,
-                    throwable = logThrowable,
-                ),
+        val localErrorBasicEntry =
+            LocalLogEntry.Basic(
+                tag = logTag,
+                message = logMessage,
+                level = Log.ERROR,
             )
 
         const val LEVEL_SYMBOL_INFO = "I"
@@ -385,5 +286,24 @@ class AndroidLoggerTest {
                     LEVEL_SYMBOL_WARN,
                 ),
             )
+    }
+}
+
+data object CrashLogger : Logger {
+    override fun log(entries: Iterable<LogEntry>) =
+        entries.filter { entry -> entry !is LocalLogEntry }.forEach { entry ->
+
+            when (entry.level) {
+                Log.WARN -> "W"
+                Log.ERROR -> "E"
+                Log.INFO -> "I"
+                else -> null
+            }?.let { level ->
+                "$level : ${entry.tag} : ${entry.message}"
+            }?.let(::printLogs)
+        }
+
+    private fun printLogs(message: String) {
+        println(message)
     }
 }

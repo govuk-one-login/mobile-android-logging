@@ -1,6 +1,6 @@
 package uk.gov.logging.api.v3
 
-import uk.gov.logging.api.v3.customKeys.CustomKey
+import uk.gov.logging.api.v3.customkey.CustomKey
 
 /**
  * LogEntry is the data structure that wraps

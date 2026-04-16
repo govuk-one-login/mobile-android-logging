@@ -7,7 +7,7 @@ import uk.gov.logging.api.v3.Logger
 class SystemLogger : Logger {
     private val logs = mutableListOf<LogEntry>()
 
-    override fun log(entries: Collection<LogEntry>) {
+    override fun log(entries: Iterable<LogEntry>) {
         entries.forEach { entry ->
             println("${entry.tag}: ${entry.message}")
             logs.add(entry)

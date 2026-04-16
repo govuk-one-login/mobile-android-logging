@@ -1,4 +1,4 @@
-package uk.gov.logging.api.v3.customKeys
+package uk.gov.logging.api.v3.customkey
 
 /**
  * Sealed class for setting custom  key on Firebase Crashlytics V3

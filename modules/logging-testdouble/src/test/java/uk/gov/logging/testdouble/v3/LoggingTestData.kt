@@ -3,7 +3,7 @@ package uk.gov.logging.testdouble.v3
 import android.util.Log
 import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
-import uk.gov.logging.api.v3.customKeys.CustomKey
+import uk.gov.logging.api.v3.customkey.CustomKey
 
 object LoggingTestData {
     private const val THROWABLE_MESSAGE = "This is a unit test!"

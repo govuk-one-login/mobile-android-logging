@@ -1,9 +1,27 @@
 package uk.gov.logging.impl.v3
 
-object LoggingTestDataRelease {
-    private const val THROWABLE_MESSAGE = "This is a unit test!"
+import uk.gov.logging.api.v3.customkey.CustomKey
 
+object LoggingTestDataRelease {
     const val LOG_MESSAGE = "Unit test log message"
     const val LOG_TAG = "Example log tag"
-    val logThrowable = Throwable(message = THROWABLE_MESSAGE)
+    val logThrowable = Throwable(message = "This is a unit test!")
+
+    val customKeyNotnull: CustomKey =
+        CustomKey.IntKey(
+            "key",
+            1,
+        )
+
+    val multipleCustomKeys =
+        listOf(
+            CustomKey.IntKey(
+                "key",
+                1,
+            ),
+            CustomKey.StringKey(
+                "key",
+                "",
+            ),
+        )
 }

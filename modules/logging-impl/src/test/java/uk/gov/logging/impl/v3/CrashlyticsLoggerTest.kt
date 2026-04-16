@@ -12,22 +12,25 @@ import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.MockedStatic
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import uk.gov.logging.api.v3.CrashLogger
 import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
-import uk.gov.logging.api.v3.customKeys.CustomKey
+import uk.gov.logging.api.v3.Logger
+import uk.gov.logging.api.v3.customkey.CustomKey
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
+import uk.gov.logging.impl.v3.LoggingTestDataRelease.LOG_MESSAGE
+import uk.gov.logging.impl.v3.LoggingTestDataRelease.LOG_TAG
 import java.util.stream.Stream
 
 class CrashlyticsLoggerTest {
     private val firebaseCrashlytics: FirebaseCrashlytics = mock()
 
-    private val crashLogger: CrashLogger by lazy {
+    private val logger: Logger by lazy {
         CrashlyticsLogger(firebaseCrashlytics)
     }
 
@@ -44,10 +47,34 @@ class CrashlyticsLoggerTest {
     }
 
     @Test
-    fun `log single string message on firebase crashlytics`() {
-        val logMessage = "log message"
-        crashLogger.log(logMessage)
-        verify(firebaseCrashlytics).log(eq(logMessage))
+    fun `log single info basic entry on firebase crashlytics`() {
+        logger.info(logTag, logMessage)
+        verify(firebaseCrashlytics).log(eq("I : $logTag : $logMessage"))
+    }
+
+    @Test
+    fun `log single warn  basic entry message on firebase crashlytics `() {
+        logger.warning(logTag, logMessage)
+        verify(firebaseCrashlytics).log(eq("W : $logTag : $logMessage"))
+    }
+
+    @Test
+    fun `log error message with log message and log tag on firebase crashlytics`() {
+        logger.error(
+            logTag,
+            logMessage,
+        )
+        verify(firebaseCrashlytics).log("E : $logTag : $logMessage")
+    }
+
+    @Test
+    fun `log error message with log tag and log message on firebase crashlytics with no error keys parsed`() {
+        logger.error(
+            logTag,
+            logMessage,
+            exception,
+        )
+        verify(firebaseCrashlytics).recordException(eq(exception))
     }
 
     @ParameterizedTest(name = "{index}: test key {2} with value {3}")
@@ -58,39 +85,23 @@ class CrashlyticsLoggerTest {
         expectedKey: String,
         expectedValue: String,
     ) {
-        crashLogger.log(throwable, customKey)
+        logger.log(
+            LogEntry.Error(
+                Log.ERROR,
+                logMessage,
+                logTag,
+                throwable,
+                customKeys = listOf(customKey),
+            ),
+        )
+
         verify(firebaseCrashlytics).recordException(eq(throwable))
         verify(firebaseCrashlytics).setCustomKey(eq(expectedKey), eq(expectedValue))
     }
 
     @Test
-    fun `log throwable message on firebase crashlytics `() {
-        crashLogger.log(exception)
-        verify(firebaseCrashlytics).recordException(eq(exception))
-    }
-
-    @Test
-    fun `log error message with log message and log tag on firebase crashlytics`() {
-        crashLogger.error(
-            logTag,
-            logMessage,
-        )
-        verify(firebaseCrashlytics).log("E : $logTag : $logMessage")
-    }
-
-    @Test
-    fun `log error message with log tag and log message on firebase crashlytics with no error keys parsed`() {
-        crashLogger.error(
-            logTag,
-            logMessage,
-            exception,
-        )
-        verify(firebaseCrashlytics).recordException(eq(exception))
-    }
-
-    @Test
     fun `log basic entries on firebase crashlytics  without throwable`() {
-        crashLogger.log(listBasicEntries)
+        logger.log(listBasicEntries)
 
         verify(firebaseCrashlytics).log("I : $logTag : $logMessage")
         verify(firebaseCrashlytics).log("W : $logTag : $logMessage")
@@ -99,7 +110,7 @@ class CrashlyticsLoggerTest {
 
     @Test
     fun ` log entries with exception and custom keys or no custom keys firebase records twice`() {
-        crashLogger.log(listEntriesWithException)
+        logger.log(listEntriesWithException)
         verify(firebaseCrashlytics, times(2)).recordException(eq(logThrowable))
     }
 
@@ -111,7 +122,7 @@ class CrashlyticsLoggerTest {
         expectedKey: String,
         expectedValue: String,
     ) {
-        crashLogger.error(
+        logger.error(
             logTag,
             logMessage,
             throwable,
@@ -123,13 +134,27 @@ class CrashlyticsLoggerTest {
     }
 
     @Test
-    fun `log local log entries on crash logger  without throwable`() {
-        crashLogger.log(listLocalLogEntries)
+    fun ` Test no interaction on log local log entries on crash logger `() {
+        logger.log(listLocalLogEntries)
 
-        staticLogMock.verify { Log.i(logTag, logMessage) }
-        staticLogMock.verify { Log.w(logTag, logMessage) }
-        staticLogMock.verify({ Log.e(logTag, logMessage) })
-        staticLogMock.verify({ Log.e(logTag, logMessage, logThrowable) })
+        staticLogMock.verifyNoInteractions()
+        staticLogMock.verifyNoInteractions()
+        staticLogMock.verifyNoInteractions()
+        staticLogMock.verifyNoInteractions()
+        verifyNoInteractions(firebaseCrashlytics)
+    }
+
+    @Test
+    fun `log entry with  debug  log level logged in  firebase Crashlytics zero interaction`() {
+        logger.log(
+            LogEntry.Basic(
+                tag = LOG_TAG,
+                message = LOG_MESSAGE,
+                level = Log.DEBUG,
+            ),
+        )
+
+        verifyNoInteractions(firebaseCrashlytics)
     }
 
     companion object {

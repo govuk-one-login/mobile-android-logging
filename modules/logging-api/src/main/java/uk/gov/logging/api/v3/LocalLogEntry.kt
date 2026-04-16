@@ -1,6 +1,6 @@
 package uk.gov.logging.api.v3
 
-import uk.gov.logging.api.v3.customKeys.CustomKey
+import uk.gov.logging.api.v3.customkey.CustomKey
 
 /**
  * LocalLogEntry implements the [LogEntry] interface for logging entries
