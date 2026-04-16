@@ -25,7 +25,7 @@ rootProject.name = "GDS_Android_Logging"
 include(
     ":modules:logging-api",
     ":modules:logging-impl",
-    ":modules:logging-testdouble"
+    ":modules:logging-testdouble",
 )
 
 includeBuild("${rootProject.projectDir}/mobile-android-pipelines/buildLogic")
