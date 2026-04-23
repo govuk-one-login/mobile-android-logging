@@ -1,176 +1,72 @@
 package uk.gov.logging.testdouble.v3
 
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Named.named
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.Arguments.arguments
-import org.junit.jupiter.params.provider.MethodSource
+import org.junit.jupiter.api.Test
 import uk.gov.logging.api.v3.LogEntry
-import uk.gov.logging.api.v3.Logger
-import uk.gov.logging.testdouble.v3.LoggingTestData.LOG_MESSAGE
-import uk.gov.logging.testdouble.v3.LoggingTestData.LOG_TAG
-import uk.gov.logging.testdouble.v3.LoggingTestData.basicDebugEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.basicErrorEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.basicInfoEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.basicLocalDebugEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.basicLocalInfoEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.basicWarnEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.customKeyThrowable
-import uk.gov.logging.testdouble.v3.LoggingTestData.errorLocalThrowableEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.intCustomKey
-import uk.gov.logging.testdouble.v3.LoggingTestData.logMessageEntryFalse
-import uk.gov.logging.testdouble.v3.LoggingTestData.logTagEntryFalse
-import uk.gov.logging.testdouble.v3.LoggingTestData.logThrowable
-import uk.gov.logging.testdouble.v3.LoggingTestData.withExceptionEntry
-import uk.gov.logging.testdouble.v3.LoggingTestData.withExceptionLocalEntry
-import java.util.stream.Stream
-import kotlin.test.Test
-import kotlin.test.assertFalse
+import uk.gov.logging.api.v3.customkey.CustomKey
 
-@Suppress("LongMethod")
 internal class TestLoggerTest {
     private val logger = TestLogger()
+    private val tag = "tag"
+    private val message = "msg"
+    private val throwable = RuntimeException("error")
 
     @Test
-    fun `verify in-memory logging behaviour with any function`() {
-        logger.debug(LOG_TAG, LOG_MESSAGE)
-        assertTrue {
-            logger.any {
-                it.message == LOG_MESSAGE
-            }
-        }
+    fun `log stores entry`() {
+        val entry = LogEntry.Info(tag = tag, message = message)
+
+        logger.log(entry)
+
+        assertEquals(1, logger.size)
+        assertEquals(entry, logger[0])
     }
 
     @Test
-    fun `verify in-memory logging behaviour with contains function`() {
-        logger.debug(LOG_TAG, LOG_MESSAGE)
-        assertTrue {
-            logger.contains(LOG_MESSAGE)
-        }
+    fun `contains matches by message string`() {
+        logger.log(LogEntry.Info(tag = tag, message = message))
+
+        assertTrue(logger.contains(message))
+        assertFalse(logger.contains("other"))
     }
 
-    @ParameterizedTest(name = "{index}: {0}")
-    @MethodSource("provideNegativeLoggingTestCase")
-    fun `verify in-memory logging behaviour with false entry`(
-        falseEntry: LogEntry,
-        message: String,
-        action: (Logger, String) -> Unit,
-    ) {
-        action.invoke(logger, message)
+    @Test
+    fun `contains matches message entry by equality`() {
+        val entry = LogEntry.Info(tag = tag, message = message)
 
-        assertFalse(falseEntry in logger)
+        logger.log(entry)
+
+        assertTrue(entry in logger)
     }
 
-    @ParameterizedTest(name = "{index}: {0}")
-    @MethodSource("provideLoggingTestCases")
-    @Suppress("Unused")
-    fun `Verify in-memory logging behaviour`(
-        expectedEntry: LogEntry,
-        action: (Logger) -> Unit,
-    ) {
-        action.invoke(logger)
-
-        assertTrue(expectedEntry in logger) {
-            "The in-memory logger should have contained the provided entry!: $logger"
-        }
-    }
-
-    companion object {
-        @JvmStatic
-        fun provideLoggingTestCases(): Stream<Arguments> =
-            Stream.of(
-                arguments(
-                    named(
-                        "Debug messages are stored",
-                        basicDebugEntry,
-                    ),
-                    { log: Logger -> log.debug(LOG_TAG, LOG_MESSAGE) },
-                ),
-                arguments(
-                    named(
-                        "Local Debug messages are stored",
-                        basicLocalDebugEntry,
-                    ),
-                    { log: Logger -> log.log(basicLocalDebugEntry) },
-                ),
-                arguments(
-                    named(
-                        "Local info messages are stored ",
-                        basicLocalInfoEntry,
-                    ),
-                    { log: Logger -> log.log(basicLocalInfoEntry) },
-                ),
-                arguments(
-                    named(
-                        "Info messages are stored",
-                        basicInfoEntry,
-                    ),
-                    { log: Logger -> log.info(LOG_TAG, LOG_MESSAGE) },
-                ),
-                arguments(
-                    named(
-                        "Warning messages are store",
-                        basicWarnEntry,
-                    ),
-                    { log: Logger -> log.warning(LOG_TAG, LOG_MESSAGE) },
-                ),
-                arguments(
-                    named(
-                        "Error messages are stored",
-                        basicErrorEntry,
-                    ),
-                    { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE) },
-                ),
-                arguments(
-                    named(
-                        "Local Error messages are stored ",
-                        errorLocalThrowableEntry,
-                    ),
-                    { log: Logger -> log.log(errorLocalThrowableEntry) },
-                ),
-                arguments(
-                    named(
-                        "Local Error messages are stored with Exception",
-                        withExceptionLocalEntry,
-                    ),
-                    { log: Logger -> log.log(withExceptionLocalEntry) },
-                ),
-                arguments(
-                    named(
-                        "Log Entry Error messages are stored with Exception",
-                        withExceptionEntry,
-                    ),
-                    { log: Logger -> log.log(withExceptionEntry) },
-                ),
-                arguments(
-                    named(
-                        "Error messages are stored with Throwable and Error Keys",
-                        customKeyThrowable,
-                    ),
-                    { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE, logThrowable, intCustomKey) },
-                ),
+    @Test
+    fun `contains matches exception entry by field comparison`() {
+        val entry =
+            LogEntry.Error(
+                tag = tag,
+                message = message,
+                throwable = throwable,
+                customKeys = listOf(CustomKey.IntKey("k", 1)),
             )
 
-        @JvmStatic
-        fun provideNegativeLoggingTestCase(): Stream<Arguments> =
-            Stream.of(
-                arguments(
-                    named(
-                        "Debug messages are stored",
-                        logMessageEntryFalse,
-                    ),
-                    LOG_MESSAGE,
-                    { log: Logger, message: String -> log.debug(LOG_TAG, message) },
-                ),
-                arguments(
-                    named(
-                        "Debug message are stored",
-                        logTagEntryFalse,
-                    ),
-                    LOG_TAG,
-                    { log: Logger, tag: String -> log.debug(tag, LOG_MESSAGE) },
-                ),
-            )
+        logger.log(entry)
+
+        assertTrue(entry in logger)
+    }
+
+    @Test
+    fun `contains returns false for non-matching entry`() {
+        logger.log(LogEntry.Info(tag = tag, message = message))
+
+        assertFalse(LogEntry.Info(tag = "other", message = message) in logger)
+    }
+
+    @Test
+    fun `any delegates predicate to entries`() {
+        logger.log(LogEntry.Info(tag = tag, message = message))
+
+        assertTrue(logger.any { it.tag == tag })
+        assertFalse(logger.any { it.tag == "other" })
     }
 }

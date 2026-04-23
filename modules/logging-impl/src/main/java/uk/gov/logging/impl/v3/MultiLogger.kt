@@ -16,8 +16,5 @@ class MultiLogger(
         vararg loggers: Logger,
     ) : this(loggers = loggers.toList())
 
-    override fun log(entries: Iterable<LogEntry>) =
-        loggers.forEach { logger ->
-            logger.log(entries)
-        }
+    override fun log(entry: LogEntry) = loggers.forEach { it.log(entry) }
 }

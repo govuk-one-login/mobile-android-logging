@@ -17,10 +17,10 @@ internal class HasThrowable(
         mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(
-            (item as? LogEntry.WithException)?.throwable,
+            (item as? LogEntry.Exception)?.throwable,
             mismatchDescription,
         )
     }
 
-    override fun matchesSafely(item: LogEntry?): Boolean = matcher.matches((item as? LogEntry.WithException)?.throwable)
+    override fun matchesSafely(item: LogEntry?): Boolean = matcher.matches((item as? LogEntry.Exception)?.throwable)
 }

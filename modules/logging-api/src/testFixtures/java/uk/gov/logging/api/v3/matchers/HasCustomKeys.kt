@@ -18,10 +18,10 @@ internal class HasCustomKeys(
         mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(
-            (item as? LogEntry.Error)?.customKeys,
+            (item as? LogEntry.Exception)?.customKeys,
             mismatchDescription,
         )
     }
 
-    override fun matchesSafely(item: LogEntry?): Boolean = matcher.matches((item as? LogEntry.Error)?.customKeys)
+    override fun matchesSafely(item: LogEntry?): Boolean = matcher.matches((item as? LogEntry.Exception)?.customKeys)
 }

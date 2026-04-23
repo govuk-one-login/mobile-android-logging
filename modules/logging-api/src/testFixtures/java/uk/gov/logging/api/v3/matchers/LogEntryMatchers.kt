@@ -3,23 +3,24 @@ package uk.gov.logging.api.v3.matchers
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 import uk.gov.logging.api.v3.LogEntry
+import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.MemorisedLogger
 import uk.gov.logging.api.v3.customkey.CustomKey
 import kotlin.reflect.KClass
 
 @Suppress("TooManyFunctions")
 object LogEntryMatchers {
-    fun isBasicEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Basic::class.java)
+    fun isBasicEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Message::class.java)
 
-    fun isErrorEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Error::class.java)
+    fun isErrorEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Exception::class.java)
 
-    fun isExceptionInstance(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.WithException::class.java)
+    fun isExceptionInstance(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Exception::class.java)
 
     fun hasLogEntry(matcher: Matcher<in Iterable<LogEntry>>): Matcher<MemorisedLogger> = HasLogEntry(matcher)
 
-    fun isLogLevel(level: Int): Matcher<LogEntry> = isLogLevel(CoreMatchers.equalTo(level))
+    fun isLogLevel(level: LogLevel): Matcher<LogEntry> = isLogLevel(CoreMatchers.equalTo(level))
 
-    fun isLogLevel(matcher: Matcher<Int>): Matcher<LogEntry> = IsLogLevel(matcher)
+    fun isLogLevel(matcher: Matcher<LogLevel>): Matcher<LogEntry> = IsLogLevel(matcher)
 
     fun hasMessage(expected: String): Matcher<LogEntry> = hasMessage(CoreMatchers.equalTo(expected))
 

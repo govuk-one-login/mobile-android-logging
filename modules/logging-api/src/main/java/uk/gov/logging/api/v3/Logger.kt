@@ -1,10 +1,14 @@
 package uk.gov.logging.api.v3
 
-import android.util.Log
 import uk.gov.logging.api.v3.customkey.CustomKey
 
+/**
+ * @sample LoggerExample
+ */
 fun interface Logger {
-    fun log(entries: Iterable<LogEntry>)
+    fun log(entry: LogEntry)
+
+    fun log(entries: Iterable<LogEntry>) = entries.forEach(::log)
 
     fun log(vararg entries: LogEntry): Unit = log(entries.asList())
 
@@ -12,10 +16,9 @@ fun interface Logger {
         tag: String,
         message: String,
     ) = log(
-        LogEntry.Basic(
+        LogEntry.Info(
             tag = tag,
             message = message,
-            level = Log.INFO,
         ),
     )
 
@@ -23,21 +26,19 @@ fun interface Logger {
         tag: String,
         message: String,
     ) = log(
-        LogEntry.Basic(
+        LogEntry.Debug(
             tag = tag,
             message = message,
-            level = Log.DEBUG,
         ),
     )
 
-    fun error(
+    fun verbose(
         tag: String,
         message: String,
     ) = log(
-        LogEntry.Basic(
+        LogEntry.Verbose(
             tag = tag,
             message = message,
-            level = Log.ERROR,
         ),
     )
 
@@ -51,7 +52,6 @@ fun interface Logger {
             tag = tag,
             message = message,
             throwable = throwable,
-            level = Log.ERROR,
             customKeys = customKey.toList(),
         ),
     )
@@ -60,10 +60,9 @@ fun interface Logger {
         tag: String,
         message: String,
     ) = log(
-        LogEntry.Basic(
+        LogEntry.Warn(
             tag = tag,
             message = message,
-            level = Log.WARN,
         ),
     )
 }

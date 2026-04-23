@@ -5,6 +5,7 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import uk.gov.logging.api.v3.LogEntry
+import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.MemorisedLogger
 
 object MemorisedLoggerMatchers {
@@ -31,7 +32,7 @@ internal class HasMessage(
 }
 
 internal class IsLogLevel(
-    private val matcher: Matcher<Int>,
+    private val matcher: Matcher<LogLevel>,
 ) : TypeSafeMatcher<LogEntry>() {
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)

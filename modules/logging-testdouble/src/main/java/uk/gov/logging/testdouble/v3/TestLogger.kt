@@ -1,6 +1,5 @@
 package uk.gov.logging.testdouble.v3
 
-import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
 
@@ -14,11 +13,9 @@ class TestLogger(
     val entries: MutableList<LogEntry> = mutableListOf<LogEntry>(),
 ) : Logger,
     Iterable<LogEntry> by entries {
-    override fun log(entries: Iterable<LogEntry>) {
-        this.entries.addAll(entries)
-        entries.forEach { entry ->
-            println("${entry.tag}: ${entry.message}")
-        }
+    override fun log(entry: LogEntry) {
+        entries.add(entry)
+        println("${entry.tag}: ${entry.message}")
     }
 
     val size: Int get() = entries.size
@@ -29,19 +26,16 @@ class TestLogger(
 
     operator fun contains(entry: LogEntry) =
         when (entry) {
-            is LogEntry.Basic -> entries.contains(entry)
-            is LogEntry.Error -> entries.any { it.matchesError(entry) }
-            is LocalLogEntry.Basic -> entries.contains(entry)
-            is LocalLogEntry.Error -> entries.contains(entry)
-            is LogEntry.WithException -> entries.contains(entry)
+            is LogEntry.Exception -> entries.any { it.matchesError(entry) }
+            is LogEntry.Message -> entries.contains(entry)
         }
 
     operator fun get(i: Int) = entries[i]
 
-    override fun toString() = "SystemLogger(logs=${entries.toTypedArray().contentToString()})"
+    override fun toString() = "TestLogger(logs=${entries.toTypedArray().contentToString()})"
 
-    private fun LogEntry.matchesError(other: LogEntry.Error) =
-        this is LogEntry.Error &&
+    private fun LogEntry.matchesError(other: LogEntry.Exception) =
+        this is LogEntry.Exception &&
             tag == other.tag &&
             message == other.message &&
             throwable.javaClass == other.throwable.javaClass &&

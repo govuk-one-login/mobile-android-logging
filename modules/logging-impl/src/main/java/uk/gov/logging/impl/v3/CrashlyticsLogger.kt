@@ -1,51 +1,36 @@
 package uk.gov.logging.impl.v3
 
-import android.util.Log
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import uk.gov.logging.api.v3.LocalLogEntry
 import uk.gov.logging.api.v3.LogEntry
+import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.Logger
-import uk.gov.logging.api.v3.customkey.CustomKey
 
 class CrashlyticsLogger(
     private val crashlytics: FirebaseCrashlytics,
 ) : Logger {
-    override fun log(entries: Iterable<LogEntry>) {
-        entries
-            .filter { entry ->
-                entry !is LocalLogEntry
-            }.forEach { entry ->
-                when (entry) {
-                    is LogEntry.Basic -> {
-                        when (entry.level) {
-                            Log.WARN -> "W"
-                            Log.ERROR -> "E"
-                            Log.INFO -> "I"
-                            else -> null
-                        }?.let { level ->
-                            "$level : ${entry.tag} : ${entry.message}"
-                        }?.let(::logBasic)
-                    }
-                    is LogEntry.Error -> logError(entry.throwable, entry.customKeys)
-
-                    else -> {
-                        // do nothing with unrelated log entries
-                    }
-                }
-            }
-    }
-
-    private fun logError(
-        throwable: Throwable,
-        customKey: List<CustomKey>,
-    ) {
-        customKey.forEach {
-            crashlytics.setCustomKey(it.key, it.value.toString())
+    override fun log(entry: LogEntry) {
+        if (entry.isLocalOnly) {
+            return
         }
-        crashlytics.recordException(throwable)
-    }
 
-    private fun logBasic(message: String) {
-        crashlytics.log(message)
+        crashlytics.log(entry.asLogMessage())
+
+        if (entry is LogEntry.Exception) {
+            entry.customKeys.forEach {
+                crashlytics.setCustomKey(it.key, it.value.toString())
+            }
+            crashlytics.recordException(entry.throwable)
+        }
     }
 }
+
+fun LogEntry.asLogMessage(): String = "${level.symbol()} : $tag : $message"
+
+fun LogLevel.symbol(): String =
+    when (this) {
+        LogLevel.Verbose -> "V"
+        LogLevel.Debug -> "D"
+        LogLevel.Info -> "I"
+        LogLevel.Warn -> "W"
+        LogLevel.Error -> "E"
+    }

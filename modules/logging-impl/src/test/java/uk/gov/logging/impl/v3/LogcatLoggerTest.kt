@@ -3,22 +3,20 @@ package uk.gov.logging.impl.v3
 import android.util.Log
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.Arguments.arguments
+import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.MockedStatic
 import org.mockito.Mockito
 import org.mockito.kotlin.eq
-import uk.gov.logging.api.v3.LocalLogEntry
-import uk.gov.logging.api.v3.Logger
-import uk.gov.logging.impl.v3.LoggingTestDataRelease.LOG_MESSAGE
-import uk.gov.logging.impl.v3.LoggingTestDataRelease.LOG_TAG
-import uk.gov.logging.impl.v3.LoggingTestDataRelease.logThrowable
+import uk.gov.logging.api.v3.LogEntry
+import uk.gov.logging.api.v3.LogLevel
+import uk.gov.logging.api.v3.customkey.CustomKey
+import java.util.stream.Stream
 
 class LogcatLoggerTest {
     private lateinit var staticLogMock: MockedStatic<Log>
-
-    private val logger: Logger by lazy {
-        LogcatLogger
-    }
 
     @BeforeEach
     fun setUp() {
@@ -30,194 +28,113 @@ class LogcatLoggerTest {
         staticLogMock.close()
     }
 
-    @Test
-    fun `Debug messages logged in Log cat static logger`() {
-        logger.log(
-            listOf(
-                LocalLogEntry.Error(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.DEBUG,
-                    throwable = logThrowable,
-                ),
-                LocalLogEntry.Basic(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.DEBUG,
-                ),
-            ),
-        )
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("messageEntries")
+    fun `message entry calls correct Log function`(
+        entry: LogEntry,
+        verify: (MockedStatic<Log>) -> Unit,
+    ) {
+        LogcatLogger.log(entry)
 
-        staticLogMock.verify {
-            Log.d(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-                eq(logThrowable),
-            )
-        }
-        staticLogMock.verify {
-            Log.d(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-            )
-        }
+        verify(staticLogMock)
     }
 
-    @Test
-    fun `Info messages logged in Log cat static logger`() {
-        logger.log(
-            listOf(
-                LocalLogEntry.Error(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.INFO,
-                    throwable = logThrowable,
-                ),
-                LocalLogEntry.Basic(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.INFO,
-                ),
-            ),
-        )
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("exceptionEntries")
+    fun `exception entry calls correct Log function with throwable`(
+        entry: LogEntry,
+        verify: (MockedStatic<Log>) -> Unit,
+    ) {
+        LogcatLogger.log(entry)
 
-        staticLogMock.verify {
-            Log.i(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-                eq(logThrowable),
-            )
-        }
-
-        staticLogMock.verify {
-            Log.i(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-            )
-        }
+        verify(staticLogMock)
     }
 
-    @Test
-    fun `Verbose messages logged in Log cat static logger`() {
-        logger.log(
-            listOf(
-                LocalLogEntry.Error(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.VERBOSE,
-                    throwable = logThrowable,
-                ),
-                LocalLogEntry.Basic(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.VERBOSE,
-                ),
-            ),
-        )
+    companion object {
+        private const val TAG = "tag"
+        private const val MSG = "msg"
+        private val throwable = RuntimeException("There's a problem")
 
-        staticLogMock.verify {
-            Log.v(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-                eq(logThrowable),
+        private fun exception(level: LogLevel) =
+            object : LogEntry.Exception {
+                override val level = level
+                override val tag = TAG
+                override val message = MSG
+                override val isLocalOnly = false
+                override val throwable = this@Companion.throwable
+                override val customKeys: List<CustomKey> = emptyList()
+
+                override fun toString() = level.name
+            }
+
+        private fun message(level: LogLevel) =
+            object : LogEntry.Message {
+                override val level = level
+                override val tag = TAG
+                override val message = MSG
+                override val isLocalOnly = false
+
+                override fun toString() = level.name
+            }
+
+        @JvmStatic
+        fun messageEntries(): Stream<Arguments> =
+            Stream.of(
+                arguments(
+                    message(LogLevel.Verbose),
+                    { mock: MockedStatic<Log> -> mock.verify { Log.v(eq(TAG), eq(MSG)) } },
+                ),
+                arguments(
+                    message(LogLevel.Debug),
+                    { mock: MockedStatic<Log> -> mock.verify { Log.d(eq(TAG), eq(MSG)) } },
+                ),
+                arguments(
+                    message(LogLevel.Info),
+                    { mock: MockedStatic<Log> -> mock.verify { Log.i(eq(TAG), eq(MSG)) } },
+                ),
+                arguments(
+                    message(LogLevel.Warn),
+                    { mock: MockedStatic<Log> -> mock.verify { Log.w(eq(TAG), eq(MSG)) } },
+                ),
+                arguments(
+                    message(LogLevel.Error),
+                    { mock: MockedStatic<Log> -> mock.verify { Log.e(eq(TAG), eq(MSG)) } },
+                ),
             )
-        }
 
-        staticLogMock.verify {
-            Log.v(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
+        @JvmStatic
+        fun exceptionEntries(): Stream<Arguments> =
+            Stream.of(
+                arguments(
+                    exception(LogLevel.Verbose),
+                    { mock: MockedStatic<Log> ->
+                        mock.verify { Log.v(eq(TAG), eq(MSG), eq(throwable)) }
+                    },
+                ),
+                arguments(
+                    exception(LogLevel.Debug),
+                    { mock: MockedStatic<Log> ->
+                        mock.verify { Log.d(eq(TAG), eq(MSG), eq(throwable)) }
+                    },
+                ),
+                arguments(
+                    exception(LogLevel.Info),
+                    { mock: MockedStatic<Log> ->
+                        mock.verify { Log.i(eq(TAG), eq(MSG), eq(throwable)) }
+                    },
+                ),
+                arguments(
+                    exception(LogLevel.Warn),
+                    { mock: MockedStatic<Log> ->
+                        mock.verify { Log.w(eq(TAG), eq(MSG), eq(throwable)) }
+                    },
+                ),
+                arguments(
+                    exception(LogLevel.Error),
+                    { mock: MockedStatic<Log> ->
+                        mock.verify { Log.e(eq(TAG), eq(MSG), eq(throwable)) }
+                    },
+                ),
             )
-        }
-    }
-
-    @Test
-    fun `Warn messages logged in Log cat static logger`() {
-        logger.log(
-            listOf(
-                LocalLogEntry.Error(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.WARN,
-                    throwable = logThrowable,
-                ),
-                LocalLogEntry.Basic(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.WARN,
-                ),
-            ),
-        )
-
-        staticLogMock.verify {
-            Log.w(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-                eq(logThrowable),
-            )
-        }
-
-        staticLogMock.verify {
-            Log.w(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-            )
-        }
-    }
-
-    @Test
-    fun `Error messages logged in Log cat  static logger `() {
-        logger.log(
-            listOf(
-                LocalLogEntry.Error(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.ERROR,
-                    throwable = logThrowable,
-                ),
-                LocalLogEntry.Basic(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = Log.ERROR,
-                ),
-            ),
-        )
-
-        staticLogMock.verify {
-            Log.e(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-                eq(logThrowable),
-            )
-        }
-
-        staticLogMock.verify {
-            Log.e(
-                eq(LOG_TAG),
-                eq(LOG_MESSAGE),
-            )
-        }
-    }
-
-    @Test
-    fun `log entry with  false  log level logged in static logger zero interaction`() {
-        logger.log(
-            listOf(
-                LocalLogEntry.Error(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = 0,
-                    throwable = logThrowable,
-                ),
-                LocalLogEntry.Basic(
-                    tag = LOG_TAG,
-                    message = LOG_MESSAGE,
-                    level = 0,
-                ),
-            ),
-        )
-
-        staticLogMock.verifyNoInteractions()
-        staticLogMock.verifyNoInteractions()
     }
 }
