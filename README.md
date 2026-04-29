@@ -187,13 +187,13 @@ The Logger interface is a functional interface with convenience sub-functions (d
 
 The logger provides the following sub-functions:
 
-debug – Logs debug messages with a tag.
+debug–Logs debug messages with a tag.
 
-info – Logs informational messages with a tag.
+info–Logs informational messages with a tag.
 
-warning – Logs warning messages with a tag.
+warning–Logs warning messages with a tag.
 
-verbose – Logs verbose messages with a tag.
+verbose–Logs verbose messages with a tag.
 
 Error Logging
 An error function that allows the consumer to log an error, set a tag, parse the exception, and set typed custom keys (StringKey, IntKey, DoubleKey, BooleanKey).
@@ -204,15 +204,15 @@ An error function that allows the consumer to log an error, set a tag, parse the
 
 LogEntry.Message interface extends the LogEntry sealed class, allowing sub data classes to extend the Message interface for predefined log levels.
 
-LogEntry.Verbose – Sub data class for verbose entries.
+LogEntry.Verbose–Sub data class for verbose entries.
 
-LogEntry.Debug – Sub data class for debug entries.
+LogEntry.Debug–Sub data class for debug entries.
 
-LogEntry.Info – Sub data class for info entries.
+LogEntry.Info–Sub data class for info entries.
 
-LogEntry.Warn – Sub data class for warn entries.
+LogEntry.Warn–Sub data class for warn entries.
 
-LogEntry.Error – Represents an error entry with a tag and optional custom keys.
+LogEntry.Error–Represents an error entry with a tag and optional custom keys.
 
 ### V3 Logger Implementations
 
@@ -225,7 +225,7 @@ logs LogEntry to Android log functions locally.
 Designed as a Logger specifically for log entries not ready to be logged remotely.
 
 [CrashlyticsLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/CrashlyticsLogger.kt)
-Filters out isLocalOnly entries and logs entries to Firebase Crashlytics.
+Filters out isLocalOnly entries and logs entries to Firebase crashlytics.
 Use for remote crash reporting and error tracking.
 
 
