@@ -29,17 +29,17 @@ class LoggerTest {
     }
 
     @Test
-    fun `debug creates a Debug entry`() {
+    fun `debug is local only and filtered from SAM`() {
         logger.debug(tag = LOG_TAG, message = LOG_MESSAGE)
 
-        assertThat(entries, contains(LogEntry.Debug(tag = LOG_TAG, message = LOG_MESSAGE)))
+        assertThat(entries, hasSize(0))
     }
 
     @Test
-    fun `verbose creates a Verbose entry`() {
+    fun `verbose is local only and filtered from SAM`() {
         logger.verbose(tag = LOG_TAG, message = LOG_MESSAGE)
 
-        assertThat(entries, contains(LogEntry.Verbose(tag = LOG_TAG, message = LOG_MESSAGE)))
+        assertThat(entries, hasSize(0))
     }
 
     @Test

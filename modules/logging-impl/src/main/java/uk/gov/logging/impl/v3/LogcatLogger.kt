@@ -15,6 +15,11 @@ data object LogcatLogger : Logger {
             is LogEntry.Message -> logMessage(entry)
         }
 
+    override fun filter(
+        entry: LogEntry,
+        isLocalOnly: Boolean,
+    ) = log(entry)
+
     private fun logMessage(entry: LogEntry) {
         val logFunction: ((String, String) -> Unit)? =
             when (entry.level) {

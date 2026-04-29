@@ -176,57 +176,58 @@ class AndroidLogger(
 }
 ```
 ## Android Logger V3
-Android Logger v3 introduces a structured, entry-based logging API. 
-Instead of calling individual log methods with separate String parameters,
-v3 uses enforces consistency in Log configuration by parsing LogEntry sealed types to represent log events,
-which are processed through a single log function. the sub function are still available for flexibility.
+Android Logger v3 introduces a structured, entry-based logging API. Instead of calling individual log methods with separate String parameters, v3 enforces consistency in log configuration by using LogEntry sealed types to represent log events, with data classes predefined for each log level for the consumer's convenience.
+
+Entries in the logger are processed through the log function. The sub-functions are still available for flexibility.
+
 It also supports CustomKey types for setting typed key-value pairs on crash reports.
 
-The logger provides the following functions:
+[Logger](modules/logging-api/src/main/java/uk/gov/logging/api/v3/Logger.kt)
+The Logger interface is a functional interface with convenience sub-functions (debug, info, warning, error).
 
-debug–Logs debug messages with a tag.
+The logger provides the following sub-functions:
 
-info–Logs informational messages with a tag.
+debug – Logs debug messages with a tag.
 
-warning–Logs warning messages with a tag.
+info – Logs informational messages with a tag.
+
+warning – Logs warning messages with a tag.
+
+verbose – Logs verbose messages with a tag.
 
 Error Logging
+An error function that allows the consumer to log an error, set a tag, parse the exception, and set typed custom keys (StringKey, IntKey, DoubleKey, BooleanKey).
 
-An error function that allows the consumer to log an error message and set a tag, without recording an exception or custom keys.
+[LoggerExample](modules/logging-api/src/main/java/uk/gov/logging/api/v3/LoggerExample.kt)
 
-An error function that allows the consumer to log an error, set a tag, and record an exception, without setting custom keys.
+[LogEntry](modules/logging-api/src/main/java/uk/gov/logging/api/v3/LogEntry.kt)
 
-An error function that allows the consumer to log an error, set a tag, record an exception, and set typed custom keys (StringKey, IntKey, DoubleKey, BooleanKey).
+LogEntry.Message interface extends the LogEntry sealed class, allowing sub data classes to extend the Message interface for predefined log levels.
 
-Log Entries
+LogEntry.Verbose – Sub data class for verbose entries.
 
-LogEntry.Basic–Represents a simple log event with a level, tag, and message.
+LogEntry.Debug – Sub data class for debug entries.
 
-LogEntry.Error–Represents an error log event with a exception and optional custom keys.
+LogEntry.Info – Sub data class for info entries.
 
-LocalLogEntry.Basic / LocalLogEntry.Error–Log entries intended for local-only logging. Logger implementations that perform network calls should not log these entries.
+LogEntry.Warn – Sub data class for warn entries.
 
+LogEntry.Error – Represents an error entry with a tag and optional custom keys.
 
 ### V3 Logger Implementations
-
-[AndroidLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/AndroidLogger.kt)
-Entry point logger that delegates to a MultiLogger.
 
 [MultiLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/MultiLogger.kt)
 Funnel that passes all entries to a collection of sub-loggers.
 Each sub-logger is responsible for filtering and processing the entry types it cares about.
 
 [LogcatLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/LogcatLogger.kt)
-Filters for LocalLogEntry and logs to Android log functions locally.
+logs LogEntry to Android log functions locally.
 Designed as a Logger specifically for log entries not ready to be logged remotely.
 
 [CrashlyticsLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/CrashlyticsLogger.kt)
-Filters out LocalLogEntry and logs entries to Firebase crashlytics.
+Filters out isLocalOnly entries and logs entries to Firebase Crashlytics.
 Use for remote crash reporting and error tracking.
 
-[Logger](modules/logging-api/src/main/java/uk/gov/logging/api/v3/Logger.kt)
-The Logger interface is a functional interface with convenience sub-functions (debug, info, warning, error).
-The core contract is the log function which accepts LogEntry instances.
 
 ### V3 Test Loggers
 
@@ -234,11 +235,6 @@ The core contract is the log function which accepts LogEntry instances.
 Stores entries in memory for assertions.
 Optionally decorates a sub-logger.
 Use in test fixtures with Hamcrest-matchers.
-
-[TestLogger](modules/logging-testdouble/src/main/java/uk/gov/logging/testdouble/v3/TestLogger.kt)
-Stores entries and prints to the console.
-Include contains operators for LogEntry type matching.
-Use as a drop-in replacement for production loggers in tests.
 
 
 ## Releases

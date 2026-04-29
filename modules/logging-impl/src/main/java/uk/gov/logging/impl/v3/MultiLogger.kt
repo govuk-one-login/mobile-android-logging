@@ -17,4 +17,9 @@ class MultiLogger(
     ) : this(loggers = loggers.toList())
 
     override fun log(entry: LogEntry) = loggers.forEach { it.log(entry) }
+
+    override fun filter(
+        entry: LogEntry,
+        isLocalOnly: Boolean,
+    ) = loggers.forEach { it.filter(entry, isLocalOnly) }
 }

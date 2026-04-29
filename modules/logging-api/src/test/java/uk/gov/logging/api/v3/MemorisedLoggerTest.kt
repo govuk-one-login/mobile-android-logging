@@ -1,9 +1,17 @@
 package uk.gov.logging.api.v3
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.contains
+import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.not
 import org.junit.jupiter.api.Test
+import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasException
+import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasMessage
+import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasTag
+import uk.gov.logging.api.v3.matchers.LogEntryMatchers.isExceptionInstance
+import uk.gov.logging.api.v3.matchers.LogEntryMatchers.isMessageEntry
+import uk.gov.logging.api.v3.matchers.MemorisedLoggerMatchers.hasSize
 
 class MemorisedLoggerTest {
     private val tag = "tag"
@@ -17,8 +25,21 @@ class MemorisedLoggerTest {
 
         logger.log(entry)
 
-        assertEquals(1, logger.size)
-        assertEquals(entry, logger[0])
+        assertThat(
+            logger,
+            hasSize(logger.size),
+        )
+
+        assertThat(
+            logger,
+            contains(
+                allOf(
+                    isMessageEntry(),
+                    hasMessage(message),
+                    hasTag(tag),
+                ),
+            ),
+        )
     }
 
     @Test
@@ -29,7 +50,7 @@ class MemorisedLoggerTest {
 
         logger.log(entry)
 
-        assertEquals(listOf(entry), delegated)
+        assertThat(delegated, contains(entry))
     }
 
     @Test
@@ -37,16 +58,36 @@ class MemorisedLoggerTest {
         val logger = MemorisedLogger()
         logger.log(LogEntry.Info(tag = tag, message = message))
 
-        assertTrue(logger.contains(message))
-        assertFalse(logger.contains("other"))
+        assertThat(
+            logger,
+            contains(
+                allOf(
+                    isMessageEntry(),
+                    hasMessage(message),
+                    hasTag(tag),
+                ),
+            ),
+        )
     }
 
     @Test
     fun `contains matches by throwable`() {
         logger.log(LogEntry.Error(tag = tag, message = message, throwable = throwable))
 
-        assertTrue(logger.contains(throwable))
-        assertFalse(logger.contains(RuntimeException("other")))
+        assertThat(
+            logger,
+            contains(
+                allOf(
+                    isExceptionInstance(),
+                    hasException(equalTo(throwable)),
+                ),
+            ),
+        )
+
+        assertThat(
+            logger,
+            not(contains(hasException(equalTo(RuntimeException("other"))))),
+        )
     }
 
     @Test
@@ -54,6 +95,6 @@ class MemorisedLoggerTest {
         val entry = LogEntry.Info(tag = tag, message = message)
         logger.log(entry)
 
-        assertEquals(listOf(entry), logger.toList())
+        assertThat(listOf(entry), equalTo(logger.toList()))
     }
 }

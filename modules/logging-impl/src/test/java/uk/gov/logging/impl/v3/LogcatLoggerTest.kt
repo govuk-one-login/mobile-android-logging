@@ -50,6 +50,28 @@ class LogcatLoggerTest {
         verify(staticLogMock)
     }
 
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("messageEntries")
+    fun `filter with isLocalOnly true still logs message entry`(
+        entry: LogEntry,
+        verify: (MockedStatic<Log>) -> Unit,
+    ) {
+        LogcatLogger.filter(entry, isLocalOnly = true)
+
+        verify(staticLogMock)
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("exceptionEntries")
+    fun `filter with isLocalOnly true still logs exception entry`(
+        entry: LogEntry,
+        verify: (MockedStatic<Log>) -> Unit,
+    ) {
+        LogcatLogger.filter(entry, isLocalOnly = true)
+
+        verify(staticLogMock)
+    }
+
     companion object {
         private const val TAG = "tag"
         private const val MSG = "msg"
@@ -60,7 +82,6 @@ class LogcatLoggerTest {
                 override val level = level
                 override val tag = TAG
                 override val message = MSG
-                override val isLocalOnly = false
                 override val throwable = this@Companion.throwable
                 override val customKeys: List<CustomKey> = emptyList()
 
@@ -72,7 +93,6 @@ class LogcatLoggerTest {
                 override val level = level
                 override val tag = TAG
                 override val message = MSG
-                override val isLocalOnly = false
 
                 override fun toString() = level.name
             }

@@ -15,13 +15,10 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
-import uk.gov.logging.testdouble.v3.TestLogger
 import java.util.stream.Stream
 
 internal class FirebaseAnalyticsLoggerTest {
     private var analytics: FirebaseAnalytics = mock()
-
-    private var logger = TestLogger()
 
     private val analyticsLogger by lazy {
         FirebaseAnalyticsLogger(
@@ -32,7 +29,6 @@ internal class FirebaseAnalyticsLoggerTest {
     @BeforeEach
     fun setup() {
         analytics = mock()
-        logger = TestLogger()
     }
 
     @ParameterizedTest(name = "{index}: {0}")

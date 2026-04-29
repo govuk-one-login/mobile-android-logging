@@ -8,13 +8,13 @@ import uk.gov.logging.api.v3.customkey.CustomKey
  * @property level the logging level
  * @property message the log message
  * @property tag the log tag
- * @property isLocalOnly if true, the log data should not be logged remotely
+ *
  */
+
 sealed interface LogEntry {
     val level: LogLevel
     val message: String
     val tag: String
-    val isLocalOnly: Boolean
 
     interface Message : LogEntry
 
@@ -28,7 +28,6 @@ sealed interface LogEntry {
         override val message: String,
     ) : Message {
         override val level: LogLevel = LogLevel.Verbose
-        override val isLocalOnly: Boolean = true
     }
 
     data class Debug(
@@ -36,7 +35,6 @@ sealed interface LogEntry {
         override val message: String,
     ) : Message {
         override val level: LogLevel = LogLevel.Debug
-        override val isLocalOnly: Boolean = true
     }
 
     data class Info(
@@ -44,7 +42,6 @@ sealed interface LogEntry {
         override val message: String,
     ) : Message {
         override val level: LogLevel = LogLevel.Info
-        override val isLocalOnly: Boolean = false
     }
 
     data class Warn(
@@ -52,7 +49,6 @@ sealed interface LogEntry {
         override val message: String,
     ) : Message {
         override val level: LogLevel = LogLevel.Warn
-        override val isLocalOnly: Boolean = false
     }
 
     data class Error(
@@ -62,7 +58,6 @@ sealed interface LogEntry {
         override val customKeys: List<CustomKey> = listOf(),
     ) : Exception {
         override val level: LogLevel = LogLevel.Error
-        override val isLocalOnly: Boolean = false
     }
 }
 

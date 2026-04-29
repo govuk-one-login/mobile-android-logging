@@ -9,10 +9,6 @@ class CrashlyticsLogger(
     private val crashlytics: FirebaseCrashlytics,
 ) : Logger {
     override fun log(entry: LogEntry) {
-        if (entry.isLocalOnly) {
-            return
-        }
-
         crashlytics.log(entry.asLogMessage())
 
         if (entry is LogEntry.Exception) {

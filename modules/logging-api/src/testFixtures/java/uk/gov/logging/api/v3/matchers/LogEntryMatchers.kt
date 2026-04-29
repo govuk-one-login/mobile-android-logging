@@ -6,13 +6,10 @@ import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.MemorisedLogger
 import uk.gov.logging.api.v3.customkey.CustomKey
-import kotlin.reflect.KClass
 
 @Suppress("TooManyFunctions")
 object LogEntryMatchers {
-    fun isBasicEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Message::class.java)
-
-    fun isErrorEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Exception::class.java)
+    fun isMessageEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Message::class.java)
 
     fun isExceptionInstance(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Exception::class.java)
 
@@ -29,13 +26,6 @@ object LogEntryMatchers {
     fun hasTag(expected: String): Matcher<LogEntry> = hasTag(CoreMatchers.equalTo(expected))
 
     fun hasTag(matcher: Matcher<String>): Matcher<LogEntry> = HasTag(matcher)
-
-    fun hasException(klass: KClass<*>): Matcher<in LogEntry> =
-        hasException(
-            CoreMatchers.instanceOf(
-                klass.java,
-            ),
-        )
 
     fun hasException(matcher: Matcher<in Throwable>): Matcher<in LogEntry> = HasThrowable(matcher)
 

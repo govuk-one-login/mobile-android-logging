@@ -19,6 +19,14 @@ data class MemorisedLogger(
         subLogger.log(entry)
     }
 
+    override fun filter(
+        entry: LogEntry,
+        isLocalOnly: Boolean,
+    ) {
+        entries.add(entry)
+        subLogger.filter(entry, isLocalOnly)
+    }
+
     operator fun contains(message: String) = any { it.message == message }
 
     operator fun contains(throwable: Throwable) =

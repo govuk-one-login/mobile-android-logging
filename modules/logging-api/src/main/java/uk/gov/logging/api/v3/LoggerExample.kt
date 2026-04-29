@@ -3,6 +3,12 @@ package uk.gov.logging.api.v3
 import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.v3.customkey.CustomKey
 
+/**
+ *  LoggerExample demonstrates how to use the logger
+ *  [LogEntry] has data class and a builder
+ *  The LogTagProvider interface can be implemented to avoid having to pass tags
+ *
+ */
 internal class LoggerExample(
     val logger: Logger,
 ) : LogTagProvider {
@@ -29,11 +35,10 @@ internal class LoggerExample(
         logger.log(LogEntry.Warn(tag, "warn log"))
         logger.log(LogEntry.Error(tag, "error log", RuntimeException("error")))
 
-        // Log entries may be completely customised if needed
+        // Log entries may be completely customized if needed
         logger.log(
             object : LogEntry.Message {
                 override val level: LogLevel = LogLevel.Warn
-                override val isLocalOnly: Boolean = true
                 override val message: String = "Custom warning message"
                 override val tag: String = "Custom tag"
             },
@@ -42,7 +47,6 @@ internal class LoggerExample(
         logger.log(
             object : LogEntry.Exception {
                 override val level: LogLevel = LogLevel.Warn
-                override val isLocalOnly: Boolean = true
                 override val message: String = "Custom warning message"
                 override val tag: String = "Custom tag"
                 override val customKeys: List<CustomKey> = emptyList()
