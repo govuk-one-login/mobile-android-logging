@@ -13,40 +13,50 @@ import uk.gov.logging.api.v3.LoggingTestData.messageEntries
 
 class LoggerTest {
     private val entries = mutableListOf<LogEntry>()
+    private val properties = mutableListOf<LoggingProperties>()
     private lateinit var logger: Logger
 
     @BeforeEach
     fun setUp() {
         entries.clear()
-        logger = Logger { entries.add(it) }
+        properties.clear()
+        logger =
+            Logger { entry, props ->
+                entries.add(entry)
+                properties.add(props)
+            }
     }
 
     @Test
-    fun `info creates an Info entry`() {
+    fun `info creates an Info entry with allowRemote true`() {
         logger.info(tag = LOG_TAG, message = LOG_MESSAGE)
 
         assertThat(entries, contains(LogEntry.Info(tag = LOG_TAG, message = LOG_MESSAGE)))
+        assertThat(properties, contains(LoggingProperties(allowRemote = true)))
     }
 
     @Test
-    fun `debug is local only and filtered from SAM`() {
+    fun `debug creates a Debug entry with allowRemote false`() {
         logger.debug(tag = LOG_TAG, message = LOG_MESSAGE)
 
-        assertThat(entries, hasSize(0))
+        assertThat(entries, contains(LogEntry.Debug(tag = LOG_TAG, message = LOG_MESSAGE)))
+        assertThat(properties, contains(LoggingProperties(allowRemote = false)))
     }
 
     @Test
-    fun `verbose is local only and filtered from SAM`() {
+    fun `verbose creates a Verbose entry with allowRemote false`() {
         logger.verbose(tag = LOG_TAG, message = LOG_MESSAGE)
 
-        assertThat(entries, hasSize(0))
+        assertThat(entries, contains(LogEntry.Verbose(tag = LOG_TAG, message = LOG_MESSAGE)))
+        assertThat(properties, contains(LoggingProperties(allowRemote = false)))
     }
 
     @Test
-    fun `warning creates a Warn entry`() {
+    fun `warning creates a Warn entry with allowRemote true`() {
         logger.warning(tag = LOG_TAG, message = LOG_MESSAGE)
 
         assertThat(entries, contains(LogEntry.Warn(tag = LOG_TAG, message = LOG_MESSAGE)))
+        assertThat(properties, contains(LoggingProperties(allowRemote = true)))
     }
 
     @Test
@@ -59,6 +69,7 @@ class LoggerTest {
                 LogEntry.Error(tag = LOG_TAG, message = LOG_MESSAGE, throwable = logThrowable),
             ),
         )
+        assertThat(properties, contains(LoggingProperties(allowRemote = true)))
     }
 
     @Test
@@ -81,6 +92,7 @@ class LoggerTest {
                 ),
             ),
         )
+        assertThat(properties, contains(LoggingProperties(allowRemote = true)))
     }
 
     @Test

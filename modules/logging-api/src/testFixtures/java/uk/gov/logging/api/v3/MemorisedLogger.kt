@@ -9,22 +9,17 @@ package uk.gov.logging.api.v3
  */
 data class MemorisedLogger(
     val entries: MutableList<LogEntry> = mutableListOf(),
-    private val subLogger: Logger = Logger {},
+    private val subLogger: Logger = Logger { entry, properties -> },
 ) : Logger,
     Iterable<LogEntry> by entries {
     val size: Int get() = entries.size
 
-    override fun log(entry: LogEntry) {
-        entries.add(entry)
-        subLogger.log(entry)
-    }
-
-    override fun filter(
+    override fun log(
         entry: LogEntry,
-        isLocalOnly: Boolean,
+        properties: LoggingProperties,
     ) {
         entries.add(entry)
-        subLogger.filter(entry, isLocalOnly)
+        subLogger.log(entry, properties)
     }
 
     operator fun contains(message: String) = any { it.message == message }

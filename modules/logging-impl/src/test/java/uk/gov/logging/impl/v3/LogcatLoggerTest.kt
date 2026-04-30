@@ -12,6 +12,7 @@ import org.mockito.Mockito
 import org.mockito.kotlin.eq
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
+import uk.gov.logging.api.v3.LoggingProperties
 import uk.gov.logging.api.v3.customkey.CustomKey
 import java.util.stream.Stream
 
@@ -34,7 +35,7 @@ class LogcatLoggerTest {
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.log(entry)
+        LogcatLogger.log(entry, LoggingProperties(allowRemote = true))
 
         verify(staticLogMock)
     }
@@ -45,29 +46,29 @@ class LogcatLoggerTest {
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.log(entry)
+        LogcatLogger.log(entry, LoggingProperties(allowRemote = true))
 
         verify(staticLogMock)
     }
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("messageEntries")
-    fun `filter with isLocalOnly true still logs message entry`(
+    fun `allowRemote false still logs message entry`(
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.filter(entry, isLocalOnly = true)
+        LogcatLogger.log(entry, LoggingProperties(allowRemote = false))
 
         verify(staticLogMock)
     }
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("exceptionEntries")
-    fun `filter with isLocalOnly true still logs exception entry`(
+    fun `allowRemote false still logs exception entry`(
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.filter(entry, isLocalOnly = true)
+        LogcatLogger.log(entry, LoggingProperties(allowRemote = false))
 
         verify(staticLogMock)
     }

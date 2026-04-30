@@ -4,11 +4,17 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.Logger
+import uk.gov.logging.api.v3.LoggingProperties
 
 class CrashlyticsLogger(
     private val crashlytics: FirebaseCrashlytics,
 ) : Logger {
-    override fun log(entry: LogEntry) {
+    override fun log(
+        entry: LogEntry,
+        properties: LoggingProperties,
+    ) {
+        if (!properties.allowRemote) return
+
         crashlytics.log(entry.asLogMessage())
 
         if (entry is LogEntry.Exception) {
