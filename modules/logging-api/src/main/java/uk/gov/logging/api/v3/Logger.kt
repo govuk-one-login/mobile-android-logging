@@ -10,50 +10,43 @@ import uk.gov.logging.api.v3.customkey.CustomKey
  */
 
 fun interface Logger {
-    fun log(entry: LogEntry)
-
-    fun filter(
+    fun log(
         entry: LogEntry,
-        isLocalOnly: Boolean,
-    ) {
-        if (!isLocalOnly) log(entry)
-    }
+        properties: LoggingProperties,
+    )
 
-    fun log(entries: Iterable<LogEntry>) = entries.forEach(::log)
+    fun log(
+        entries: Iterable<LogEntry>,
+        properties: LoggingProperties = LoggingProperties(),
+    ) = entries.forEach { log(it, properties) }
 
-    fun log(vararg entries: LogEntry): Unit = log(entries.asList())
+    fun log(
+        vararg entries: LogEntry,
+        properties: LoggingProperties = LoggingProperties(),
+    ): Unit = log(entries.asList(), properties)
 
     fun info(
         tag: String,
         message: String,
-    ) = filter(
-        LogEntry.Info(
-            tag = tag,
-            message = message,
-        ),
-        isLocalOnly = false,
+    ) = log(
+        LogEntry.Info(tag = tag, message = message),
+        LoggingProperties(allowRemote = true),
     )
 
     fun debug(
         tag: String,
         message: String,
-    ) = filter(
-        LogEntry.Debug(
-            tag = tag,
-            message = message,
-        ),
-        isLocalOnly = true,
+    ) = log(
+        LogEntry.Debug(tag = tag, message = message),
+        LoggingProperties(allowRemote = false),
     )
 
     fun verbose(
         tag: String,
         message: String,
-    ) = filter(
-        LogEntry.Verbose(
-            tag = tag,
-            message = message,
-        ),
-        isLocalOnly = true,
+    ) = log(
+        LogEntry.Verbose(tag = tag, message = message),
+        LoggingProperties(allowRemote = false),
     )
 
     fun error(
@@ -61,24 +54,23 @@ fun interface Logger {
         message: String,
         throwable: Throwable,
         vararg customKey: CustomKey,
-    ) = filter(
+    ) = log(
         LogEntry.Error(
             tag = tag,
             message = message,
             throwable = throwable,
             customKeys = customKey.toList(),
         ),
-        isLocalOnly = false,
+        LoggingProperties(allowRemote = true),
     )
 
     fun warning(
         tag: String,
         message: String,
-    ) = filter(
-        LogEntry.Warn(
-            tag = tag,
-            message = message,
-        ),
-        isLocalOnly = false,
+    ) = log(
+        LogEntry.Warn(tag = tag, message = message),
+        LoggingProperties(allowRemote = true),
     )
 }
+
+fun Logger.log(entry: LogEntry) = log(entry, LoggingProperties())

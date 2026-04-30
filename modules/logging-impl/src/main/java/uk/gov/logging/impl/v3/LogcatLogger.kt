@@ -4,21 +4,19 @@ import android.util.Log
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.Logger
+import uk.gov.logging.api.v3.LoggingProperties
 
 /**
  * [Logger] implementation for android [Log] functions
  */
 data object LogcatLogger : Logger {
-    override fun log(entry: LogEntry) =
-        when (entry) {
-            is LogEntry.Exception -> logException(entry)
-            is LogEntry.Message -> logMessage(entry)
-        }
-
-    override fun filter(
+    override fun log(
         entry: LogEntry,
-        isLocalOnly: Boolean,
-    ) = log(entry)
+        properties: LoggingProperties,
+    ) = when (entry) {
+        is LogEntry.Exception -> logException(entry)
+        is LogEntry.Message -> logMessage(entry)
+    }
 
     private fun logMessage(entry: LogEntry) {
         val logFunction: ((String, String) -> Unit)? =

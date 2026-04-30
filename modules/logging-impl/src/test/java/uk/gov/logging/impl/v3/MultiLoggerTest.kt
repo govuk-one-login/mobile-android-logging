@@ -3,6 +3,7 @@ package uk.gov.logging.impl.v3
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.v3.LogEntry
+import uk.gov.logging.api.v3.LoggingProperties
 
 class MultiLoggerTest {
     private val tag = "tag"
@@ -14,48 +15,32 @@ class MultiLoggerTest {
         val loggedB = mutableListOf<LogEntry>()
         val multiLogger =
             MultiLogger(
-                { loggedA.add(it) },
-                { loggedB.add(it) },
+                { entry, _ -> loggedA.add(entry) },
+                { entry, _ -> loggedB.add(entry) },
             )
 
         val entry = LogEntry.Info(tag = tag, message = message)
-        multiLogger.log(entry)
+        multiLogger.log(entry, LoggingProperties())
 
         assertEquals(listOf(entry), loggedA)
         assertEquals(listOf(entry), loggedB)
     }
 
     @Test
-    fun `filter with isLocalOnly true does not log to all loggers`() {
-        val loggedA = mutableListOf<LogEntry>()
-        val loggedB = mutableListOf<LogEntry>()
+    fun `delegates properties to all loggers`() {
+        val propertiesA = mutableListOf<LoggingProperties>()
+        val propertiesB = mutableListOf<LoggingProperties>()
         val multiLogger =
             MultiLogger(
-                { loggedA.add(it) },
-                { loggedB.add(it) },
-            )
-
-        val entry = LogEntry.Debug(tag = tag, message = message)
-        multiLogger.filter(entry, isLocalOnly = true)
-
-        assertEquals(emptyList<LogEntry>(), loggedA)
-        assertEquals(emptyList<LogEntry>(), loggedB)
-    }
-
-    @Test
-    fun `filter with isLocalOnly false logs to all loggers`() {
-        val loggedA = mutableListOf<LogEntry>()
-        val loggedB = mutableListOf<LogEntry>()
-        val multiLogger =
-            MultiLogger(
-                { loggedA.add(it) },
-                { loggedB.add(it) },
+                { _, properties -> propertiesA.add(properties) },
+                { _, properties -> propertiesB.add(properties) },
             )
 
         val entry = LogEntry.Info(tag = tag, message = message)
-        multiLogger.filter(entry, isLocalOnly = false)
+        val properties = LoggingProperties(allowRemote = false)
+        multiLogger.log(entry, properties)
 
-        assertEquals(listOf(entry), loggedA)
-        assertEquals(listOf(entry), loggedB)
+        assertEquals(listOf(properties), propertiesA)
+        assertEquals(listOf(properties), propertiesB)
     }
 }

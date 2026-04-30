@@ -11,6 +11,7 @@ import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.v3.LogEntry
+import uk.gov.logging.api.v3.LoggingProperties
 import uk.gov.logging.api.v3.customkey.CustomKey
 import java.util.stream.Stream
 
@@ -23,8 +24,8 @@ class CrashlyticsLoggerTest {
     private val customKey = CustomKey.StringKey("my_key", "my_value")
 
     @Test
-    fun `local only entries are not logged`() {
-        logger.filter(LogEntry.Debug(tag = tag, message = message), isLocalOnly = true)
+    fun `entries with allowRemote false are not logged`() {
+        logger.log(LogEntry.Debug(tag = tag, message = message), LoggingProperties(allowRemote = false))
 
         verifyNoInteractions(firebaseCrashlytics)
     }
@@ -35,7 +36,7 @@ class CrashlyticsLoggerTest {
         entry: LogEntry,
         expectedSymbol: String,
     ) {
-        logger.log(entry)
+        logger.log(entry, LoggingProperties(allowRemote = true))
 
         verify(firebaseCrashlytics).log(eq("$expectedSymbol : $tag : $message"))
     }
@@ -48,6 +49,7 @@ class CrashlyticsLoggerTest {
                 message = message,
                 throwable = throwable,
             ),
+            LoggingProperties(allowRemote = true),
         )
 
         verify(firebaseCrashlytics).log(eq("E : $tag : $message"))
@@ -63,6 +65,7 @@ class CrashlyticsLoggerTest {
                 throwable = throwable,
                 customKeys = listOf(customKey),
             ),
+            LoggingProperties(allowRemote = true),
         )
 
         verify(firebaseCrashlytics).setCustomKey(eq(customKey.key), eq(customKey.value))

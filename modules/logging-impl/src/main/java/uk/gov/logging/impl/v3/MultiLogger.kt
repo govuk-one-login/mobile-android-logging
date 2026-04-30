@@ -2,6 +2,7 @@ package uk.gov.logging.impl.v3
 
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
+import uk.gov.logging.api.v3.LoggingProperties
 
 /**
  * Logger that delegates to multiple other loggers.
@@ -16,10 +17,8 @@ class MultiLogger(
         vararg loggers: Logger,
     ) : this(loggers = loggers.toList())
 
-    override fun log(entry: LogEntry) = loggers.forEach { it.log(entry) }
-
-    override fun filter(
+    override fun log(
         entry: LogEntry,
-        isLocalOnly: Boolean,
-    ) = loggers.forEach { it.filter(entry, isLocalOnly) }
+        properties: LoggingProperties,
+    ) = loggers.forEach { it.log(entry, properties) }
 }

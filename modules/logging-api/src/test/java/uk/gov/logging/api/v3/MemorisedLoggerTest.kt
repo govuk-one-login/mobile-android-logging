@@ -45,7 +45,8 @@ class MemorisedLoggerTest {
     @Test
     fun `log delegates to sub logger`() {
         val delegated = mutableListOf<LogEntry>()
-        val logger = MemorisedLogger(subLogger = Logger { delegated.add(it) })
+        val logger = MemorisedLogger(subLogger = Logger { entry, properties -> delegated.add(entry) })
+
         val entry = LogEntry.Info(tag = tag, message = message)
 
         logger.log(entry)
