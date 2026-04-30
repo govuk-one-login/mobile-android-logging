@@ -15,6 +15,8 @@ fun interface Logger {
         properties: LoggingProperties,
     )
 
+    fun log(entry: LogEntry) = log(entry, LoggingProperties())
+
     fun log(
         entries: Iterable<LogEntry>,
         properties: LoggingProperties = LoggingProperties(),
@@ -72,5 +74,3 @@ fun interface Logger {
         LoggingProperties(allowRemote = true),
     )
 }
-
-fun Logger.log(entry: LogEntry) = log(entry, LoggingProperties())
