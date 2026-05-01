@@ -26,9 +26,9 @@ class CrashlyticsLogger(
     }
 }
 
-fun LogEntry.asLogMessage(): String = "${level.symbol()} : $tag : $message"
+internal fun LogEntry.asLogMessage(): String = "${level.symbol()} : $tag : $message"
 
-fun LogLevel.symbol(): String =
+internal fun LogLevel.symbol(): String =
     when (this) {
         LogLevel.Verbose -> "V"
         LogLevel.Debug -> "D"
