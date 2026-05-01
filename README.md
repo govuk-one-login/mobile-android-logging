@@ -219,11 +219,11 @@ For examples showing how to use the `Logger`, see [LoggerExample](modules/loggin
 
 ### V3 Logger Implementations
 
-| Implementation | Description |
-|-------|-------------|
+| Implementation | Description                                                                                                                                                |
+|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [MultiLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/MultiLogger.kt) | Funnel that passes all entries to a collection of sub-loggers. Each sub-logger is responsible for filtering and processing the entry types it cares about. |
-| [LogcatLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/LogcatLogger.kt) | Logs LogEntry to Android log functions locally. Designed as a Logger specifically for log entries not ready to be logged remotely. |
-| [CrashlyticsLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/CrashlyticsLogger.kt) | Filters out isLocalOnly entries and logs entries to Firebase Crashlytics. Use for remote crash reporting and error tracking. |
+| [LogcatLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/LogcatLogger.kt) | Logs LogEntry to Android log functions locally. Designed as a Logger specifically for log entries not ready to be logged remotely.                         |
+| [CrashlyticsLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/CrashlyticsLogger.kt) | Filters out isLocalOnly entries and logs entries to Firebase crashlytics. Use for remote crash reporting and error tracking.                               |
 
 
 ### V3 Test Loggers
