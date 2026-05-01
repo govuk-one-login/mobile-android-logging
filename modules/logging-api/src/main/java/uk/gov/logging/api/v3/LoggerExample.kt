@@ -4,10 +4,14 @@ import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.v3.customkey.CustomKey
 
 /**
- *  LoggerExample demonstrates how to use the logger
- *  [LogEntry] has data class and a builder
- *  The LogTagProvider interface can be implemented to avoid having to pass tags
+ * [LogEntry] has data class and a builder.
+ * The [LogTagProvider] interface can be implemented to avoid having to pass tags.
+ * This example shows different ways to use a [Logger].
+ * It also shows the different
+ * preset [LogEntry] types that are available.
  *
+ * Note that [LoggerExample] implements [LogTagProvider], allowing the caller to log
+ * without specifying the tag manually.
  */
 internal class LoggerExample(
     val logger: Logger,

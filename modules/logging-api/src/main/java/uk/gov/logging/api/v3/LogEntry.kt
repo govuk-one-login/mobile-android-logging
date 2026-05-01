@@ -10,7 +10,6 @@ import uk.gov.logging.api.v3.customkey.CustomKey
  * @property tag the log tag
  *
  */
-
 sealed interface LogEntry {
     val level: LogLevel
     val message: String

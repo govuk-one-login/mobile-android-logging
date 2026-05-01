@@ -105,7 +105,6 @@ dependencies {
 
     androidTestUtil(libs.androidx.orchestrator)
 
-    testFixturesImplementation(libs.kotlin.stdlib)
     testFixturesApi(libs.hamcrest)
     testFixturesApi(libs.junit)
     testFixturesApi(libs.org.robolectric)

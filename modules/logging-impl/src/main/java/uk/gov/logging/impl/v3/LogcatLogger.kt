@@ -19,7 +19,7 @@ data object LogcatLogger : Logger {
     }
 
     private fun logMessage(entry: LogEntry) {
-        val logFunction: ((String, String) -> Unit)? =
+        val logFunction: ((String, String) -> Unit) =
             when (entry.level) {
                 LogLevel.Verbose -> Log::v
                 LogLevel.Debug -> Log::d
@@ -28,14 +28,14 @@ data object LogcatLogger : Logger {
                 LogLevel.Error -> Log::e
             }
 
-        logFunction?.invoke(
+        logFunction.invoke(
             entry.tag,
             entry.message,
         )
     }
 
     private fun logException(entry: LogEntry.Exception) {
-        val logFunction: ((String, String, Throwable) -> Unit)? =
+        val logFunction: ((String, String, Throwable) -> Unit) =
             when (entry.level) {
                 LogLevel.Debug -> Log::d
                 LogLevel.Error -> Log::e
@@ -44,7 +44,7 @@ data object LogcatLogger : Logger {
                 LogLevel.Warn -> Log::w
             }
 
-        logFunction?.invoke(
+        logFunction.invoke(
             entry.tag,
             entry.message,
             entry.throwable,
