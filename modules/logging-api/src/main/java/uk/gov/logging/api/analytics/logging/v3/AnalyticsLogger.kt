@@ -23,11 +23,4 @@ interface AnalyticsLogger {
      * When set to `false`, the implementation won't send data.
      */
     fun setEnabled(isEnabled: Boolean)
-
-    fun debugLog(
-        tag: String,
-        msg: String,
-    ) {
-        // Do nothing
-    }
 }
