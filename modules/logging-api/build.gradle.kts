@@ -87,7 +87,6 @@ dependencies {
         libs.hilt.android.testing,
         libs.kotlinx.coroutines.test,
         kotlin("test"),
-        libs.junit,
         libs.junit.jupiter,
         libs.junit.jupiter.params,
         platform(libs.junit.bom),
