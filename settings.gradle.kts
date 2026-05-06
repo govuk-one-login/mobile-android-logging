@@ -25,6 +25,7 @@ rootProject.name = "GDS_Android_Logging"
 include(
     ":modules:logging-api",
     ":modules:logging-impl",
+    ":modules:logging-robolectric",
     ":modules:logging-testdouble",
 )
 

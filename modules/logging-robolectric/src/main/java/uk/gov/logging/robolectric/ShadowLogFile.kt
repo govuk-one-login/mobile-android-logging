@@ -1,4 +1,4 @@
-package uk.gov.logging.api.v3
+package uk.gov.logging.robolectric
 
 import org.junit.rules.TemporaryFolder
 import org.robolectric.shadows.ShadowLog
