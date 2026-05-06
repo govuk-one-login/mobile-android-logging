@@ -1,5 +1,6 @@
 package uk.gov.logging.impl.analytics.v3
 
+import kotlinx.coroutines.Dispatchers
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import uk.gov.logging.api.LogTagProvider
@@ -42,6 +43,8 @@ class FirebaseAnalyticsLogger(
      * Thread sleeps for 1 millisecond before and after each analytics event to enforce
      * that separate events don't get sent at exactly the same time stamp, which would
      * cause Firebase to display them under a single event.
+     *
+     * This must not be called on [Dispatchers.Main] as it blocks the calling thread.
      */
     private fun internalLogEvent(event: AnalyticsEvent) {
         Thread.sleep(1)
