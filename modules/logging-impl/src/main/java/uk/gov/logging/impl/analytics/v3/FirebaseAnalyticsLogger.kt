@@ -1,8 +1,8 @@
 package uk.gov.logging.impl.analytics.v3
 
-import kotlinx.coroutines.Dispatchers
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.coroutines.Dispatchers
 import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.v3.AnalyticsLogger
