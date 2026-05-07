@@ -48,10 +48,3 @@ plugins {
     id("uk.gov.pipelines.sonarqube-root-config")
     alias(libs.plugins.ksp) apply false
 }
-
-subprojects {
-    configurations.all {
-        // hamcrest:3.0 supersedes hamcrest-core, exclude to avoid duplicate classes
-        exclude(group = "org.hamcrest", module = "hamcrest-core")
-    }
-}
