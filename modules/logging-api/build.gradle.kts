@@ -104,7 +104,7 @@ dependencies {
 
     androidTestUtil(libs.androidx.orchestrator)
 
-    testFixturesApi(libs.hamcrest)
+    testFixturesApi(libs.bundles.hamcrest)
     testFixturesApi(libs.junit)
     testFixturesApi(libs.org.robolectric)
 }
