@@ -15,7 +15,7 @@ class FakeAnalyticsLogger(
 
     var enabled: Boolean? = null
 
-    override suspend fun logEvent(
+    override fun logEvent(
         shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent,
     ) {

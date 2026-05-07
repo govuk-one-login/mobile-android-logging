@@ -10,7 +10,7 @@ class ToastingAnalyticsLogger(
 ) : AnalyticsLogger {
     private var enabled = false
 
-    override suspend fun logEvent(
+    override fun logEvent(
         shouldLogEvent: Boolean,
         vararg events: AnalyticsEvent,
     ) {
