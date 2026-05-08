@@ -39,10 +39,6 @@ android {
             }
         }
     }
-
-    lint {
-        disable += "InvalidPackage"
-    }
 }
 
 dependencies {
