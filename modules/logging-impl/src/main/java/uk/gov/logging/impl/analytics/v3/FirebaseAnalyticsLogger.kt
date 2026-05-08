@@ -19,6 +19,7 @@ class FirebaseAnalyticsLogger(
     private val analytics: FirebaseAnalytics,
     private val logcatLogger: LogcatLogger,
     private val setCollectionEnabled: (Boolean) -> Unit = { Firebase.setCollectionEnabled(it) },
+    private val externalScope: CoroutineScope,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : AnalyticsLogger,
     LogTagProvider {
@@ -50,7 +51,7 @@ class FirebaseAnalyticsLogger(
      * cause Firebase to display them under a single event.
      */
     private fun internalLogEvent(event: AnalyticsEvent) {
-        CoroutineScope(dispatcher).launch {
+        externalScope.launch(dispatcher) {
             delay(1)
             val bundledParameters = event.toBundle()
             analytics.logEvent(event.eventType, bundledParameters)

@@ -3,6 +3,7 @@ package uk.gov.logging.impl.analytics.v3
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
@@ -26,6 +27,7 @@ internal class FirebaseAnalyticsLoggerTest {
     private lateinit var logcatLogger: LogcatLogger
 
     private val testDispatcher = StandardTestDispatcher()
+    private val testScope = TestScope(testDispatcher)
 
     @BeforeEach
     fun setup() {
@@ -38,6 +40,7 @@ internal class FirebaseAnalyticsLoggerTest {
             analytics = analytics,
             logcatLogger = logcatLogger,
             setCollectionEnabled = { analytics.setAnalyticsCollectionEnabled(it) },
+            externalScope = testScope,
             dispatcher = testDispatcher,
         )
     }
@@ -98,6 +101,37 @@ internal class FirebaseAnalyticsLoggerTest {
             analyticsLogger.setEnabled(true)
             advanceUntilIdle()
             verify(analytics, times(1)).setAnalyticsCollectionEnabled(true)
+        }
+
+    @Test
+    fun `given multiple events ensure they are logged in firebase analytics logger`() =
+        runTest(testDispatcher) {
+            val event1 =
+                AnalyticsEvent.screenView(
+                    RequiredParameters(
+                        digitalIdentityJourney = "journey1",
+                        journeyType = "type1",
+                    ),
+                )
+            val event2 =
+                AnalyticsEvent.screenView(
+                    RequiredParameters(
+                        digitalIdentityJourney = "journey2",
+                        journeyType = "type2",
+                    ),
+                )
+            val event3 =
+                AnalyticsEvent.screenView(
+                    RequiredParameters(
+                        digitalIdentityJourney = "journey3",
+                        journeyType = "type3",
+                    ),
+                )
+
+            analyticsLogger.logEvent(true, *arrayOf(event1, event2, event3))
+            advanceUntilIdle()
+
+            verify(analytics, times(3)).logEvent(any(), any())
         }
 
     companion object {
