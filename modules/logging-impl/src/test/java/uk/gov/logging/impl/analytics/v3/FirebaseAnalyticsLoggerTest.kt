@@ -6,6 +6,7 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
@@ -14,6 +15,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
 import uk.gov.logging.api.v3.LogEntry
@@ -104,34 +106,19 @@ internal class FirebaseAnalyticsLoggerTest {
         }
 
     @Test
-    fun `given multiple events ensure they are logged in firebase analytics logger`() =
+    fun `given multiple events ensure they are logged 1ms apart`() =
         runTest(testDispatcher) {
-            val event1 =
-                AnalyticsEvent.screenView(
-                    RequiredParameters(
-                        digitalIdentityJourney = "journey1",
-                        journeyType = "type1",
-                    ),
-                )
-            val event2 =
-                AnalyticsEvent.screenView(
-                    RequiredParameters(
-                        digitalIdentityJourney = "journey2",
-                        journeyType = "type2",
-                    ),
-                )
-            val event3 =
-                AnalyticsEvent.screenView(
-                    RequiredParameters(
-                        digitalIdentityJourney = "journey3",
-                        journeyType = "type3",
-                    ),
-                )
+            val timestamps = mutableListOf<Long>()
+            whenever(analytics.logEvent(any(), any())).thenAnswer {
+                timestamps.add(testDispatcher.scheduler.currentTime)
+            }
 
-            analyticsLogger.logEvent(true, *arrayOf(event1, event2, event3))
+            analyticsLogger.logEvent(true, event, event)
+            analyticsLogger.logEvent(true, event, event)
             advanceUntilIdle()
 
-            verify(analytics, times(3)).logEvent(any(), any())
+            println("Timestamps: $timestamps")
+            assertEquals(listOf<Long>(1, 2, 3, 4), timestamps)
         }
 
     companion object {
