@@ -104,9 +104,7 @@ dependencies {
 
     androidTestUtil(libs.androidx.orchestrator)
 
-    testFixturesApi(libs.bundles.hamcrest)
-    testFixturesApi(libs.junit)
-    testFixturesApi(libs.org.robolectric)
+    testFixturesApi(libs.hamcrest)
 }
 
 mavenPublishingConfig {
