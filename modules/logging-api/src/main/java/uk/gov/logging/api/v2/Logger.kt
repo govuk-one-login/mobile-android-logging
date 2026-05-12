@@ -2,6 +2,17 @@ package uk.gov.logging.api.v2
 
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 
+@Deprecated(
+    message =
+        "Replace with v3 Logger " +
+            "-aim to remove by 12th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-api/src/main/" +
+                "java/uk/gov/logging/api/v3/Logger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 interface Logger {
     fun debug(
         tag: String,

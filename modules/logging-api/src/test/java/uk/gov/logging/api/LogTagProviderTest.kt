@@ -1,7 +1,7 @@
 package uk.gov.logging.api
 
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.v3.LogEntry
@@ -22,7 +22,7 @@ class LogTagProviderTest : LogTagProvider {
 
     @AfterEach
     fun verifyTag() {
-        assertEquals("tag", entries.single().tag)
+        Assertions.assertEquals("tag", entries.single().tag)
     }
 
     @Test
@@ -43,7 +43,7 @@ class LogTagProviderTest : LogTagProvider {
     @Test
     fun `test warning logTag extension function`() {
         logger.warning("msg")
-        assertEquals("tag", entries.single().tag)
+        Assertions.assertEquals("tag", entries.single().tag)
     }
 
     @Test

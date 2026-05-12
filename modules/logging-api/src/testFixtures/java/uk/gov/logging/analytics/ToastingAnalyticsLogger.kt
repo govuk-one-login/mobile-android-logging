@@ -1,4 +1,4 @@
-package uk.gov.logging.testdouble.v3.analytics
+package uk.gov.logging.analytics
 
 import android.content.Context
 import android.widget.Toast

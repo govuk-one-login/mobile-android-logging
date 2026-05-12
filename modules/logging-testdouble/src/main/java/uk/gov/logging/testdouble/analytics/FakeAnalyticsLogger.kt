@@ -5,6 +5,17 @@ import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
 import javax.inject.Inject
 
+@Deprecated(
+    message =
+        "Replace with v3 version FakeAnalyticsLogger" +
+            " -aim to remove by 12th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-api/src" +
+                "testFixtures/java/uk/gov/logging/analytics/FakeAnalyticsLogger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 @Suppress("TooManyFunctions")
 class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
     private var memorisedEvent: AnalyticsEvent? = null

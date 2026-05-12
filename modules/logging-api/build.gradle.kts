@@ -104,7 +104,8 @@ dependencies {
 
     androidTestUtil(libs.androidx.orchestrator)
 
-    testFixturesApi(libs.hamcrest)
+    testFixturesApi(libs.bundles.hamcrest)
+    testFixturesImplementation(libs.firebase.analytics)
 }
 
 mavenPublishingConfig {

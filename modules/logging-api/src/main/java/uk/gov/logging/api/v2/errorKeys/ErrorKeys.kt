@@ -3,6 +3,18 @@ package uk.gov.logging.api.v2.errorKeys
 /**
  * Sealed class for setting custom error keys on Firebase Crashlytics
  */
+
+@Deprecated(
+    message =
+        "Replace with v3 CustomKey" +
+            " -aim to remove by 12th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-api/src" +
+                "main/java/uk/gov/logging/api/v3/customkey/CustomKey.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 sealed class ErrorKeys(
     open val key: String,
     open val value: Any,

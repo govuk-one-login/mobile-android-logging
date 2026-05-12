@@ -10,6 +10,18 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
  * Android Logger using [uk.gov.logging.api.v2.Logger]
  * @param crashLogger
  */
+
+@Deprecated(
+    message =
+        "Replace with v3 MultiLogger " +
+            "-aim to remove by 12th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-impl/src/main/" +
+                "java/uk/gov/logging/impl/analytics/v3/MultiLogger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 class AndroidLogger(
     private val crashLogger: CrashLogger,
 ) : Logger {

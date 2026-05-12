@@ -2,11 +2,6 @@ package uk.gov.logging.impl.analytics.v3
 
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.v3.AnalyticsLogger
@@ -19,8 +14,6 @@ class FirebaseAnalyticsLogger(
     private val analytics: FirebaseAnalytics,
     private val logcatLogger: LogcatLogger,
     private val setCollectionEnabled: (Boolean) -> Unit = { Firebase.setCollectionEnabled(it) },
-    private val externalScope: CoroutineScope,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : AnalyticsLogger,
     LogTagProvider {
     override fun logEvent(
@@ -35,9 +28,7 @@ class FirebaseAnalyticsLogger(
             LoggingProperties(allowRemote = shouldLogEvent),
         )
         if (shouldLogEvent) {
-            events.forEach { event ->
-                internalLogEvent(event)
-            }
+            events.forEach(::internalLogEvent)
         }
     }
 
@@ -46,15 +37,18 @@ class FirebaseAnalyticsLogger(
     }
 
     /**
-     * Delay the thread for 1 millisecond before and after each analytics event to enforce
-     * that separate events don't get sent at exactly the same time stamp, which would
-     * cause Firebase to display them under a single event.
+     * Bundles the [AnalyticsEvent] and logs it to Firebase Analytics.
+     *
+     * @param event The analytics event to log
      */
     private fun internalLogEvent(event: AnalyticsEvent) {
-        externalScope.launch(dispatcher) {
-            delay(1)
-            val bundledParameters = event.toBundle()
-            analytics.logEvent(event.eventType, bundledParameters)
-        }
+        val bundledParameters = event.toBundle()
+        analytics.logEvent(event.eventType, bundledParameters)
+        logcatLogger.log(
+            LogEntry.Debug(
+                tag = tag,
+                message = "Firebase event sent with: $bundledParameters",
+            ),
+        )
     }
 }

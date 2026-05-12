@@ -1,4 +1,4 @@
-package uk.gov.logging.testdouble.v3.analytics
+package uk.gov.logging.api.v3
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
 import kotlinx.coroutines.test.runTest
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import uk.gov.logging.analytics.FakeAnalyticsLogger
 import uk.gov.logging.api.analytics.AnalyticsEvent
 
 class FakeAnalyticsLoggerTest {

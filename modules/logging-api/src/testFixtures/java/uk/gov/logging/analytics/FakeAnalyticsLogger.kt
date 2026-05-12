@@ -1,4 +1,4 @@
-package uk.gov.logging.testdouble.v3.analytics
+package uk.gov.logging.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
 import uk.gov.logging.api.analytics.AnalyticsEvent

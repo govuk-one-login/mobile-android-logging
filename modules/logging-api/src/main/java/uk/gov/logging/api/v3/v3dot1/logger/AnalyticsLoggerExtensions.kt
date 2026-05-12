@@ -16,6 +16,6 @@ fun AEvent.asLegacyEvent() = AnalyticsEvent(eventType, asMap().toMap())
  * scope when calling this function.
  */
 
-suspend fun AnalyticsLogger.logEventV3Dot1(event: AEvent) {
+fun AnalyticsLogger.logEventV3Dot1(event: AEvent) {
     logEvent(true, event.asLegacyEvent())
 }

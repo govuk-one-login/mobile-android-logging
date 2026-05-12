@@ -5,6 +5,18 @@ import uk.gov.logging.api.analytics.AnalyticsEvent
 /**
  * Logger for sending analytics events to data sources, such as Firebase.
  */
+
+@Deprecated(
+    message =
+        "Replace with version v3 AnalyticsLogger" +
+            "-aim to remove by 12th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-api/src/main/" +
+                "java/uk/gov/logging/api/analytics/v3/AnalyticsLogger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 interface AnalyticsLogger {
     /**
      * Sends the provided [AnalyticsEvent] objects to the data source.
