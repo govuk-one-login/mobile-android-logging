@@ -1,0 +1,33 @@
+package uk.gov.logging.api.v3
+
+/**
+ * [Logger] test fixture that stores provided entries from the [log] function
+ * into the internal [entries] property for later assertions.
+ *
+ * @param subLogger The underlying [Logger] implementation to decorate. Defaults to an empty
+ * implementation, meaning that the provided [LogEntry] objects are only stored in memory.
+ */
+data class MemorisedLogger(
+    val entries: MutableList<LogEntry> = mutableListOf(),
+    private val subLogger: Logger = Logger { entry, properties -> },
+) : Logger,
+    Iterable<LogEntry> by entries {
+    val size: Int get() = entries.size
+
+    override fun log(
+        entry: LogEntry,
+        properties: LoggingProperties,
+    ) {
+        entries.add(entry)
+        subLogger.log(entry, properties)
+    }
+
+    operator fun contains(message: String) = any { it.message == message }
+
+    operator fun contains(throwable: Throwable) =
+        any {
+            it is LogEntry.Exception && it.throwable == throwable
+        }
+
+    operator fun get(index: Int): LogEntry = entries[index]
+}

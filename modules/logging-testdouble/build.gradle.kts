@@ -61,7 +61,6 @@ dependencies {
     ).forEach {
         androidTestImplementation(it)
     }
-
     listOf(
         platform(libs.kotlin.bom),
         libs.kotlinx.coroutines,

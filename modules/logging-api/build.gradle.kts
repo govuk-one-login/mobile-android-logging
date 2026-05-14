@@ -52,9 +52,13 @@ android {
             isIncludeAndroidResources = true
         }
     }
+    testFixtures {
+        enable = true
+    }
 }
 
 dependencies {
+
     listOf(
         kotlin("test"),
         libs.androidx.test.core.ktx,
@@ -79,6 +83,7 @@ dependencies {
     }
 
     listOf(
+        libs.androidx.test.ext.junit,
         libs.hilt.android.testing,
         libs.kotlinx.coroutines.test,
         kotlin("test"),
@@ -98,6 +103,9 @@ dependencies {
     kspAndroidTest(libs.hilt.compiler)
 
     androidTestUtil(libs.androidx.orchestrator)
+
+    testFixturesApi(libs.bundles.hamcrest)
+    testFixturesImplementation(libs.firebase.analytics)
 }
 
 mavenPublishingConfig {

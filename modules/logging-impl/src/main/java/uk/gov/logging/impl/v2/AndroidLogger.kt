@@ -10,6 +10,17 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
  * Android Logger using [uk.gov.logging.api.v2.Logger]
  * @param crashLogger
  */
+
+@Deprecated(
+    message =
+        "Replace with v3 MultiLogger " +
+            "-aim to remove by 12th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "uk.gov.logging.impl.v3.MultiLogger",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 class AndroidLogger(
     private val crashLogger: CrashLogger,
 ) : Logger {
@@ -29,7 +40,7 @@ class AndroidLogger(
         if (BuildConfig.DEBUG) {
             Log.i(tag, message)
         }
-        crashLogger.log("I : $tag : $message")
+        crashLogger.log("I: $tag : $message")
     }
 
     override fun error(

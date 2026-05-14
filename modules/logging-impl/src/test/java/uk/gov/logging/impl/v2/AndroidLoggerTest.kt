@@ -12,7 +12,7 @@ import org.mockito.kotlin.verify
 import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.v2.CrashLogger
 import uk.gov.logging.api.v2.Logger
-import uk.gov.logging.impl.LoggingTestDataRelease.errorKeysNotnull
+import uk.gov.logging.impl.LoggingTestDataRelease.errorKeysNotNull
 import uk.gov.logging.impl.LoggingTestDataRelease.logMessage
 import uk.gov.logging.impl.LoggingTestDataRelease.logTag
 import uk.gov.logging.impl.LoggingTestDataRelease.logThrowable
@@ -66,7 +66,7 @@ internal class AndroidLoggerTest {
         } else {
             staticLogMock.verifyNoInteractions()
         }
-        verify(crashLogger).log(eq("I : $logTag : $logMessage"))
+        verify(crashLogger).log(eq("I: $logTag : $logMessage"))
     }
 
     @Test
@@ -88,7 +88,7 @@ internal class AndroidLoggerTest {
 
     @Test
     fun `Error messages with throwable  error key call crash logger and static logger`() {
-        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, errorKeysNotnull)
+        logger.error(tag = logTag, message = logMessage, throwable = logThrowable, errorKeysNotNull)
 
         if (BuildConfig.DEBUG) {
             staticLogMock.verify {
@@ -101,7 +101,7 @@ internal class AndroidLoggerTest {
         } else {
             staticLogMock.verifyNoInteractions()
         }
-        verify(crashLogger).log(eq(logThrowable), eq(errorKeysNotnull))
+        verify(crashLogger).log(eq(logThrowable), eq(errorKeysNotNull))
     }
 
     @Test

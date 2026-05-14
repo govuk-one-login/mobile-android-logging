@@ -175,6 +175,64 @@ class AndroidLogger(
     }
 }
 ```
+## Android Logger V3
+Android Logger v3 introduces a structured, entry-based logging API. Instead of calling individual log methods with separate String parameters, v3 enforces consistency in log configuration by using LogEntry sealed types to represent log events, with data classes predefined for each log level for the consumer's convenience.
+
+Entries in the logger are processed through the log function. The sub-functions are still available for flexibility.
+
+It also supports CustomKey types for setting typed key-value pairs on crash reports.
+
+[Logger](modules/logging-api/src/main/java/uk/gov/logging/api/v3/Logger.kt)
+The Logger interface is a functional interface with convenience sub-functions (debug, info, warning, error).
+
+The logger provides the following sub-functions:
+
+debug–Logs debug messages with a tag.
+
+info–Logs informational messages with a tag.
+
+warning–Logs warning messages with a tag.
+
+verbose–Logs verbose messages with a tag.
+
+Error Logging
+An error function that allows the consumer to log an error, set a tag, parse the exception, and set typed custom keys (StringKey, IntKey, DoubleKey, BooleanKey).
+
+For examples showing how to use the `Logger`, see [LoggerExample](modules/logging-api/src/main/java/uk/gov/logging/api/v3/LoggerExample.kt)
+
+[LogEntry](modules/logging-api/src/main/java/uk/gov/logging/api/v3/LogEntry.kt)
+
+`LogEntry.Message` interface extends the `LogEntry` sealed class, allowing sub data classes to extend the `Message` interface for predefined log levels:
+
+| Entry | Description |
+|-------|-------------|
+| `LogEntry.Verbose` | Sub data class for verbose entries |
+| `LogEntry.Debug` | Sub data class for debug entries |
+| `LogEntry.Info` | Sub data class for info entries |
+| `LogEntry.Warn` | Sub data class for warn entries |
+
+`LogEntry.Exception` interface extends the `LogEntry` sealed class, the `Error` data class extends `Exception` interface specifically for the error log level:
+
+| Entry | Description |
+|-------|-------------|
+| `LogEntry.Error` | Error entry with a tag and optional custom keys |
+
+### V3 Logger Implementations
+
+| Implementation | Description                                                                                                                                                |
+|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [MultiLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/MultiLogger.kt) | Funnel that passes all entries to a collection of sub-loggers. Each sub-logger is responsible for filtering and processing the entry types it cares about. |
+| [LogcatLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/LogcatLogger.kt) | Logs LogEntry to Android log functions locally. Designed as a Logger specifically for log entries not ready to be logged remotely.                         |
+| [CrashlyticsLogger](modules/logging-impl/src/main/java/uk/gov/logging/impl/v3/CrashlyticsLogger.kt) | Filters out isLocalOnly entries and logs entries to Firebase crashlytics. Use for remote crash reporting and error tracking.                               |
+
+
+### V3 Test Loggers
+
+[MemorisedLogger](modules/logging-api/src/testFixtures/java/uk/gov/logging/api/v3/MemorisedLogger.kt)
+Stores entries in memory for assertions.
+Optionally decorates a sub-logger.
+Use in test fixtures with Hamcrest-matchers.
+
 
 ## Releases
 

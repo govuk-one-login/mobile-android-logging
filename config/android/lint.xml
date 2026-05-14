@@ -2,6 +2,8 @@
 <lint>
     <issue id="InvalidPackage">
         <ignore path="**/io.ktor/ktor-utils-jvm/**"/>
+        <ignore path="**/org.bouncycastle/**"/>
+        <ignore path="**/org.robolectric/**"/>
     </issue>
     <issue id="UseKtx">
         <ignore path="**/**"/>

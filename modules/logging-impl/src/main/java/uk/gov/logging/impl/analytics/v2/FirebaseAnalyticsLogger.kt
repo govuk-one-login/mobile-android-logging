@@ -17,6 +17,16 @@ import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
  * FirebaseAnalytics Logger requires [uk.gov.logging.api.v2.Logger]
  */
 
+@Deprecated(
+    message =
+        "Replace with version v3 FirebaseAnalyticsLogger" +
+            "-aim to remove by 12th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "uk.gov.logging.impl.v3.FirebaseAnalyticsLogger",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 class FirebaseAnalyticsLogger(
     private val analytics: FirebaseAnalytics,
     private val logger: Logger,

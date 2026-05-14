@@ -15,7 +15,10 @@ mockito-kotlin = "6.3.0" # https://github.com/mockito/mockito-kotlin/releases
 dagger = "2.59.2" # https://github.com/google/dagger/releases
 ksp = "2.3.6" # https://github.com/google/ksp/releases
 # Kotlin
-kotlin = "2.3.20"
+kotlin = "2.3.20" # https://kotlinlang.org/docs/releases.html#release-details
+robolectric = "4.16.1" # https://github.com/robolectric/robolectric/releases
+hamcrest = "3.0" # https://github.com/hamcrest/JavaHamcrest/releases
+
 
 [libraries]
 # Android
@@ -36,6 +39,9 @@ junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine"}
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
+hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
+hamcrest-library = { module = "org.hamcrest:hamcrest-library", version.ref = "hamcrest" }
+org-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito-android" }
 # DI
@@ -46,6 +52,14 @@ hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.re
 kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin" }
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test" }
+
+[bundles]
+hamcrest = [
+    "hamcrest",
+    # For compatibility between Hamcrest 3 and JUnit 4, we need to include hamcrest-library
+    # See https://hamcrest.org/JavaHamcrest/distributables#upgrading-from-hamcrest-1x
+    "hamcrest-library"
+]
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
