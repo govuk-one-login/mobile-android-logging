@@ -17,8 +17,7 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
             "-aim to remove by 12th of July 2026",
     replaceWith =
         ReplaceWith(
-            "mobile-android-logging/modules/logging-impl/src/main/" +
-                "java/uk/gov/logging/impl/analytics/v3/MultiLogger.kt",
+            "uk.gov.logging.impl.v3.MultiLogger",
         ),
     level = DeprecationLevel.WARNING,
 )

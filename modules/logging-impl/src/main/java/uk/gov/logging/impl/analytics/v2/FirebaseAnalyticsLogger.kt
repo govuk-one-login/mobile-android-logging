@@ -23,8 +23,7 @@ import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
             "-aim to remove by 12th of July 2026",
     replaceWith =
         ReplaceWith(
-            "mobile-android-logging/modules/logging-impl/src/main/" +
-                "java/uk/gov/logging/impl/analytics/v3/FirebaseAnalyticsLogger.kt",
+            "uk.gov.logging.impl.v3.FirebaseAnalyticsLogger",
         ),
     level = DeprecationLevel.WARNING,
 )

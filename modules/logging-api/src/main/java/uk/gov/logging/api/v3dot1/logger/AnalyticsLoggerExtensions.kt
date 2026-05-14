@@ -10,8 +10,8 @@ import uk.gov.logging.api.v3dot1.model.AnalyticsEvent as AEvent
             "-aim to remove by 12th of July 2026",
     replaceWith =
         ReplaceWith(
-            "mobile-android-logging/modules/logging-api/src/main/" +
-                "java/uk/gov/logging/api/v3/v3dot1/logger/AnalyticsLoggerExtensions.kt",
+            "asLegacyEvent()",
+            "uk.gov.logging.api.v3.v3dot1.logger.asLegacyEvent",
         ),
     level = DeprecationLevel.WARNING,
 )
@@ -23,8 +23,8 @@ fun AEvent.asLegacyEvent() = AnalyticsEvent(eventType, asMap().toMap())
             "-aim to remove by 12th of July 2026",
     replaceWith =
         ReplaceWith(
-            "mobile-android-logging/modules/logging-api/src/main/" +
-                "java/uk/gov/logging/api/v3/v3dot1/logger/AnalyticsLoggerExtensions.kt",
+            "logEventV3Dot1()",
+            "uk.gov.logging.api.v3.v3dot1.logger.logEventV3Dot1",
         ),
     level = DeprecationLevel.WARNING,
 )

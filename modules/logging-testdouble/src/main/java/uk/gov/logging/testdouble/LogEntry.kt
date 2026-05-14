@@ -6,8 +6,7 @@ package uk.gov.logging.testdouble
             " -aim to remove by 12th of July 2026",
     replaceWith =
         ReplaceWith(
-            "mobile-android-logging/modules/logging-api/src" +
-                "main/java/uk/gov/logging/api/v3/LogEntry.kt",
+            "uk.gov.logging.api.v3.LogEntry",
         ),
     level = DeprecationLevel.WARNING,
 )
