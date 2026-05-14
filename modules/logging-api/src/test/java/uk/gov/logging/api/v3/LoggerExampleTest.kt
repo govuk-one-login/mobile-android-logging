@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test
 import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasLogEntry
 import uk.gov.logging.api.v3.matchers.LogEntryMatchers.isExceptionInstance
 import uk.gov.logging.api.v3.matchers.LogEntryMatchers.isMessageEntry
+import uk.gov.logging.api.v3.matchers.MemorisedLoggerMatchers.hasSize
 
 class LoggerExampleTest {
     private val logger = MemorisedLogger()
@@ -25,5 +26,10 @@ class LoggerExampleTest {
     @Test
     fun `example logs exception entries`() {
         assertThat(logger, hasLogEntry(hasItem(isExceptionInstance())))
+    }
+
+    @Test
+    fun `example function asserts number of logging entries made`() {
+        assertThat(logger, hasSize(19))
     }
 }

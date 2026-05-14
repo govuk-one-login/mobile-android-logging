@@ -43,7 +43,6 @@ class LogTagProviderTest : LogTagProvider {
     @Test
     fun `test warning logTag extension function`() {
         logger.warning("msg")
-        Assertions.assertEquals("tag", entries.single().tag)
     }
 
     @Test

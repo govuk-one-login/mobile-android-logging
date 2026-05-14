@@ -39,6 +39,9 @@ internal class LoggerExample(
         logger.log(LogEntry.Warn(tag, "warn log"))
         logger.log(LogEntry.Error(tag, "error log", RuntimeException("error")))
 
+        // Logger examples using vararg aspect of the Logger interface
+        logger.log(LogEntry.Info(tag, "info log"), LogEntry.Debug(tag, "debug log"))
+
         // Log entries may be completely customized if needed
         logger.log(
             object : LogEntry.Message {
