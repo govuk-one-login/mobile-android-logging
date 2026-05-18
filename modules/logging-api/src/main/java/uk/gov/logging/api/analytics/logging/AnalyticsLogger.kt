@@ -6,16 +6,6 @@ import uk.gov.logging.api.analytics.AnalyticsEvent
  * Logger for sending analytics events to data sources, such as Firebase.
  */
 
-@Deprecated(
-    message =
-        "Replace with version v3 AnalyticsLogger" +
-            "-aim to remove by 12th of July 2026",
-    replaceWith =
-        ReplaceWith(
-            "uk.gov.logging.api.analytics.logging.v3.AnalyticsLogger",
-        ),
-    level = DeprecationLevel.WARNING,
-)
 interface AnalyticsLogger {
     /**
      * Sends the provided [AnalyticsEvent] objects to the data source.
