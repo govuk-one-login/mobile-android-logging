@@ -1,9 +1,10 @@
 package uk.gov.logging.impl.v2
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.google.firebase.crashlytics.recordException
 import uk.gov.logging.api.v2.CrashLogger
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
+import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapper
+import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapperImpl
 
 @Deprecated(
     message =
@@ -15,16 +16,23 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
         ),
     level = DeprecationLevel.WARNING,
 )
-class CrashlyticsLogger(
-    private val crashlytics: FirebaseCrashlytics,
+class CrashlyticsLogger internal constructor(
+    private val crashlytics: FirebaseCrashlyticsWrapper,
 ) : CrashLogger {
+    constructor(
+        crashlytics: FirebaseCrashlytics,
+    ) : this(
+        crashlytics = FirebaseCrashlyticsWrapperImpl(crashlytics),
+    )
+
     override fun log(
         throwable: Throwable,
         vararg errorKeys: ErrorKeys,
     ) {
-        crashlytics.recordException(throwable) {
-            errorKeys.forEach { key(it.key, it.value.toString()) }
-        }
+        crashlytics.recordException(
+            throwable,
+            errorKeys.associate { it.key to it.value.toString() },
+        )
     }
 
     override fun log(throwable: Throwable) {

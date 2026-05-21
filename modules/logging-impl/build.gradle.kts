@@ -50,6 +50,9 @@ android {
             isIncludeAndroidResources = true
         }
     }
+    testFixtures {
+        enable = true
+    }
 }
 
 dependencies {

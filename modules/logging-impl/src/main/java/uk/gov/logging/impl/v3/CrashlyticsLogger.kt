@@ -1,15 +1,22 @@
 package uk.gov.logging.impl.v3
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.google.firebase.crashlytics.recordException
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.Logger
 import uk.gov.logging.api.v3.LoggingProperties
+import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapper
+import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapperImpl
 
-class CrashlyticsLogger(
-    private val crashlytics: FirebaseCrashlytics,
+class CrashlyticsLogger internal constructor(
+    private val crashlytics: FirebaseCrashlyticsWrapper,
 ) : Logger {
+    constructor(
+        crashlytics: FirebaseCrashlytics,
+    ) : this(
+        crashlytics = FirebaseCrashlyticsWrapperImpl(crashlytics),
+    )
+
     override fun log(
         entry: LogEntry,
         properties: LoggingProperties,
@@ -19,9 +26,10 @@ class CrashlyticsLogger(
         crashlytics.log(entry.asLogMessage())
 
         if (entry is LogEntry.Exception) {
-            crashlytics.recordException(entry.throwable) {
-                entry.customKeys.forEach { key(it.key, it.value.toString()) }
-            }
+            crashlytics.recordException(
+                entry.throwable,
+                entry.customKeys.associate { it.key to it.value.toString() },
+            )
         }
     }
 }
