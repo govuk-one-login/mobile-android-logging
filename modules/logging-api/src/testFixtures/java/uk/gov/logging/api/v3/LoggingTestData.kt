@@ -1,6 +1,6 @@
 package uk.gov.logging.api.v3
 
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 
 object LoggingTestData {
     private const val THROWABLE_MESSAGE = "This is a unit test!"
@@ -10,7 +10,7 @@ object LoggingTestData {
 
     val logThrowable = Throwable(message = THROWABLE_MESSAGE)
 
-    val intCustomKey = CustomKey.IntKey("Key", 1)
+    val errorKeys = ErrorKeys(component = "test.component", action = "test.action")
 
     val debug: LogEntry =
         LogEntry.Debug(
@@ -42,7 +42,7 @@ object LoggingTestData {
             message = LOG_MESSAGE,
             tag = LOG_TAG,
             throwable = logThrowable,
-            customKeys = listOf(intCustomKey),
+            errorKeys = errorKeys,
         )
 
     val errorEntries =

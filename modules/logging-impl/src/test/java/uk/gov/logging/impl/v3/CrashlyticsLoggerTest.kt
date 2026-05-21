@@ -6,13 +6,14 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
+import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LoggingProperties
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 import java.util.stream.Stream
 
 class CrashlyticsLoggerTest {
@@ -21,7 +22,7 @@ class CrashlyticsLoggerTest {
     private val tag = "tag"
     private val message = "msg"
     private val throwable = RuntimeException("error")
-    private val customKey = CustomKey.StringKey("my_key", "my_value")
+    private val errorKeys = ErrorKeys(component = "my.component", action = "my.action")
 
     @Test
     fun `entries with allowRemote false are not logged`() {
@@ -57,18 +58,44 @@ class CrashlyticsLoggerTest {
     }
 
     @Test
-    fun `exception entry sets custom keys`() {
+    fun `exception entry with error keys records exception then clears keys`() {
         logger.log(
             LogEntry.Error(
                 tag = tag,
                 message = message,
                 throwable = throwable,
-                customKeys = listOf(customKey),
+                errorKeys = errorKeys,
             ),
             LoggingProperties(allowRemote = true),
         )
 
-        verify(firebaseCrashlytics).setCustomKey(eq(customKey.key), eq(customKey.value))
+        inOrder(firebaseCrashlytics).apply {
+            verify(firebaseCrashlytics).setCustomKey(eq("err_component"), eq("my.component"))
+            verify(firebaseCrashlytics).setCustomKey(eq("err_action"), eq("my.action"))
+            verify(firebaseCrashlytics).recordException(eq(throwable))
+            verify(firebaseCrashlytics).setCustomKey(eq("err_component"), eq(""))
+            verify(firebaseCrashlytics).setCustomKey(eq("err_action"), eq(""))
+        }
+    }
+
+    @Test
+    fun `exception entry with default keys records exception then clears keys`() {
+        logger.log(
+            LogEntry.Error(
+                tag = tag,
+                message = message,
+                throwable = throwable,
+            ),
+            LoggingProperties(allowRemote = true),
+        )
+
+        inOrder(firebaseCrashlytics).run {
+            verify(firebaseCrashlytics).setCustomKey(eq("err_component"), eq(""))
+            verify(firebaseCrashlytics).setCustomKey(eq("err_action"), eq(""))
+            verify(firebaseCrashlytics).recordException(eq(throwable))
+            verify(firebaseCrashlytics).setCustomKey(eq("err_component"), eq(""))
+            verify(firebaseCrashlytics).setCustomKey(eq("err_action"), eq(""))
+        }
     }
 
     companion object {

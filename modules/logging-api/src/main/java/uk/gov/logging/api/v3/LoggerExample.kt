@@ -1,7 +1,7 @@
 package uk.gov.logging.api.v3
 
 import uk.gov.logging.api.LogTagProvider
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 
 /**
  * [LogEntry] has data class and a builder.
@@ -56,7 +56,7 @@ internal class LoggerExample(
                 override val level: LogLevel = LogLevel.Warn
                 override val message: String = "Custom warning message"
                 override val tag: String = "Custom tag"
-                override val customKeys: List<CustomKey> = emptyList()
+                override val errorKeys: ErrorKeys = ErrorKeys(component = "app.component")
                 override val throwable: Throwable = RuntimeException("error")
             },
         )

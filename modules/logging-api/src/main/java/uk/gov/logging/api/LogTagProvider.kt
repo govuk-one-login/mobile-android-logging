@@ -1,6 +1,6 @@
 package uk.gov.logging.api
 
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 import uk.gov.logging.api.v3.Logger as LoggerV3
 
 /**
@@ -47,12 +47,12 @@ interface LogTagProvider {
     fun LoggerV3.error(
         message: String,
         throwable: Throwable,
-        vararg customKey: CustomKey,
+        errorKeys: ErrorKeys = ErrorKeys(),
     ) = error(
         tag = tag,
         message = message,
         throwable = throwable,
-        *customKey,
+        errorKeys = errorKeys,
     )
 
     /**

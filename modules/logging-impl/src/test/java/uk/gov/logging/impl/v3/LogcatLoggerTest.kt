@@ -13,7 +13,7 @@ import org.mockito.kotlin.eq
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.LoggingProperties
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 import java.util.stream.Stream
 
 class LogcatLoggerTest {
@@ -84,7 +84,7 @@ class LogcatLoggerTest {
                 override val tag = TAG
                 override val message = MSG
                 override val throwable = this@Companion.throwable
-                override val customKeys: List<CustomKey> = emptyList()
+                override val errorKeys: ErrorKeys = ErrorKeys()
 
                 override fun toString() = level.name
             }

@@ -1,6 +1,6 @@
 package uk.gov.logging.api.v3
 
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 
 /**
  * [LogEntry] represents information to be logged by a [Logger].
@@ -18,7 +18,7 @@ sealed interface LogEntry {
     interface Message : LogEntry
 
     interface Exception : LogEntry {
-        val customKeys: List<CustomKey>
+        val errorKeys: ErrorKeys
         val throwable: Throwable
     }
 
@@ -54,7 +54,7 @@ sealed interface LogEntry {
         override val tag: String,
         override val message: String,
         override val throwable: Throwable,
-        override val customKeys: List<CustomKey> = listOf(),
+        override val errorKeys: ErrorKeys = ErrorKeys(),
     ) : Exception {
         override val level: LogLevel = LogLevel.Error
     }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.v3.LoggingTestData.LOG_MESSAGE
 import uk.gov.logging.api.v3.LoggingTestData.LOG_TAG
-import uk.gov.logging.api.v3.LoggingTestData.intCustomKey
+import uk.gov.logging.api.v3.LoggingTestData.errorKeys
 import uk.gov.logging.api.v3.LoggingTestData.logThrowable
 import uk.gov.logging.api.v3.LoggingTestData.messageEntries
 
@@ -78,7 +78,7 @@ class LoggerTest {
             tag = LOG_TAG,
             message = LOG_MESSAGE,
             throwable = logThrowable,
-            intCustomKey,
+            errorKeys,
         )
 
         assertThat(
@@ -88,7 +88,7 @@ class LoggerTest {
                     tag = LOG_TAG,
                     message = LOG_MESSAGE,
                     throwable = logThrowable,
-                    customKeys = listOf(intCustomKey),
+                    errorKeys = errorKeys,
                 ),
             ),
         )

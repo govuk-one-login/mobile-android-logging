@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.Logger
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 
 class LogTagProviderTest : LogTagProvider {
     override val tag: String = "tag"
@@ -47,6 +47,6 @@ class LogTagProviderTest : LogTagProvider {
 
     @Test
     fun `test error logTag extension function`() {
-        logger.error("msg", RuntimeException(), CustomKey.StringKey("key", "value"))
+        logger.error("msg", RuntimeException(), ErrorKeys(component = "test"))
     }
 }

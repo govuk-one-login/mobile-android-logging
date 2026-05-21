@@ -5,7 +5,7 @@ import org.hamcrest.Matcher
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.MemorisedLogger
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 
 @Suppress("TooManyFunctions")
 object LogEntryMatchers {
@@ -29,5 +29,5 @@ object LogEntryMatchers {
 
     fun hasException(matcher: Matcher<in Throwable>): Matcher<in LogEntry> = HasThrowable(matcher)
 
-    fun hasCustomKeys(matcher: Matcher<in CustomKey>): Matcher<in LogEntry> = HasCustomKeys(matcher)
+    fun hasErrorKeys(matcher: Matcher<in ErrorKeys>): Matcher<in LogEntry> = HasErrorKeys(matcher)
 }

@@ -1,7 +1,7 @@
 package uk.gov.logging.api.v3
 
 import uk.gov.logging.api.LogTagProvider
-import uk.gov.logging.api.v3.customkey.CustomKey
+import uk.gov.logging.api.v3.customkey.ErrorKeys
 
 /**
  * Logger interface for logging [LogEntry]s.
@@ -113,13 +113,13 @@ fun interface Logger {
         tag: String,
         message: String,
         throwable: Throwable,
-        vararg customKey: CustomKey,
+        errorKeys: ErrorKeys = ErrorKeys(),
     ) = log(
         LogEntry.Error(
             tag = tag,
             message = message,
             throwable = throwable,
-            customKeys = customKey.toList(),
+            errorKeys = errorKeys,
         ),
         LoggingProperties(allowRemote = true),
     )
