@@ -1,11 +1,13 @@
 package uk.gov.logging.impl.v2
 
+import com.google.firebase.crashlytics.CustomKeysAndValues
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
+import org.mockito.kotlin.any
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -44,7 +46,7 @@ class CrashlyticsLoggerTest {
     ) {
         crashLogger.log(throwable, errorKeys)
 
-        verify(firebaseCrashlytics).setCustomKey(eq(expectedKey), eq(expectedValue))
+        verify(firebaseCrashlytics).recordException(eq(throwable), any<CustomKeysAndValues>())
     }
 
     companion object {

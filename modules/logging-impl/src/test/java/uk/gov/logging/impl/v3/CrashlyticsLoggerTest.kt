@@ -1,5 +1,6 @@
 package uk.gov.logging.impl.v3
 
+import com.google.firebase.crashlytics.CustomKeysAndValues
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -8,6 +9,7 @@ import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verifyNoInteractions
+import org.mockito.kotlin.any
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.v3.LogEntry
@@ -53,11 +55,11 @@ class CrashlyticsLoggerTest {
         )
 
         verify(firebaseCrashlytics).log(eq("E : $tag : $message"))
-        verify(firebaseCrashlytics).recordException(eq(throwable))
+        verify(firebaseCrashlytics).recordException(eq(throwable), any<CustomKeysAndValues>())
     }
 
     @Test
-    fun `exception entry sets custom keys`() {
+    fun `exception entry records exception with custom keys`() {
         logger.log(
             LogEntry.Error(
                 tag = tag,
@@ -68,7 +70,7 @@ class CrashlyticsLoggerTest {
             LoggingProperties(allowRemote = true),
         )
 
-        verify(firebaseCrashlytics).setCustomKey(eq(customKey.key), eq(customKey.value))
+        verify(firebaseCrashlytics).recordException(eq(throwable), any<CustomKeysAndValues>())
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package uk.gov.logging.impl.v3
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.recordException
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.Logger
@@ -18,10 +19,9 @@ class CrashlyticsLogger(
         crashlytics.log(entry.asLogMessage())
 
         if (entry is LogEntry.Exception) {
-            entry.customKeys.forEach {
-                crashlytics.setCustomKey(it.key, it.value.toString())
+            crashlytics.recordException(entry.throwable) {
+                entry.customKeys.forEach { key(it.key, it.value.toString()) }
             }
-            crashlytics.recordException(entry.throwable)
         }
     }
 }
