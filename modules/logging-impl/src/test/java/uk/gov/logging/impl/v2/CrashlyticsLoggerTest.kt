@@ -6,32 +6,35 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
-import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import uk.gov.logging.api.v2.CrashLogger
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
+import uk.gov.logging.impl.crashlytics.TestFirebaseCrashlyticsWrapper
+import uk.gov.logging.impl.crashlytics.TestFirebaseCrashlyticsWrapper.RecordedException
 import java.util.stream.Stream
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class CrashlyticsLoggerTest {
-    private val firebaseCrashlytics: FirebaseCrashlytics = mock()
-
-    private val crashLogger: CrashLogger by lazy {
-        CrashlyticsLogger(firebaseCrashlytics)
-    }
+    private val crashlytics = TestFirebaseCrashlyticsWrapper()
+    private val crashLogger = CrashlyticsLogger(crashlytics)
 
     @Test
     fun `log single string message on firebase crashlytics`() {
         val logMessage = "log message"
+
         crashLogger.log(logMessage)
 
-        verify(firebaseCrashlytics).log(eq(logMessage))
+        assertEquals(listOf(logMessage), crashlytics.loggedMessages)
     }
 
     @Test
     fun `log throwable message on firebase crashlytics`() {
         crashLogger.log(exception)
-        verify(firebaseCrashlytics).recordException(eq(exception))
+
+        assertEquals(
+            listOf(RecordedException(exception, emptyMap())),
+            crashlytics.recordedExceptions,
+        )
     }
 
     @ParameterizedTest(name = "{index}: test key {2} with value {3}")
@@ -44,7 +47,17 @@ class CrashlyticsLoggerTest {
     ) {
         crashLogger.log(throwable, errorKeys)
 
-        verify(firebaseCrashlytics).setCustomKey(eq(expectedKey), eq(expectedValue))
+        assertEquals(
+            listOf(RecordedException(throwable, mapOf(expectedKey to expectedValue))),
+            crashlytics.recordedExceptions,
+        )
+    }
+
+    @Test
+    fun `can be constructed with FirebaseCrashlytics`() {
+        val firebaseCrashlytics: FirebaseCrashlytics = mock()
+
+        assertNotNull(CrashlyticsLogger(firebaseCrashlytics))
     }
 
     companion object {
