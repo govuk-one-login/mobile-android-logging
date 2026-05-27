@@ -24,7 +24,6 @@ class CrashlyticsLogger internal constructor(
     ) : this(
         crashlytics = FirebaseCrashlyticsWrapperImpl(crashlytics),
     )
-    constructor() : this(FirebaseCrashlytics.getInstance())
 
     override fun log(
         throwable: Throwable,
