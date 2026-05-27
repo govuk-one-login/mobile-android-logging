@@ -9,7 +9,7 @@ import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapperImpl
 @Deprecated(
     message =
         "Replace with  v3 CrashlyticsLogger" +
-            "-aim to remove by 12th of July 2026",
+            "-aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
             "uk.gov.logging.impl.v3.CrashlyticsLogger",

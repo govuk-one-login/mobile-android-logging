@@ -5,11 +5,11 @@ package uk.gov.logging.api
  */
 @Deprecated(
     message =
-        "Replace with v2 version which allows to set custom error keys" +
-            " -aim to remove by 10th of May 2026",
+        "Replace with v3 version which allows to set custom  keys" +
+            " -aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
-            "uk.gov.logging.api.v2.CrashLogger",
+            "uk.gov.logging.api.v3.Logger",
         ),
     level = DeprecationLevel.WARNING,
 )

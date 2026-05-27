@@ -7,7 +7,7 @@ package uk.gov.logging.api.v2.errorKeys
 @Deprecated(
     message =
         "Replace with v3 CustomKey" +
-            " -aim to remove by 12th of July 2026",
+            " -aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
             "uk.gov.logging.api.v3.customkey.CustomKey",

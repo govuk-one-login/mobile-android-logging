@@ -9,11 +9,11 @@ import javax.inject.Inject
 @Deprecated(
     message =
         "Replace with MemorisedLogger" +
-            " -aim to remove by 12th of July 2026",
+            " -aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
             "mobile-android-logging/modules/logging-api/src" +
-                "main/java/uk/gov/logging/api/v3/LogEntry.kt",
+                "/src/testFixtures/java/uk/gov/logging/api/v3/MemorisedLogger.kt",
         ),
     level = DeprecationLevel.WARNING,
 )
