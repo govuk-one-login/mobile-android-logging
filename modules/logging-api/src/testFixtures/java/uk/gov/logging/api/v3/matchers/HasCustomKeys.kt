@@ -7,7 +7,7 @@ import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.customkey.CustomKey
 
 internal class HasCustomKeys(
-    private val matcher: Matcher<in CustomKey>,
+    private val matcher: Matcher<in Iterable<CustomKey>>,
 ) : TypeSafeMatcher<LogEntry>() {
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)

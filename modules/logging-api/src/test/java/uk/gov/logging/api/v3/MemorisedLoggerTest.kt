@@ -6,6 +6,7 @@ import org.hamcrest.Matchers.contains
 import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.not
 import org.junit.jupiter.api.Test
+import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasCustomKeys
 import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasException
 import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasMessage
 import uk.gov.logging.api.v3.matchers.LogEntryMatchers.hasTag
@@ -88,6 +89,23 @@ class MemorisedLoggerTest {
         assertThat(
             logger,
             not(contains(hasException(equalTo(RuntimeException("other"))))),
+        )
+    }
+
+    @Test
+    fun `contains matches by custom keys`() {
+        val customKey = LoggingTestData.intCustomKey
+        logger.log(LogEntry.Error(tag = tag, message = message, throwable = throwable, listOf(customKey)))
+
+        assertThat(
+            logger,
+            contains(
+                hasCustomKeys(
+                    contains(
+                        equalTo(customKey),
+                    ),
+                ),
+            ),
         )
     }
 
