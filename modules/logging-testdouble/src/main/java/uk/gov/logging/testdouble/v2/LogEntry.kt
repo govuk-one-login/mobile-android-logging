@@ -4,8 +4,8 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 
 @Deprecated(
     message =
-        "Replace with MemorisedLogger" +
-            " -aim to remove by 12th of July 2026",
+        "Replace with v3 LogEntry" +
+            " -aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
             "uk.gov.logging.api.v3.LogEntry",

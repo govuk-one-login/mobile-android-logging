@@ -6,6 +6,17 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import uk.gov.logging.api.CrashLogger
 import javax.inject.Inject
 
+@Deprecated(
+    message =
+        "Replace with MemorisedLogger" +
+            " -aim to remove by 27th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-api/src" +
+                "/src/testFixtures/java/uk/gov/logging/api/v3/MemorisedLogger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 class FakeCrashLogger @Inject constructor(
     @ApplicationContext
     private val context: Context,

@@ -14,6 +14,16 @@ import javax.inject.Inject
  * [com.google.firebase.analytics.FirebaseAnalytics] object for logging [AnalyticsEvent]s.
  */
 
+@Deprecated(
+    message =
+        "Replace with version v3 FirebaseAnalyticsLogger" +
+            "-aim to remove by 27th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "uk.gov.logging.impl.v3.FirebaseAnalyticsLogger",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 class FirebaseAnalyticsLogger @Inject constructor(
     private val analytics: FirebaseAnalytics,
     private val logger: Logger,
