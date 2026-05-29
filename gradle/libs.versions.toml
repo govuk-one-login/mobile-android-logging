@@ -13,9 +13,9 @@ mockito-android = "5.21.0" # https://github.com/mockito/mockito/releases
 mockito-kotlin = "6.3.0" # https://github.com/mockito/mockito-kotlin/releases
 # DI
 dagger = "2.59.2" # https://github.com/google/dagger/releases
-ksp = "2.3.6" # https://github.com/google/ksp/releases
+ksp = "2.3.8" # https://github.com/google/ksp/releases
 # Kotlin
-kotlin = "2.3.20" # https://kotlinlang.org/docs/releases.html#release-details
+kotlin = "2.3.21" # https://kotlinlang.org/docs/releases.html#release-details
 robolectric = "4.16.1" # https://github.com/robolectric/robolectric/releases
 hamcrest = "3.0" # https://github.com/hamcrest/JavaHamcrest/releases
 
