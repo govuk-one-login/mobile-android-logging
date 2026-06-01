@@ -3,6 +3,17 @@ package uk.gov.logging.testdouble
 import uk.gov.logging.api.Logger
 import javax.inject.Inject
 
+@Deprecated(
+    message =
+        "Replace with MemorisedLogger" +
+            " -aim to remove by 27th of July 2026",
+    replaceWith =
+        ReplaceWith(
+            "mobile-android-logging/modules/logging-api/src" +
+                "testFixtures/java/uk/gov/logging/api/v3/MemorisedLogger.kt",
+        ),
+    level = DeprecationLevel.WARNING,
+)
 @Suppress("TooManyFunctions")
 class SystemLogger @Inject constructor() : Logger {
     private var logs = mutableListOf<LogEntry>()

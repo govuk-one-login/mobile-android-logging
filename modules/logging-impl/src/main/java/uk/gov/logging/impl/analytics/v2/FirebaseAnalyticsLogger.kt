@@ -20,7 +20,7 @@ import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
 @Deprecated(
     message =
         "Replace with version v3 FirebaseAnalyticsLogger" +
-            "-aim to remove by 12th of July 2026",
+            "-aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
             "uk.gov.logging.impl.v3.FirebaseAnalyticsLogger",
