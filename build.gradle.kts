@@ -48,3 +48,8 @@ plugins {
     id("uk.gov.pipelines.sonarqube-root-config")
     alias(libs.plugins.ksp) apply false
 }
+
+subprojects {
+    val mavenGroupId: String by rootProject.extra
+    group = mavenGroupId
+}
