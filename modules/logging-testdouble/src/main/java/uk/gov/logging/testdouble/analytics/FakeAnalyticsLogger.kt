@@ -8,7 +8,7 @@ import javax.inject.Inject
 @Deprecated(
     message =
         "Replace with v3 version FakeAnalyticsLogger" +
-            " -aim to remove by 12th of July 2026",
+            " -aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
             "mobile-android-logging/modules/logging-api/src" +

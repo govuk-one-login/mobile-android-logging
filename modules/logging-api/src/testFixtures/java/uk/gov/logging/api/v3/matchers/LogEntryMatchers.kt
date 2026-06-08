@@ -29,5 +29,5 @@ object LogEntryMatchers {
 
     fun hasException(matcher: Matcher<in Throwable>): Matcher<in LogEntry> = HasThrowable(matcher)
 
-    fun hasCustomKeys(matcher: Matcher<in CustomKey>): Matcher<in LogEntry> = HasCustomKeys(matcher)
+    fun hasCustomKeys(matcher: Matcher<in Iterable<CustomKey>>): Matcher<in LogEntry> = HasCustomKeys(matcher)
 }

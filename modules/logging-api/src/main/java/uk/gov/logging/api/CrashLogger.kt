@@ -3,15 +3,13 @@ package uk.gov.logging.api
 /**
  * Abstraction for declaring crashlytics logger behaviour.
  */
-
 @Deprecated(
     message =
-        "Replace with v2 version which allows to set custom error keys" +
-            " -aim to remove by 10th of May 2026",
+        "Replace with v3 version which allows to set custom  keys" +
+            " -aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
-            "mobile-android-logging/modules/logging-api/src/main" +
-                "/java/uk/gov/logging/api/v2/CrashLogger.kt",
+            "uk.gov.logging.api.v3.Logger",
         ),
     level = DeprecationLevel.WARNING,
 )

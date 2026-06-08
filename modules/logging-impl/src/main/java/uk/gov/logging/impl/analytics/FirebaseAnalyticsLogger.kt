@@ -16,12 +16,11 @@ import javax.inject.Inject
 
 @Deprecated(
     message =
-        "Replace with version v2 " +
-            "-aim to remove by 10th of May 2026",
+        "Replace with version v3 FirebaseAnalyticsLogger" +
+            "-aim to remove by 27th of July 2026",
     replaceWith =
         ReplaceWith(
-            "mobile-android-logging/modules/logging-impl/src/main/" +
-                "java/uk/gov/logging/impl/analytics/v2/FirebaseAnalyticsLogger.kt",
+            "uk.gov.logging.impl.v3.FirebaseAnalyticsLogger",
         ),
     level = DeprecationLevel.WARNING,
 )
