@@ -1,6 +1,6 @@
 ## Developer setup
 
-* Install [Android Studio] via the [Brew file]. Refer to the [Dependencies tutorial] for more
+* Install [Android Studio] via the [Brew file]. See the [Dependencies tutorial] for more
   information.
 
 * Open this repository within [Android Studio]. This may require cloning the
