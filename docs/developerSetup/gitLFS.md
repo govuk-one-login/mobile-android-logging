@@ -6,10 +6,10 @@ remote server.
 
 The code base uses LFS for the contents of the [Root directory's lib folder].
 Because LFS initially provides references to files instead of the actual files,
-the initial set up of the git repository requires the developer to fetch and
+the initial set up of the git repository needs the developer to fetch and
 pull the files stored within the LFS servers.
 
-Refer to the [Dependencies] tutorial for installing the `git-lfs` homebrew recipe.
+See the [Dependencies] tutorial for installing the `git-lfs` homebrew recipe.
 
 ## Obtaining the remotely stored files
 
@@ -32,7 +32,7 @@ git lfs pull
 
 ### LFS isn't initialised
 
-Refer to and complete the [Git Hooks tutorial], as the project git hooks contains the necessary LFS
+Complete the [Git Hooks tutorial], as the project git hooks contains the necessary LFS
 commands.
 
 [Dependencies]: ./dependencies.md

@@ -7,7 +7,7 @@ Please see the [Glossary] for the following terms used within this page:
 
 ## Generating a GPG key
 
-In order to generate a GPG key, a Developer needs to download the required
+To generate a GPG key, a Developer needs to download the required
 tools. The [gnupg download page] works, as does `homebrew`:
 
 ```shell
@@ -45,7 +45,7 @@ the [GitHub SSH and GPG keys settings]. Any title works for the GPG key, so long
 as the entry is identifiable. It may be useful for the title to match the
 comment stored within the created GPG key.
 
-The 'Key' input field takes an exported GPG key. In order to obtain an exported
+The 'Key' input field takes an exported GPG key. To obtain an exported
 GPG key, list the created GPG secret keys with the proceeding command:
 
 ```shell
