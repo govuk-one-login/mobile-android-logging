@@ -1,21 +1,34 @@
 package uk.gov.logging.impl.v3
 
 import android.util.Log
+import uk.gov.logging.api.BuildConfig
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.Logger
 import uk.gov.logging.api.v3.LoggingProperties
 
 /**
- * [Logger] implementation for android [Log] functions
+ * [Logger] that logs to Android Logcat.
+ *
+ * By default, it only logs in debug builds.
+ *
+ * @param enabled Whether or not the logger will log. By default, it only logs in debug builds.
  */
-data object LogcatLogger : Logger {
+class LogcatLogger(
+    val enabled: Boolean = BuildConfig.DEBUG,
+) : Logger {
     override fun log(
         entry: LogEntry,
         properties: LoggingProperties,
-    ) = when (entry) {
-        is LogEntry.Exception -> logException(entry)
-        is LogEntry.Message -> logMessage(entry)
+    ) {
+        if (!enabled) {
+            return
+        }
+
+        when (entry) {
+            is LogEntry.Exception -> logException(entry)
+            is LogEntry.Message -> logMessage(entry)
+        }
     }
 
     private fun logMessage(entry: LogEntry) {
