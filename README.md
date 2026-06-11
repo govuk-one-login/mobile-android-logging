@@ -9,7 +9,7 @@ is an abstraction class for using Google's Firebase analytics platform.
 ## Functionality provided by Logging module
 
 The main functionality of the logging module is to provide a single source of truth for standardised
-code logging functionality that makes it simple to switch logging framework if desired.
+code logging functionality that makes it straightforward to switch logging framework if desired.
 
 The three packages have the following functionality:
 
@@ -314,5 +314,5 @@ desired please edit the value under "branches:" in `.github/workflows/on_push_ho
 The hotfix branch name should be in the format "hotfix/M.m.p".
 
 Once the hotfix PR has been approved and the "Squash and merge" button pressed, the merge title
-must be in the format "Merge pull request #xxx from govuk-one-login/release/M.m.p" to allow for the
+must be in the format "Merge pull request #xxx from govuk-one-login/release/M.m.p" to let the
 correct version to be extracted and used as a tag.
