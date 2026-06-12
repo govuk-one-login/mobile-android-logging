@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.MockedStatic
 import org.mockito.Mockito
 import org.mockito.kotlin.eq
+import org.mockito.kotlin.verifyNoInteractions
 import uk.gov.logging.api.v3.LogEntry
 import uk.gov.logging.api.v3.LogLevel
 import uk.gov.logging.api.v3.LoggingProperties
@@ -17,6 +18,7 @@ import uk.gov.logging.api.v3.customkey.CustomKey
 import java.util.stream.Stream
 
 class LogcatLoggerTest {
+    private val logcatLogger = LogcatLogger(enabled = true)
     private lateinit var staticLogMock: MockedStatic<Log>
 
     @BeforeEach
@@ -35,7 +37,7 @@ class LogcatLoggerTest {
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.log(entry, LoggingProperties(allowRemote = true))
+        logcatLogger.log(entry, LoggingProperties(allowRemote = true))
 
         verify(staticLogMock)
     }
@@ -46,7 +48,7 @@ class LogcatLoggerTest {
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.log(entry, LoggingProperties(allowRemote = true))
+        logcatLogger.log(entry, LoggingProperties(allowRemote = true))
 
         verify(staticLogMock)
     }
@@ -57,7 +59,7 @@ class LogcatLoggerTest {
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.log(entry, LoggingProperties(allowRemote = false))
+        logcatLogger.log(entry, LoggingProperties(allowRemote = false))
 
         verify(staticLogMock)
     }
@@ -68,9 +70,19 @@ class LogcatLoggerTest {
         entry: LogEntry,
         verify: (MockedStatic<Log>) -> Unit,
     ) {
-        LogcatLogger.log(entry, LoggingProperties(allowRemote = false))
+        logcatLogger.log(entry, LoggingProperties(allowRemote = false))
 
         verify(staticLogMock)
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("messageEntries")
+    fun `given it is disabled, it doesn't log anything`(entry: LogEntry) {
+        val logcatLogger = LogcatLogger(enabled = false)
+
+        logcatLogger.log(entry, LoggingProperties(allowRemote = false))
+
+        staticLogMock.verifyNoInteractions()
     }
 
     companion object {
