@@ -73,7 +73,7 @@ dependencies {
 
     listOf(
         libs.kotlinx.coroutines.test,
-        kotlin("test"),
+        kotlin("test-junit5"),
         libs.junit.jupiter,
         libs.junit.jupiter.params,
         platform(libs.junit.bom),
