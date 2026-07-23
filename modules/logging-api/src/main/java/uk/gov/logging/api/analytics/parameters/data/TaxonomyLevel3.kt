@@ -31,4 +31,6 @@ enum class TaxonomyLevel3(
     INITIALISATION("initialisation"),
     ADD_NEW_DOCUMENT("add new document"),
     REFRESH_DOCUMENT("refresh document"),
+
+    REFRESH_DOCUMENT("invalid documents"),
 }
