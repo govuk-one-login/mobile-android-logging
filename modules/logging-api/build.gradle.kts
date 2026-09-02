@@ -60,7 +60,7 @@ android {
 dependencies {
 
     listOf(
-        kotlin("test"),
+        kotlin("test-junit"),
         libs.androidx.test.core.ktx,
         libs.androidx.test.ext.junit,
         libs.androidx.test.runner,
@@ -86,7 +86,7 @@ dependencies {
         libs.androidx.test.ext.junit,
         libs.hilt.android.testing,
         libs.kotlinx.coroutines.test,
-        kotlin("test"),
+        kotlin("test-junit5"),
         libs.junit.jupiter,
         libs.junit.jupiter.params,
         platform(libs.junit.bom),
@@ -105,6 +105,7 @@ dependencies {
     androidTestUtil(libs.androidx.orchestrator)
 
     testFixturesApi(libs.bundles.hamcrest)
+    testFixturesImplementation(platform(libs.firebase.bom))
     testFixturesImplementation(libs.firebase.analytics)
 }
 
