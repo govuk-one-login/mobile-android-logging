@@ -1,27 +1,18 @@
 package uk.gov.logging.impl.performance
 
+import java.net.URL
 import uk.gov.logging.api.performance.HttpMethod
 import uk.gov.logging.api.performance.PerformanceMonitor
-import java.net.URL
 
 object NoOpPerformanceMonitor : PerformanceMonitor {
     override fun newTrace(name: String): PerformanceMonitor.Trace = Trace
 
-    override fun newHTTPMetric(
-        url: URL,
-        method: HttpMethod,
-    ): PerformanceMonitor.HttpMetric = HttpMetric
+    override fun newHTTPMetric(url: URL, method: HttpMethod): PerformanceMonitor.HttpMetric = HttpMetric
 
     object Trace : PerformanceMonitor.Trace {
-        override fun putAttribute(
-            key: String,
-            value: String,
-        ) = Unit
+        override fun putAttribute(key: String, value: String) = Unit
 
-        override fun incrementMetric(
-            name: String,
-            by: Long,
-        ) = Unit
+        override fun incrementMetric(name: String, by: Long) = Unit
 
         override fun stop() = Unit
     }

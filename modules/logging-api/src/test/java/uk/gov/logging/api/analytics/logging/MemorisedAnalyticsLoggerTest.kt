@@ -1,11 +1,11 @@
 package uk.gov.logging.api.analytics.logging
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
+import kotlin.test.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import uk.gov.logging.api.analytics.AnalyticsEvent
-import kotlin.test.Test
 
 class MemorisedAnalyticsLoggerTest {
     private val subLogger: AnalyticsLogger = mock()

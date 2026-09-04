@@ -21,10 +21,8 @@ private val Context.englishConfiguration: Configuration
  * @param id String resource ID.
  * @param formatArgs Any additional arguments to format the string.
  */
-fun Context.getEnglishString(
-    @StringRes id: Int,
-    vararg formatArgs: Any,
-): String = with(createConfigurationContext(englishConfiguration)) { getString(id, *formatArgs) }
+fun Context.getEnglishString(@StringRes id: Int, vararg formatArgs: Any): String =
+    with(createConfigurationContext(englishConfiguration)) { getString(id, *formatArgs) }
 
 /**
  * Extension function to get the English versions of resource quantity strings regardless of the
@@ -35,11 +33,7 @@ fun Context.getEnglishString(
  * @param quantity – The number used to get the correct string for the current language's plural rules.
  * @param formatArgs – The format arguments that will be used for substitution.
  */
-fun Context.getEnglishQuantityString(
-    @PluralsRes id: Int,
-    quantity: Int,
-    vararg formatArgs: Any,
-): String =
+fun Context.getEnglishQuantityString(@PluralsRes id: Int, quantity: Int, vararg formatArgs: Any): String =
     with(createConfigurationContext(englishConfiguration)) {
         resources.getQuantityString(id, quantity, *formatArgs)
     }

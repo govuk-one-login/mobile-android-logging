@@ -5,6 +5,4 @@ package uk.gov.logging.api.v3
  *   @property allowRemote When true, the [Logger] implementation may log remotely,
  *   if it has the capability to do so
  */
-data class LoggingProperties(
-    val allowRemote: Boolean = true,
-)
+data class LoggingProperties(val allowRemote: Boolean = true)

@@ -1,5 +1,8 @@
 package uk.gov.logging.api.v3dot1.model
 
+import kotlin.test.Test
+import kotlin.test.assertContains
+import kotlin.test.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import uk.gov.logging.api.analytics.logging.EXTERNAL
@@ -11,9 +14,6 @@ import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.Type
 import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
-import kotlin.test.Test
-import kotlin.test.assertContains
-import kotlin.test.assertEquals
 
 class LinkTest {
     private val exampleDomain = "www.unit.test"

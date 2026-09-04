@@ -8,19 +8,14 @@ import uk.gov.logging.api.v3.LoggingProperties
 import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapper
 import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapperImpl
 
-class CrashlyticsLogger internal constructor(
-    private val crashlytics: FirebaseCrashlyticsWrapper,
-) : Logger {
+class CrashlyticsLogger internal constructor(private val crashlytics: FirebaseCrashlyticsWrapper) : Logger {
     constructor(
         crashlytics: FirebaseCrashlytics,
     ) : this(
         crashlytics = FirebaseCrashlyticsWrapperImpl(crashlytics),
     )
 
-    override fun log(
-        entry: LogEntry,
-        properties: LoggingProperties,
-    ) {
+    override fun log(entry: LogEntry, properties: LoggingProperties) {
         if (!properties.allowRemote) return
 
         crashlytics.log(entry.asLogMessage())
@@ -36,11 +31,10 @@ class CrashlyticsLogger internal constructor(
 
 internal fun LogEntry.asLogMessage(): String = "${level.symbol()} : $tag : $message"
 
-internal fun LogLevel.symbol(): String =
-    when (this) {
-        LogLevel.Verbose -> "V"
-        LogLevel.Debug -> "D"
-        LogLevel.Info -> "I"
-        LogLevel.Warn -> "W"
-        LogLevel.Error -> "E"
-    }
+internal fun LogLevel.symbol(): String = when (this) {
+    LogLevel.Verbose -> "V"
+    LogLevel.Debug -> "D"
+    LogLevel.Info -> "I"
+    LogLevel.Warn -> "W"
+    LogLevel.Error -> "E"
+}

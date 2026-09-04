@@ -17,10 +17,7 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
     level = DeprecationLevel.WARNING,
 )
 interface CrashLogger {
-    fun log(
-        throwable: Throwable,
-        vararg errorKeys: ErrorKeys,
-    )
+    fun log(throwable: Throwable, vararg errorKeys: ErrorKeys)
 
     fun log(throwable: Throwable)
 

@@ -8,9 +8,7 @@ import com.google.firebase.crashlytics.recordException
  *
  * This class should contain as little logic as possible.
  */
-class FirebaseCrashlyticsWrapperImpl(
-    private val crashlytics: FirebaseCrashlytics,
-) : FirebaseCrashlyticsWrapper {
+class FirebaseCrashlyticsWrapperImpl(private val crashlytics: FirebaseCrashlytics) : FirebaseCrashlyticsWrapper {
     override fun log(message: String) {
         crashlytics.log(message)
     }
@@ -19,10 +17,7 @@ class FirebaseCrashlyticsWrapperImpl(
         crashlytics.recordException(throwable)
     }
 
-    override fun recordException(
-        throwable: Throwable,
-        keys: Map<String, String>,
-    ) {
+    override fun recordException(throwable: Throwable, keys: Map<String, String>) {
         crashlytics.recordException(throwable) {
             keys.forEach { (k, v) -> key(k, v) }
         }

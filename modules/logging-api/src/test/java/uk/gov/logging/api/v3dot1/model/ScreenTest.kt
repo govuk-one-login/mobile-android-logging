@@ -2,15 +2,15 @@ package uk.gov.logging.api.v3dot1.model
 
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_CLASS
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_NAME
+import kotlin.test.Test
+import kotlin.test.assertContains
+import kotlin.test.assertEquals
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.IS_ERROR
 import uk.gov.logging.api.analytics.logging.SCREEN_ID
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
-import kotlin.test.Test
-import kotlin.test.assertContains
-import kotlin.test.assertEquals
 
 class ScreenTest {
     private val exampleScreenName = "unit_test"

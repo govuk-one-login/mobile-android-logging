@@ -5,9 +5,8 @@ import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.v3.AnalyticsLogger
 
 @Suppress("TooManyFunctions")
-class FakeAnalyticsLogger(
-    val loggedEvents: MutableList<AnalyticsEvent> = mutableListOf(),
-) : AnalyticsLogger,
+class FakeAnalyticsLogger(val loggedEvents: MutableList<AnalyticsEvent> = mutableListOf()) :
+    AnalyticsLogger,
     Iterable<AnalyticsEvent> by loggedEvents {
     private var memorisedEvent: AnalyticsEvent? = null
 
@@ -15,10 +14,7 @@ class FakeAnalyticsLogger(
 
     var enabled: Boolean? = null
 
-    override fun logEvent(
-        shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent,
-    ) {
+    override fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent) {
         events.forEach { event ->
             if (shouldLogEvent) {
                 if (isScreenView(event)) {
@@ -30,9 +26,8 @@ class FakeAnalyticsLogger(
         }
     }
 
-    fun shouldLog(event: AnalyticsEvent): Boolean =
-        !isScreenView(event) ||
-            !isDuplicateScreenView(event)
+    fun shouldLog(event: AnalyticsEvent): Boolean = !isScreenView(event) ||
+        !isDuplicateScreenView(event)
 
     private fun isScreenView(event: AnalyticsEvent): Boolean = event.eventType === SCREEN_VIEW
 
@@ -44,10 +39,9 @@ class FakeAnalyticsLogger(
 
     operator fun contains(event: AnalyticsEvent): Boolean = event in this.loggedEvents
 
-    operator fun contains(conditionBlock: (AnalyticsEvent) -> Boolean): Boolean =
-        this.loggedEvents.any {
-            conditionBlock(it)
-        }
+    operator fun contains(conditionBlock: (AnalyticsEvent) -> Boolean): Boolean = this.loggedEvents.any {
+        conditionBlock(it)
+    }
 
     operator fun get(i: Int): AnalyticsEvent = this.loggedEvents[i]
 

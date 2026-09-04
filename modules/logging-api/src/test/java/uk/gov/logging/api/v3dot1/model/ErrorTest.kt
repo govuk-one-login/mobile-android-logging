@@ -2,6 +2,9 @@ package uk.gov.logging.api.v3dot1.model
 
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_CLASS
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_NAME
+import kotlin.test.Test
+import kotlin.test.assertContains
+import kotlin.test.assertEquals
 import uk.gov.logging.api.analytics.extensions.md5
 import uk.gov.logging.api.analytics.logging.ENDPOINT
 import uk.gov.logging.api.analytics.logging.HASH
@@ -13,9 +16,6 @@ import uk.gov.logging.api.analytics.logging.STATUS
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
-import kotlin.test.Test
-import kotlin.test.assertContains
-import kotlin.test.assertEquals
 
 class ErrorTest {
     private val exampleName = "Signing out will delete your app data"

@@ -13,10 +13,7 @@ import uk.gov.logging.api.analytics.parameters.ScreenViewParameters
  * Wrapper class to contain information used when sending [Firebase] events.
  */
 @Suppress("UnusedPrivateMember")
-data class AnalyticsEvent(
-    val eventType: String,
-    val parameters: Map<String, Any?>,
-) {
+data class AnalyticsEvent(val eventType: String, val parameters: Map<String, Any?>) {
     fun toBundle(): Bundle = parameters.toBundle()
 
     fun isScreenView(): Boolean = this.eventType == Event.SCREEN_VIEW

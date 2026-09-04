@@ -1,6 +1,7 @@
 package uk.gov.logging.impl.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics
+import java.util.stream.Stream
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Named.named
 import org.junit.jupiter.api.Test
@@ -17,7 +18,6 @@ import org.mockito.kotlin.verify
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
 import uk.gov.logging.testdouble.SystemLogger
-import java.util.stream.Stream
 
 internal class FirebaseAnalyticsLoggerTest {
     private val analyticsLogger by lazy {
@@ -42,10 +42,7 @@ internal class FirebaseAnalyticsLoggerTest {
 
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("setupLogEventEdgeCases")
-    fun `events are not logged due to permission conditions`(
-        hasGrantedPermission: Boolean,
-        event: AnalyticsEvent,
-    ) {
+    fun `events are not logged due to permission conditions`(hasGrantedPermission: Boolean, event: AnalyticsEvent) {
         analyticsLogger.logEvent(hasGrantedPermission, event)
 
         verify(analytics, never()).logEvent(any(), any())
@@ -64,15 +61,14 @@ internal class FirebaseAnalyticsLoggerTest {
             )
 
         @JvmStatic
-        fun setupLogEventEdgeCases(): Stream<Arguments> =
-            Stream.of(
-                arguments(
-                    named(
-                        "Fails due to disabled permission",
-                        false,
-                    ),
-                    event,
+        fun setupLogEventEdgeCases(): Stream<Arguments> = Stream.of(
+            arguments(
+                named(
+                    "Fails due to disabled permission",
+                    false,
                 ),
-            )
+                event,
+            ),
+        )
     }
 }

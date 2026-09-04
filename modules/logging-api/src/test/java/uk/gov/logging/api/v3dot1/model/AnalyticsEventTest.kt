@@ -1,9 +1,9 @@
 package uk.gov.logging.api.v3dot1.model
 
 import com.google.firebase.analytics.FirebaseAnalytics
-import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 
 class AnalyticsEventTest {
     private val required = RequiredParameters(taxonomyLevel2 = TaxonomyLevel2.GOVUK)

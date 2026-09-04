@@ -12,11 +12,10 @@ object MapExtensions {
      * into a typed array of [Pair] objects.
      */
     @Suppress("SpreadOperator")
-    fun Map<String, Any?>.toBundle(): Bundle =
-        bundleOf(
-            *this
-                .map { entry ->
-                    entry.key to entry.value
-                }.toTypedArray(),
-        )
+    fun Map<String, Any?>.toBundle(): Bundle = bundleOf(
+        *this
+            .map { entry ->
+                entry.key to entry.value
+            }.toTypedArray(),
+    )
 }
