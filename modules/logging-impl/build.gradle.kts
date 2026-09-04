@@ -103,10 +103,7 @@ dependencies {
     kspAndroidTest(libs.hilt.compiler)
 }
 
-/**
- * Workaround for dokka issue https://github.com/Kotlin/dokka/issues/2956
- */
-
+// Workaround for dokka issue https://github.com/Kotlin/dokka/issues/2956
 tasks
     .matching { task ->
         task.name.contains("javaDocDebugGeneration") or
