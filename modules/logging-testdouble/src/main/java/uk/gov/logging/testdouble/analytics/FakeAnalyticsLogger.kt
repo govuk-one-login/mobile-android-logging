@@ -1,9 +1,9 @@
 package uk.gov.logging.testdouble.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event.SCREEN_VIEW
+import javax.inject.Inject
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
-import javax.inject.Inject
 
 @Deprecated(
     message =
@@ -26,10 +26,7 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
 
     var enabled: Boolean? = null
 
-    override fun logEvent(
-        shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent,
-    ) {
+    override fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent) {
         events.forEach { event ->
             if (shouldLogEvent) {
                 if (isScreenView(event)) {
@@ -41,9 +38,8 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
         }
     }
 
-    fun shouldLog(event: AnalyticsEvent): Boolean =
-        !isScreenView(event) ||
-            !isDuplicateScreenView(event)
+    fun shouldLog(event: AnalyticsEvent): Boolean = !isScreenView(event) ||
+        !isDuplicateScreenView(event)
 
     private fun isScreenView(event: AnalyticsEvent): Boolean = event.eventType === SCREEN_VIEW
 

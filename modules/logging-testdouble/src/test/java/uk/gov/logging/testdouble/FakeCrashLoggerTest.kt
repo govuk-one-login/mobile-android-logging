@@ -1,6 +1,8 @@
 package uk.gov.logging.testdouble
 
 import android.content.Context
+import java.util.stream.Stream
+import kotlin.test.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -14,8 +16,6 @@ import org.mockito.kotlin.mock
 import uk.gov.logging.api.CrashLogger
 import uk.gov.logging.testdouble.LoggingTestData.logMessage
 import uk.gov.logging.testdouble.LoggingTestData.logThrowable
-import java.util.stream.Stream
-import kotlin.test.assertNotEquals
 
 internal class FakeCrashLoggerTest {
     private val context: Context = mock()
@@ -24,10 +24,7 @@ internal class FakeCrashLoggerTest {
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("provideLoggingTestCases")
     @Suppress("Unused")
-    fun `Verify in-memory logging behaviour`(
-        expectedMessage: String?,
-        action: (CrashLogger) -> Unit,
-    ) {
+    fun `Verify in-memory logging behaviour`(expectedMessage: String?, action: (CrashLogger) -> Unit) {
         action.invoke(logger)
 
         assertTrue(expectedMessage in logger) {
@@ -83,29 +80,28 @@ internal class FakeCrashLoggerTest {
         private val emptyThrowable = Throwable()
 
         @JvmStatic
-        fun provideLoggingTestCases(): Stream<Arguments> =
-            Stream.of(
-                arguments(
-                    named(
-                        "Stores internally created Throwable out of provided String",
-                        logMessage,
-                    ),
-                    { log: CrashLogger -> log.log(logMessage) },
+        fun provideLoggingTestCases(): Stream<Arguments> = Stream.of(
+            arguments(
+                named(
+                    "Stores internally created Throwable out of provided String",
+                    logMessage,
                 ),
-                arguments(
-                    named(
-                        "Uses Throwable message when provided a Throwable",
-                        logThrowable.message,
-                    ),
-                    { log: CrashLogger -> log.log(logThrowable) },
+                { log: CrashLogger -> log.log(logMessage) },
+            ),
+            arguments(
+                named(
+                    "Uses Throwable message when provided a Throwable",
+                    logThrowable.message,
                 ),
-                arguments(
-                    named(
-                        "Accepts null messages from a Throwable",
-                        null,
-                    ),
-                    { log: CrashLogger -> log.log(emptyThrowable) },
+                { log: CrashLogger -> log.log(logThrowable) },
+            ),
+            arguments(
+                named(
+                    "Accepts null messages from a Throwable",
+                    null,
                 ),
-            )
+                { log: CrashLogger -> log.log(emptyThrowable) },
+            ),
+        )
     }
 }
