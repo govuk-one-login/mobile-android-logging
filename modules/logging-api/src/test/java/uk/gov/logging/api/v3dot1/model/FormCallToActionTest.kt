@@ -1,5 +1,8 @@
 package uk.gov.logging.api.v3dot1.model
 
+import kotlin.test.Test
+import kotlin.test.assertContains
+import kotlin.test.assertEquals
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.RESPONSE
 import uk.gov.logging.api.analytics.logging.TEXT
@@ -7,9 +10,6 @@ import uk.gov.logging.api.analytics.logging.TYPE
 import uk.gov.logging.api.analytics.parameters.ParametersTestData
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.v3dot1.model.RequiredParametersTest.Companion.requiredKeys
-import kotlin.test.Test
-import kotlin.test.assertContains
-import kotlin.test.assertEquals
 
 class FormCallToActionTest {
     private val required = RequiredParameters(taxonomyLevel2 = TaxonomyLevel2.GOVUK)

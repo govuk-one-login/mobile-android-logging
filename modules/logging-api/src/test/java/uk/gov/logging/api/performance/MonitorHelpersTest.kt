@@ -1,13 +1,13 @@
 package uk.gov.logging.api.performance
 
+import java.net.URL
+import kotlin.test.Test
+import kotlin.test.assertTrue
 import kotlinx.coroutines.test.runTest
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.any
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import java.net.URL
-import kotlin.test.Test
-import kotlin.test.assertTrue
 
 class MonitorHelpersTest {
     private val trace: FakePerformanceMonitor.Trace = mock()
@@ -36,27 +36,25 @@ class MonitorHelpersTest {
     }
 
     @Test
-    fun `measureSuspend with attributes`() =
-        runTest {
-            val name = "Foo"
-            val key = "k"
-            val value = "v"
-            val attributes = mapOf(key to value)
-            val isRun = monitor.measureSuspend(name, attributes) { true }
-            verify(trace).putAttribute(key, value)
-            verify(trace).stop()
-            assertTrue(isRun)
-        }
+    fun `measureSuspend with attributes`() = runTest {
+        val name = "Foo"
+        val key = "k"
+        val value = "v"
+        val attributes = mapOf(key to value)
+        val isRun = monitor.measureSuspend(name, attributes) { true }
+        verify(trace).putAttribute(key, value)
+        verify(trace).stop()
+        assertTrue(isRun)
+    }
 
     @Test
-    fun `measureSuspend without attributes`() =
-        runTest {
-            val name = "Foo"
-            val isRun = monitor.measureSuspend(name) { true }
-            verify(trace).stop()
-            verify(trace, times(0)).putAttribute(any(), any())
-            assertTrue(isRun)
-        }
+    fun `measureSuspend without attributes`() = runTest {
+        val name = "Foo"
+        val isRun = monitor.measureSuspend(name) { true }
+        verify(trace).stop()
+        verify(trace, times(0)).putAttribute(any(), any())
+        assertTrue(isRun)
+    }
 
     private class FakePerformanceMonitor(
         val trace: Trace = Trace(),
@@ -64,21 +62,13 @@ class MonitorHelpersTest {
     ) : PerformanceMonitor {
         override fun newTrace(name: String): PerformanceMonitor.Trace = trace
 
-        override fun newHTTPMetric(
-            url: URL,
-            method: HttpMethod,
-        ): PerformanceMonitor.HttpMetric = httpMetric
+        override fun newHTTPMetric(url: URL, method: HttpMethod): PerformanceMonitor.HttpMetric =
+            httpMetric
 
         class Trace : PerformanceMonitor.Trace {
-            override fun putAttribute(
-                key: String,
-                value: String,
-            ) = Unit
+            override fun putAttribute(key: String, value: String) = Unit
 
-            override fun incrementMetric(
-                name: String,
-                by: Long,
-            ) = Unit
+            override fun incrementMetric(name: String, by: Long) = Unit
 
             override fun stop() = Unit
         }

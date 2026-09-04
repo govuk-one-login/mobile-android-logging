@@ -3,13 +3,13 @@ package uk.gov.logging.impl.performance
 import com.google.firebase.perf.FirebasePerformance
 import com.google.firebase.perf.metrics.HttpMetric
 import com.google.firebase.perf.metrics.Trace
+import java.net.URL
+import kotlin.test.Test
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.willReturn
 import uk.gov.logging.api.performance.HttpMethod
-import java.net.URL
-import kotlin.test.Test
 
 class FirebasePerformanceMonitorTest {
     private val firebase = mock<FirebasePerformance>()

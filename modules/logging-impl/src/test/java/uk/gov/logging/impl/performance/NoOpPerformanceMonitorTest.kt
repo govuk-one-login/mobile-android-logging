@@ -1,8 +1,8 @@
 package uk.gov.logging.impl.performance
 
-import uk.gov.logging.api.performance.HttpMethod
 import java.net.URL
 import kotlin.test.Test
+import uk.gov.logging.api.performance.HttpMethod
 
 class NoOpPerformanceMonitorTest {
     private val monitor = NoOpPerformanceMonitor

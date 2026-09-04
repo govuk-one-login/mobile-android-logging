@@ -12,15 +12,9 @@ class TestFirebaseCrashlyticsWrapper : FirebaseCrashlyticsWrapper {
         recordedExceptions += RecordedException(throwable, emptyMap())
     }
 
-    override fun recordException(
-        throwable: Throwable,
-        keys: Map<String, String>,
-    ) {
+    override fun recordException(throwable: Throwable, keys: Map<String, String>) {
         recordedExceptions += RecordedException(throwable, keys)
     }
 
-    data class RecordedException(
-        val throwable: Throwable,
-        val keys: Map<String, String>,
-    )
+    data class RecordedException(val throwable: Throwable, val keys: Map<String, String>)
 }

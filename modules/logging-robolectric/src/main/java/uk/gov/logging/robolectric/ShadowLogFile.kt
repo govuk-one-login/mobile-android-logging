@@ -1,21 +1,19 @@
 package uk.gov.logging.robolectric
 
-import org.junit.rules.TemporaryFolder
-import org.robolectric.shadows.ShadowLog
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintStream
 import java.nio.charset.Charset
+import org.junit.rules.TemporaryFolder
+import org.robolectric.shadows.ShadowLog
 
 /**
  * [org.junit.rules.TemporaryFolder] implementation that creates a log file for assertions.
  *
  * Use in classes that update robolectric configurations with [org.robolectric.shadows.ShadowLog].
  */
-class ShadowLogFile(
-    private val fileName: String,
-    private val fileExtension: String = ".txt",
-) : TemporaryFolder(),
+class ShadowLogFile(private val fileName: String, private val fileExtension: String = ".txt") :
+    TemporaryFolder(),
     Iterable<String> {
     private lateinit var loggingFile: File
     private lateinit var fileOutputStream: FileOutputStream

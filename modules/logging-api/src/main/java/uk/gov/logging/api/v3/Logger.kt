@@ -24,10 +24,7 @@ fun interface Logger {
      * @param entry the log entry to process
      * @param properties the logging behaviour configuration
      */
-    fun log(
-        entry: LogEntry,
-        properties: LoggingProperties,
-    )
+    fun log(entry: LogEntry, properties: LoggingProperties)
 
     /**
      * Logs a single [LogEntry] using default [LoggingProperties].
@@ -42,10 +39,8 @@ fun interface Logger {
      * @param entries the collection of log entries to process
      * @param properties the logging behaviour configuration, uses default [LoggingProperties]
      */
-    fun log(
-        entries: Iterable<LogEntry>,
-        properties: LoggingProperties = LoggingProperties(),
-    ) = entries.forEach { log(it, properties) }
+    fun log(entries: Iterable<LogEntry>, properties: LoggingProperties = LoggingProperties()) =
+        entries.forEach { log(it, properties) }
 
     /**
      * Logs each [LogEntry] passed as vararg.
@@ -53,10 +48,8 @@ fun interface Logger {
      * @param entries the log entries to process
      * @param properties the logging behaviour configuration, uses default [LoggingProperties]
      */
-    fun log(
-        vararg entries: LogEntry,
-        properties: LoggingProperties = LoggingProperties(),
-    ): Unit = log(entries.asList(), properties)
+    fun log(vararg entries: LogEntry, properties: LoggingProperties = LoggingProperties()): Unit =
+        log(entries.asList(), properties)
 
     /**
      * Logs a [LogEntry.Info] entry. Remote logging is enabled.
@@ -64,10 +57,7 @@ fun interface Logger {
      * @param tag the log tag
      * @param message the log message
      */
-    fun info(
-        tag: String,
-        message: String,
-    ) = log(
+    fun info(tag: String, message: String) = log(
         LogEntry.Info(tag = tag, message = message),
         LoggingProperties(allowRemote = true),
     )
@@ -78,10 +68,7 @@ fun interface Logger {
      * @param tag the log tag
      * @param message the log message
      */
-    fun debug(
-        tag: String,
-        message: String,
-    ) = log(
+    fun debug(tag: String, message: String) = log(
         LogEntry.Debug(tag = tag, message = message),
         LoggingProperties(allowRemote = false),
     )
@@ -92,10 +79,7 @@ fun interface Logger {
      * @param tag the log tag
      * @param message the log message
      */
-    fun verbose(
-        tag: String,
-        message: String,
-    ) = log(
+    fun verbose(tag: String, message: String) = log(
         LogEntry.Verbose(tag = tag, message = message),
         LoggingProperties(allowRemote = false),
     )
@@ -109,20 +93,16 @@ fun interface Logger {
      * @param throwable the exception to record
      * @param customKey optional typed key-value pairs for crash reports
      */
-    fun error(
-        tag: String,
-        message: String,
-        throwable: Throwable,
-        vararg customKey: CustomKey,
-    ) = log(
-        LogEntry.Error(
-            tag = tag,
-            message = message,
-            throwable = throwable,
-            customKeys = customKey.toList(),
-        ),
-        LoggingProperties(allowRemote = true),
-    )
+    fun error(tag: String, message: String, throwable: Throwable, vararg customKey: CustomKey) =
+        log(
+            LogEntry.Error(
+                tag = tag,
+                message = message,
+                throwable = throwable,
+                customKeys = customKey.toList(),
+            ),
+            LoggingProperties(allowRemote = true),
+        )
 
     /**
      * Logs a [LogEntry.Warn] entry. Remote logging is enabled.
@@ -130,10 +110,7 @@ fun interface Logger {
      * @param tag the log tag
      * @param message the log message
      */
-    fun warning(
-        tag: String,
-        message: String,
-    ) = log(
+    fun warning(tag: String, message: String) = log(
         LogEntry.Warn(tag = tag, message = message),
         LoggingProperties(allowRemote = true),
     )

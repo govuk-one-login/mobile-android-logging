@@ -1,7 +1,7 @@
 package uk.gov.logging.api
 
-import uk.gov.logging.api.v3.customkey.CustomKey
 import uk.gov.logging.api.v3.Logger as LoggerV3
+import uk.gov.logging.api.v3.customkey.CustomKey
 
 /**
  * Abstraction for declaring a default value to use as a tag when logging messages via a [Logger].
@@ -17,38 +17,31 @@ interface LogTagProvider {
     /**
      * Delegates to [LoggerV3.info] using the provider's [tag].
      */
-    fun LoggerV3.info(message: String) =
-        info(
-            tag = tag,
-            message = message,
-        )
+    fun LoggerV3.info(message: String) = info(
+        tag = tag,
+        message = message,
+    )
 
     /**
      * Delegates to [LoggerV3.debug] using the provider's [tag].
      */
-    fun LoggerV3.debug(message: String) =
-        debug(
-            tag = tag,
-            message = message,
-        )
+    fun LoggerV3.debug(message: String) = debug(
+        tag = tag,
+        message = message,
+    )
 
     /**
      * Delegates to [LoggerV3.verbose] using the provider's [tag].
      */
-    fun LoggerV3.verbose(message: String) =
-        verbose(
-            tag = tag,
-            message = message,
-        )
+    fun LoggerV3.verbose(message: String) = verbose(
+        tag = tag,
+        message = message,
+    )
 
     /**
      * Delegates to [LoggerV3.error] using the provider's [tag].
      */
-    fun LoggerV3.error(
-        message: String,
-        throwable: Throwable,
-        vararg customKey: CustomKey,
-    ) = error(
+    fun LoggerV3.error(message: String, throwable: Throwable, vararg customKey: CustomKey) = error(
         tag = tag,
         message = message,
         throwable = throwable,
@@ -58,9 +51,8 @@ interface LogTagProvider {
     /**
      * Delegates to [LoggerV3.warning] using the provider's [tag].
      */
-    fun LoggerV3.warning(message: String) =
-        warning(
-            tag = tag,
-            message = message,
-        )
+    fun LoggerV3.warning(message: String) = warning(
+        tag = tag,
+        message = message,
+    )
 }

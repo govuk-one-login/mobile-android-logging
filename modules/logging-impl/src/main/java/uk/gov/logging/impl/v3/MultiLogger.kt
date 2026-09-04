@@ -10,15 +10,12 @@ import uk.gov.logging.api.v3.LoggingProperties
  * @property loggers the Iterable loggers to delegate to
  * @constructor creates a logger that will delegate to all the given loggers
  */
-class MultiLogger(
-    private val loggers: Iterable<Logger>,
-) : Logger {
+class MultiLogger(private val loggers: Iterable<Logger>) : Logger {
     constructor(
         vararg loggers: Logger,
     ) : this(loggers = loggers.toList())
 
-    override fun log(
-        entry: LogEntry,
-        properties: LoggingProperties,
-    ) = loggers.forEach { it.log(entry, properties) }
+    override fun log(entry: LogEntry, properties: LoggingProperties) = loggers.forEach {
+        it.log(entry, properties)
+    }
 }

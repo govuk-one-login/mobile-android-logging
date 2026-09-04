@@ -1,6 +1,7 @@
 package uk.gov.logging.api.analytics.parameters
 
 import com.google.firebase.analytics.FirebaseAnalytics
+import java.util.Locale
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -13,7 +14,6 @@ import uk.gov.logging.api.analytics.logging.EVENT_NAME
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.TEXT
 import uk.gov.logging.api.analytics.logging.TYPE
-import java.util.Locale
 
 class ButtonParametersTest {
     private val exampleCallToActionText = "button text"

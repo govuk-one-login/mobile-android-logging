@@ -61,7 +61,12 @@ internal class FirebaseAnalyticsLoggerTest {
         analyticsLogger.logEvent(false, event)
 
         verify(logcatLogger, times(1)).log(
-            eq(LogEntry.Debug(tag = "FirebaseAnalyticsLogger", message = "Should log event: false")),
+            eq(
+                LogEntry.Debug(
+                    tag = "FirebaseAnalyticsLogger",
+                    message = "Should log event: false",
+                ),
+            ),
             eq(LoggingProperties(false)),
         )
     }
