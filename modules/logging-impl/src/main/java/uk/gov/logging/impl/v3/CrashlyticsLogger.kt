@@ -8,7 +8,8 @@ import uk.gov.logging.api.v3.LoggingProperties
 import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapper
 import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapperImpl
 
-class CrashlyticsLogger internal constructor(private val crashlytics: FirebaseCrashlyticsWrapper) : Logger {
+class CrashlyticsLogger internal constructor(private val crashlytics: FirebaseCrashlyticsWrapper) :
+    Logger {
     constructor(
         crashlytics: FirebaseCrashlytics,
     ) : this(

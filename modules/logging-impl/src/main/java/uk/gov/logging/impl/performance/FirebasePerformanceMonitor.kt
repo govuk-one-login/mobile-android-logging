@@ -10,7 +10,8 @@ import uk.gov.logging.api.performance.PerformanceMonitor
 typealias FirebaseTrace = Trace
 typealias FirebaseHttpMetric = HttpMetric
 
-class FirebasePerformanceMonitor(private val performance: FirebasePerformance) : PerformanceMonitor {
+class FirebasePerformanceMonitor(private val performance: FirebasePerformance) :
+    PerformanceMonitor {
     override fun newTrace(name: String): PerformanceMonitor.Trace {
         val trace = performance.newTrace(name)
         trace.start()

@@ -16,7 +16,8 @@ import uk.gov.logging.impl.crashlytics.FirebaseCrashlyticsWrapperImpl
         ),
     level = DeprecationLevel.WARNING,
 )
-class CrashlyticsLogger internal constructor(private val crashlytics: FirebaseCrashlyticsWrapper) : CrashLogger {
+class CrashlyticsLogger internal constructor(private val crashlytics: FirebaseCrashlyticsWrapper) :
+    CrashLogger {
     constructor(
         crashlytics: FirebaseCrashlytics,
     ) : this(

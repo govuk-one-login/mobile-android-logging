@@ -160,15 +160,16 @@ class FakeAnalyticsLoggerTest {
     }
 
     @Test
-    fun `containsOnly should return false if the logger does not contain only the given events`() = runTest {
-        val event1 = AnalyticsEvent("Screen1", mapOf())
-        val event2 = AnalyticsEvent("Screen2", mapOf())
-        logger.logEvent(true, event1)
+    fun `containsOnly should return false if the logger does not contain only the given events`() =
+        runTest {
+            val event1 = AnalyticsEvent("Screen1", mapOf())
+            val event2 = AnalyticsEvent("Screen2", mapOf())
+            logger.logEvent(true, event1)
 
-        assertThrows<IllegalArgumentException> {
-            (logger.containsOnly(listOf(event1, event2)))
+            assertThrows<IllegalArgumentException> {
+                (logger.containsOnly(listOf(event1, event2)))
+            }
         }
-    }
 
     @Test
     fun `filter should return a list of events matching the predicate`() = runTest {

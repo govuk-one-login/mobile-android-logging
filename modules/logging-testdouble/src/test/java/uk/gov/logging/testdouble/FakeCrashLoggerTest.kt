@@ -24,7 +24,10 @@ internal class FakeCrashLoggerTest {
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("provideLoggingTestCases")
     @Suppress("Unused")
-    fun `Verify in-memory logging behaviour`(expectedMessage: String?, action: (CrashLogger) -> Unit) {
+    fun `Verify in-memory logging behaviour`(
+        expectedMessage: String?,
+        action: (CrashLogger) -> Unit,
+    ) {
         action.invoke(logger)
 
         assertTrue(expectedMessage in logger) {
@@ -73,7 +76,10 @@ internal class FakeCrashLoggerTest {
     @Test
     fun `toString should return string representation of object`() {
         logger.log("Log 1")
-        assertEquals("FakeCrashLogger(size=1, logs=[(Log 1, java.lang.Throwable: Log 1)])", logger.toString())
+        assertEquals(
+            "FakeCrashLogger(size=1, logs=[(Log 1, java.lang.Throwable: Log 1)])",
+            logger.toString(),
+        )
     }
 
     companion object {

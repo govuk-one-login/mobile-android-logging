@@ -8,7 +8,8 @@ import com.google.firebase.crashlytics.recordException
  *
  * This class should contain as little logic as possible.
  */
-class FirebaseCrashlyticsWrapperImpl(private val crashlytics: FirebaseCrashlytics) : FirebaseCrashlyticsWrapper {
+class FirebaseCrashlyticsWrapperImpl(private val crashlytics: FirebaseCrashlytics) :
+    FirebaseCrashlyticsWrapper {
     override fun log(message: String) {
         crashlytics.log(message)
     }

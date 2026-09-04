@@ -39,15 +39,17 @@ class FakeAnalyticsLogger(val loggedEvents: MutableList<AnalyticsEvent> = mutabl
 
     operator fun contains(event: AnalyticsEvent): Boolean = event in this.loggedEvents
 
-    operator fun contains(conditionBlock: (AnalyticsEvent) -> Boolean): Boolean = this.loggedEvents.any {
-        conditionBlock(it)
-    }
+    operator fun contains(conditionBlock: (AnalyticsEvent) -> Boolean): Boolean =
+        this.loggedEvents.any {
+            conditionBlock(it)
+        }
 
     operator fun get(i: Int): AnalyticsEvent = this.loggedEvents[i]
 
     override operator fun iterator() = this.loggedEvents.iterator()
 
-    operator fun contains(events: Collection<AnalyticsEvent>) = this.loggedEvents.containsAll(events)
+    operator fun contains(events: Collection<AnalyticsEvent>) =
+        this.loggedEvents.containsAll(events)
 
     fun containsOnly(events: Collection<AnalyticsEvent>): Boolean {
         require(this.size == events.size) {
@@ -57,7 +59,8 @@ class FakeAnalyticsLogger(val loggedEvents: MutableList<AnalyticsEvent> = mutabl
         return events in this
     }
 
-    fun filter(predicate: (AnalyticsEvent) -> Boolean): List<AnalyticsEvent> = this.loggedEvents.filter(predicate)
+    fun filter(predicate: (AnalyticsEvent) -> Boolean): List<AnalyticsEvent> =
+        this.loggedEvents.filter(predicate)
 
     override fun toString(): String = "FakeAnalyticsLogger(size=$size, events=$loggedEvents)"
 }

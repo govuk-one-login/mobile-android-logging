@@ -42,7 +42,10 @@ internal class FirebaseAnalyticsLoggerTest {
 
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("setupLogEventEdgeCases")
-    fun `events are not logged due to permission conditions`(hasGrantedPermission: Boolean, event: AnalyticsEvent) {
+    fun `events are not logged due to permission conditions`(
+        hasGrantedPermission: Boolean,
+        event: AnalyticsEvent,
+    ) {
         analyticsLogger.logEvent(hasGrantedPermission, event)
 
         verify(analytics, never()).logEvent(any(), any())

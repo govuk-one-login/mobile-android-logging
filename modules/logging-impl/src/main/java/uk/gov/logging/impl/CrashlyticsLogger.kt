@@ -14,7 +14,8 @@ import uk.gov.logging.api.CrashLogger
         ),
     level = DeprecationLevel.WARNING,
 )
-class CrashlyticsLogger @Inject constructor(private val crashlytics: FirebaseCrashlytics) : CrashLogger {
+class CrashlyticsLogger @Inject constructor(private val crashlytics: FirebaseCrashlytics) :
+    CrashLogger {
     override fun log(message: String) {
         crashlytics.log(message)
     }

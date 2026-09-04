@@ -7,7 +7,8 @@ import uk.gov.logging.api.performance.PerformanceMonitor
 object NoOpPerformanceMonitor : PerformanceMonitor {
     override fun newTrace(name: String): PerformanceMonitor.Trace = Trace
 
-    override fun newHTTPMetric(url: URL, method: HttpMethod): PerformanceMonitor.HttpMetric = HttpMetric
+    override fun newHTTPMetric(url: URL, method: HttpMethod): PerformanceMonitor.HttpMetric =
+        HttpMetric
 
     object Trace : PerformanceMonitor.Trace {
         override fun putAttribute(key: String, value: String) = Unit

@@ -33,7 +33,10 @@ class LogcatLoggerTest {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("messageEntries")
-    fun `message entry calls correct Log function`(entry: LogEntry, verify: (MockedStatic<Log>) -> Unit) {
+    fun `message entry calls correct Log function`(
+        entry: LogEntry,
+        verify: (MockedStatic<Log>) -> Unit,
+    ) {
         logcatLogger.log(entry, LoggingProperties(allowRemote = true))
 
         verify(staticLogMock)
@@ -52,7 +55,10 @@ class LogcatLoggerTest {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("messageEntries")
-    fun `allowRemote false still logs message entry`(entry: LogEntry, verify: (MockedStatic<Log>) -> Unit) {
+    fun `allowRemote false still logs message entry`(
+        entry: LogEntry,
+        verify: (MockedStatic<Log>) -> Unit,
+    ) {
         logcatLogger.log(entry, LoggingProperties(allowRemote = false))
 
         verify(staticLogMock)
@@ -60,7 +66,10 @@ class LogcatLoggerTest {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("exceptionEntries")
-    fun `allowRemote false still logs exception entry`(entry: LogEntry, verify: (MockedStatic<Log>) -> Unit) {
+    fun `allowRemote false still logs exception entry`(
+        entry: LogEntry,
+        verify: (MockedStatic<Log>) -> Unit,
+    ) {
         logcatLogger.log(entry, LoggingProperties(allowRemote = false))
 
         verify(staticLogMock)

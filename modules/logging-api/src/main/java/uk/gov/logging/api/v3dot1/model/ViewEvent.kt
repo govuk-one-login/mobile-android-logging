@@ -16,8 +16,11 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
     override val eventType: String = FirebaseAnalytics.Event.SCREEN_VIEW
     override val parameters: RequiredParameters = params
 
-    data class Screen(private val name: String, private val id: String, private val params: RequiredParameters) :
-        ViewEvent(params) {
+    data class Screen(
+        private val name: String,
+        private val id: String,
+        private val params: RequiredParameters,
+    ) : ViewEvent(params) {
         private val _screenName get() = name.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _screenId get() = id.take(HUNDRED_CHAR_LIMIT).lowercase()
 
@@ -42,7 +45,9 @@ sealed class ViewEvent(params: RequiredParameters) : AnalyticsEvent {
         private val _endpoint get() = endpoint.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _reason get() = reason.take(HUNDRED_CHAR_LIMIT).lowercase()
         private val _status get() = status.take(HUNDRED_CHAR_LIMIT).lowercase()
-        private val _hash get() = (_endpoint + "_" + _status).take(HUNDRED_CHAR_LIMIT).lowercase().md5()
+        private val _hash get() = (_endpoint + "_" + _status).take(
+            HUNDRED_CHAR_LIMIT,
+        ).lowercase().md5()
 
         override fun asMap(): Map<out String, Any?> = mapOf<String, Any?>(
             IS_ERROR to "true",

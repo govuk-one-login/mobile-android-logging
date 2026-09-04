@@ -51,7 +51,8 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
 
     operator fun contains(event: AnalyticsEvent): Boolean = event in this.events
 
-    operator fun contains(conditionBlock: (AnalyticsEvent) -> Boolean): Boolean = this.events.any(conditionBlock)
+    operator fun contains(conditionBlock: (AnalyticsEvent) -> Boolean): Boolean =
+        this.events.any(conditionBlock)
 
     operator fun get(i: Int): AnalyticsEvent = this.events[i]
 
@@ -67,7 +68,8 @@ class FakeAnalyticsLogger @Inject constructor() : AnalyticsLogger {
         return events in this
     }
 
-    fun filter(predicate: (AnalyticsEvent) -> Boolean): List<AnalyticsEvent> = this.events.filter(predicate)
+    fun filter(predicate: (AnalyticsEvent) -> Boolean): List<AnalyticsEvent> =
+        this.events.filter(predicate)
 
     override fun toString(): String = "FakeAnalyticsLogger(size=$size, events=$events)"
 }

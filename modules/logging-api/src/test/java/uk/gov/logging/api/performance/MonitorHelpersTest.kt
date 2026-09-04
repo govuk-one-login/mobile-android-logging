@@ -56,11 +56,14 @@ class MonitorHelpersTest {
         assertTrue(isRun)
     }
 
-    private class FakePerformanceMonitor(val trace: Trace = Trace(), val httpMetric: HttpMetric = HttpMetric()) :
-        PerformanceMonitor {
+    private class FakePerformanceMonitor(
+        val trace: Trace = Trace(),
+        val httpMetric: HttpMetric = HttpMetric(),
+    ) : PerformanceMonitor {
         override fun newTrace(name: String): PerformanceMonitor.Trace = trace
 
-        override fun newHTTPMetric(url: URL, method: HttpMethod): PerformanceMonitor.HttpMetric = httpMetric
+        override fun newHTTPMetric(url: URL, method: HttpMethod): PerformanceMonitor.HttpMetric =
+            httpMetric
 
         class Trace : PerformanceMonitor.Trace {
             override fun putAttribute(key: String, value: String) = Unit

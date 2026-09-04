@@ -27,8 +27,10 @@ import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
         ),
     level = DeprecationLevel.WARNING,
 )
-class FirebaseAnalyticsLogger(private val analytics: FirebaseAnalytics, private val logger: Logger) :
-    AnalyticsLogger,
+class FirebaseAnalyticsLogger(
+    private val analytics: FirebaseAnalytics,
+    private val logger: Logger,
+) : AnalyticsLogger,
     LogTagProvider {
     override fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent) {
         debugLog(

@@ -93,15 +93,16 @@ fun interface Logger {
      * @param throwable the exception to record
      * @param customKey optional typed key-value pairs for crash reports
      */
-    fun error(tag: String, message: String, throwable: Throwable, vararg customKey: CustomKey) = log(
-        LogEntry.Error(
-            tag = tag,
-            message = message,
-            throwable = throwable,
-            customKeys = customKey.toList(),
-        ),
-        LoggingProperties(allowRemote = true),
-    )
+    fun error(tag: String, message: String, throwable: Throwable, vararg customKey: CustomKey) =
+        log(
+            LogEntry.Error(
+                tag = tag,
+                message = message,
+                throwable = throwable,
+                customKeys = customKey.toList(),
+            ),
+            LoggingProperties(allowRemote = true),
+        )
 
     /**
      * Logs a [LogEntry.Warn] entry. Remote logging is enabled.

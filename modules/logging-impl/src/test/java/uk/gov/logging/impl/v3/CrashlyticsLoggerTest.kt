@@ -27,7 +27,10 @@ class CrashlyticsLoggerTest {
 
     @Test
     fun `entries with allowRemote false are not logged`() {
-        logger.log(LogEntry.Debug(tag = tag, message = message), LoggingProperties(allowRemote = false))
+        logger.log(
+            LogEntry.Debug(tag = tag, message = message),
+            LoggingProperties(allowRemote = false),
+        )
 
         assertTrue(crashlytics.loggedMessages.isEmpty())
         assertTrue(crashlytics.recordedExceptions.isEmpty())
@@ -58,7 +61,12 @@ class CrashlyticsLoggerTest {
     @Test
     fun `exception entry records exception with custom keys`() {
         logger.log(
-            LogEntry.Error(tag = tag, message = message, throwable = throwable, customKeys = listOf(customKey)),
+            LogEntry.Error(
+                tag = tag,
+                message = message,
+                throwable = throwable,
+                customKeys = listOf(customKey),
+            ),
             LoggingProperties(allowRemote = true),
         )
 

@@ -33,7 +33,10 @@ fun Context.getEnglishString(@StringRes id: Int, vararg formatArgs: Any): String
  * @param quantity – The number used to get the correct string for the current language's plural rules.
  * @param formatArgs – The format arguments that will be used for substitution.
  */
-fun Context.getEnglishQuantityString(@PluralsRes id: Int, quantity: Int, vararg formatArgs: Any): String =
-    with(createConfigurationContext(englishConfiguration)) {
-        resources.getQuantityString(id, quantity, *formatArgs)
-    }
+fun Context.getEnglishQuantityString(
+    @PluralsRes id: Int,
+    quantity: Int,
+    vararg formatArgs: Any,
+): String = with(createConfigurationContext(englishConfiguration)) {
+    resources.getQuantityString(id, quantity, *formatArgs)
+}

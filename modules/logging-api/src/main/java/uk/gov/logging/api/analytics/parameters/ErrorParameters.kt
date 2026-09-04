@@ -16,7 +16,8 @@ import uk.gov.logging.api.analytics.logging.REASON
  * class. This is most often a [RequiredParameters] object.
  * @param reason Error reason. Must be lower case.
  */
-data class ErrorParameters(private val reason: String, private val overrides: Mapper? = null) : Mapper {
+data class ErrorParameters(private val reason: String, private val overrides: Mapper? = null) :
+    Mapper {
     private val _reason: String get() = reason.lowercase()
 
     @CallSuper

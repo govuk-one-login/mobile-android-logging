@@ -15,5 +15,7 @@ class MultiLogger(private val loggers: Iterable<Logger>) : Logger {
         vararg loggers: Logger,
     ) : this(loggers = loggers.toList())
 
-    override fun log(entry: LogEntry, properties: LoggingProperties) = loggers.forEach { it.log(entry, properties) }
+    override fun log(entry: LogEntry, properties: LoggingProperties) = loggers.forEach {
+        it.log(entry, properties)
+    }
 }
