@@ -1,5 +1,8 @@
 package uk.gov.logging.testdouble.v2
 
+import java.util.stream.Stream
+import kotlin.test.Test
+import kotlin.test.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Named.named
 import org.junit.jupiter.params.ParameterizedTest
@@ -16,9 +19,6 @@ import uk.gov.logging.testdouble.v2.LoggingTestData.logMessageEntry
 import uk.gov.logging.testdouble.v2.LoggingTestData.logMessageEntryFalse
 import uk.gov.logging.testdouble.v2.LoggingTestData.logTagEntryFalse
 import uk.gov.logging.testdouble.v2.LoggingTestData.logThrowable
-import java.util.stream.Stream
-import kotlin.test.Test
-import kotlin.test.assertFalse
 
 internal class SystemLoggerTest {
     private val logger = SystemLogger()
@@ -56,10 +56,7 @@ internal class SystemLoggerTest {
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("provideLoggingTestCases")
     @Suppress("Unused")
-    fun `Verify in-memory logging behaviour`(
-        expectedEntry: LogEntry,
-        action: (Logger) -> Unit,
-    ) {
+    fun `Verify in-memory logging behaviour`(expectedEntry: LogEntry, action: (Logger) -> Unit) {
         action.invoke(logger)
 
         assertTrue(expectedEntry in logger) {
@@ -69,71 +66,69 @@ internal class SystemLoggerTest {
 
     companion object {
         @JvmStatic
-        fun provideLoggingTestCases(): Stream<Arguments> =
-            Stream.of(
-                arguments(
-                    named(
-                        "Debug messages are stored",
-                        logMessageEntry,
-                    ),
-                    { log: Logger -> log.debug(LOG_TAG, LOG_MESSAGE) },
+        fun provideLoggingTestCases(): Stream<Arguments> = Stream.of(
+            arguments(
+                named(
+                    "Debug messages are stored",
+                    logMessageEntry,
                 ),
-                arguments(
-                    named(
-                        "Info messages are stored",
-                        logMessageEntry,
-                    ),
-                    { log: Logger -> log.info(LOG_TAG, LOG_MESSAGE) },
+                { log: Logger -> log.debug(LOG_TAG, LOG_MESSAGE) },
+            ),
+            arguments(
+                named(
+                    "Info messages are stored",
+                    logMessageEntry,
                 ),
-                arguments(
-                    named(
-                        "Error messages are stored",
-                        logMessageEntry,
-                    ),
-                    { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE) },
+                { log: Logger -> log.info(LOG_TAG, LOG_MESSAGE) },
+            ),
+            arguments(
+                named(
+                    "Error messages are stored",
+                    logMessageEntry,
                 ),
-                arguments(
-                    named(
-                        "Error messages are stored with Throwable and errorKeys",
-                        logErrorEntry,
-                    ),
-                    { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE, logThrowable, errorKeys) },
+                { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE) },
+            ),
+            arguments(
+                named(
+                    "Error messages are stored with Throwable and errorKeys",
+                    logErrorEntry,
                 ),
-                arguments(
-                    named(
-                        "Error messages are stored with Throwable",
-                        logErrorEntryNoKeys,
-                    ),
-                    { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE, logThrowable) },
+                { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE, logThrowable, errorKeys) },
+            ),
+            arguments(
+                named(
+                    "Error messages are stored with Throwable",
+                    logErrorEntryNoKeys,
                 ),
-                arguments(
-                    named(
-                        "Warning messages are stored",
-                        logMessageEntry,
-                    ),
-                    { log: Logger -> log.warning(LOG_TAG, LOG_MESSAGE) },
+                { log: Logger -> log.error(LOG_TAG, LOG_MESSAGE, logThrowable) },
+            ),
+            arguments(
+                named(
+                    "Warning messages are stored",
+                    logMessageEntry,
                 ),
-            )
+                { log: Logger -> log.warning(LOG_TAG, LOG_MESSAGE) },
+            ),
+        )
 
         @JvmStatic
-        fun provideNegativeLoggingTestCase(): Stream<Arguments> =
-            Stream.of(
-                arguments(
-                    named(
-                        "Debug messages are stored",
-                        logMessageEntryFalse,
-                    ),
-                    LOG_MESSAGE,
-                    { log: Logger, message: String -> log.debug(LOG_TAG, message) },
+        fun provideNegativeLoggingTestCase(): Stream<Arguments> = Stream.of(
+            arguments(
+                named(
+                    "Debug messages are stored",
+                    logMessageEntryFalse,
                 ),
-                arguments(
-                    named(
-                        "Debug message are stored",
-                        logTagEntryFalse,
-                    ),
-                    LOG_TAG,
-                    { log: Logger, tag: String -> log.debug(tag, LOG_MESSAGE) },
+                LOG_MESSAGE,
+                { log: Logger, message: String -> log.debug(LOG_TAG, message) },
+            ),
+            arguments(
+                named(
+                    "Debug message are stored",
+                    logTagEntryFalse,
                 ),
-            )
+                LOG_TAG,
+                { log: Logger, tag: String -> log.debug(tag, LOG_MESSAGE) },
+            ),
+        )
     }
 }

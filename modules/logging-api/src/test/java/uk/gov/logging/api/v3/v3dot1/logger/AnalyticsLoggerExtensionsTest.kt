@@ -1,5 +1,9 @@
 package uk.gov.logging.api.v3.v3dot1.logger
 
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
 import kotlinx.coroutines.test.runTest
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.verify
@@ -10,10 +14,6 @@ import uk.gov.logging.api.analytics.logging.v3.AnalyticsLogger
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.v3dot1.model.RequiredParameters
 import uk.gov.logging.api.v3dot1.model.TrackEvent
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertIs
 
 class AnalyticsLoggerExtensionsTest {
     private val required = RequiredParameters(taxonomyLevel2 = TaxonomyLevel2.GOVUK)
@@ -47,21 +47,20 @@ class AnalyticsLoggerExtensionsTest {
     }
 
     @Test
-    fun `logEventV3Dot1 extension method converts and calls logEvent`() =
-        runTest {
-            // Given an AnalyticsEvent from the v3_1 schema
-            val domain = "test_domain"
-            val text = "test_button_text"
-            val event =
-                TrackEvent.Link(
-                    isExternal = true,
-                    domain = domain,
-                    text = text,
-                    params = required,
-                )
-            // When calling `logEvent`
-            logger.logEventV3Dot1(event)
-            // Then log that event the adapter
-            verify(logger).logEvent(true, event.asLegacyEvent())
-        }
+    fun `logEventV3Dot1 extension method converts and calls logEvent`() = runTest {
+        // Given an AnalyticsEvent from the v3_1 schema
+        val domain = "test_domain"
+        val text = "test_button_text"
+        val event =
+            TrackEvent.Link(
+                isExternal = true,
+                domain = domain,
+                text = text,
+                params = required,
+            )
+        // When calling `logEvent`
+        logger.logEventV3Dot1(event)
+        // Then log that event the adapter
+        verify(logger).logEvent(true, event.asLegacyEvent())
+    }
 }

@@ -21,65 +21,42 @@ import uk.gov.logging.api.v2.errorKeys.ErrorKeys
         ),
     level = DeprecationLevel.WARNING,
 )
-class AndroidLogger(
-    private val crashLogger: CrashLogger,
-) : Logger {
-    override fun debug(
-        tag: String,
-        message: String,
-    ) {
+class AndroidLogger(private val crashLogger: CrashLogger) : Logger {
+    override fun debug(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.d(tag, message)
         }
     }
 
-    override fun info(
-        tag: String,
-        message: String,
-    ) {
+    override fun info(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, message)
         }
         crashLogger.log("I: $tag : $message")
     }
 
-    override fun error(
-        tag: String,
-        message: String,
-        throwable: Throwable,
-        errorKeys: ErrorKeys,
-    ) {
+    override fun error(tag: String, message: String, throwable: Throwable, errorKeys: ErrorKeys) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message, throwable)
         }
         crashLogger.log(throwable, errorKeys)
     }
 
-    override fun error(
-        tag: String,
-        message: String,
-        throwable: Throwable,
-    ) {
+    override fun error(tag: String, message: String, throwable: Throwable) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message, throwable)
         }
         crashLogger.log(throwable)
     }
 
-    override fun error(
-        tag: String,
-        message: String,
-    ) {
+    override fun error(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message)
         }
         crashLogger.log("E: $tag : $message")
     }
 
-    override fun warning(
-        tag: String,
-        message: String,
-    ) {
+    override fun warning(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, message)
         }

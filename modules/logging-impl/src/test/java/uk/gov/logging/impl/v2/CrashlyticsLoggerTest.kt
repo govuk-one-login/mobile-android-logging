@@ -1,6 +1,9 @@
 package uk.gov.logging.impl.v2
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import java.util.stream.Stream
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -10,9 +13,6 @@ import org.mockito.kotlin.mock
 import uk.gov.logging.api.v2.errorKeys.ErrorKeys
 import uk.gov.logging.impl.crashlytics.TestFirebaseCrashlyticsWrapper
 import uk.gov.logging.impl.crashlytics.TestFirebaseCrashlyticsWrapper.RecordedException
-import java.util.stream.Stream
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 class CrashlyticsLoggerTest {
     private val crashlytics = TestFirebaseCrashlyticsWrapper()
@@ -80,32 +80,31 @@ class CrashlyticsLoggerTest {
         val exception = Exception("error throwable")
 
         @JvmStatic
-        fun setUpTestValues(): Stream<Arguments> =
-            Stream.of(
-                arguments(
-                    exception,
-                    stringErrorKey,
-                    KEY,
-                    STRING_VALUE,
-                ),
-                arguments(
-                    exception,
-                    intErrorKey,
-                    KEY,
-                    INT_VALUE.toString(),
-                ),
-                arguments(
-                    exception,
-                    doubleErrorKey,
-                    KEY,
-                    DOUBLE_VALUE.toString(),
-                ),
-                arguments(
-                    exception,
-                    booleanErrorKey,
-                    KEY,
-                    BOOLEAN_VALUE.toString(),
-                ),
-            )
+        fun setUpTestValues(): Stream<Arguments> = Stream.of(
+            arguments(
+                exception,
+                stringErrorKey,
+                KEY,
+                STRING_VALUE,
+            ),
+            arguments(
+                exception,
+                intErrorKey,
+                KEY,
+                INT_VALUE.toString(),
+            ),
+            arguments(
+                exception,
+                doubleErrorKey,
+                KEY,
+                DOUBLE_VALUE.toString(),
+            ),
+            arguments(
+                exception,
+                booleanErrorKey,
+                KEY,
+                BOOLEAN_VALUE.toString(),
+            ),
+        )
     }
 }

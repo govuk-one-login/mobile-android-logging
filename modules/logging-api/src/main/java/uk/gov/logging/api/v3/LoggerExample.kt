@@ -13,9 +13,7 @@ import uk.gov.logging.api.v3.customkey.CustomKey
  * Note that [LoggerExample] implements [LogTagProvider], allowing the caller to log
  * without specifying the tag manually.
  */
-internal class LoggerExample(
-    val logger: Logger,
-) : LogTagProvider {
+internal class LoggerExample(val logger: Logger) : LogTagProvider {
     fun example() {
         // Log at different levels
         logger.verbose(tag, "verbose message")

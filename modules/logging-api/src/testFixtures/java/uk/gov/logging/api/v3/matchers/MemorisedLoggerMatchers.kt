@@ -14,34 +14,24 @@ object MemorisedLoggerMatchers {
     fun hasSize(matcher: Matcher<Int>): Matcher<MemorisedLogger> = HasSize(matcher)
 }
 
-internal class HasMessage(
-    private val matcher: Matcher<String>,
-) : TypeSafeMatcher<LogEntry>() {
+internal class HasMessage(private val matcher: Matcher<String>) : TypeSafeMatcher<LogEntry>() {
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)
     }
 
-    override fun describeMismatchSafely(
-        item: LogEntry?,
-        mismatchDescription: Description?,
-    ) {
+    override fun describeMismatchSafely(item: LogEntry?, mismatchDescription: Description?) {
         matcher.describeMismatch(item?.message, mismatchDescription)
     }
 
     override fun matchesSafely(item: LogEntry?): Boolean = matcher.matches(item?.message)
 }
 
-internal class IsLogLevel(
-    private val matcher: Matcher<LogLevel>,
-) : TypeSafeMatcher<LogEntry>() {
+internal class IsLogLevel(private val matcher: Matcher<LogLevel>) : TypeSafeMatcher<LogEntry>() {
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)
     }
 
-    override fun describeMismatchSafely(
-        item: LogEntry?,
-        mismatchDescription: Description?,
-    ) {
+    override fun describeMismatchSafely(item: LogEntry?, mismatchDescription: Description?) {
         matcher.describeMismatch(item?.level, mismatchDescription)
     }
 

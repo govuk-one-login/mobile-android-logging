@@ -1,7 +1,7 @@
 package uk.gov.logging.api.v2.errorKeys
 
-import org.junit.jupiter.api.Test
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Test
 
 internal class ErrorKeysTest {
     @Test

@@ -2,12 +2,12 @@ package uk.gov.logging.impl.analytics
 
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
+import javax.inject.Inject
 import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.Logger
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.AnalyticsLogger
 import uk.gov.logging.impl.analytics.extensions.setCollectionEnabled
-import javax.inject.Inject
 
 /**
  * Analytics Logging implementation that utilises the static
@@ -29,10 +29,7 @@ class FirebaseAnalyticsLogger @Inject constructor(
     private val logger: Logger,
 ) : AnalyticsLogger,
     LogTagProvider {
-    override fun logEvent(
-        shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent,
-    ) {
+    override fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent) {
         debugLog(
             tag = tag,
             msg = "Should log event: $shouldLogEvent",
@@ -62,8 +59,5 @@ class FirebaseAnalyticsLogger @Inject constructor(
         Thread.sleep(1)
     }
 
-    override fun debugLog(
-        tag: String,
-        msg: String,
-    ) = logger.debug(tag, msg)
+    override fun debugLog(tag: String, msg: String) = logger.debug(tag, msg)
 }

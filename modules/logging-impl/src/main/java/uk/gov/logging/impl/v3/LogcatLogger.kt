@@ -14,13 +14,8 @@ import uk.gov.logging.api.v3.LoggingProperties
  *
  * @param enabled Whether or not the logger will log. By default, it only logs in debug builds.
  */
-class LogcatLogger(
-    val enabled: Boolean = BuildConfig.DEBUG,
-) : Logger {
-    override fun log(
-        entry: LogEntry,
-        properties: LoggingProperties,
-    ) {
+class LogcatLogger(val enabled: Boolean = BuildConfig.DEBUG) : Logger {
+    override fun log(entry: LogEntry, properties: LoggingProperties) {
         if (!enabled) {
             return
         }

@@ -1,8 +1,6 @@
 package uk.gov.logging.api.analytics.parameters.data
 
-enum class Type(
-    val value: String,
-) {
+enum class Type(val value: String) {
     SimpleSmartAnswer("simple smart answer"),
     PopUp("popup"),
     Link("generic link"),

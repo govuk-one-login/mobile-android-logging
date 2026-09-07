@@ -1,11 +1,11 @@
 package uk.gov.logging.api.analytics.parameters
 
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_NAME
+import kotlin.test.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import uk.gov.logging.api.analytics.logging.RESPONSE
 import uk.gov.logging.api.analytics.logging.TEXT
-import kotlin.test.assertNotEquals
 
 class FormResponseParametersTest {
     private val exampleText = "option text"

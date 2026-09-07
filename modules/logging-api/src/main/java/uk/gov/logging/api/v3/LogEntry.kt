@@ -22,31 +22,19 @@ sealed interface LogEntry {
         val throwable: Throwable
     }
 
-    data class Verbose(
-        override val tag: String,
-        override val message: String,
-    ) : Message {
+    data class Verbose(override val tag: String, override val message: String) : Message {
         override val level: LogLevel = LogLevel.Verbose
     }
 
-    data class Debug(
-        override val tag: String,
-        override val message: String,
-    ) : Message {
+    data class Debug(override val tag: String, override val message: String) : Message {
         override val level: LogLevel = LogLevel.Debug
     }
 
-    data class Info(
-        override val tag: String,
-        override val message: String,
-    ) : Message {
+    data class Info(override val tag: String, override val message: String) : Message {
         override val level: LogLevel = LogLevel.Info
     }
 
-    data class Warn(
-        override val tag: String,
-        override val message: String,
-    ) : Message {
+    data class Warn(override val tag: String, override val message: String) : Message {
         override val level: LogLevel = LogLevel.Warn
     }
 

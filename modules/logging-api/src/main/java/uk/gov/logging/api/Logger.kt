@@ -14,24 +14,11 @@ package uk.gov.logging.api
     level = DeprecationLevel.WARNING,
 )
 interface Logger {
-    fun debug(
-        tag: String,
-        msg: String,
-    )
+    fun debug(tag: String, msg: String)
 
-    fun info(
-        tag: String,
-        msg: String,
-    )
+    fun info(tag: String, msg: String)
 
-    fun error(
-        tag: String,
-        msg: String,
-        throwable: Throwable,
-    )
+    fun error(tag: String, msg: String, throwable: Throwable)
 
-    fun error(
-        tag: String,
-        msg: String,
-    )
+    fun error(tag: String, msg: String)
 }

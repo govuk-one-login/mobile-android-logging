@@ -5,21 +5,12 @@ import java.net.URL
 interface PerformanceMonitor {
     fun newTrace(name: String): Trace
 
-    fun newHTTPMetric(
-        url: URL,
-        method: HttpMethod,
-    ): HttpMetric
+    fun newHTTPMetric(url: URL, method: HttpMethod): HttpMetric
 
     interface Trace {
-        fun putAttribute(
-            key: String,
-            value: String,
-        )
+        fun putAttribute(key: String, value: String)
 
-        fun incrementMetric(
-            name: String,
-            by: Long = 1L,
-        )
+        fun incrementMetric(name: String, by: Long = 1L)
 
         fun stop()
     }

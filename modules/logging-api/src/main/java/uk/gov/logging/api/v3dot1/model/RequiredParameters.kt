@@ -2,6 +2,7 @@
 
 package uk.gov.logging.api.v3dot1.model
 
+import java.util.Locale
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.ORGANISATION
@@ -21,7 +22,6 @@ import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3.UNDEFINED
-import java.util.Locale
 
 /**
  * Base class for providing values that's required for all events. These are:
@@ -46,14 +46,13 @@ open class RequiredParameters(
 ) : Mapper {
     private val _savedDocType get() = savedDocType.take(HUNDRED_CHAR_LIMIT)
 
-    override fun asMap(): Map<out String, Any?> =
-        mapOf(
-            SAVED_DOC_TYPE to _savedDocType,
-            PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation.value,
-            ORGANISATION to organisation.value,
-            TAXONOMY_LEVEL1 to taxonomyLevel1.value,
-            TAXONOMY_LEVEL2 to taxonomyLevel2.value,
-            TAXONOMY_LEVEL3 to taxonomyLevel3.value,
-            LANGUAGE to Locale.getDefault().language,
-        )
+    override fun asMap(): Map<out String, Any?> = mapOf(
+        SAVED_DOC_TYPE to _savedDocType,
+        PRIMARY_PUBLISHING_ORGANISATION to primaryPublishingOrganisation.value,
+        ORGANISATION to organisation.value,
+        TAXONOMY_LEVEL1 to taxonomyLevel1.value,
+        TAXONOMY_LEVEL2 to taxonomyLevel2.value,
+        TAXONOMY_LEVEL3 to taxonomyLevel3.value,
+        LANGUAGE to Locale.getDefault().language,
+    )
 }

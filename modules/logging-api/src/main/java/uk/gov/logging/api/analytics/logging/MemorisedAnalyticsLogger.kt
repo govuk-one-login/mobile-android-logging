@@ -1,20 +1,16 @@
 package uk.gov.logging.api.analytics.logging
 
 import com.google.firebase.analytics.FirebaseAnalytics.Event
+import javax.inject.Inject
 import uk.gov.logging.api.LogTagProvider
 import uk.gov.logging.api.analytics.AnalyticsEvent
-import javax.inject.Inject
 
-class MemorisedAnalyticsLogger @Inject constructor(
-    private val subLogger: AnalyticsLogger,
-) : AnalyticsLogger by subLogger,
+class MemorisedAnalyticsLogger @Inject constructor(private val subLogger: AnalyticsLogger) :
+    AnalyticsLogger by subLogger,
     LogTagProvider {
     private var memorisedEvent: AnalyticsEvent? = null
 
-    override fun logEvent(
-        shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent,
-    ) {
+    override fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent) {
         events.forEach { event ->
             if (shouldLog(event)) {
                 val eventType = event.eventType

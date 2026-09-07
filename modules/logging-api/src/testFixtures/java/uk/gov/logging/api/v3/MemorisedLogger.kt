@@ -14,20 +14,16 @@ data class MemorisedLogger(
     Iterable<LogEntry> by entries {
     val size: Int get() = entries.size
 
-    override fun log(
-        entry: LogEntry,
-        properties: LoggingProperties,
-    ) {
+    override fun log(entry: LogEntry, properties: LoggingProperties) {
         entries.add(entry)
         subLogger.log(entry, properties)
     }
 
     operator fun contains(message: String) = any { it.message == message }
 
-    operator fun contains(throwable: Throwable) =
-        any {
-            it is LogEntry.Exception && it.throwable == throwable
-        }
+    operator fun contains(throwable: Throwable) = any {
+        it is LogEntry.Exception && it.throwable == throwable
+    }
 
     operator fun get(index: Int): LogEntry = entries[index]
 }

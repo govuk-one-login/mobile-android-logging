@@ -1,8 +1,8 @@
 package uk.gov.logging.api.analytics.preferences
 
-import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Test
 
 class StubAnalyticsPrefsTest {
     @Test

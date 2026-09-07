@@ -22,10 +22,7 @@ interface AnalyticsLogger {
      * @param shouldLogEvent Boolean for holding the necessary validations.
      * @param events The data that's sent.
      */
-    fun logEvent(
-        shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent,
-    )
+    fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent)
 
     /**
      * Enables / disables the data source's acceptance of [AnalyticsEvent] objects.
@@ -34,10 +31,7 @@ interface AnalyticsLogger {
      */
     fun setEnabled(isEnabled: Boolean)
 
-    fun debugLog(
-        tag: String,
-        msg: String,
-    ) {
+    fun debugLog(tag: String, msg: String) {
         // Do nothing
     }
 }

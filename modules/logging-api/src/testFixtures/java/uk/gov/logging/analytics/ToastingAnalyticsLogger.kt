@@ -5,15 +5,10 @@ import android.widget.Toast
 import uk.gov.logging.api.analytics.AnalyticsEvent
 import uk.gov.logging.api.analytics.logging.v3.AnalyticsLogger
 
-class ToastingAnalyticsLogger(
-    private val context: Context,
-) : AnalyticsLogger {
+class ToastingAnalyticsLogger(private val context: Context) : AnalyticsLogger {
     private var enabled = false
 
-    override fun logEvent(
-        shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent,
-    ) {
+    override fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent) {
         if (enabled) {
             events.forEach { event ->
                 showToast(event.eventType)

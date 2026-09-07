@@ -16,10 +16,7 @@ class FirebaseAnalyticsLogger(
     private val setCollectionEnabled: (Boolean) -> Unit = { Firebase.setCollectionEnabled(it) },
 ) : AnalyticsLogger,
     LogTagProvider {
-    override fun logEvent(
-        shouldLogEvent: Boolean,
-        vararg events: AnalyticsEvent,
-    ) {
+    override fun logEvent(shouldLogEvent: Boolean, vararg events: AnalyticsEvent) {
         logcatLogger.log(
             LogEntry.Debug(
                 tag = tag,

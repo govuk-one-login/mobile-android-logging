@@ -46,7 +46,8 @@ class MemorisedLoggerTest {
     @Test
     fun `log delegates to sub logger`() {
         val delegated = mutableListOf<LogEntry>()
-        val logger = MemorisedLogger(subLogger = Logger { entry, properties -> delegated.add(entry) })
+        val logger =
+            MemorisedLogger(subLogger = Logger { entry, properties -> delegated.add(entry) })
 
         val entry = LogEntry.Info(tag = tag, message = message)
 
@@ -95,7 +96,9 @@ class MemorisedLoggerTest {
     @Test
     fun `contains matches by custom keys`() {
         val customKey = LoggingTestData.intCustomKey
-        logger.log(LogEntry.Error(tag = tag, message = message, throwable = throwable, listOf(customKey)))
+        logger.log(
+            LogEntry.Error(tag = tag, message = message, throwable = throwable, listOf(customKey)),
+        )
 
         assertThat(
             logger,

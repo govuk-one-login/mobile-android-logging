@@ -5,8 +5,5 @@ interface FirebaseCrashlyticsWrapper {
 
     fun recordException(throwable: Throwable)
 
-    fun recordException(
-        throwable: Throwable,
-        keys: Map<String, String>,
-    )
+    fun recordException(throwable: Throwable, keys: Map<String, String>)
 }

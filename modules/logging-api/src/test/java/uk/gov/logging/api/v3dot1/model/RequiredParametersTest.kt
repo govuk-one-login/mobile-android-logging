@@ -1,5 +1,8 @@
 package uk.gov.logging.api.v3dot1.model
 
+import java.util.Locale
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import uk.gov.logging.api.analytics.logging.HUNDRED_CHAR_LIMIT
 import uk.gov.logging.api.analytics.logging.LANGUAGE
 import uk.gov.logging.api.analytics.logging.ORGANISATION
@@ -15,9 +18,6 @@ import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisatio
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
-import java.util.Locale
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class RequiredParametersTest {
     private val expectedMap =

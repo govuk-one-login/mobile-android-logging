@@ -11,9 +11,11 @@ import uk.gov.logging.api.v3.customkey.CustomKey
 object LogEntryMatchers {
     fun isMessageEntry(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Message::class.java)
 
-    fun isExceptionInstance(): Matcher<LogEntry> = CoreMatchers.instanceOf(LogEntry.Exception::class.java)
+    fun isExceptionInstance(): Matcher<LogEntry> =
+        CoreMatchers.instanceOf(LogEntry.Exception::class.java)
 
-    fun hasLogEntry(matcher: Matcher<in Iterable<LogEntry>>): Matcher<MemorisedLogger> = HasLogEntry(matcher)
+    fun hasLogEntry(matcher: Matcher<in Iterable<LogEntry>>): Matcher<MemorisedLogger> =
+        HasLogEntry(matcher)
 
     fun isLogLevel(level: LogLevel): Matcher<LogEntry> = isLogLevel(CoreMatchers.equalTo(level))
 
@@ -29,5 +31,6 @@ object LogEntryMatchers {
 
     fun hasException(matcher: Matcher<in Throwable>): Matcher<in LogEntry> = HasThrowable(matcher)
 
-    fun hasCustomKeys(matcher: Matcher<in Iterable<CustomKey>>): Matcher<in LogEntry> = HasCustomKeys(matcher)
+    fun hasCustomKeys(matcher: Matcher<in Iterable<CustomKey>>): Matcher<in LogEntry> =
+        HasCustomKeys(matcher)
 }
