@@ -16,7 +16,7 @@ dagger = "2.60.1" # https://github.com/google/dagger/releases
 ksp = "2.3.11" # https://github.com/google/ksp/releases
 # Kotlin
 kotlin = "2.4.10" # https://kotlinlang.org/docs/releases.html#release-details
-robolectric = "4.16.1" # https://github.com/robolectric/robolectric/releases
+robolectric = "4.17" # https://github.com/robolectric/robolectric/releases
 hamcrest = "3.0" # https://github.com/hamcrest/JavaHamcrest/releases
 
 
