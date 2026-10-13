@@ -1,6 +1,6 @@
 package uk.gov.logging.api.analytics.parameters.data
 
-enum class TaxonomyLevel3(val value: String) {
+enum class TaxonomyLevel3(override val value: String) : AnalyticsData.Taxonomy3 {
     ADD_DOCUMENT("add document"),
     ADD_NEW_DOCUMENT("add new document"),
     BIOMETRICS("biometrics"),
@@ -21,6 +21,7 @@ enum class TaxonomyLevel3(val value: String) {
     MANUAL_LINK("manual linking"),
     OVERVIEW("overview"),
     PASSPORT("passport"),
+    PROXIMITY_SHARING("proximity sharing"),
     REFRESH_DOCUMENT("refresh document"),
     RESUME("resume"),
     RE_AUTH("re auth"),

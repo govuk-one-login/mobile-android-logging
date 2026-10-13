@@ -1,6 +1,6 @@
 package uk.gov.logging.api.analytics.parameters.data
 
-enum class Type(val value: String) {
+enum class Type(override val value: String) : AnalyticsData.EventType {
     ActionMenu("action menu"),
     CallToAction("call to action"),
     DeepLink("deeplink"),
