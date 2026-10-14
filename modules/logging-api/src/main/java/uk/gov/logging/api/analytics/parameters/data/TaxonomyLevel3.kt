@@ -21,7 +21,6 @@ enum class TaxonomyLevel3(override val value: String) : AnalyticsData.Taxonomy3 
     MANUAL_LINK("manual linking"),
     OVERVIEW("overview"),
     PASSPORT("passport"),
-    PROXIMITY_SHARING("proximity sharing"),
     REFRESH_DOCUMENT("refresh document"),
     RESUME("resume"),
     RE_AUTH("re auth"),
