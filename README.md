@@ -35,7 +35,7 @@ testImplementation("uk.gov.logging:logging-testdouble:$loggingLibraryVersion")
 androidTestImplementation("uk.gov.logging:logging-testdouble:$loggingLibraryVersion")
 ```
 
-### With a version catalog (recommended)
+### Recommended: with a version catalog
 
 To migrate to using version catalogs, see [Gradle Version Catalogs].
 
@@ -258,11 +258,11 @@ as an alias
 import uk.gov.logging.api.analytics.parameters.RequiredParameters
 import uk.gov.logging.api.analytics.parameters.v2.RequiredParameters as RequiredParametersV2
 ```
-# Legacy 
+## Legacy 
 [Implementation Guide](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3543171117/Google+Analytics+Implementation+Guide)
 [One Login Mobile Application Data Schema V1.0](https://govukverify.atlassian.net/wiki/spaces/PI/pages/3790995627/GA4+One+Login+Mobile+Application+Data+Schema+V1.0+amended+to+V1.1#Tracked-Events).
 
-# GA4
+## GA4
 * See [GA4 | One Login Mobile Application Data Schema V3.1](https://govukverify.atlassian.net/wiki/x/qwD24Q)
 
 [Logging Module Packages]: https://github.com/orgs/govuk-one-login/packages?repo_name=mobile-android-logging

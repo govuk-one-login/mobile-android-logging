@@ -15,9 +15,9 @@
     * Within the `SDK Tools` category, download:
         * The version of the `Android SDK Build-Tools` that matches the
           `buildToolsVersion` found within the [App Module's Gradle File].
-        * The latest version of the `Android SDK Command-line Tools`.
+        * `Android SDK Command-line Tools`.
 
-* Optional: Add the `Android SDK Command-line Tools` to your terminal `PATH`.
+* Optional: add the `Android SDK Command-line Tools` to your terminal `PATH`.
   Run one of the proceeding commands, based on the Shell used, then reload the
   terminal or `source` the updated file:
 
@@ -31,10 +31,9 @@
   `sdkmanager`. Running the `yes | sdkmanager --licenses` command accepts all
   applicable licenses for Android.
 
-* If there is no emulator devices configured, open the `Device Manager` bookmark
-  that's hidden by default on the far right of [Android Studio]'s main window,
-  underneath the `Gradle` bookmark, and create a new device. Please see below
-  for the general area to look:
+* If there are no emulator devices configured, open the `Device Manager` bookmark.
+  The bookmark is hidden by default on the far right of [Android Studio]'s main window,
+  underneath the `Gradle` bookmark. Please see below for the general area to look:
 
   ![The tab or bookmark to open the device manager][Android Studio Device Manager Bookmark]
 
