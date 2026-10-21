@@ -1,5 +1,5 @@
 package uk.gov.logging.api.analytics.parameters.data
 
-enum class Organisation(val value: String) {
+enum class Organisation(override val value: String) : AnalyticsData.Organisation {
     OT1056("<OT1056>"),
 }

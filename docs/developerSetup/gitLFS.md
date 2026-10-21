@@ -1,8 +1,7 @@
-# Git large file storage (LFS)
+# Git large file storage
 
-[Git LFS] replaces large files such as audio samples, videos, datasets, and
-graphics with text pointers inside Git, while storing the file contents on a
-remote server.
+Git Large File Storage, or [Git LFS], replaces large files such as audio samples, videos, datasets,
+and graphics with text pointers inside Git, while storing the file contents on a remote server.
 
 The code base uses LFS for the contents of the [Root directory's lib folder].
 Because LFS initially provides references to files instead of the actual files,

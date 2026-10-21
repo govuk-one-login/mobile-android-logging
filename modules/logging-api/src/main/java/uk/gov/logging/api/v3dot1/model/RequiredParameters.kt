@@ -13,14 +13,10 @@ import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL1
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL2
 import uk.gov.logging.api.analytics.logging.TAXONOMY_LEVEL3
 import uk.gov.logging.api.analytics.parameters.Mapper
-import uk.gov.logging.api.analytics.parameters.data.Organisation
+import uk.gov.logging.api.analytics.parameters.data.AnalyticsData
 import uk.gov.logging.api.analytics.parameters.data.Organisation.OT1056
-import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisation
 import uk.gov.logging.api.analytics.parameters.data.PrimaryPublishingOrganisation.GDS_DI
-import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel1.ONE_LOGIN
-import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel2
-import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3
 import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3.UNDEFINED
 
 /**
@@ -38,11 +34,11 @@ import uk.gov.logging.api.analytics.parameters.data.TaxonomyLevel3.UNDEFINED
  */
 open class RequiredParameters(
     private val savedDocType: String = SAVED_DOC_TYPE_UNDEFINED,
-    private val primaryPublishingOrganisation: PrimaryPublishingOrganisation = GDS_DI,
-    private val organisation: Organisation = OT1056,
-    private val taxonomyLevel1: TaxonomyLevel1 = ONE_LOGIN,
-    private val taxonomyLevel2: TaxonomyLevel2,
-    private val taxonomyLevel3: TaxonomyLevel3 = UNDEFINED,
+    private val primaryPublishingOrganisation: AnalyticsData.PrimaryPublishingOrganisation = GDS_DI,
+    private val organisation: AnalyticsData.Organisation = OT1056,
+    private val taxonomyLevel1: AnalyticsData.Taxonomy1 = ONE_LOGIN,
+    private val taxonomyLevel2: AnalyticsData.Taxonomy2,
+    private val taxonomyLevel3: AnalyticsData.Taxonomy3 = UNDEFINED,
 ) : Mapper {
     private val _savedDocType get() = savedDocType.take(HUNDRED_CHAR_LIMIT)
 
